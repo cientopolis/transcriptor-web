@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import './variables';
+@import './mixins';
+
+body{
+	background-color: $bodyColor;
+}
+
+.main-navbar{
+	background-color: $primaryColor;
+}
+
+.page-footer{
+	background-color: #202020;
+}
+
+.page-footer .footer-copyright{
+	background-color: #121212;
+}

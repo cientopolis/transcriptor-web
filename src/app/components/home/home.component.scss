@@ -1,0 +1,17 @@
+@import '~styles/variables';
+
+.purpose{
+	background-color: $lightColor;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.purpose .row{
+  margin: 0;
+}
+
+.purpose h5{
+	margin: 0;
+	font-weight: 300;
+}
