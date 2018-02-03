@@ -17,3 +17,29 @@ body{
 .page-footer .footer-copyright{
 	background-color: #121212;
 }
+
+// helpers
+
+.primary-color{
+  background-color: $primaryColor;
+}
+
+.primary-color-text{
+  color: $primaryColor;
+}
+
+// forms
+.input-field input[type=date]:focus + label,
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label,
+.input-field input[type=password]:focus + label {
+  color: $primaryColor;
+}
+
+.input-field input[type=date]:focus,
+.input-field input[type=text]:focus,
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus {
+  border-bottom: 2px solid $primaryColor;
+  box-shadow: none;
+}

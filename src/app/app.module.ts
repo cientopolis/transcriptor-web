@@ -8,12 +8,14 @@ import { MzParallaxModule } from 'ng2-materialize';
 import { MzCardModule } from 'ng2-materialize'
 
 import { HomeComponent } from './components/home/home.component';
-import { AppRoutingModule } from './modules/router/app-routing.module'
+import { AppRoutingModule } from './modules/router/app-routing.module';
+import { LoginComponent } from './components/login/login.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
