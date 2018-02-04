@@ -1,15 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule }    from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
 import { MzNavbarModule } from 'ng2-materialize';
 import { MzParallaxModule } from 'ng2-materialize';
 import { MzCardModule } from 'ng2-materialize'
+import { MzInputModule } from 'ng2-materialize'
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
-import { LoginComponent } from './components/login/login.component'
+import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './services/login/login.service'
 
 @NgModule({
   declarations: [
@@ -19,12 +23,15 @@ import { LoginComponent } from './components/login/login.component'
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     MzNavbarModule,
-	MzParallaxModule,
-	MzCardModule,
-	AppRoutingModule
+    MzParallaxModule,
+    MzCardModule,
+    MzInputModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
