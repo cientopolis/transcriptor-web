@@ -9,6 +9,7 @@ import { MzNavbarModule } from 'ng2-materialize';
 import { MzParallaxModule } from 'ng2-materialize';
 import { MzCardModule } from 'ng2-materialize';
 import { MzInputModule } from 'ng2-materialize';
+import { MzDropdownModule } from 'ng2-materialize';
 
 import { SimpleGlobal } from 'ng2-simple-global';
 
@@ -31,6 +32,7 @@ import { HttpService } from './services/http/http.service';
     MzParallaxModule,
     MzCardModule,
     MzInputModule,
+    MzDropdownModule,
     AppRoutingModule,
     HttpClientModule
   ],

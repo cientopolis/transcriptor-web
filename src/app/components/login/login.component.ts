@@ -12,16 +12,10 @@ import { LoginService } from '../../services/login/login.service';
 export class LoginComponent implements OnInit {
   
   loginCredentials:LoginCredentials = new LoginCredentials();
-  user = null;
   
-  constructor(private loginService: LoginService, private globalService: SimpleGlobal) { }
+  constructor(private loginService: LoginService, private global: SimpleGlobal) { }
 
   ngOnInit() {
-    //usar interceptor
-    let storedUser=localStorage.getItem('currentUser');
-    if(storedUser != null){
-      this.setUser(JSON.parse(storedUser));
-    }
   }
 
   login() {
@@ -29,14 +23,8 @@ export class LoginComponent implements OnInit {
         .subscribe(response => this.setUser(response));
   }
   
-  logout() : void {
-    localStorage.removeItem('currentUser');
-    this.globalService['currentUser'] = null;
-  }
-  
-  setUser(user){
-    this.user = user;
-    this.globalService['currentUser'] = user;
+  private setUser(user){
+    this.global['currentUser'] = user;
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
   

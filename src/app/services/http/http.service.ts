@@ -11,6 +11,10 @@ export class HttpService {
   
   baseHeaders = { 'Content-Type': 'application/json' };
   
+  post(path, data) {
+    return this.http.post(this.baseUrl + path, data, this.getHttpOptions());
+  }
+  
   private getAuthToken() {
     if(this.global['currentUser'] && this.global['currentUser']['authentication_token']){
       return this.global['currentUser']['authentication_token'];
@@ -18,19 +22,15 @@ export class HttpService {
     return null;
   }
   
-  getHttpOptions() {
+  private getHttpOptions() {
     let headers = new HttpHeaders();
     for(var headerKey in this.baseHeaders){
       headers = headers.append(headerKey,this.baseHeaders[headerKey]);
-    })
+    };
     if(this.getAuthToken()){
       headers = headers.append('Authorization','Token ' + this.getAuthToken());
     }
     return { headers: headers}
-  }
-
-  post(path, data) {
-    return this.http.post(this.baseUrl + path, data, this.getHttpOptions());
   }
   
 }
