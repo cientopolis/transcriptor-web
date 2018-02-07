@@ -18,12 +18,14 @@ import { AppRoutingModule } from './modules/router/app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login/login.service';
 import { HttpService } from './services/http/http.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

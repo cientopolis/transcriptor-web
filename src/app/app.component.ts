@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {SimpleGlobal} from 'ng2-simple-global';
 
 import { LoginService } from './services/login/login.service';
@@ -11,7 +12,7 @@ import { LoginService } from './services/login/login.service';
 export class AppComponent implements OnInit{
   title = 'Transcriptor';
   
-  constructor(private loginService: LoginService, private global: SimpleGlobal) {}
+  constructor(private loginService: LoginService, private global: SimpleGlobal, private router: Router) {}
   
   ngOnInit() {
     //usar interceptor
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit{
   logout() : void {
     localStorage.removeItem('currentUser');
     this.global['currentUser'] = null;
+    this.router.navigate(['home'])
   }
   
   private setUser(user){
