@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {SimpleGlobal} from 'ng2-simple-global';
+import { SimpleGlobal } from 'ng2-simple-global';
+
+import { WebserviceResponse } from '../../models/webserviceResponse';
 
 @Injectable()
 export class HttpService {
@@ -12,7 +14,8 @@ export class HttpService {
   baseHeaders = { 'Content-Type': 'application/json' };
   
   post(path, data) {
-    return this.http.post(this.baseUrl + path, data, this.getHttpOptions());
+    return this.http.post(this.baseUrl + path, data, this.getHttpOptions())
+                      .map((response: WebserviceResponse) => response.data);
   }
   
   private getAuthToken() {
