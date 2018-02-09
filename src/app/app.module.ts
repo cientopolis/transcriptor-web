@@ -19,13 +19,15 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login/login.service';
 import { HttpService } from './services/http/http.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TranscribeComponent } from './components/transcribe/transcribe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    TranscribeComponent
   ],
   imports: [
     BrowserModule,
