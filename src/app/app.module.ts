@@ -12,6 +12,7 @@ import { MzInputModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
 
 import { SimpleGlobal } from 'ng2-simple-global';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -37,6 +38,7 @@ import { TranscribeComponent } from './components/transcribe/transcribe.componen
     MzCardModule,
     MzInputModule,
     MzDropdownModule,
+    LeafletModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],
