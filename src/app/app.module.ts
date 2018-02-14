@@ -10,9 +10,15 @@ import { MzParallaxModule } from 'ng2-materialize';
 import { MzCardModule } from 'ng2-materialize';
 import { MzInputModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
+import { MzModalModule } from 'ng2-materialize';
+import { MzInjectionService } from 'ng2-materialize';
+import { MzModalService } from 'ng2-materialize';
+import { MzButtonModule } from 'ng2-materialize';
+import { MzTextareaModule } from 'ng2-materialize';
 
 import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -28,7 +34,7 @@ import { TranscribeComponent } from './components/transcribe/transcribe.componen
     HomeComponent,
     LoginComponent,
     DashboardComponent,
-    TranscribeComponent
+    TranscribeComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,11 +44,15 @@ import { TranscribeComponent } from './components/transcribe/transcribe.componen
     MzCardModule,
     MzInputModule,
     MzDropdownModule,
+    MzModalModule,
+    MzButtonModule,
+    MzTextareaModule,
     LeafletModule.forRoot(),
+    LeafletDrawModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService],
+  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

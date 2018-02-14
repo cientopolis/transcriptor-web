@@ -1,5 +1,26 @@
 <div class="transcribe-screen"
-     leaflet 
-     [leafletOptions]="options"
-     (leafletMapReady)="onMapReady($event)">
+leaflet
+leafletDraw 
+[leafletOptions]="options"
+[leafletDrawOptions]="drawOptions"
+(leafletMapReady)="onMapReady($event)">
 </div>
+
+<mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
+  <mz-modal-header>
+    What does it say here?
+  </mz-modal-header>
+  <mz-modal-content>
+    <mz-textarea-container>
+      <textarea mz-textarea
+        *ngIf="mark != null"
+        [(ngModel)]="mark.text"
+        [label]="'Transcribe the text of the marked line'">
+      </textarea>
+    </mz-textarea-container>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close (click)="cancelModal()">Cancel</button>
+    <button class="primary-color" mz-button mz-modal-close (click)="addModalMark()">Save</button>
+  </mz-modal-footer>
+</mz-modal>
