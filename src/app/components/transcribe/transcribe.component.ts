@@ -30,8 +30,13 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     maxZoom: 5,
   	minZoom: -3,
     zoom: 0,
-  	center: latLng(0, 0)
+  	center: latLng(0, 0),
   };
+  
+  shapeOptions = {
+    color: '#e65100',
+    weight: 6
+  }
   
   drawOptions = {
     position: 'topright',
@@ -45,8 +50,12 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       //   })
       // },
       polyline: {
-        showLength: false
+        showLength: false,
+        shapeOptions: this.shapeOptions
       },
+      rectangle: {
+        shapeOptions: this.shapeOptions
+      }
       polygon: false,
       circle: false,
       circlemarker:false,
@@ -59,8 +68,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     opacity: 0, // Opacity of modal background
     ready: (modal, trigger) => { // Callback for Modal open. Modal and trigger parameters available.
       $('.modal-overlay').hide();
+      $('.leaflet-draw').fadeOut();
     },
     complete: () => { 
+      $('.leaflet-draw').fadeIn();
     } // Callback for Modal close
   };
   
@@ -194,6 +205,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
   
   cancelModal() {
+    this.mark.layer.remove();
+    this.mark = null;
     this.resetView();
   }
 }
