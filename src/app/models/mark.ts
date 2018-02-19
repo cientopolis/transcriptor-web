@@ -4,14 +4,13 @@ export class Mark {
   
   text:string;
   type:string;
-  layerType:string;
-  coords:LatLng[];
-  layer:Layer;
+  shape_type:string;
+  text_type:string;
+  coordinates:LatLng[];
   
   constructor(layer,layerType){
-    this.layer = layer;
-    this.coords = layer.getLatLngs();
-    this.layerType = layerType;
+    this.coordinates = layer.getLatLngs();
+    this.shape_type = layerType;
   }
   
 }

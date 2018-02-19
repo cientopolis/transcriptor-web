@@ -8,6 +8,8 @@ import * as L from 'leaflet';
 import { latLng, Layer, tileLayer, LatLngBounds, Map, CRS } from 'leaflet';
 
 import { Mark } from '../../models/mark';
+import { RenderedMark } from '../../models/renderedMark';
+import { MarkService } from '../../services/mark/mark.service';
 
 @Component({
   selector: 'app-transcribe',
@@ -20,8 +22,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   map: Map; 
   bounds: LatLngBounds;
   
-  mark: Mark = null;
-  marks: Mark[] = [];
+  renderedMark: RenderedMark = null;
+  renderedMarks: RenderedMark[] = [];
   
   @ViewChild('markModal') markModal: any;
 
@@ -55,7 +57,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       },
       rectangle: {
         shapeOptions: this.shapeOptions
-      }
+      },
       polygon: false,
       circle: false,
       circlemarker:false,
@@ -75,7 +77,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     } // Callback for Modal close
   };
   
-  constructor(private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { 
+  constructor(private markService: MarkService, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { 
     this.global['hideFooter']=true;
     window['ngComponent'] = this;
   }
@@ -92,6 +94,9 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   /* do some configuration stuff before map initializes
   */
   onMapReady(map: Map) {
+    // prevents scroll to anchor deleting references to "#" in map
+    $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
+    
     this.map=map;
     var h= -1910;
     var w= 1570;
@@ -145,8 +150,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var layer = e.layer;
       
       // Do whatever else you need to. (save to db; add to map etc)
-      var mark=new Mark(layer,type);
-      window['ngComponent'].openMarkModal(mark);
+      var renderedMark=new RenderedMark(layer,type);
+      window['ngComponent'].openMarkModal(renderedMark);
     });
     
     // Add click listener
@@ -193,20 +198,24 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
   }
   
-  openMarkModal(mark: Mark) {
-    this.mark = mark;
+  openMarkModal(renderedMark: RenderedMark) {
+    this.renderedMark = renderedMark;
     this.changeDetector.detectChanges();
     this.markModal.open();
   }
   
   addModalMark() {
-    this.marks.push(this.mark);
-    this.resetView();
+    this.markService.create(this.renderedMark.mark)
+        .subscribe(mark => {
+          this.renderedMark.mark= mark;
+          this.renderedMarks.push(this.renderedMark.mark);
+          this.resetView();
+        });
   }
   
   cancelModal() {
-    this.mark.layer.remove();
-    this.mark = null;
+    this.renderedMark.layer.remove();
+    this.renderedMark = null;
     this.resetView();
   }
 }

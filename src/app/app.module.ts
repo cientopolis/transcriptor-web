@@ -27,14 +27,15 @@ import { LoginService } from './services/login/login.service';
 import { HttpService } from './services/http/http.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
+import { MarkService } from './services/mark/mark.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    DashboardComponent,
     TranscribeComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,7 @@ import { TranscribeComponent } from './components/transcribe/transcribe.componen
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService],
+  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

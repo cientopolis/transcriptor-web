@@ -13,8 +13,8 @@ leafletDraw
   <mz-modal-content>
     <mz-textarea-container>
       <textarea mz-textarea
-        *ngIf="mark != null"
-        [(ngModel)]="mark.text"
+        *ngIf="renderedMark != null"
+        [(ngModel)]="renderedMark.mark.text"
         [label]="'Transcribe the text of the marked line'">
       </textarea>
     </mz-textarea-container>
