@@ -13,8 +13,13 @@ export class HttpService {
   
   baseHeaders = { 'Content-Type': 'application/json' };
   
-  post(path, data) {
+  post(path, data = null) {
     return this.http.post(this.baseUrl + path, data, this.getHttpOptions())
+                      .map((response: WebserviceResponse) => response.data);
+  }
+  
+  get(path) {
+    return this.http.get(this.baseUrl + path, this.getHttpOptions())
                       .map((response: WebserviceResponse) => response.data);
   }
   

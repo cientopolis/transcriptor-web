@@ -114,6 +114,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.addLeafletHandlers();
     this.addMapListeners(map);
     
+    this.loadMarks();
+    
     this.changeDetector.detectChanges();
   }
   
@@ -150,7 +152,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var layer = e.layer;
       
       // Do whatever else you need to. (save to db; add to map etc)
-      var renderedMark=new RenderedMark(layer,type);
+      var mark = new Mark(layer, type);
+      var renderedMark=new RenderedMark(mark,layer);
       window['ngComponent'].openMarkModal(renderedMark);
     });
     
@@ -208,7 +211,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.markService.create(this.renderedMark.mark)
         .subscribe(mark => {
           this.renderedMark.mark= mark;
-          this.renderedMarks.push(this.renderedMark.mark);
+          this.renderedMarks.push(this.renderedMark);
           this.resetView();
         });
   }
@@ -217,5 +220,16 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.renderedMark.layer.remove();
     this.renderedMark = null;
     this.resetView();
+  }
+  
+  loadMarks() {
+    this.markService.listByPage(2)
+        .subscribe(marks => {
+          marks.forEach(mark => {
+            let renderedMark = new RenderedMark(mark);
+            renderedMark.render(this.map);
+            this.renderedMarks.push(this.renderedMark);
+          });
+        });
   }
 }
