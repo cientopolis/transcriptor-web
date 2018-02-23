@@ -28,6 +28,7 @@ import { HttpService } from './services/http/http.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
 import { MarkService } from './services/mark/mark.service';
+import { PageService } from './services/page/page.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { MarkService } from './services/mark/mark.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService],
+  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

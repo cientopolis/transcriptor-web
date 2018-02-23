@@ -7,7 +7,7 @@ import { WebserviceResponse } from '../../models/webserviceResponse';
 @Injectable()
 export class HttpService {
 
-  private baseUrl = 'http://localhost:3000';
+  baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient, private global: SimpleGlobal) { }
   

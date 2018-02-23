@@ -6,8 +6,10 @@ export class Mark {
   shape_type:string;
   text_type:string;
   coordinates:LatLng[];
+  page_id:number;
   
-  constructor(layer,layerType){
+  constructor(page,layer,layerType){
+    this.page_id = page.id;
     this.coordinates = layer.getLatLngs();
     this.shape_type = layerType;
   }

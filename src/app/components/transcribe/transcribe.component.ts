@@ -1,15 +1,17 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ApplicationRef, ElementRef } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 
 import * as $ from 'jquery';
 
 import * as L from 'leaflet';
-import { latLng, Layer, tileLayer, LatLngBounds, Map, CRS } from 'leaflet';
+import { latLng, Layer, tileLayer, LatLngBounds, Map, CRS, FeatureGroup } from 'leaflet';
 
 import { Mark } from '../../models/mark';
 import { RenderedMark } from '../../models/renderedMark';
+
 import { MarkService } from '../../services/mark/mark.service';
+import { PageService } from '../../services/page/page.service';
 
 @Component({
   selector: 'app-transcribe',
@@ -19,7 +21,9 @@ import { MarkService } from '../../services/mark/mark.service';
 })
 export class TranscribeComponent implements OnInit, OnDestroy {
 
-  map: Map; 
+  page: any;
+
+  map: Map;
   bounds: LatLngBounds;
   
   renderedMark: RenderedMark = null;
@@ -40,17 +44,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     weight: 6
   }
   
+  drawnLayers = new L.FeatureGroup();
+  
   drawOptions = {
     position: 'topright',
     draw: {
-      // marker: {
-      //   icon: L.icon({
-      //     iconSize: [ 25, 41 ],
-      //     iconAnchor: [ 13, 41 ],
-      //     iconUrl: 'assets/img/icons/marker-icon.png',
-      //     shadowUrl: 'assets/img/icons/marker-shadow.png'
-      //   })
-      // },
       polyline: {
         showLength: false,
         shapeOptions: this.shapeOptions
@@ -62,6 +60,9 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       circle: false,
       circlemarker:false,
       marker: false
+    },
+    edit: {
+      featureGroup: this.drawnLayers
     }
   };
   
@@ -77,9 +78,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     } // Callback for Modal close
   };
   
-  constructor(private markService: MarkService, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { 
+  constructor(private pageService: PageService, private markService: MarkService, private route: ActivatedRoute, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { 
     this.global['hideFooter']=true;
-    window['ngComponent'] = this;
   }
 
   ngOnInit() {
@@ -87,36 +87,67 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   
   ngOnDestroy() {
     this.global['hideFooter']=false;
-    window['angularComponent'] = null;
   }
   
   /**
   /* do some configuration stuff before map initializes
   */
   onMapReady(map: Map) {
+    this.map=map;
+    
     // prevents scroll to anchor deleting references to "#" in map
     $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
     
-    this.map=map;
-    var h= -1910;
-    var w= 1570;
-    var southWest = map.unproject([0, h], map.getZoom()-2);
-    var northEast = map.unproject([w, 0], map.getZoom()-2);
-    this.bounds = new L.LatLngBounds(southWest, northEast);
+    // sets the edit featureGroup to map
+    this.drawnLayers.addTo(this.map);
     
-    L.imageOverlay('assets/img/manuscript2.jpg', this.bounds).addTo(map);    
-    
-    // set limits of page view
-    map.setMaxBounds(this.bounds);
-    this.resetView();
+    this.loadPage();
     
     this.addWaterMark();
     this.addLeafletHandlers();
-    this.addMapListeners(map);
+    this.addMapListeners();
     
     this.loadMarks();
     
     this.changeDetector.detectChanges();
+  }
+  
+  loadPage() {
+    const pageId = +this.route.snapshot.paramMap.get('pageId');
+    this.pageService.get(pageId)
+        .subscribe(page => {
+          this.page = page;
+          this.addPageToMap();
+          this.loadMarks();
+        });
+  }
+    
+  addPageToMap() {
+    var h= -1910;
+    var w= 1570;
+    var southWest = this.map.unproject([0, h], this.map.getZoom()-2);
+    var northEast = this.map.unproject([w, 0], this.map.getZoom()-2);
+    this.bounds = new L.LatLngBounds(southWest, northEast);
+    
+    L.imageOverlay(this.pageService.imagePath(this.page), this.bounds).addTo(this.map);
+    
+    // set limits of page view
+    this.map.setMaxBounds(this.bounds);
+    this.resetView();    
+  }
+
+  loadMarks() {
+    if(this.page){
+      this.markService.listByPage(this.page.id)
+          .subscribe(marks => {
+            marks.forEach(mark => {
+              let renderedMark = new RenderedMark(mark);
+              renderedMark.render(this.map);
+              this.drawnLayers.addLayer(renderedMark.layer);
+              this.renderedMarks.push(this.renderedMark);
+            });
+          });
+    }
   }
   
   addWaterMark(){
@@ -141,27 +172,29 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.addPolylineHandler();
   }
   
-  addMapListeners(map:Map){
+  addMapListeners(){
+    var component = this;
+    var map=this.map
     //Add draw created listener
     map.on('draw:created', function (e:any) {
       // fits zoom to selected line
       map.fitBounds(e.layer.getBounds(), {padding: [100, 100]});
 
-      console.log(e);
       var type = e.layerType;
       var layer = e.layer;
       
       // Do whatever else you need to. (save to db; add to map etc)
-      var mark = new Mark(layer, type);
+      var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
-      window['ngComponent'].openMarkModal(renderedMark);
+      component.drawnLayers.addLayer(layer);
+      component.openMarkModal(renderedMark);
     });
     
     // Add click listener
     map.on('click', this.onMapClick);
   }
   
-  private addPolylineHandler(){
+  addPolylineHandler(){
     L.Draw.Polyline.prototype['addVertex']= function (latlng) {
       var markersLength = this._markers.length;
       // markersLength must be greater than or equal to 2 before intersections can occur
@@ -191,7 +224,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     };
   }
   
-  private onMapClick(e) {
+  onMapClick(e) {
     // alert(e.latlng)
   }
   
@@ -222,14 +255,4 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.resetView();
   }
   
-  loadMarks() {
-    this.markService.listByPage(2)
-        .subscribe(marks => {
-          marks.forEach(mark => {
-            let renderedMark = new RenderedMark(mark);
-            renderedMark.render(this.map);
-            this.renderedMarks.push(this.renderedMark);
-          });
-        });
-  }
 }
