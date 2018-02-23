@@ -107,8 +107,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.addLeafletHandlers();
     this.addMapListeners();
     
-    this.loadMarks();
-    
     this.changeDetector.detectChanges();
   }
   
@@ -137,17 +135,15 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   loadMarks() {
-    if(this.page){
-      this.markService.listByPage(this.page.id)
-          .subscribe(marks => {
-            marks.forEach(mark => {
-              let renderedMark = new RenderedMark(mark);
-              renderedMark.render(this.map);
-              this.drawnLayers.addLayer(renderedMark.layer);
-              this.renderedMarks.push(this.renderedMark);
-            });
+    this.markService.listByPage(this.page.id)
+        .subscribe(marks => {
+          marks.forEach(mark => {
+            let renderedMark = new RenderedMark(mark);
+            renderedMark.render(this.map);
+            this.drawnLayers.addLayer(renderedMark.layer);
+            this.renderedMarks.push(this.renderedMark);
           });
-    }
+        });
   }
   
   addWaterMark(){
