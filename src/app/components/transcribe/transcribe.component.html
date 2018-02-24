@@ -9,6 +9,9 @@ leafletDraw
 <mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
     What does it say here?
+    <button class="btn-delete right float-correction" mz-button mz-modal-close *ngIf="editing" (click)="deleteModalMark()">
+      <i mz-icon-mdi [icon]="'delete'" [align]="'left'"></i> Delete
+     </button>
   </mz-modal-header>
   <mz-modal-content>
     <mz-textarea-container>
@@ -20,7 +23,8 @@ leafletDraw
     </mz-textarea-container>
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close (click)="cancelModal()">Cancel</button>
-    <button class="primary-color" mz-button mz-modal-close (click)="addModalMark()">Save</button>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="cancelModal()">Cancel</button>
+    <button class="primary-color" mz-button mz-modal-close *ngIf="!editing" (click)="addModalMark()">Save</button>
+    <button class="primary-color" mz-button mz-modal-close *ngIf="editing" (click)="editModalMark()">Save Changes</button>    
   </mz-modal-footer>
 </mz-modal>

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 
 import * as $ from 'jquery';
+import * as _ from "lodash";
 
 import * as L from 'leaflet';
 import { latLng, Layer, tileLayer, LatLngBounds, Map, CRS, FeatureGroup } from 'leaflet';
@@ -33,7 +34,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   options = {
     crs: L.CRS.Simple,
-    maxZoom: 5,
+    maxZoom: 3,
   	minZoom: -3,
     zoom: 0,
   	center: latLng(0, 0),
@@ -41,7 +42,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   
   shapeOptions = {
     color: '#e65100',
-    weight: 6
+    weight: 6,
+    opacity: 0.7
   }
   
   drawnLayers = new L.FeatureGroup();
@@ -62,9 +64,13 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       marker: false
     },
     edit: {
-      featureGroup: this.drawnLayers
+      featureGroup: this.drawnLayers,
+      edit: false,
+      remove: false
     }
   };
+  
+  editing:boolean = false;
   
   modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -95,9 +101,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   onMapReady(map: Map) {
     this.map=map;
     
-    // prevents scroll to anchor deleting references to "#" in map
-    $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
-    
     // sets the edit featureGroup to map
     this.drawnLayers.addTo(this.map);
     
@@ -117,6 +120,9 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.page = page;
           this.addPageToMap();
           this.loadMarks();
+          
+          // prevents scroll to anchor deleting references to "#" in map
+          $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
         });
   }
     
@@ -135,13 +141,19 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   loadMarks() {
+    var component = this;
     this.markService.listByPage(this.page.id)
         .subscribe(marks => {
           marks.forEach(mark => {
             let renderedMark = new RenderedMark(mark);
-            renderedMark.render(this.map);
+            renderedMark.render(this.map, this.shapeOptions);
+            renderedMark.layer.on('click', function(){
+              component.editing = true;
+              component.fitToLayer(renderedMark.layer);
+              component.openMarkModal(renderedMark)
+            });
             this.drawnLayers.addLayer(renderedMark.layer);
-            this.renderedMarks.push(this.renderedMark);
+            this.renderedMarks.push(renderedMark);
           });
         });
   }
@@ -173,11 +185,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     var map=this.map
     //Add draw created listener
     map.on('draw:created', function (e:any) {
-      // fits zoom to selected line
-      map.fitBounds(e.layer.getBounds(), {padding: [100, 100]});
-
       var type = e.layerType;
       var layer = e.layer;
+
+      // fits zoom to selected line
+      component.fitToLayer(layer);
       
       // Do whatever else you need to. (save to db; add to map etc)
       var mark = new Mark(component.page, layer, type);
@@ -186,8 +198,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       component.openMarkModal(renderedMark);
     });
     
-    // Add click listener
-    map.on('click', this.onMapClick);
   }
   
   addPolylineHandler(){
@@ -220,10 +230,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     };
   }
   
-  onMapClick(e) {
-    // alert(e.latlng)
-  }
-  
   resetView() {
     // initial view configuration(you can change between modes)
     // map.fitBounds(this.bounds); //fits all page
@@ -241,14 +247,45 @@ export class TranscribeComponent implements OnInit, OnDestroy {
         .subscribe(mark => {
           this.renderedMark.mark= mark;
           this.renderedMarks.push(this.renderedMark);
-          this.resetView();
+          this.reset();
+        });
+  }
+  
+  editModalMark() {
+    this.markService.edit(this.renderedMark.mark)
+        .subscribe(mark => {
+          this.renderedMark.mark= mark;
+          this.renderedMarks.push(this.renderedMark);
+          this.reset();
+        });
+  }
+  
+  deleteModalMark() {
+    var component = this;
+    this.markService.delete(this.renderedMark.mark)
+        .subscribe(mark => {
+          _.remove(this.renderedMarks, function(m){
+            return m.mark.id == component.renderedMark.mark.id
+          });
+          this.renderedMark.layer.remove();
+          this.reset();
         });
   }
   
   cancelModal() {
-    this.renderedMark.layer.remove();
+    if(!this.editing){
+      this.renderedMark.layer.remove();
+    }
+    this.reset();
+  }
+  
+  reset() {
+    this.editing = false;
     this.renderedMark = null;
     this.resetView();
   }
   
+  fitToLayer(layer) {
+    this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
+  }
 }

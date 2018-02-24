@@ -15,6 +15,7 @@ import { MzInjectionService } from 'ng2-materialize';
 import { MzModalService } from 'ng2-materialize';
 import { MzButtonModule } from 'ng2-materialize';
 import { MzTextareaModule } from 'ng2-materialize';
+import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 
 import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -49,6 +50,8 @@ import { PageService } from './services/page/page.service';
     MzModalModule,
     MzButtonModule,
     MzTextareaModule,
+    MzIconModule,
+    MzIconMdiModule,
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     AppRoutingModule,

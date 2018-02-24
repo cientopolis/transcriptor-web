@@ -2,6 +2,7 @@ import { LatLng, Layer } from 'leaflet';
 
 export class Mark {
   
+  id:number;
   text:string;
   shape_type:string;
   text_type:string;

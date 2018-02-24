@@ -13,13 +13,13 @@ export class RenderedMark {
       this.layer = layer;
     }
     
-    render(map:Map){
+    render(map:Map, options:any = {}){
       switch (this.mark.shape_type) {
         case 'polyline':
-          this.layer = L.polyline(this.mark.coordinates).addTo(map);
+          this.layer = L.polyline(this.mark.coordinates, options).addTo(map);
           break;
         case 'rectangle':
-          this.layer = L.rectangle(L.latLngBounds(this.mark.coordinates)).addTo(map);
+          this.layer = L.rectangle(L.latLngBounds(this.mark.coordinates), options).addTo(map);
           break;
       }
     }
