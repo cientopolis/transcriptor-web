@@ -243,9 +243,16 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
   
   addModalMark() {
+    var component=this;
+    var renderedMark = this.renderedMark;
     this.markService.create(this.renderedMark.mark)
         .subscribe(mark => {
           this.renderedMark.mark= mark;
+          this.renderedMark.layer.on('click', function(){
+            component.editing = true;
+            component.fitToLayer(renderedMark.layer);
+            component.openMarkModal(renderedMark)
+          });
           this.renderedMarks.push(this.renderedMark);
           this.reset();
         });
