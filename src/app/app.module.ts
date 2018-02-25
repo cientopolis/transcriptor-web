@@ -10,8 +10,16 @@ import { MzParallaxModule } from 'ng2-materialize';
 import { MzCardModule } from 'ng2-materialize';
 import { MzInputModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
+import { MzModalModule } from 'ng2-materialize';
+import { MzInjectionService } from 'ng2-materialize';
+import { MzModalService } from 'ng2-materialize';
+import { MzButtonModule } from 'ng2-materialize';
+import { MzTextareaModule } from 'ng2-materialize';
+import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 
 import { SimpleGlobal } from 'ng2-simple-global';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -20,14 +28,16 @@ import { LoginService } from './services/login/login.service';
 import { HttpService } from './services/http/http.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
+import { MarkService } from './services/mark/mark.service';
+import { PageService } from './services/page/page.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    TranscribeComponent,
     DashboardComponent,
-    TranscribeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,10 +47,17 @@ import { TranscribeComponent } from './components/transcribe/transcribe.componen
     MzCardModule,
     MzInputModule,
     MzDropdownModule,
+    MzModalModule,
+    MzButtonModule,
+    MzTextareaModule,
+    MzIconModule,
+    MzIconMdiModule,
+    LeafletModule.forRoot(),
+    LeafletDrawModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService],
+  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

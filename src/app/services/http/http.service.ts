@@ -7,15 +7,30 @@ import { WebserviceResponse } from '../../models/webserviceResponse';
 @Injectable()
 export class HttpService {
 
-  private baseUrl = 'http://localhost:3000';
+  baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient, private global: SimpleGlobal) { }
   
   baseHeaders = { 'Content-Type': 'application/json' };
   
-  post(path, data) {
+  get(path) {
+    return this.http.get(this.baseUrl + path, this.getHttpOptions())
+                    .map((response: WebserviceResponse) => response.data);
+  }
+  
+  post(path, data = null) {
     return this.http.post(this.baseUrl + path, data, this.getHttpOptions())
-                      .map((response: WebserviceResponse) => response.data);
+                    .map((response: WebserviceResponse) => response.data);
+  }
+  
+  put(path, data = null) {
+    return this.http.put(this.baseUrl + path, data, this.getHttpOptions())
+                    .map((response: WebserviceResponse) => response.data);
+  }
+  
+  delete(path) {
+    return this.http.delete(this.baseUrl + path, this.getHttpOptions())
+                    .map((response: WebserviceResponse) => response.data);
   }
   
   private getAuthToken() {

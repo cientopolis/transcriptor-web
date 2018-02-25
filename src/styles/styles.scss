@@ -4,6 +4,8 @@
 
 body{
 	background-color: $bodyColor;
+  background-image: $pattern;
+  overflow-y: auto;
 }
 
 .main-navbar{
@@ -13,6 +15,10 @@ body{
 nav .brand-logo img {
     height: 64px;
     opacity: 0.95;
+}
+
+#dropdown-user {
+  z-index: 9999;
 }
 
 .page-footer{
@@ -47,4 +53,35 @@ nav .brand-logo img {
 .input-field input[type=password]:focus {
   border-bottom: 2px solid $primaryColor;
   box-shadow: none;
+}
+
+.input-field textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid $primaryColor;
+  box-shadow: 0 1px 0 0 $primaryColor;
+}
+
+.input-field textarea.materialize-textarea:focus:not([readonly])+label {
+  color: $primaryColor;
+}
+
+// buttons
+.btn:hover {
+  background-color: $hoverColor;
+}
+
+.btn-flat:hover {
+  background-color: #d9d9d9;
+}
+
+.btn-delete {
+  background-color: #e53935;
+}
+
+.btn-delete:hover {
+  background-color: #ff5252;
+}
+
+// helpers
+.float-correction {
+  margin-top: 10px;
 }
