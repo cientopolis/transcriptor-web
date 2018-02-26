@@ -30,6 +30,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
 import { MarkService } from './services/mark/mark.service';
 import { PageService } from './services/page/page.service';
+import { FlashMessagesComponent } from './components/utils/flash-messages/flash-messages.component';
+import { FlashMessagesService } from './services/util/flash-messages/flash-messages.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { PageService } from './services/page/page.service';
     LoginComponent,
     TranscribeComponent,
     DashboardComponent,
+    FlashMessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,7 @@ import { PageService } from './services/page/page.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService],
+  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService, FlashMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
