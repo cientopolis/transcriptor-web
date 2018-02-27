@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 
+import { MzToastService } from 'ng2-materialize';
+
 @Injectable()
 export class FlashMessagesService {
 
-  messages: string[] = [];
-
-  constructor() { }
+  constructor(private toastService: MzToastService) { }
 
   add(message: string) {
-    this.messages.push(message);
+    this.toastService.show(message, 4000);
   }
   
-  clear() {
-    this.messages = [];
-  }
 }

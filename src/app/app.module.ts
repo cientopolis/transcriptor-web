@@ -12,10 +12,11 @@ import { MzInputModule } from 'ng2-materialize';
 import { MzDropdownModule } from 'ng2-materialize';
 import { MzModalModule } from 'ng2-materialize';
 import { MzInjectionService } from 'ng2-materialize';
-import { MzModalService } from 'ng2-materialize';
 import { MzButtonModule } from 'ng2-materialize';
 import { MzTextareaModule } from 'ng2-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
+import { MzToastModule } from 'ng2-materialize';
+import { MzToastService } from 'ng2-materialize';
 
 import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -30,7 +31,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
 import { MarkService } from './services/mark/mark.service';
 import { PageService } from './services/page/page.service';
-import { FlashMessagesComponent } from './components/utils/flash-messages/flash-messages.component';
 import { FlashMessagesService } from './services/util/flash-messages/flash-messages.service';
 
 @NgModule({
@@ -40,7 +40,6 @@ import { FlashMessagesService } from './services/util/flash-messages/flash-messa
     LoginComponent,
     TranscribeComponent,
     DashboardComponent,
-    FlashMessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +59,16 @@ import { FlashMessagesService } from './services/util/flash-messages/flash-messa
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService, FlashMessagesService],
+  providers: [
+    SimpleGlobal,
+    LoginService,
+    HttpService,
+    MzInjectionService,
+    MzToastService,
+    MarkService,
+    PageService,
+    FlashMessagesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

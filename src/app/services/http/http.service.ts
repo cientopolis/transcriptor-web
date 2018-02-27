@@ -17,28 +17,29 @@ export class HttpService {
   baseHeaders = { 'Content-Type': 'application/json' };
   
   private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
+  public static defaultFeedbackOptions = { flashMessages: true };
 
   constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
   
-  get(path) {
-    return this.doRequest(HttpService.methods.get, path);
+  get(path, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    return this.doRequest(HttpService.methods.get, path, null, feedBackOptions);
   }
   
-  post(path, data = null) {
-    return this.doRequest(HttpService.methods.post, path, data);
+  post(path, data = null, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    return this.doRequest(HttpService.methods.post, path, data, feedBackOptions);
   }
   
-  put(path, data = null) {
-    return this.doRequest(HttpService.methods.put, path, data);
+  put(path, data = null, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    return this.doRequest(HttpService.methods.put, path, data, feedBackOptions);
   }
   
-  delete(path) {
-    return this.doRequest(HttpService.methods.delete, path);
+  delete(path, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    return this.doRequest(HttpService.methods.delete, path, null, feedBackOptions);
   }
   
   
-  private doRequest(requestMethod, path, data = {}) {
-    let observable = null
+  private doRequest(requestMethod, path, data = {}, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    let observable = null;
     switch (requestMethod) {
       case HttpService.methods.get:
         observable = this.http.get(this.baseUrl + path, this.getHttpOptions());
@@ -53,7 +54,7 @@ export class HttpService {
         observable = this.http.delete(this.baseUrl + path, this.getHttpOptions());
         break;
     }
-    return this.handleResponse(observable, path, requestMethod);
+    return this.handleResponse(observable, path, requestMethod, feedBackOptions);
   }
   
   private getAuthToken() {
@@ -74,12 +75,12 @@ export class HttpService {
     return { headers: headers}
   }
   
-  private handleResponse(observable, path, requestMethod) {
+  private handleResponse(observable, path, requestMethod, feedBackOptions = HttpService.defaultFeedbackOptions) {
     return observable.pipe(
-      tap((response: WebserviceResponse) => this.log(response.message)),
+      tap((response: WebserviceResponse) => this.log(response.message, feedBackOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod)),
       map((response: WebserviceResponse) => response.data)
-    )
+    );
   }
   
   private handleError<T> (operation = 'operation', result?: T) {
@@ -96,8 +97,10 @@ export class HttpService {
     };
   }
   
-  private log(message: string) {
-    this.flashMessagesService.add(message);
+  private log(message: string, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    if(feedBackOptions && feedBackOptions.flashMessages) {
+      this.flashMessagesService.add(message);
+    }
   }
   
 }
