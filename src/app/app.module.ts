@@ -18,6 +18,10 @@ import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 import { MzToastModule } from 'ng2-materialize';
 import { MzToastService } from 'ng2-materialize';
 
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { NgProgressRouterModule } from '@ngx-progressbar/router';
+
 import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
@@ -54,6 +58,9 @@ import { FlashMessagesService } from './services/util/flash-messages/flash-messa
     MzTextareaModule,
     MzIconModule,
     MzIconMdiModule,
+    NgProgressModule.forRoot(),
+    NgProgressHttpModule,
+    NgProgressRouterModule,
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     AppRoutingModule,
