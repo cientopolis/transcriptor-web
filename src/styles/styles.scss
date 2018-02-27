@@ -81,6 +81,14 @@ nav .brand-logo img {
   background-color: #ff5252;
 }
 
+// toasts
+#toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 3%;
+  left:2%;  
+}
+
 // helpers
 .float-correction {
   margin-top: 10px;
