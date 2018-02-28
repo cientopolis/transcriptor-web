@@ -1,31 +1,35 @@
-<ng-progress [min]="0" [spinner]="false" [thick]="true" [color]="'#ffd54f'" [ease]="'ease-in'"></ng-progress>
+<header>
+  <ng-progress [min]="0" [spinner]="false" [thick]="true" [color]="'#ffd54f'" [ease]="'ease-in'"></ng-progress>
 
-<mz-navbar navbarClass="main-navbar">
-	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
-	<mz-navbar-item-container [align]="'right'">
-    	<mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login">Sign In</a></mz-navbar-item>
-      <mz-navbar-item *ngIf="global.currentUser"><a id="btn-dropdown-demo">{{global.currentUser.display_name}}</a></mz-navbar-item>
-	</mz-navbar-item-container>
-</mz-navbar>
+  <mz-navbar navbarClass="main-navbar">
+  	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
+  	<mz-navbar-item-container [align]="'right'">
+      	<mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login">Sign In</a></mz-navbar-item>
+        <mz-navbar-item *ngIf="global.currentUser"><a id="btn-dropdown-demo">{{global.currentUser.display_name}}</a></mz-navbar-item>
+  	</mz-navbar-item-container>
+  </mz-navbar>
 
-<mz-dropdown 
-*ngIf="global.currentUser"
-[id]="'dropdown-user'"
-[align]="'right'"
-[belowOrigin]="true"
-[constrainWidth]="false"
-[dropdownButtonId]="'btn-dropdown-demo'"
-[hover]="false"
-[gutter]="false"
-[inDuration]="300"
-[outDuration]="300"
-[stopPropagation]="true">
-  <mz-dropdown-item><a href="#!">My Profile</a></mz-dropdown-item>
-  <mz-dropdown-divider></mz-dropdown-divider>
-  <mz-dropdown-item><a (click)="logout()">Sign Out</a></mz-dropdown-item>
-</mz-dropdown>
+  <mz-dropdown 
+  *ngIf="global.currentUser"
+  [id]="'dropdown-user'"
+  [align]="'right'"
+  [belowOrigin]="true"
+  [constrainWidth]="false"
+  [dropdownButtonId]="'btn-dropdown-demo'"
+  [hover]="false"
+  [gutter]="false"
+  [inDuration]="300"
+  [outDuration]="300"
+  [stopPropagation]="true">
+    <mz-dropdown-item><a href="#!">My Profile</a></mz-dropdown-item>
+    <mz-dropdown-divider></mz-dropdown-divider>
+    <mz-dropdown-item><a (click)="logout()">Sign Out</a></mz-dropdown-item>
+  </mz-dropdown>
+</header>
 
-<router-outlet></router-outlet>
+<main>
+  <router-outlet></router-outlet>
+</main>
 
 <footer class="page-footer" *ngIf="!global.hideFooter">
 	<div class="container">

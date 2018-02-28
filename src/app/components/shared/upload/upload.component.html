@@ -1,0 +1,61 @@
+<h5>Upload PDF or ZIP File</h5>
+<div class="row">
+  <div class="col m12">
+    <form ngNoForm enctype="multipart/form-data" action="http://localhost:3000/api/upload" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓">
+        
+      <mz-select-container>
+        <select mz-select 
+          id="document_upload_collection_id"
+          name="document_upload[collection_id]"
+          [label]="'Collection'"
+          [placeholder]="'- Select a collection -'">
+          <option value="3">lalala</option>
+          <option value="new">Add New Collection</option>
+        </select>
+      </mz-select-container>
+      
+      <div class="input-file">
+      </div>
+      
+      <div class="file-field input-field">
+        <div class="btn primary-color">
+          <span>
+            <i mz-icon-mdi [icon]="'folder'" [align]="'left'"></i>
+            Browse File
+          </span>
+          <input tabindex="-1" accept="application/pdf,application/zip,application/x-zip,application/x-zip-compressed" title="Upload file" type="file" name="document_upload[file]" id="document_upload_file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      
+      <br>      
+      <b>Tips</b>
+      <ol class="m-t-0">
+        <li>
+          ZIP files may contain folders containing images, PDFs, or folders containing pdfs.
+        </li>
+        <li>
+          Each folder will be treated as a different document, so do not mix pages from different documents in the same folder.
+        </li>
+        <li>
+          Each PDF will be treated as its own document, so do not split pages from the same document among more than one PDF.
+        </li>
+        <li>
+          For example a ZIP file with 3 images, 2 PDFs, and 1 folder containing 5 more images would create 4 works: the top level images in one, each PDF in their own work, and a last work containing the 5 images from the folder.
+        </li>
+        <li>
+          To specify metadata along with images, include a <a href="/static/metadata">metadata.yml</a> file in each folder specifying fields for the work.
+        </li>
+      </ol>
+      <br>
+      
+      <button name="button" type="submit" class="btn btn-large waves-effect primary-color right">
+        <i mz-icon-mdi [icon]="'upload'" [align]="'left'"></i>
+        Upload File
+      </button>
+    </form>
+  </div>  
+</div>

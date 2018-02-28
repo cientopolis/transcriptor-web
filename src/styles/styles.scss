@@ -6,6 +6,17 @@ body{
 	background-color: $bodyColor;
   background-image: $pattern;
   overflow-y: auto;
+  
+}
+
+app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 .main-navbar{
@@ -79,6 +90,10 @@ nav .brand-logo img {
 
 .btn-delete:hover {
   background-color: #ff5252;
+}
+
+a {
+  color: $primaryColor; 
 }
 
 // toasts
