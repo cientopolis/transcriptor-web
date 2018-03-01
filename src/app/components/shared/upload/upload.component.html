@@ -1,7 +1,7 @@
 <h5>Upload PDF or ZIP File</h5>
 <div class="row">
   <div class="col m12">
-    <form ngNoForm enctype="multipart/form-data" action="http://localhost:3000/api/upload" accept-charset="UTF-8" method="post">
+    <!-- <form ngNoForm enctype="multipart/form-data" action="http://localhost:3000/api/upload" accept-charset="UTF-8" method="post"> -->
       <input name="utf8" type="hidden" value="✓">
         
       <mz-select-container>
@@ -9,14 +9,12 @@
           id="document_upload_collection_id"
           name="document_upload[collection_id]"
           [label]="'Collection'"
-          [placeholder]="'- Select a collection -'">
-          <option value="3">lalala</option>
-          <option value="new">Add New Collection</option>
+          [placeholder]="'- Select a collection -'"
+          [(ngModel)]= "collectionId">
+          <option *ngFor="let col of collections" [value]="col.id">{{ col.title }}</option>
+          <option value="new"><i mz-icon-mdi [icon]="'plus'" [align]="'left'"></i> <b>Add New Collection</b></option>
         </select>
       </mz-select-container>
-      
-      <div class="input-file">
-      </div>
       
       <div class="file-field input-field">
         <div class="btn primary-color">
@@ -24,7 +22,7 @@
             <i mz-icon-mdi [icon]="'folder'" [align]="'left'"></i>
             Browse File
           </span>
-          <input tabindex="-1" accept="application/pdf,application/zip,application/x-zip,application/x-zip-compressed" title="Upload file" type="file" name="document_upload[file]" id="document_upload_file">
+          <input #fileInput tabindex="-1" accept="application/pdf,application/zip,application/x-zip,application/x-zip-compressed" title="Upload file" type="file" name="document_upload[file]" id="document_upload_file">
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -52,10 +50,10 @@
       </ol>
       <br>
       
-      <button name="button" type="submit" class="btn btn-large waves-effect primary-color right">
+      <button (click)="upload()" class="btn btn-large waves-effect primary-color right">
         <i mz-icon-mdi [icon]="'upload'" [align]="'left'"></i>
         Upload File
       </button>
-    </form>
+    <!-- </form> -->
   </div>  
 </div>

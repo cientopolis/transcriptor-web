@@ -39,6 +39,8 @@ import { PageService } from './services/page/page.service';
 import { FlashMessagesService } from './services/util/flash-messages/flash-messages.service';
 import { UploadComponent } from './components/shared/upload/upload.component';
 import { StartProjectComponent } from './components/start-project/start-project.component';
+import { CollectionService } from './services/collection/collection.service';
+import { UploadService } from './services/upload/upload.service';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { StartProjectComponent } from './components/start-project/start-project.
     MzToastService,
     MarkService,
     PageService,
-    FlashMessagesService
+    FlashMessagesService,
+    CollectionService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })
