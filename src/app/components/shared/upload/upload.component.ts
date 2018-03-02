@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as $ from 'jquery';
 
 import { UploadService } from '../../../services/upload/upload.service';
 import { CollectionService } from '../../../services/collection/collection.service';  
@@ -13,7 +14,7 @@ export class UploadComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput;
   collections = [];
-  collectionId = null;
+  collectionId = '';
   
   constructor(private uploadService: UploadService, private collectionService: CollectionService, private flashMessagesService: FlashMessagesService) {}
   
@@ -23,7 +24,7 @@ export class UploadComponent implements OnInit {
   
   upload() {
     const files: FileList = this.fileInput.nativeElement.files;
-    if (files.length === 0 || isNaN(this.collectionId)) { 
+    if (files.length === 0 || isNaN(this.collectionId) || this.collectionId === null || this.collectionId === '') { 
       this.flashMessagesService.add('You must select a collection and select a file to upload!');
       return; 
     };
@@ -34,9 +35,13 @@ export class UploadComponent implements OnInit {
     formData.append('document_upload[collection_id]', '3');
     
     this.uploadService.upload(formData).subscribe(r => {
-      console.log('uploaded');
+      this.reset();
     });
-
   }
 
+  reset() {
+    $('#document_upload_file').val('');
+    $('#document_upload_path').val('');
+    this.collectionId = '';
+  }
 }
