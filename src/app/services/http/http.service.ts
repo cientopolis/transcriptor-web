@@ -15,8 +15,8 @@ export class HttpService {
 
   baseUrl = 'http://localhost:3000';
   
-  defaultHeaders = { 'Content-Type': 'application/json' };
-  baseHeaders = this.defaultHeaders;
+  defaultHeaders:any = { 'Content-Type': 'application/json' };
+  baseHeaders:any = this.defaultHeaders;
   
   private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
   public static defaultFeedbackOptions = { flashMessages: true };
@@ -57,7 +57,7 @@ export class HttpService {
   }
   
   reset() {
-    this.baseHeaders = { 'Content-Type': 'application/json' };
+    this.baseHeaders = this.defaultHeaders;
   }
   
   private doRequest(requestMethod, path, data = {}, feedBackOptions = HttpService.defaultFeedbackOptions) {
