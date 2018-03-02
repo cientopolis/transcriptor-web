@@ -14,12 +14,31 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class HttpService {
 
   baseUrl = 'http://localhost:3000';
-  baseHeaders = { 'Content-Type': 'application/json' };
+  
+  defaultHeaders = { 'Content-Type': 'application/json' };
+  baseHeaders = this.defaultHeaders;
   
   private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
   public static defaultFeedbackOptions = { flashMessages: true };
 
   constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
+  
+  // loading methods(without feedback) are represented with initial l
+  lget(path) {
+    return this.get(path, null);
+  }
+  
+  lpost(path, data = null) {
+    return this.post(path, data, null);
+  }
+  
+  lput(path, data = null) {
+    return this.put(path, data, null);
+  }
+  
+  ldelete(path) {
+    return this.delete(path, null);
+  }
   
   get(path, feedBackOptions = HttpService.defaultFeedbackOptions) {
     return this.doRequest(HttpService.methods.get, path, null, feedBackOptions);
@@ -37,6 +56,9 @@ export class HttpService {
     return this.doRequest(HttpService.methods.delete, path, null, feedBackOptions);
   }
   
+  reset() {
+    this.baseHeaders = { 'Content-Type': 'application/json' };
+  }
   
   private doRequest(requestMethod, path, data = {}, feedBackOptions = HttpService.defaultFeedbackOptions) {
     let observable = null;
@@ -76,6 +98,7 @@ export class HttpService {
   }
   
   private handleResponse(observable, path, requestMethod, feedBackOptions = HttpService.defaultFeedbackOptions) {
+    this.reset();
     return observable.pipe(
       tap((response: WebserviceResponse) => this.log(response.message, feedBackOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod)),

@@ -17,6 +17,7 @@ import { MzTextareaModule } from 'ng2-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
 import { MzToastModule } from 'ng2-materialize';
 import { MzToastService } from 'ng2-materialize';
+import { MzSelectModule } from 'ng2-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -36,6 +37,10 @@ import { TranscribeComponent } from './components/transcribe/transcribe.componen
 import { MarkService } from './services/mark/mark.service';
 import { PageService } from './services/page/page.service';
 import { FlashMessagesService } from './services/util/flash-messages/flash-messages.service';
+import { UploadComponent } from './components/shared/upload/upload.component';
+import { StartProjectComponent } from './components/start-project/start-project.component';
+import { CollectionService } from './services/collection/collection.service';
+import { UploadService } from './services/upload/upload.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,8 @@ import { FlashMessagesService } from './services/util/flash-messages/flash-messa
     LoginComponent,
     TranscribeComponent,
     DashboardComponent,
+    UploadComponent,
+    StartProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +65,7 @@ import { FlashMessagesService } from './services/util/flash-messages/flash-messa
     MzTextareaModule,
     MzIconModule,
     MzIconMdiModule,
+    MzSelectModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
     NgProgressRouterModule,
@@ -74,7 +82,9 @@ import { FlashMessagesService } from './services/util/flash-messages/flash-messa
     MzToastService,
     MarkService,
     PageService,
-    FlashMessagesService
+    FlashMessagesService,
+    CollectionService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,17 @@ body{
 	background-color: $bodyColor;
   background-image: $pattern;
   overflow-y: auto;
+  
+}
+
+app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 .main-navbar{
@@ -65,20 +76,32 @@ nav .brand-logo img {
 }
 
 // buttons
+.btn, .btn:focus, .btn:active {
+  background-color: $primaryColor;
+}
+
 .btn:hover {
   background-color: $hoverColor;
+}
+
+.btn-flat, .btn-flat:focus {
+  background-color: initial;
 }
 
 .btn-flat:hover {
   background-color: #d9d9d9;
 }
 
-.btn-delete {
+.btn-delete,.btn-delete:focus {
   background-color: #e53935;
 }
 
 .btn-delete:hover {
   background-color: #ff5252;
+}
+
+a {
+  color: $primaryColor; 
 }
 
 // toasts
@@ -87,6 +110,12 @@ nav .brand-logo img {
   right: auto !important;
   bottom: 3%;
   left:2%;  
+}
+
+// dropdowns
+
+.dropdown-content li>a, .dropdown-content li>span {
+  color: $primaryColor;
 }
 
 // helpers
