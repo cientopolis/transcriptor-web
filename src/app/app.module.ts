@@ -16,6 +16,8 @@ import { MzModalService } from 'ng2-materialize';
 import { MzButtonModule } from 'ng2-materialize';
 import { MzTextareaModule } from 'ng2-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
+import { MzTabModule } from 'ng2-materialize';
+
 
 import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -30,6 +32,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
 import { MarkService } from './services/mark/mark.service';
 import { PageService } from './services/page/page.service';
+import { DashboardService } from './services/dashboard/dashboard.service';
+import { LalaPipe } from './pipes/lala.pipe';
+import { DaysAndHoursAgoPipe } from './pipes/days-and-hours-ago/days-and-hours-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,8 @@ import { PageService } from './services/page/page.service';
     LoginComponent,
     TranscribeComponent,
     DashboardComponent,
+    LalaPipe,
+    DaysAndHoursAgoPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,9 +62,10 @@ import { PageService } from './services/page/page.service';
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MzTabModule
   ],
-  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService],
+  providers: [SimpleGlobal,LoginService, HttpService, MzInjectionService, MzModalService, MarkService, PageService,DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

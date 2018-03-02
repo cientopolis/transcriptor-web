@@ -1,12 +1,13 @@
 <mz-navbar navbarClass="main-navbar">
 	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
 	<mz-navbar-item-container [align]="'right'">
+	    <mz-navbar-item ><a routerLink="dashboard">Dashboard</a></mz-navbar-item> 
     	<mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login">Sign In</a></mz-navbar-item>
       <mz-navbar-item *ngIf="global.currentUser"><a id="btn-dropdown-demo">{{global.currentUser.display_name}}</a></mz-navbar-item>
 	</mz-navbar-item-container>
 </mz-navbar>
 
-<mz-dropdown 
+<mz-dropdown
 *ngIf="global.currentUser"
 [id]="'dropdown-user'"
 [align]="'right'"
