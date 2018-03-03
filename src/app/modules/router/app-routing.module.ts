@@ -6,7 +6,7 @@ import { LoginComponent } from '../../components/login/login.component';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
 import { TranscribeComponent } from '../../components/transcribe/transcribe.component';
 import { StartProjectComponent } from '../../components/start-project/start-project.component';
-import { ShowWorkComponent } from '../../components/show-work/show-work.component';
+import { ShowWorkComponent } from '../../components/work/show-work/show-work.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -6,12 +6,16 @@ import { HttpService } from '../../services/http/http.service';
 @Injectable()
 export class WorkService {
 
-  private getPath = '/api/work/';
+  private getPath = '/api/work/{workId}';
+  private listPagesPath = '/api/work/{workId}/pages';
 
   constructor(private httpService: HttpService) { }
 
   get(workId, options = {}) {
-    let path = this.getPath + workId;
-    return this.httpService.lget(path,options);
+    return this.httpService.lget([this.getPath,{workId:workId}], options);
+  }
+  
+  listPages(workId, options = {}) {
+    return this.httpService.lget([this.listPagesPath,{workId:workId}], options);
   }
 }

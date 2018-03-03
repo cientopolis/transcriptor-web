@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { WorkService } from '../../services/work/work.service';
+import { WorkService } from '../../../services/work/work.service';
 
 @Component({
   selector: 'app-show-work',
@@ -16,7 +16,7 @@ export class ShowWorkComponent implements OnInit {
 
   ngOnInit() {
     const workId = +this.route.snapshot.paramMap.get('workId');
-    this.workService.get(workId, { fields: ['owner,collection'])
+    this.workService.get(workId, { fields: ['owner,collection']})
       .subscribe(work => this.work=work);
   }
 

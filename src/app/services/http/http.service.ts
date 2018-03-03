@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SimpleGlobal } from 'ng2-simple-global';
+import * as UriTemplate from 'uri-templates';
 
 import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
 
@@ -73,20 +74,21 @@ export class HttpService {
   private doRequest(requestMethod, path, data = {}, requestOptions) {
     requestOptions = Object.assign({},HttpService.defaultOptions,requestOptions);
     let httpOptions = this.getHttpOptions(requestOptions);
+    let uri = this.processUri(path);
     
     let observable = null;
     switch (requestMethod) {
       case HttpService.methods.get:
-        observable = this.http.get(this.baseUrl + path, httpOptions);
+        observable = this.http.get(uri, httpOptions);
         break;
       case HttpService.methods.post:
-        observable = this.http.post(this.baseUrl + path, data, httpOptions);
+        observable = this.http.post(uri, data, httpOptions);
         break;
       case HttpService.methods.put:
-        observable = this.http.put(this.baseUrl + path, data, httpOptions);
+        observable = this.http.put(uri, data, httpOptions);
         break;
       case HttpService.methods.delete:
-        observable = this.http.delete(this.baseUrl + path, httpOptions);
+        observable = this.http.delete(uri, httpOptions);
         break;
     }
     return this.handleResponse(observable, path, requestMethod, requestOptions);
@@ -138,4 +140,10 @@ export class HttpService {
     }
   }
   
+  private processUri(path){
+    if(path instanceof Array){
+      return this.baseUrl + new UriTemplate(path[0]).fill(path[1]);
+    }
+    return this.baseUrl + path;
+  }
 }

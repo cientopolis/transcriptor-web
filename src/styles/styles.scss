@@ -112,8 +112,22 @@ a {
   left:2%;  
 }
 
-// dropdowns
+// tabs
+.tabs .tab a:hover, .tabs .tab a.active{
+  color: $primaryColor;
+  opacity:1;
+}
+.tabs .tab a{
+  opacity:0.7;
+}
+.tabs .indicator {
+  background-color: $primaryColor;
+}
+.tabs-content.carousel .carousel-item { 
+  height: 100%; 
+}
 
+// dropdowns
 .dropdown-content li>a, .dropdown-content li>span {
   color: $primaryColor;
 }
