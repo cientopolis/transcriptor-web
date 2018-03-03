@@ -10,7 +10,6 @@ export class UploadService {
   constructor(private httpService: HttpService) { }
 
   upload(formData) {
-    this.httpService.baseHeaders = {};
-    return this.httpService.post(this.uploadPath, formData);
+    return this.httpService.post(this.uploadPath, formData, { headers: {} });
   }
 }
