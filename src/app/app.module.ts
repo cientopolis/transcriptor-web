@@ -41,6 +41,8 @@ import { UploadComponent } from './components/shared/upload/upload.component';
 import { StartProjectComponent } from './components/start-project/start-project.component';
 import { CollectionService } from './services/collection/collection.service';
 import { UploadService } from './services/upload/upload.service';
+import { ShowWorkComponent } from './components/show-work/show-work.component';
+import { WorkService } from './services/work/work.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { UploadService } from './services/upload/upload.service';
     DashboardComponent,
     UploadComponent,
     StartProjectComponent,
+    ShowWorkComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { UploadService } from './services/upload/upload.service';
     PageService,
     FlashMessagesService,
     CollectionService,
-    UploadService
+    UploadService,
+    WorkService
   ],
   bootstrap: [AppComponent]
 })
