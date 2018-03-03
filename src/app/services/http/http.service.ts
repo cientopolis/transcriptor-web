@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SimpleGlobal } from 'ng2-simple-global';
 
 import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
@@ -15,68 +15,81 @@ export class HttpService {
 
   baseUrl = 'http://localhost:3000';
   
-  defaultHeaders:any = { 'Content-Type': 'application/json' };
-  baseHeaders:any = this.defaultHeaders;
-  
   private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
-  public static defaultFeedbackOptions = { flashMessages: true };
+    
+  public static defaultOptions:any = { 
+    headers: { 'Content-Type': 'application/json' },
+    fields: [],
+    feedback: {
+      flashNotifications: true,
+      flashMessages: true
+    }
+  };
+  
+  public static noFeedbackOptions:any = {
+    flashNotifications: false,
+    flashMessages: false
+  };
 
   constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
   
-  // loading methods(without feedback) are represented with initial l
-  lget(path) {
-    return this.get(path, null);
+  // loading methods(shortcut without feedback) are represented with initial l
+  lget(path, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
+    return this.get(path, requestOptions);
   }
   
-  lpost(path, data = null) {
-    return this.post(path, data, null);
+  lpost(path, data = null, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
+    return this.post(path, data, requestOptions);
   }
   
-  lput(path, data = null) {
-    return this.put(path, data, null);
+  lput(path, data = null, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
+    return this.put(path, data, requestOptions);
   }
   
-  ldelete(path) {
-    return this.delete(path, null);
+  ldelete(path, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
+    return this.delete(path, requestOptions);
   }
   
-  get(path, feedBackOptions = HttpService.defaultFeedbackOptions) {
-    return this.doRequest(HttpService.methods.get, path, null, feedBackOptions);
+  get(path, requestOptions = HttpService.defaultOptions) {
+    return this.doRequest(HttpService.methods.get, path, null, requestOptions);
   }
   
-  post(path, data = null, feedBackOptions = HttpService.defaultFeedbackOptions) {
-    return this.doRequest(HttpService.methods.post, path, data, feedBackOptions);
+  post(path, data = null, requestOptions = HttpService.defaultOptions) {
+    return this.doRequest(HttpService.methods.post, path, data, requestOptions);
   }
   
-  put(path, data = null, feedBackOptions = HttpService.defaultFeedbackOptions) {
-    return this.doRequest(HttpService.methods.put, path, data, feedBackOptions);
+  put(path, data = null, requestOptions = HttpService.defaultOptions) {
+    return this.doRequest(HttpService.methods.put, path, data, requestOptions);
   }
   
-  delete(path, feedBackOptions = HttpService.defaultFeedbackOptions) {
-    return this.doRequest(HttpService.methods.delete, path, null, feedBackOptions);
+  delete(path, requestOptions = HttpService.defaultOptions) {
+    return this.doRequest(HttpService.methods.delete, path, null, requestOptions);
   }
   
-  reset() {
-    this.baseHeaders = this.defaultHeaders;
-  }
-  
-  private doRequest(requestMethod, path, data = {}, feedBackOptions = HttpService.defaultFeedbackOptions) {
+  private doRequest(requestMethod, path, data = {}, requestOptions) {
+    requestOptions = Object.assign({},HttpService.defaultOptions,requestOptions);
+    let httpOptions = this.getHttpOptions(requestOptions);
+    
     let observable = null;
     switch (requestMethod) {
       case HttpService.methods.get:
-        observable = this.http.get(this.baseUrl + path, this.getHttpOptions());
+        observable = this.http.get(this.baseUrl + path, httpOptions);
         break;
       case HttpService.methods.post:
-        observable = this.http.post(this.baseUrl + path, data, this.getHttpOptions());
+        observable = this.http.post(this.baseUrl + path, data, httpOptions);
         break;
       case HttpService.methods.put:
-        observable = this.http.put(this.baseUrl + path, data, this.getHttpOptions());
+        observable = this.http.put(this.baseUrl + path, data, httpOptions);
         break;
       case HttpService.methods.delete:
-        observable = this.http.delete(this.baseUrl + path, this.getHttpOptions());
+        observable = this.http.delete(this.baseUrl + path, httpOptions);
         break;
     }
-    return this.handleResponse(observable, path, requestMethod, feedBackOptions);
+    return this.handleResponse(observable, path, requestMethod, requestOptions);
   }
   
   private getAuthToken() {
@@ -86,21 +99,20 @@ export class HttpService {
     return null;
   }
   
-  private getHttpOptions() {
+  private getHttpOptions(requestOptions) {
     let headers = new HttpHeaders();
-    for(var headerKey in this.baseHeaders){
-      headers = headers.append(headerKey,this.baseHeaders[headerKey]);
+    for(var headerKey in requestOptions.headers){
+      headers = headers.append(headerKey,requestOptions.headers[headerKey]);
     };
     if(this.getAuthToken()){
       headers = headers.append('Authorization','Token ' + this.getAuthToken());
     }
-    return { headers: headers}
+    return { headers: headers, params: { 'fields': requestOptions.fields }}
   }
   
-  private handleResponse(observable, path, requestMethod, feedBackOptions = HttpService.defaultFeedbackOptions) {
-    this.reset();
+  private handleResponse(observable, path, requestMethod, requestOptions) {
     return observable.pipe(
-      tap((response: WebserviceResponse) => this.log(response.message, feedBackOptions)),
+      tap((response: WebserviceResponse) => this.log(response.message, requestOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod)),
       map((response: WebserviceResponse) => response.data)
     );
@@ -120,8 +132,8 @@ export class HttpService {
     };
   }
   
-  private log(message: string, feedBackOptions = HttpService.defaultFeedbackOptions) {
-    if(feedBackOptions && feedBackOptions.flashMessages) {
+  private log(message: string, requestOptions = HttpService.defaultOptions) {
+    if(requestOptions && requestOptions.feedback.flashMessages) {
       this.flashMessagesService.add(message);
     }
   }
