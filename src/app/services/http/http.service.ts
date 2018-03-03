@@ -23,25 +23,34 @@ export class HttpService {
     feedback: {
       flashNotifications: true,
       flashMessages: true
-    } 
+    }
+  };
+  
+  public static noFeedbackOptions:any = {
+    flashNotifications: false,
+    flashMessages: false
   };
 
   constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
   
-  // loading methods(without feedback) are represented with initial l
+  // loading methods(shortcut without feedback) are represented with initial l
   lget(path, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.get(path, requestOptions);
   }
   
   lpost(path, data = null, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.post(path, data, requestOptions);
   }
   
   lput(path, data = null, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.put(path, data, requestOptions);
   }
   
   ldelete(path, requestOptions = HttpService.defaultOptions) {
+    requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.delete(path, requestOptions);
   }
   
