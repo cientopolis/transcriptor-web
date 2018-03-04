@@ -66,6 +66,27 @@ nav .brand-logo img {
   box-shadow: none;
 }
 
+.input-field input[type=text]:focus:not(.browser-default), 
+.input-field input[type=password]:focus:not(.browser-default), 
+.input-field input[type=email]:focus:not(.browser-default), 
+.input-field input[type=url]:focus:not(.browser-default), 
+.input-field input[type=time]:focus:not(.browser-default), 
+.input-field input[type=date]:focus:not(.browser-default), 
+.input-field input[type=number]:focus:not(.browser-default) {
+  border-bottom: 2px solid $primaryColor;
+  box-shadow: none;
+}
+
+.input-field input[type=text]:focus:not(.browser-default) + label, 
+.input-field input[type=password]:focus:not(.browser-default) + label, 
+.input-field input[type=email]:focus:not(.browser-default) + label, 
+.input-field input[type=url]:focus:not(.browser-default) + label, 
+.input-field input[type=time]:focus:not(.browser-default) + label, 
+.input-field input[type=date]:focus:not(.browser-default) + label, 
+.input-field input[type=number]:focus:not(.browser-default) + label {
+  color: $primaryColor;
+}
+
 .input-field textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid $primaryColor;
   box-shadow: 0 1px 0 0 $primaryColor;
@@ -112,8 +133,24 @@ a {
   left:2%;  
 }
 
-// dropdowns
+// tabs
+.tabs .tab a:hover, .tabs .tab a.active{
+  color: $primaryColor;
+  opacity:1;
+}
+.tabs .tab a{
+  opacity:0.7;
+}
+.tabs .indicator {
+  background-color: $primaryColor;
+}
 
+.tabs-content {
+  transition: height 0.5s; 
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+// dropdowns
 .dropdown-content li>a, .dropdown-content li>span {
   color: $primaryColor;
 }
