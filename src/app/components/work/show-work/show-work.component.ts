@@ -19,5 +19,9 @@ export class ShowWorkComponent implements OnInit {
     this.workService.get(workId, { fields: ['owner,collection']})
       .subscribe(work => this.work=work);
   }
+  
+  onShow() {
+    $('.tabs-content.carousel').height($('.carousel-item.active .row').height());
+  }
 
 }
