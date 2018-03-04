@@ -1,17 +1,20 @@
-<div class="row">
-  <div class="col s12">
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-0">collections</h4>
+        <h4 class="m-b-20">Collections</h4>
       </mz-card-title>
       <mz-card-content>
         <mz-collection>
           <mz-collection-item [avatar]="true" *ngFor="let collection of collections">
             <i mz-avatar mz-icon-mdi [icon]="'library-books'" class="grey darken-1"></i>
-            <a class="title" routerLink="/dashboard">
+            <a class="title" routerLink="/collection/{{ collection.id }}">
               <div class="title">{{ collection.title }}</div>
               <p>{{collection.description}}</p>
             </a>
+            <div mz-secondary-content>
+              <a mz-button routerLink="/collection/{{ collection.id }}"><i mz-icon-mdi [icon]="'eye'" [align]="'left'"></i> Show Details</a>
+            </div>
           </mz-collection-item>
         </mz-collection>
       </mz-card-content>

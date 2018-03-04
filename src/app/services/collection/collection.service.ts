@@ -20,7 +20,7 @@ export class CollectionService {
 
   listCollections(options = {}){
     let path = this.collectionsPath + "/list";
-    return this.httpService.get(path,options);
+    return this.httpService.lget(path,options);
   }
   
   get(collectionId, options = {}) {
