@@ -1,15 +1,50 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, getTestBed, inject } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import { HttpService } from '../http/http.service';
+import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
+import { SimpleGlobal } from 'ng2-simple-global';
+import { MzToastService } from 'ng2-materialize';
 
 import { WorkService } from './work.service';
+import { WorkMockResponse } from './mock/work-mock-response'
 
 describe('WorkService', () => {
+  let injector;
+  let service: WorkService;
+  let httpMock: HttpTestingController;
+  
+  
+  afterEach(() => {
+    httpMock.verify();
+  });
+  
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WorkService]
+      imports: [HttpClientTestingModule],
+      providers: [WorkService, HttpService, SimpleGlobal, FlashMessagesService, MzToastService]
     });
+    
+    injector = getTestBed();
+    service = injector.get(WorkService);
+    httpMock = injector.get(HttpTestingController);
   });
 
   it('should be created', inject([WorkService], (service: WorkService) => {
     expect(service).toBeTruthy();
   }));
+  
+  describe('#get', () => {
+    it('should return a work', () => {
+      const dummyResponse:any = WorkMockResponse.get(2);
+      
+      service.get(2).subscribe(work => {
+        expect(work.id).toBe(2);
+      });
+      const req = httpMock.expectOne(`http://localhost:3000/api/work/2`);
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyResponse);
+    });
+  });
+  
 });

@@ -1,0 +1,33 @@
+{
+    "id": 2,
+    "title": "MyTestWork",
+    "description": "un work",
+    "created_on": "2018-01-07T00:10:45.000Z",
+    "owner_user_id": 2,
+    "restrict_scribes": false,
+    "transcription_version": 0,
+    "physical_description": null,
+    "document_history": null,
+    "permission_description": null,
+    "location_of_composition": null,
+    "author": null,
+    "transcription_conventions": null,
+    "collection_id": 3,
+    "scribes_can_edit_titles": false,
+    "supports_translation": false,
+    "translation_instructions": null,
+    "pages_are_meaningful": true,
+    "ocr_correction": null,
+    "slug": "otronombre3",
+    "picture": {
+        "url": null,
+        "thumb": {
+            "url": null
+        },
+        "scaled": {
+            "url": null
+        }
+    },
+    "featured_page": null,
+    "identifier": null
+}

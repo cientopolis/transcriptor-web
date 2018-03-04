@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StartProjectComponent } from './upload-screen.component';
+import { StartProjectComponent } from './start-project.component';
 
 describe('StartProjectComponent', () => {
   let component: StartProjectComponent;
