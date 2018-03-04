@@ -11,7 +11,7 @@ export class PageService {
   
   get(pageId) {
     let path = this.getPath + '/' + pageId;
-    return this.httpService.get(path);
+    return this.httpService.lget(path);
   }
   
   imagePath(page) {
