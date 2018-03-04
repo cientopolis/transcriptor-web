@@ -30,6 +30,6 @@ export class MarkService {
   
   listByPage(pageId): Observable<Mark[]> {
     let path = this.listByPagePath + pageId + "/marks";
-    return this.httpService.get(path) as Observable<Mark[]>;
+    return this.httpService.lget(path) as Observable<Mark[]>;
   }
 }
