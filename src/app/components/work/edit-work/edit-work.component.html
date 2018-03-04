@@ -81,9 +81,9 @@
 
 <div class="row">
   <div class="col m6">
-    <button mz-button class="btn-delete"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> Delete Page</button>
+    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> Delete Page</button>
   </div>
   <div class="col m6 right-align">
-    <button mz-button><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save Changes</button>
+    <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save Changes</button>
   </div>
 </div>

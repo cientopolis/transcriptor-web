@@ -15,5 +15,15 @@ export class EditWorkComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  save() {
+    this.workService.edit(this.work)
+      .subscribe(work => this.work = Object.assign(this.work,work));
+  }
+  
+  delete() {
+    this.workService.delete(this.work.id)
+      .subscribe(work => Object.assign(this.work,work))
+  }
 
 }

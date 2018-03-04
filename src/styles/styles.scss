@@ -145,10 +145,8 @@ a {
   background-color: $primaryColor;
 }
 
-.tabs-content {
-  .carousel-item {
+.tabs-content .carousel-item {
     height: auto;
-  }
 }
 
 // dropdowns
