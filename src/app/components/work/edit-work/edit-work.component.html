@@ -1,3 +1,89 @@
-<p>
-  edit-work works!
-</p>
+<div class="row m-t-5">
+  <div class="col m12">
+    <mz-input-container>
+      <input mz-input
+        class="input-field-primary-color"
+        [label]="'Work Title'"
+        [(ngModel)]="work.title"
+        type="text">
+    </mz-input-container>
+  </div>
+</div>
+
+
+<!-- collection select -->
+
+<div class="row">
+  <div class="col m6">
+    <mz-input-container>
+      <input mz-input
+        class="input-field-primary-color"
+        [label]="'Author'"
+        [(ngModel)]="work.author"
+        type="text">
+    </mz-input-container>
+  </div>
+  <div class="col m6">
+    <mz-input-container>
+      <input mz-input
+        class="input-field-primary-color"
+        [label]="'Location'"
+        [(ngModel)]="work.location_of_composition"
+        type="text">
+    </mz-input-container>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col m12">
+    <mz-input-container>
+      <input mz-input
+        class="input-field-primary-color"
+        [label]="'URL'"
+        [(ngModel)]="work.slug"
+        type="text">
+    </mz-input-container>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <mz-textarea-container>
+      <textarea mz-textarea
+        [(ngModel)]="work.description"
+        [label]="'Description'">
+      </textarea>
+    </mz-textarea-container>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <mz-textarea-container>
+      <textarea mz-textarea
+        [(ngModel)]="work.physical_description"
+        [label]="'Physical Description'">
+      </textarea>
+    </mz-textarea-container>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <mz-textarea-container>
+      <textarea mz-textarea
+        [(ngModel)]="work.document_history"
+        [label]="'Document History'">
+      </textarea>
+    </mz-textarea-container>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col m6">
+    <button mz-button class="btn-delete"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> Delete Page</button>
+  </div>
+  <div class="col m6 right-align">
+    <button mz-button><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save Changes</button>
+  </div>
+</div>

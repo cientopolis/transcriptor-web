@@ -6,22 +6,23 @@
         <p>{{ work.collection.title }}</p>
       </mz-card-title>
       <mz-card-content>
-
+        
         <mz-tab
           [responsiveThreshold]="'true'"
           [fixedTabWidth]="'true'"
           [swipeable]="'true'">
+          <mz-tab-item 
+            [class]="'col s12'" 
+            [label]="'Settings'">
+            <app-edit-work [work]="work"></app-edit-work>
+          </mz-tab-item>
           <mz-tab-item
             [class]="'col s12'"
-            [active]="'true'"
             [label]="'Pages'">
             <app-list-work-pages [work]="work"></app-list-work-pages>            
           </mz-tab-item>
-          <mz-tab-item [class]="'col s12'" [label]="'Settings'">
-            <app-edit-work></app-edit-work>
-          </mz-tab-item>
         </mz-tab>
-        
+
       </mz-card-content>
     </mz-card>
   </div>

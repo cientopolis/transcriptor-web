@@ -35,44 +35,44 @@ export class HttpService {
   constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
   
   // loading methods(shortcut without feedback) are represented with initial l
-  lget(path, requestOptions = HttpService.defaultOptions) {
+  lget(path, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.get(path, requestOptions);
   }
   
-  lpost(path, data = null, requestOptions = HttpService.defaultOptions) {
+  lpost(path, data = null, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.post(path, data, requestOptions);
   }
   
-  lput(path, data = null, requestOptions = HttpService.defaultOptions) {
+  lput(path, data = null, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.put(path, data, requestOptions);
   }
   
-  ldelete(path, requestOptions = HttpService.defaultOptions) {
+  ldelete(path, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.delete(path, requestOptions);
   }
   
-  get(path, requestOptions = HttpService.defaultOptions) {
+  get(path, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.get, path, null, requestOptions);
   }
   
-  post(path, data = null, requestOptions = HttpService.defaultOptions) {
+  post(path, data = null, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.post, path, data, requestOptions);
   }
   
-  put(path, data = null, requestOptions = HttpService.defaultOptions) {
+  put(path, data = null, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.put, path, data, requestOptions);
   }
   
-  delete(path, requestOptions = HttpService.defaultOptions) {
+  delete(path, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.delete, path, null, requestOptions);
   }
   
   private doRequest(requestMethod, path, data = {}, requestOptions) {
-    requestOptions = Object.assign({},HttpService.defaultOptions,requestOptions);
+    requestOptions = Object.assign({},this.getDefaultOptions(),requestOptions);
     let httpOptions = this.getHttpOptions(requestOptions);
     let uri = this.processUri(path);
     
@@ -134,7 +134,7 @@ export class HttpService {
     };
   }
   
-  private log(message: string, requestOptions = HttpService.defaultOptions) {
+  private log(message: string, requestOptions = this.getDefaultOptions()) {
     if(requestOptions && requestOptions.feedback.flashMessages) {
       this.flashMessagesService.add(message);
     }
@@ -145,5 +145,9 @@ export class HttpService {
       return this.baseUrl + new UriTemplate(path[0]).fill(path[1]);
     }
     return this.baseUrl + path;
+  }
+  
+  private getDefaultOptions(){
+    return JSON.parse(JSON.stringify(HttpService.defaultOptions));
   }
 }
