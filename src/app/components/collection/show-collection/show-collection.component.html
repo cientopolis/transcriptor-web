@@ -1,0 +1,37 @@
+<div class="row m-t-15">
+  <div class="col m10 offset-m1" *ngIf="collection">
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-0">{{ collection.title}}</h4>
+      </mz-card-title>
+      <mz-card-content>
+        
+        <mz-tab
+          [responsiveThreshold]="'true'"
+          [fixedTabWidth]="'true'"
+          [onShow]="onShow()"
+          [swipeable]="'true'">
+          <mz-tab-item
+            [class]="'col s12'"
+            [label]="'Pages'">
+            <div class="row">
+              <div class="col s12">
+                <app-list-collection-works [collection]="collection"></app-list-collection-works>
+              </div>
+            </div>
+          </mz-tab-item>
+          <mz-tab-item 
+            [class]="'col s12'" 
+            [label]="'Settings'">
+            <div class="row">
+              <div class="col s12">
+                <app-edit-collection [collection]="collection"></app-edit-collection>
+              </div>
+            </div>
+          </mz-tab-item>
+        </mz-tab>
+
+      </mz-card-content>
+    </mz-card>
+  </div>
+</div>
