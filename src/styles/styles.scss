@@ -145,6 +145,11 @@ a {
   background-color: $primaryColor;
 }
 
+.tabs-content {
+  transition: height 0.5s; 
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
 // dropdowns
 .dropdown-content li>a, .dropdown-content li>span {
   color: $primaryColor;
