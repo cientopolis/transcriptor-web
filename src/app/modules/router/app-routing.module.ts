@@ -8,6 +8,8 @@ import { TranscribeComponent } from '../../components/transcribe/transcribe.comp
 import { StartProjectComponent } from '../../components/start-project/start-project.component';
 import { ShowCollectionComponent } from '../../components/collection/show-collection/show-collection.component';
 import { ShowWorkComponent } from '../../components/work/show-work/show-work.component';
+import { CollectionsComponent } from '../../components/collections/collections.component';
+
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,8 +18,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'transcribe/:pageId', component: TranscribeComponent },
   { path: 'startproject', component: StartProjectComponent },
-  { path: 'collection/:collectionId', component: ShowCollectionComponent },
-  { path: 'work/:workId', component: ShowWorkComponent } 
+  { path: 'work/:workId', component: ShowWorkComponent },
+	{ path: 'collections/list', component: CollectionsComponent },
+  { path: 'collection/:collectionId', component: ShowCollectionComponent }
 ];
 
 @NgModule({

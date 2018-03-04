@@ -6,15 +6,21 @@ import { HttpService } from '../../services/http/http.service';
 export class CollectionService {
 
   private listPath = '/api/collection/list_own';
+  private collectionsPath = '/api/collection';
   private getPath = '/api/collection/{collectionId}';
   private listWorksPath = '/api/collection/{collectionId}/works';
   private editPath = '/api/collection/{collectionId}';
   private deletePath = '/api/collection/{collectionId}';
 
   constructor(private httpService: HttpService) { }
-  
+
   listOwn() {
     return this.httpService.lget(this.listPath);
+  }
+
+  listCollections(options = {}){
+    let path = this.collectionsPath + "/list";
+    return this.httpService.get(path,options);
   }
   
   get(collectionId, options = {}) {
