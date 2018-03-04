@@ -1,9 +1,8 @@
 <div class="row m-t-15">
-  <div class="col m10 offset-m1" *ngIf="work">
+  <div class="col m10 offset-m1" *ngIf="collection">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-0">{{ work.title}}</h4>
-        <p>{{ work.collection.title }}</p>
+        <h4 class="m-b-0">{{ collection.title}}</h4>
       </mz-card-title>
       <mz-card-content>
         
@@ -17,7 +16,7 @@
             [label]="'Pages'">
             <div class="row">
               <div class="col s12">
-                <app-list-work-pages [work]="work"></app-list-work-pages>
+                <app-list-collection-works [collection]="collection"></app-list-collection-works>
               </div>
             </div>
           </mz-tab-item>
@@ -26,7 +25,7 @@
             [label]="'Settings'">
             <div class="row">
               <div class="col s12">
-                <app-edit-work [work]="work"></app-edit-work>
+                <app-edit-collection [collection]="collection"></app-edit-collection>
               </div>
             </div>
           </mz-tab-item>

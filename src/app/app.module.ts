@@ -48,6 +48,9 @@ import { WorkService } from './services/work/work.service';
 import { EditWorkComponent } from './components/work/edit-work/edit-work.component';
 import { ListWorkPagesComponent } from './components/work/list-work-pages/list-work-pages.component';
 import { CollectionsComponent } from './components/collections/collections.component';
+import { ShowCollectionComponent } from './components/collection/show-collection/show-collection.component';
+import { ListCollectionWorksComponent } from './components/collection/list-collection-works/list-collection-works.component';
+import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,9 @@ import { CollectionsComponent } from './components/collections/collections.compo
     EditWorkComponent,
     ListWorkPagesComponent,
     CollectionsComponent,
+    ShowCollectionComponent,
+    ListCollectionWorksComponent,
+    EditCollectionComponent,
   ],
   imports: [
     BrowserModule,
