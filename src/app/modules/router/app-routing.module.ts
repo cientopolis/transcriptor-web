@@ -7,6 +7,8 @@ import { DashboardComponent } from '../../components/dashboard/dashboard.compone
 import { TranscribeComponent } from '../../components/transcribe/transcribe.component';
 import { StartProjectComponent } from '../../components/start-project/start-project.component';
 import { ShowWorkComponent } from '../../components/work/show-work/show-work.component';
+import { CollectionsComponent } from '../../components/collections/collections.component';
+
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,7 +17,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'transcribe/:pageId', component: TranscribeComponent },
   { path: 'startproject', component: StartProjectComponent },
-  { path: 'work/:workId', component: ShowWorkComponent } 
+  { path: 'work/:workId', component: ShowWorkComponent },
+	{ path: 'collections/list', component: CollectionsComponent }
 ];
 
 @NgModule({
