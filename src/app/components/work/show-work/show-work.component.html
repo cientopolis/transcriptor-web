@@ -10,16 +10,25 @@
         <mz-tab
           [responsiveThreshold]="'true'"
           [fixedTabWidth]="'true'"
+          [onShow]="onShow()"
           [swipeable]="'true'">
-          <mz-tab-item 
-            [class]="'col s12'" 
-            [label]="'Settings'">
-            <app-edit-work [work]="work"></app-edit-work>
-          </mz-tab-item>
           <mz-tab-item
             [class]="'col s12'"
             [label]="'Pages'">
-            <app-list-work-pages [work]="work"></app-list-work-pages>            
+            <div class="row">
+              <div class="col s12">
+                <app-list-work-pages [work]="work"></app-list-work-pages>
+              </div>
+            </div>
+          </mz-tab-item>
+          <mz-tab-item 
+            [class]="'col s12'" 
+            [label]="'Settings'">
+            <div class="row">
+              <div class="col s12">
+                <app-edit-work [work]="work"></app-edit-work>
+              </div>
+            </div>
           </mz-tab-item>
         </mz-tab>
 
