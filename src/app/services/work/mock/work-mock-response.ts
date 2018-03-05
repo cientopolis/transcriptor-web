@@ -1,5 +1,7 @@
 import { WebserviceResponse } from '../../../models/webserviceResponse'
 
+declare var require: any;
+
 export class WorkMockResponse {
   
   public static get(workId){
