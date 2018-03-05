@@ -1,116 +1,128 @@
-<div class="row">
-  <div class="col m12">
-
-    <div class="card-panel">
-      <div class="card-content">
-        <h5 class="primary-color-text" *ngIf="!global.currentUser">Dashboard</h5>
-        <h5 class="primary-color-text" *ngIf="global.currentUser">Owner Dashboard</h5>
-        <div class='row' *ngIf="global.currentUser">
-          <div class="col s3 offset-s9">
-            <div class="collection">
-              <p class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>Collections</p>
-              <p class="collection-item"><span class="badge">{{collectionsOwner.works}}</span>Works</p>
-              <p class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>Notes</p>
-            </div>
-          </div>
-
-        </div>
-        <div class='row'>
-          <div class='col s12'>
-            <div class="row">
-              <ul class="tabs">
-                  <li class="tab col s3" *ngIf="global.currentUser"><a href="#test-swipe-1">Your works</a></li>
-                  <li class="tab col s3" *ngIf="!global.currentUser" ><a href="#test-swipe-3">Recent activity</a></li>
-              </ul>
-            </div>
-
-        <!--  <div id="test-swipe-1" *ngIf="!global.currentUser"> -->
-          <div id="test-swipe-2" *ngIf="!global.currentUser">
-            <div class="col m12" >
-
-              <div  class="row" *ngFor="let collection of collectionsDeeds" style="background-color:#ffe0b2;padding:0px;">
-                <div class="z-depth-3">
-                  <div class="row">
-                    <div class="col m11 offset-s1">
-                      <h4>{{collection.collection}}</h4>
-                      <p>{{collection.description}}</p>
+<div class="row m-t-15" *ngIf="global.currentUser">
+  
+  <div class="col m7 offset-m1">
+    <div class="row">
+      <div class="col s12">
+        
+        <mz-card>
+          <mz-card-title>
+            <h4 class="m-b-20">Dashboard</h4>
+          </mz-card-title>
+          <mz-card-content>
+            
+            <mz-tab
+              [responsiveThreshold]="'true'"
+              [fixedTabWidth]="'true'"
+              [onShow]="onShow()"
+              [swipeable]="'true'"
+              *ngIf="collectionsOwner">
+              <mz-tab-item
+                [class]="'col s12'"
+                [label]="'Your Works'">
+                <div class="row">
+                  <div class="col s12">
+                
+                    <div class="row" *ngFor="let collection of collectionsOwner.collections">
+                      <div class="col m12">
+                        <mz-collection>
+                          <mz-collection-header><h5>{{collection.collection.title}}</h5></mz-collection-header>
+                          <div class="container center-align" *ngIf="collection.works.length == 0">
+                            <p>There are no works in this collection yet!</p>
+                          </div>
+                          <a mz-collection-link href="#!" *ngFor="let work of collection.works" routerLink="/work/{{work.id}}">{{work.title}}</a>
+                        </mz-collection>
+                      </div>
                     </div>
+                
                   </div>
-                <div class="divider"></div>
-                <div  class="row" *ngFor="let dd of collection.deeds">
-                  <div class="col m11 offset-m1">
-                     <h4 class="header"> {{dd.created_at | date:'fullDate' | uppercase}}</h4>
-                     <div class="card horizontal">
-                       <div class="card-image">
-                         <img style="height:100px;width:100px;" src="http://www.freeiconspng.com/uploads/account-profile-user-icon--icon-search-engine-10.png">
-                       </div>
-                       <div class="card-stacked">
-                         <div class="card-content">
-
-                           <p>{{dd.user}} {{dd.deed_type}} in the work {{dd.work}}</p>
-                         </div>
-                         <div class="card-action">
-                           <a href="#">Go</a>
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-              </div>
-              </div>
-            </div>
-            </div>
-          </div>
-
-          <!-- User logged section -->
-          <div class="row" id="test-swipe-3" *ngIf="global.currentUser">
-            <div class="col m7">
-
-              <div  class="row" *ngFor="let collection of collectionsOwner.collections" style="background-color:#ffe0b2;padding:0px;">
-                <div class="z-depth-3">
-                  <div class="row">
-                    <div class="col m11 offset-s1">
-                      <h4>{{collection.collection.title}}</h4>
-                      <p>{{collection.collection.description}}</p>
-                    </div>
-                  </div>
-                <div class="divider"></div>
-                <div class="row" *ngIf="collection.works.length == 0">
-                  <ul>
-                  <div class="col m11 offset-m1">
-                    <p>There are no works in this collection yet</p>
-                  </div>
-                  </ul>
                 </div>
-                <div  class="row">
-                    <div class="col m11 offset-m1" >
-                      <div class="collection"*ngFor="let work of collection.works">
-                         <a href="#!" class="collection-item">{{work.title}}</a>
-                       </div>
-                    </div>
-              </div>
-              </div>
-            </div>
-            </div>
-            <div class="col m5">
-              <div class="row">
-                <h3>Your activity</h3>
-              </div>
-              <div  class="row" >
-                  <div class="collection" *ngFor="let collection of collectionsDeeds">
-                    <p class="collection-item"><span class="badge"></span>{{collection.user}} {{collection.deed_type}} in collection {{collection.collection}}</p>
+              </mz-tab-item>
+              
+              <mz-tab-item
+                [class]="'col s12'"
+                [label]="'Start a Project'">
+                <div class="row">
+                  <div class="col s12">
+                    <app-upload></app-upload>
                   </div>
-
-              </div>
-
-            </div>
-          </div>
-
-
-          </div>
-        </div>
-
+                </div>
+              </mz-tab-item>
+            </mz-tab>
+        
+          </mz-card-content>
+        </mz-card>
+        
+        
       </div>
     </div>
+  </div>
 
+  <div class="col m3" *ngIf="collectionsOwner">
+    <div class='row' *ngIf="global.currentUser">
+      <div class="col m12">
+        <div class="collection z-depth-1">
+          <p class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>Collections</p>
+          <p class="collection-item"><span class="badge">{{collectionsOwner.works}}</span>Works</p>
+          <p class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>Notes</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col m12">
+        <mz-card>
+          <mz-card-title>
+            <h5 class="m-b-20">Your activity</h5>
+          </mz-card-title>
+          <mz-card-content>
+            <div class="collection" *ngFor="let collection of collectionsDeeds">
+              <p class="collection-item">{{collection.user}} {{collection.deed_type}} in collection {{collection.collection}}</p>
+            </div>
+          </mz-card-content>
+        </mz-card>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+<div class="row m-t-15" *ngIf="!global.currentUser">
+  <div class="col m10 offset-m1">
+    
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-20">Dashboard</h4>
+      </mz-card-title>
+      <mz-card-content>
+        
+        <div class="row" *ngFor="let collection of collectionsDeeds">
+          <div class="row">
+            <div class="col s12">
+              <h5>{{collection.collection}}</h5>
+              <p>{{collection.description}}</p>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="row">
+            <div class="col s12">
+              <mz-collection>
+                <mz-collection-item [avatar]="true" *ngFor="let dd of collection.deeds">
+                  <i mz-avatar mz-icon-mdi [icon]="'account'" class="grey darken-1"></i>
+                  <a class="title" routerLink="/collection/{{dd.deed.collection_id}}">
+                    <div class="title">{{dd.user}} {{dd.deed_type}} in the work {{dd.work}}</div>
+                  </a>
+                  <div>{{dd.created_at | date:'fullDate'}}</div>
+                  <div mz-secondary-content>
+                    <a mz-button routerLink="/collection/{{dd.deed.collection_id}}"><i mz-icon-mdi [icon]="'eye'" [align]="'left'"></i> Show</a>
+                  </div>
+                </mz-collection-item>
+              </mz-collection>
+            </div>
+          </div>
+        </div>
+
+      </mz-card-content>
+    </mz-card>
   </div>
 </div>

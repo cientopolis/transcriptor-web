@@ -18,15 +18,15 @@ export class DashboardService {
 
   listRecentActivity(): Observable<DashboardResponse[]> {
     let path = this.dashboardPath + "/guest";
-    return this.httpService.get(path) as Observable<DashboardResponse[]>;
+    return this.httpService.lget(path) as Observable<DashboardResponse[]>;
   }
 
   listRecentActivityOwner(): Observable<DashboardResponse[]> {
     let path = this.dashboardPath + "/owner";
-    return this.httpService.get(path) as Observable<DashboardResponse[]>;
+    return this.httpService.lget(path) as Observable<DashboardResponse[]>;
   }
   listCollectionOwner(): Observable<DashboardResponse[]> {
     let path = this.dashboardPath + "/owner/collections";
-    return this.httpService.get(path) as Observable<DashboardResponse[]>;
+    return this.httpService.lget(path) as Observable<DashboardResponse[]>;
   }
 }

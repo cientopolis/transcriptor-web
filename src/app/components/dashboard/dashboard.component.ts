@@ -29,35 +29,31 @@ export class DashboardComponent implements OnInit {
 
 
     recentActivity() {
-      console.log("aaaaaaaaaaaaa");
       this.dashboardService.listRecentActivity()
           .subscribe(response => this.handleResponse(response));
     }
 
     listRecentActivityOwner() {
-      console.log("owner");
       this.dashboardService.listRecentActivityOwner()
           .subscribe(response => this.handleResponse(response));
     }
 
     listCollectionOwner() {
-      console.log("col");
       this.dashboardService.listCollectionOwner()
           .subscribe(response => this.handleResponseCollectionOwner(response));
 
     }
+    
+    onShow() {
+      $('.tabs-content.carousel').height($('.carousel-item.active .row').height());
+    }
+    
     private handleResponseCollectionOwner(collection) {
-     //console.log(collection);
       this.collectionsOwner=collection;
-      console.log(this.collectionsOwner);
-
     }
 
     private handleResponse(collection) {
-     //console.log(collection);
       this.collectionsDeeds=collection;
-      console.log(this.collectionsDeeds);
-
     }
 
 }
