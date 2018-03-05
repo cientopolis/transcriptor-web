@@ -25,8 +25,10 @@ export class LoginComponent implements OnInit {
   }
   
   private handleResponse(user) {
-    this.setUser(user);
-    this.router.navigate(['/dashboard']);
+    if(user){
+      this.setUser(user);
+      this.router.navigate(['/dashboard']);
+    }
   }
   
   private setUser(user){

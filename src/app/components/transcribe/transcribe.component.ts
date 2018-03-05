@@ -89,10 +89,12 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    $("body").css("overflow", "hidden");
   }
   
   ngOnDestroy() {
     this.global['hideFooter']=false;
+    $("body").css("overflow", "auto");
   }
   
   /**
