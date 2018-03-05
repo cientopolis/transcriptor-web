@@ -9,7 +9,7 @@ describe('CollectionService', () => {
     });
   });
 
-  it('should be created', inject([CollectionService], (service: CollectionService) => {
-    expect(service).toBeTruthy();
-  }));
+  // it('should be created', inject([CollectionService], (service: CollectionService) => {
+  //   expect(service).toBeTruthy();
+  // }));
 });
