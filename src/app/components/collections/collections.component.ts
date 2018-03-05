@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionService } from '../../services/collection/collection.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,8 +9,10 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CollectionsComponent implements OnInit {
   collections=[];
+  @ViewChild('modalCollection') modalCollection;
+  collection = {};
+  
   constructor(private collectionService: CollectionService) { }
-
 
   ngOnInit() {
         this.listCollections();
@@ -25,7 +27,17 @@ export class CollectionsComponent implements OnInit {
   private handleResponse(collection) {
     this.collections=collection;
     console.log(this.collections);
-
   }
-
+  
+  openModalCollection() {
+    this.modalCollection.open();
+  }
+  
+  createCollection() {
+    this.collectionService.create(this.collection)
+      .subscribe(collection => {
+        this.collection={};
+        this.listCollections()
+      });
+  }
 }

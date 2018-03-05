@@ -4,6 +4,7 @@
   <mz-navbar navbarClass="main-navbar">
   	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
   	<mz-navbar-item-container [align]="'right'">
+      <mz-navbar-item><a routerLink="/collections/list">Collections</a></mz-navbar-item>
         <mz-navbar-item><a routerLink="dashboard">Dashboard</a></mz-navbar-item>
       	<mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login"><b>Sign In</b></a></mz-navbar-item>
         <mz-navbar-item *ngIf="global.currentUser"><a id="btn-dropdown-demo"><b>{{global.currentUser.display_name}}</b></a></mz-navbar-item>
@@ -36,23 +37,21 @@
 	<div class="container">
 		<div class="row">
 			<div class="col l6 s12">
-				<h5 class="white-text">Footer Content</h5>
-				<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+				<img class="footer-logo" src="assets/img/logo.png">
+				<p class="grey-text text-lighten-4">"Transcribe and Translate manuscripts comfortably and online collaborating with many other users"</p>
 			</div>
 			<div class="col l4 offset-l2 s12">
 				<h5 class="white-text">Links</h5>
 				<ul>
-				  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-				  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-				  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-				  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+				  <li><a class="grey-text text-lighten-3" href="https://www.cientopolis.org/">Cientopolis</a></li>
+				  <li><a class="grey-text text-lighten-3" href="https://fromthepage.com/">FromThePage</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="footer-copyright">
 		<div class="container">
-			© 2018 Copyright Text
+			© 2018 Cientopolis
       <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
 		</div>
 	</div>

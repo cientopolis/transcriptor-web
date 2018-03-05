@@ -2,7 +2,8 @@
   <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-20">Collections</h4>
+        <h4 class="m-b-20">Collections <button mz-button class="right m-t-10" (click)="openModalCollection()">
+          <i mz-avatar mz-icon-mdi [icon]="'library-plus'" [align]="'left'"></i>Create collection</button></h4>
       </mz-card-title>
       <mz-card-content>
         <mz-collection>
@@ -21,3 +22,37 @@
     </mz-card>
   </div>
 </div>
+
+<mz-modal #modalCollection [fixedFooter]="true">
+  <mz-modal-header>
+    Create a new Collection
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Collection Title'"
+            [(ngModel)]="collection.title"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <mz-textarea-container>
+          <textarea mz-textarea
+            [(ngModel)]="collection.description"
+            [label]="'Description'">
+          </textarea>
+        </mz-textarea-container>
+      </div>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button [flat]="true" mz-modal-close (click)="createCollection()">Save</button>
+  </mz-modal-footer>
+</mz-modal>

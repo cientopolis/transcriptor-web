@@ -11,6 +11,7 @@ export class CollectionService {
   private listWorksPath = '/api/collection/{collectionId}/works';
   private editPath = '/api/collection/{collectionId}';
   private deletePath = '/api/collection/{collectionId}';
+  private createPath = '/api/collection';
 
   constructor(private httpService: HttpService) { }
 
@@ -37,5 +38,9 @@ export class CollectionService {
   
   delete(collectionId, options = {}) {
     return this.httpService.delete([this.deletePath,{collectionId:collectionId}], options);
+  }
+  
+  create(collection, options = {}) {
+    return this.httpService.post(this.createPath,collection,options);
   }
 }
