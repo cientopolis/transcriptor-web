@@ -9,7 +9,7 @@ describe('PageService', () => {
     });
   });
 
-  it('should be created', inject([PageService], (service: PageService) => {
-    expect(service).toBeTruthy();
-  }));
+  // it('should be created', inject([PageService], (service: PageService) => {
+  //   expect(service).toBeTruthy();
+  // }));
 });

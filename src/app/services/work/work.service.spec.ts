@@ -47,4 +47,50 @@ describe('WorkService', () => {
     });
   });
   
+  describe('#delete', () => {
+    it('should return a work', () => {
+      const dummyResponse:any = WorkMockResponse.delete(2);
+      
+      service.delete(2).subscribe(work => {
+        expect(work.id).toBe(2);
+      });
+      const req = httpMock.expectOne(`http://localhost:3000/api/work/2`);
+      expect(req.request.method).toBe('DELETE');
+      req.flush(dummyResponse);
+    });
+  });
+  
+  describe('#edit', () => {
+    it('should return a work', () => {
+      const dummyResponse:any = WorkMockResponse.edit(2);
+      
+      const workToUpdate = {
+          id: 2,
+          title: "anotherName",
+          description: "work",
+          collection_id: 3,
+          slug:"anotherName"
+      }
+      
+      service.edit(workToUpdate).subscribe(work => {
+        expect(work.id).toBe(2);
+      });
+      const req = httpMock.expectOne(`http://localhost:3000/api/work/2`);
+      expect(req.request.method).toBe('PUT');
+      req.flush(dummyResponse);
+    });
+  });
+  
+  describe('#listPages', () => {
+    it('should return an array of pages', () => {
+      const dummyResponse:any = WorkMockResponse.listPages(2);
+      
+      service.listPages(2).subscribe(pages => {
+        expect(pages.length).toBe(4);
+      });
+      const req = httpMock.expectOne(`http://localhost:3000/api/work/2/pages`);
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyResponse);
+    });
+  });
 });
