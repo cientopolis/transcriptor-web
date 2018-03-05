@@ -38,6 +38,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TranscribeComponent } from './components/transcribe/transcribe.component';
 import { MarkService } from './services/mark/mark.service';
 import { PageService } from './services/page/page.service';
+import { DashboardService } from './services/dashboard/dashboard.service';
 import { FlashMessagesService } from './services/util/flash-messages/flash-messages.service';
 import { UploadComponent } from './components/shared/upload/upload.component';
 import { StartProjectComponent } from './components/start-project/start-project.component';
@@ -68,6 +69,7 @@ import { EditCollectionComponent } from './components/collection/edit-collection
     ShowCollectionComponent,
     ListCollectionWorksComponent,
     EditCollectionComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import { EditCollectionComponent } from './components/collection/edit-collection
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MzTabModule
   ],
   providers: [
     SimpleGlobal,
@@ -101,6 +104,7 @@ import { EditCollectionComponent } from './components/collection/edit-collection
     MzToastService,
     MarkService,
     PageService,
+    DashboardService,
     FlashMessagesService,
     CollectionService,
     UploadService,
