@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col s12">
         
-        <mz-card>
+        <mz-card *ngIf="collectionsOwner">
           <mz-card-title>
             <h4 class="m-b-20">Dashboard</h4>
           </mz-card-title>
@@ -14,8 +14,7 @@
               [responsiveThreshold]="'true'"
               [fixedTabWidth]="'true'"
               [onShow]="onShow()"
-              [swipeable]="'true'"
-              *ngIf="collectionsOwner">
+              [swipeable]="'true'">
               <mz-tab-item
                 [class]="'col s12'"
                 [label]="'Your Works'">
