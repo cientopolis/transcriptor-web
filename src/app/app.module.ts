@@ -20,6 +20,7 @@ import { MzToastService } from 'ng2-materialize';
 import { MzSelectModule } from 'ng2-materialize';
 import { MzTabModule } from 'ng2-materialize';
 import { MzCollectionModule } from 'ng2-materialize';
+import { MzSpinnerModule } from 'ng2-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -52,6 +53,10 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { ShowCollectionComponent } from './components/collection/show-collection/show-collection.component';
 import { ListCollectionWorksComponent } from './components/collection/list-collection-works/list-collection-works.component';
 import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
+import { MarkDetailsComponent } from './components/transcribe/mark-details/mark-details.component';
+import { TranscriptionService } from './services/transcription/transcription.service';
+import { MarkTranscriptionsListComponent } from './components/transcribe/mark-transcriptions-list/mark-transcriptions-list.component';
+import { TranscriptionContainerComponent } from './components/transcribe/transcription-container/transcription-container.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,10 @@ import { EditCollectionComponent } from './components/collection/edit-collection
     ShowCollectionComponent,
     ListCollectionWorksComponent,
     EditCollectionComponent,
-    DashboardComponent
+    DashboardComponent,
+    MarkDetailsComponent,
+    MarkTranscriptionsListComponent,
+    TranscriptionContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +95,7 @@ import { EditCollectionComponent } from './components/collection/edit-collection
     MzSelectModule,
     MzTabModule,
     MzCollectionModule,
+    MzSpinnerModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
     NgProgressRouterModule,
@@ -108,7 +117,8 @@ import { EditCollectionComponent } from './components/collection/edit-collection
     FlashMessagesService,
     CollectionService,
     UploadService,
-    WorkService
+    WorkService,
+    TranscriptionService
   ],
   bootstrap: [AppComponent]
 })

@@ -31,6 +31,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   renderedMarks: RenderedMark[] = [];
   
   @ViewChild('markModal') markModal: any;
+  @ViewChild('markDetailsModal') markDetailsModal: any;
+  @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
 
   options = {
     crs: L.CRS.Simple,
@@ -152,7 +154,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             renderedMark.layer.on('click', function(){
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
-              component.openMarkModal(renderedMark)
+              component.openMarkModalByRole(renderedMark)
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
@@ -197,7 +199,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
-      component.openMarkModal(renderedMark);
+      component.openMarkModalByRole(renderedMark);
     });
     
   }
@@ -233,15 +235,35 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
   
   resetView() {
+    // prevents overflow-y when reset view
+    $("body").css("overflow", "hidden");
+    
     // initial view configuration(you can change between modes)
     // map.fitBounds(this.bounds); //fits all page
     this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
   }
   
-  openMarkModal(renderedMark: RenderedMark) {
+  openMarkModalByRole(renderedMark: RenderedMark) {
     this.renderedMark = renderedMark;
     this.changeDetector.detectChanges();
+    let currentTranscription = this.renderedMark.mark.transcription;
+    if(currentTranscription != null && currentTranscription.user_id == this.global['currentUser'].id){
+      this.openMarkDetailsModal();
+    } else {
+      this.openMarkModal();
+    }
+  }
+  
+  openMarkModal() {
     this.markModal.open();
+  }
+  
+  openMarkDetailsModal() {
+    this.markDetailsModal.open();
+  }
+  
+  openMarkTranscriptionsList() {
+    this.markTranscriptionsList.open();
   }
   
   addModalMark() {
@@ -253,7 +275,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.renderedMark.layer.on('click', function(){
             component.editing = true;
             component.fitToLayer(renderedMark.layer);
-            component.openMarkModal(renderedMark)
+            component.openMarkModalByRole(renderedMark)
           });
           this.renderedMarks.push(this.renderedMark);
           this.reset();

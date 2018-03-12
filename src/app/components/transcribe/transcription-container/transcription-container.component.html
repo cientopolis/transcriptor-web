@@ -1,0 +1,37 @@
+<mz-card>
+  <mz-card-title>
+    {{transcription.text}}
+  </mz-card-title>
+  <mz-card-content>
+  </mz-card-content>
+  <mz-card-action>
+    <div class="row m-b-0">
+      <div class="col s4">
+        
+        <mz-spinner
+          *ngIf="!transcription.user"
+          [color]="'yellow'"
+          [size]="'small'">
+        </mz-spinner>
+        
+        <div class="user-info user-hover" *ngIf="transcription.user">
+          <div class="user-action-time">
+            <p class="m-b-0 m-t-0">Edited <span title="2017-05-10 18:26:34Z" class="relativetime">May 10 '17 at 18:26</span></p>
+          </div>
+          <div class="user-gravatar32 z-depth-1" *ngIf="transcription">
+              <div class="gravatar-wrapper-32"><img [src]="getAvatarUrl(transcription.user.display_name)" alt="" width="32" height="32"></div>
+          </div>
+          <div class="user-details">
+              <a href="#">{{transcription.user.display_name}}</a>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col s4 offset-s4 right-align">
+        <button class="right primary-color-text m-t-15" mz-button [flat]="true" (click)="likeTranscription(transcription)">
+          <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'"></i> Like
+         </button>
+      </div>
+    </div>
+  </mz-card-action>
+</mz-card>

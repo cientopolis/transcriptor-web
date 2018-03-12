@@ -14,10 +14,10 @@ leafletDraw
      </button>
   </mz-modal-header>
   <mz-modal-content>
-    <mz-textarea-container>
+    <mz-textarea-container
+      *ngIf="renderedMark != null">
       <textarea mz-textarea
-        *ngIf="renderedMark != null"
-        [(ngModel)]="renderedMark.mark.text"
+        [(ngModel)]="renderedMark.mark.transcription_text"
         [label]="'Transcribe the text of the marked line'">
       </textarea>
     </mz-textarea-container>
@@ -28,3 +28,18 @@ leafletDraw
     <button class="primary-color" mz-button mz-modal-close *ngIf="editing" (click)="editModalMark()">Save Changes</button>    
   </mz-modal-footer>
 </mz-modal>
+
+<app-mark-details 
+  #markDetailsModal 
+  *ngIf="renderedMark != null" 
+  [mark]="renderedMark.mark"
+  [modalOptions]="modalOptions" 
+  (close)="cancelModal()"
+  (successButton)="openMarkTranscriptionsList()">
+</app-mark-details>
+
+<app-mark-transcriptions-list 
+  #markTranscriptionsList
+  *ngIf="renderedMark != null" 
+  [mark]="renderedMark.mark">
+</app-mark-transcriptions-list>
