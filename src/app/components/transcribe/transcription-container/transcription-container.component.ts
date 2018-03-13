@@ -14,7 +14,7 @@ export class TranscriptionContainerComponent implements OnInit {
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    if(!this.transcription.user){
+    if(this.transcription && !this.transcription.user){
       this.transcriptionService.get(this.transcription.id, {fields:['user']})
         .subscribe(transcription => {
           this.transcription.user = transcription.user;
