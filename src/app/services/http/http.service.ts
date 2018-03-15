@@ -15,10 +15,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class HttpService {
 
   baseUrl = 'http://localhost:3000';
-  
+
   private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
-    
-  public static defaultOptions:any = { 
+
+  public static defaultOptions:any = {
     headers: { 'Content-Type': 'application/json' },
     fields: [],
     feedback: {
@@ -26,56 +26,56 @@ export class HttpService {
       flashMessages: true
     }
   };
-  
+
   public static noFeedbackOptions:any = {
     flashNotifications: false,
     flashMessages: false
   };
 
   constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
-  
+
   // loading methods(shortcut without feedback) are represented with initial l
   lget(path, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.get(path, requestOptions);
   }
-  
+
   lpost(path, data = null, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.post(path, data, requestOptions);
   }
-  
+
   lput(path, data = null, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.put(path, data, requestOptions);
   }
-  
+
   ldelete(path, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
     return this.delete(path, requestOptions);
   }
-  
+
   get(path, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.get, path, null, requestOptions);
   }
-  
+
   post(path, data = null, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.post, path, data, requestOptions);
   }
-  
+
   put(path, data = null, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.put, path, data, requestOptions);
   }
-  
+
   delete(path, requestOptions = this.getDefaultOptions()) {
     return this.doRequest(HttpService.methods.delete, path, null, requestOptions);
   }
-  
+
   private doRequest(requestMethod, path, data = {}, requestOptions) {
     requestOptions = Object.assign({},this.getDefaultOptions(),requestOptions);
     let httpOptions = this.getHttpOptions(requestOptions);
     let uri = this.processUri(path);
-    
+
     let observable = null;
     switch (requestMethod) {
       case HttpService.methods.get:
@@ -93,14 +93,14 @@ export class HttpService {
     }
     return this.handleResponse(observable, path, requestMethod, requestOptions);
   }
-  
+
   private getAuthToken() {
     if(this.global['currentUser'] && this.global['currentUser']['authentication_token']){
       return this.global['currentUser']['authentication_token'];
     }
     return null;
   }
-  
+
   private getHttpOptions(requestOptions) {
     let headers = new HttpHeaders();
     for(var headerKey in requestOptions.headers){
@@ -111,7 +111,7 @@ export class HttpService {
     }
     return { headers: headers, params: { 'fields': requestOptions.fields }}
   }
-  
+
   private handleResponse(observable, path, requestMethod, requestOptions) {
     return observable.pipe(
       tap((response: WebserviceResponse) => this.log(response.message, requestOptions)),
@@ -119,7 +119,7 @@ export class HttpService {
       map((response: WebserviceResponse) => response.data)
     );
   }
-  
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
@@ -133,20 +133,20 @@ export class HttpService {
       return of(result as T);
     };
   }
-  
+
   private log(message: string, requestOptions = this.getDefaultOptions()) {
     if(requestOptions && requestOptions.feedback.flashMessages) {
       this.flashMessagesService.add(message);
     }
   }
-  
+
   private processUri(path){
     if(path instanceof Array){
       return this.baseUrl + new UriTemplate(path[0]).fill(path[1]);
     }
     return this.baseUrl + path;
   }
-  
+
   private getDefaultOptions(){
     return JSON.parse(JSON.stringify(HttpService.defaultOptions));
   }

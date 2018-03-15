@@ -10,6 +10,7 @@ import { TranscriptionService } from '../../../services/transcription/transcript
 export class TranscriptionContainerComponent implements OnInit {
 
   @Input() transcription;
+  @Input() votable;
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
@@ -27,7 +28,7 @@ export class TranscriptionContainerComponent implements OnInit {
     this.transcriptionService.like(transcription.id)
       .subscribe(responseTranscription => transcription = responseTranscription);
   }
-  
+
   getAvatarUrl(username) {
     return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff';
   }

@@ -13,6 +13,7 @@ import { RenderedMark } from '../../models/renderedMark';
 
 import { MarkService } from '../../services/mark/mark.service';
 import { PageService } from '../../services/page/page.service';
+import { TranscriptionService } from '../../services/transcription/transcription.service';
 
 @Component({
   selector: 'app-transcribe',
@@ -26,10 +27,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   map: Map;
   bounds: LatLngBounds;
-  
+
   renderedMark: RenderedMark = null;
+  vote= [];
   renderedMarks: RenderedMark[] = [];
-  
+
   @ViewChild('markModal') markModal: any;
   @ViewChild('markDetailsModal') markDetailsModal: any;
   @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
@@ -41,15 +43,15 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     zoom: 0,
   	center: latLng(0, 0),
   };
-  
+
   shapeOptions = {
     color: '#e65100',
     weight: 6,
     opacity: 0.7
   }
-  
+
   drawnLayers = new L.FeatureGroup();
-  
+
   drawOptions = {
     position: 'topright',
     draw: {
@@ -71,9 +73,9 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       remove: false
     }
   };
-  
+
   editing:boolean = false;
-  
+
   modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
     opacity: 0, // Opacity of modal background
@@ -81,42 +83,42 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       $('.modal-overlay').hide();
       $('.leaflet-draw').fadeOut();
     },
-    complete: () => { 
+    complete: () => {
       $('.leaflet-draw').fadeIn();
     } // Callback for Modal close
   };
-  
-  constructor(private pageService: PageService, private markService: MarkService, private route: ActivatedRoute, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { 
+
+  constructor(private transcriptionService:TranscriptionService,private pageService: PageService, private markService: MarkService, private route: ActivatedRoute, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) {
     this.global['hideFooter']=true;
   }
 
   ngOnInit() {
     $("body").css("overflow", "hidden");
   }
-  
+
   ngOnDestroy() {
     this.global['hideFooter']=false;
     $("body").css("overflow", "auto");
   }
-  
+
   /**
   /* do some configuration stuff before map initializes
   */
   onMapReady(map: Map) {
     this.map=map;
-    
+
     // sets the edit featureGroup to map
     this.drawnLayers.addTo(this.map);
-    
+
     this.loadPage();
-    
+
     this.addWaterMark();
     this.addLeafletHandlers();
     this.addMapListeners();
-    
+
     this.changeDetector.detectChanges();
   }
-  
+
   loadPage() {
     const pageId = +this.route.snapshot.paramMap.get('pageId');
     this.pageService.get(pageId)
@@ -124,24 +126,24 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.page = page;
           this.addPageToMap();
           this.loadMarks();
-          
+
           // prevents scroll to anchor deleting references to "#" in map
           $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
         });
   }
-    
+
   addPageToMap() {
     var h= -1910;
     var w= 1570;
     var southWest = this.map.unproject([0, h], this.map.getZoom()-2);
     var northEast = this.map.unproject([w, 0], this.map.getZoom()-2);
     this.bounds = new L.LatLngBounds(southWest, northEast);
-    
+
     L.imageOverlay(this.pageService.imagePath(this.page), this.bounds).addTo(this.map);
-    
+
     // set limits of page view
     this.map.setMaxBounds(this.bounds);
-    this.resetView();    
+    this.resetView();
   }
 
   loadMarks() {
@@ -158,10 +160,20 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
+
           });
         });
   }
-  
+
+  voteUser(renderedMark){
+    this.transcriptionService.voteATranscription(renderedMark.mark.transcription.id, { fields: ['user']})
+      .subscribe(vote => {
+        this.vote = vote;
+        console.log(vote);
+        this.openMarkDetailsModal();
+    });
+  }
+
   addWaterMark(){
     L.Control['Watermark'] = L.Control.extend({
         onAdd: function(map) {
@@ -179,11 +191,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     }
     L.control['watermark']({ position: 'bottomright' }).addTo(this.map);
   }
-  
+
   addLeafletHandlers(){
     this.addPolylineHandler();
   }
-  
+
   addMapListeners(){
     var component = this;
     var map=this.map
@@ -194,16 +206,16 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
       // fits zoom to selected line
       component.fitToLayer(layer);
-      
+
       // Do whatever else you need to. (save to db; add to map etc)
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
       component.openMarkModalByRole(renderedMark);
     });
-    
+
   }
-  
+
   addPolylineHandler(){
     L.Draw.Polyline.prototype['addVertex']= function (latlng) {
       var markersLength = this._markers.length;
@@ -233,39 +245,42 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       }
     };
   }
-  
+
   resetView() {
     // prevents overflow-y when reset view
     $("body").css("overflow", "hidden");
-    
+
     // initial view configuration(you can change between modes)
     // map.fitBounds(this.bounds); //fits all page
     this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
   }
-  
+
   openMarkModalByRole(renderedMark: RenderedMark) {
     this.renderedMark = renderedMark;
     this.changeDetector.detectChanges();
     let currentTranscription = this.renderedMark.mark.transcription;
     if(currentTranscription != null && currentTranscription.user_id == this.global['currentUser'].id){
-      this.openMarkDetailsModal();
+      this.voteUser(renderedMark);
+
+
     } else {
       this.openMarkModal();
     }
   }
-  
+
   openMarkModal() {
     this.markModal.open();
   }
-  
+
   openMarkDetailsModal() {
+    console.log(this.vote);
     this.markDetailsModal.open();
   }
-  
+
   openMarkTranscriptionsList() {
     this.markTranscriptionsList.open();
   }
-  
+
   addModalMark() {
     var component=this;
     var renderedMark = this.renderedMark;
@@ -281,7 +296,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.reset();
         });
   }
-  
+
   editModalMark() {
     this.markService.edit(this.renderedMark.mark)
         .subscribe(mark => {
@@ -290,7 +305,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.reset();
         });
   }
-  
+
   deleteModalMark() {
     var component = this;
     this.markService.delete(this.renderedMark.mark)
@@ -302,20 +317,20 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.reset();
         });
   }
-  
+
   cancelModal() {
     if(!this.editing){
       this.renderedMark.layer.remove();
     }
     this.reset();
   }
-  
+
   reset() {
     this.editing = false;
     this.renderedMark = null;
     this.resetView();
   }
-  
+
   fitToLayer(layer) {
     this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
   }

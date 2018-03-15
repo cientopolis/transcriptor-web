@@ -1,19 +1,20 @@
 <mz-modal #modal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
-    Transcription Details
+    Transcription Details 
     <!-- <button class="right float-correction" mz-button (click)="likeTranscription()">
       <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'"></i> Like
     </button> -->
   </mz-modal-header>
   <mz-modal-content>
     <app-transcription-container
-      [transcription]="mark.transcription">
+      [transcription]="mark.transcription"
+      [votable]="votable">
     </app-transcription-container>
   </mz-modal-content>
   <mz-modal-footer>
     <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">Close</button>
     <button class="primary-color" mz-button (click)="onSuccessButton()">
       <i mz-icon-mdi [icon]="'view-list'" [align]="'left'"></i> Other Transcriptions
-    </button>    
+    </button>
   </mz-modal-footer>
 </mz-modal>

@@ -8,30 +8,31 @@ import { TranscriptionService } from '../../../services/transcription/transcript
   styleUrls: ['./mark-details.component.scss']
 })
 export class MarkDetailsComponent implements OnInit {
-  
+
   @Input() mark;
+  @Input() votable;
   @Input() modalOptions;
-  @ViewChild('modal') modal; 
+  @ViewChild('modal') modal;
   @Output() close = new EventEmitter();
   @Output() successButton = new EventEmitter();
-  
+
   constructor(private transcriptionService:TranscriptionService) { }
 
   ngOnInit() {
   }
-  
+
   open() {
     this.modal.open()
   }
-  
+
   closeModal() {
     this.close.emit();
   }
-  
+
   onSuccessButton() {
     this.successButton.emit();
   }
-  
+
   likeTranscription() {
     this.transcriptionService.like(this.mark.transcription.id)
       .subscribe(transcription => this.mark.transcription = transcription);
