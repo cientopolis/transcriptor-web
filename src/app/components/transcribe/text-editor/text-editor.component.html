@@ -1,0 +1,14 @@
+<mz-card class="m-t-0">
+  <mz-card-title>
+    <h4>Transcription</h4>
+  </mz-card-title>
+  <mz-card-content>
+    <app-ngx-editor 
+      [placeholder]="'Enter text here...'" 
+      [spellcheck]="true" 
+      [(ngModel)]="htmlContent" 
+      (focus)="onFocus()"
+      [config]="editorConfig">
+    </app-ngx-editor>
+  </mz-card-content>
+</mz-card>

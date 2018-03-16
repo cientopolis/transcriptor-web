@@ -2,6 +2,10 @@
 @import './variables';
 @import './mixins';
 
+header {
+  z-index: 9999;
+}
+
 body{
 	background-color: $bodyColor;
   background-image: $pattern;

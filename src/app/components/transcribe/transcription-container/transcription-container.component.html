@@ -7,7 +7,6 @@
   <mz-card-action>
     <div class="row m-b-0">
       <div class="col s4">
-
         <mz-spinner
           *ngIf="!transcription.user"
           [color]="'yellow'"
@@ -25,11 +24,22 @@
               <a href="#">{{transcription.user.display_name}}</a>
           </div>
         </div>
-
       </div>
+      
       <div class="col s4 offset-s4 right-align">
-        <button class="right primary-color-text m-t-15" mz-button [flat]="true" [disabled]="votable" (click)="likeTranscription(transcription)">
-          <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> Like {{votable}}
+        <mz-spinner
+          *ngIf="votable == null"
+          [color]="'yellow'"
+          [size]="'small'">
+        </mz-spinner>
+        
+        <button
+          *ngIf="votable != null"
+          class="right primary-color-text m-t-15" 
+          mz-button [flat]="true" 
+          [disabled]="!votable" 
+          (click)="likeTranscription(transcription)">
+          <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> Like
          </button>
       </div>
     </div>

@@ -30,6 +30,8 @@ import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
+import { NgxEditorModule } from 'ngx-editor';
+
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
 import { LoginComponent } from './components/login/login.component';
@@ -57,6 +59,7 @@ import { MarkDetailsComponent } from './components/transcribe/mark-details/mark-
 import { TranscriptionService } from './services/transcription/transcription.service';
 import { MarkTranscriptionsListComponent } from './components/transcribe/mark-transcriptions-list/mark-transcriptions-list.component';
 import { TranscriptionContainerComponent } from './components/transcribe/transcription-container/transcription-container.component';
+import { TextEditorComponent } from './components/transcribe/text-editor/text-editor.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,8 @@ import { TranscriptionContainerComponent } from './components/transcribe/transcr
     DashboardComponent,
     MarkDetailsComponent,
     MarkTranscriptionsListComponent,
-    TranscriptionContainerComponent
+    TranscriptionContainerComponent,
+    TextEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +105,7 @@ import { TranscriptionContainerComponent } from './components/transcribe/transcr
     NgProgressRouterModule,
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
+    NgxEditorModule,
     AppRoutingModule,
     HttpClientModule,
     MzTabModule

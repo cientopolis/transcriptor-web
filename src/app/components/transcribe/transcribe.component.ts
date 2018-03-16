@@ -156,22 +156,13 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             renderedMark.layer.on('click', function(){
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
-              component.openMarkModalByRole(renderedMark)
+              component.openMarkModalByRole(renderedMark);
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
 
           });
         });
-  }
-
-  voteUser(renderedMark){
-    this.transcriptionService.voteATranscription(renderedMark.mark.transcription.id, { fields: ['user']})
-      .subscribe(vote => {
-        this.vote = vote;
-        console.log(vote);
-        this.openMarkDetailsModal();
-    });
   }
 
   addWaterMark(){
@@ -251,8 +242,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     $("body").css("overflow", "hidden");
 
     // initial view configuration(you can change between modes)
-    // map.fitBounds(this.bounds); //fits all page
-    this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
+    this.map.fitBounds(this.bounds); //fits all page
+    // this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
   }
 
   openMarkModalByRole(renderedMark: RenderedMark) {
@@ -260,9 +251,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.changeDetector.detectChanges();
     let currentTranscription = this.renderedMark.mark.transcription;
     if(currentTranscription != null && currentTranscription.user_id == this.global['currentUser'].id){
-      this.voteUser(renderedMark);
-
-
+      this.openMarkDetailsModal();
     } else {
       this.openMarkModal();
     }
@@ -273,7 +262,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   openMarkDetailsModal() {
-    console.log(this.vote);
     this.markDetailsModal.open();
   }
 
@@ -333,5 +321,14 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   fitToLayer(layer) {
     this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
+  }
+  
+  selectMark(markId){
+    var selectedMark = _.find(this.renderedMarks, function(renderedMark){
+      return renderedMark.mark.id == markId;
+    });
+    this.editing = true;
+    this.fitToLayer(selectedMark.layer);
+    this.openMarkModalByRole(selectedMark);
   }
 }

@@ -1,0 +1,20 @@
+@import '~styles/styles';
+
+:host ::ng-deep [class^="contribution-mark-"] {
+  transition: background-color 200ms;
+  transition-timing-function: $transitionTimingFunction;
+}
+
+:host ::ng-deep [class^="contribution-mark-"]:hover,
+:host ::ng-deep [class^="contribution-mark-"]:focus {
+  background-color: $lightColor;
+}
+
+:host ::ng-deep [class^="contribution-mark-"].selected {
+  background-color: $lightColor;
+}
+
+:host ::ng-deep [class^="contribution-mark-"] {
+  padding-left: 2.5px;
+  padding-right: 2.5px;
+}

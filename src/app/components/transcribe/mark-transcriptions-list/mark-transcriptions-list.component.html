@@ -14,7 +14,7 @@
 
     <app-transcription-container
       [transcription]="transcription"
-      [votable]="transcription.likeUser"
+      [votable]="!transcription.voted"
       *ngFor="let transcription of transcriptions">
     </app-transcription-container>
 

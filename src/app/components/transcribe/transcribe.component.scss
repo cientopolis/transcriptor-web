@@ -5,16 +5,23 @@ html, body {
   margin: 0;
 }
 
-body {
-  // overflow-y: hidden;
-}
-
 .transcribe-screen {
-  width: 100%;
+  width: 55%;
   height: 100%;
   position: absolute;
-  background-color: $bodyColor;
-  background-image: $pattern;
+  background-color: transparent;
+  // background-image: $pattern;
+}
+
+.editor-wrapper {
+  width: 44%;
+  height: 100%;
+  position: absolute;
+  right:0px;
+}
+
+.editor-wrapper .card {
+  height: 100%;
 }
 
 #leaflet-watermark {

@@ -29,7 +29,7 @@ export class TranscriptionService {
     return this.httpService.lget([this.listVotesUserByMarkPath,{markId:markId}], options);
   }
 
-  voteATranscription(transcriptionId, options = {}) {
+  isVoted(transcriptionId, options = {}) {
     return this.httpService.lget([this.voteATranscriptionPath,{transcriptionId:transcriptionId}], options);
   }
 }

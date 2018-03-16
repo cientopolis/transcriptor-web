@@ -11,22 +11,36 @@ export class TranscriptionContainerComponent implements OnInit {
 
   @Input() transcription;
   @Input() votable;
+  @Input() obtainVote;
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    if(this.transcription && !this.transcription.user){
-      this.transcriptionService.get(this.transcription.id, {fields:['user']})
-        .subscribe(transcription => {
-          this.transcription.user = transcription.user;
-          this.changeDetector.detectChanges();
+    if(this.transcription){
+      if(!this.transcription.user){
+        this.transcriptionService.get(this.transcription.id, {fields:['user']})
+          .subscribe(transcription => {
+            this.transcription.user = transcription.user;
+            this.changeDetector.detectChanges();
+          });
+      }
+      if(this.obtainVote){
+        this.transcriptionService.isVoted(this.transcription.id, { fields: ['user']})
+          .subscribe(votes => {
+            this.votable = !votes[0].vote;
+            this.changeDetector.detectChanges();
         });
+      }
     }
   }
 
   likeTranscription(transcription) {
     this.transcriptionService.like(transcription.id)
-      .subscribe(responseTranscription => transcription = responseTranscription);
+      .subscribe(responseTranscription => {
+        transcription = responseTranscription;
+        this.votable = false;
+        this.changeDetector.detectChanges();
+      });
   }
 
   getAvatarUrl(username) {

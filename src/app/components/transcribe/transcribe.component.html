@@ -6,6 +6,10 @@ leafletDraw
 (leafletMapReady)="onMapReady($event)">
 </div>
 
+<div class="editor-wrapper">
+  <app-text-editor class="transcribe-editor" [page]="page" (clickText)="selectMark($event)"></app-text-editor>
+</div>
+
 <mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
     What does it say here? 

@@ -30,25 +30,29 @@ export class MarkTranscriptionsListComponent implements OnInit {
       .subscribe(transcriptions => {
         this.transcriptions = transcriptions;
         for (let transcription of this.transcriptions) {
-            transcription.likeUser = false;
+            transcription.voted = true;
         }
+        this.loadVotes();
         this.changeDetector.detectChanges();
       });
 
-      this.transcriptionService.listVotesUserByMark(this.mark.id, { fields: ['user']})
-        .subscribe(votes => {
-          this.votes = votes;
-          this.changeDetector.detectChanges();
-          this.loadLikes();
-      });
+
 
   }
+  
+  loadVotes() {
+    this.transcriptionService.listVotesUserByMark(this.mark.id, { fields: ['user']})
+      .subscribe(votes => {
+        this.votes = votes;
+        this.setLikes();
+    });
+  }
 
-  loadLikes(){
+  setLikes(){
     for (let transcription of this.transcriptions) {
         for (let vote of this.votes){
           if(vote.id==transcription.id){
-            transcription.likeUser = vote.vote;
+            transcription.voted = vote.vote;
             break;
           }
         }
