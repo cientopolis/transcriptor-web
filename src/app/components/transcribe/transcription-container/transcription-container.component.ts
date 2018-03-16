@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
 
@@ -15,7 +15,9 @@ export class TranscriptionContainerComponent implements OnInit {
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
     if(this.transcription){
       if(!this.transcription.user){
         this.transcriptionService.get(this.transcription.id, {fields:['user']})

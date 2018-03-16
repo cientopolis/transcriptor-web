@@ -1,9 +1,9 @@
 <mz-modal #modal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
     Transcription Details 
-    <!-- <button class="right float-correction" mz-button (click)="likeTranscription()">
-      <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'"></i> Like
-    </button> -->
+    <button class="right float-correction" mz-button mz-modal-close (click)="onAddButton()">
+      <i mz-icon-mdi [icon]="'note-text'" [align]="'left'"></i> Add Another Transcription
+    </button>
   </mz-modal-header>
   <mz-modal-content>
     <app-transcription-container

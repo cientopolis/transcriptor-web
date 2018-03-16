@@ -60,6 +60,7 @@ import { TranscriptionService } from './services/transcription/transcription.ser
 import { MarkTranscriptionsListComponent } from './components/transcribe/mark-transcriptions-list/mark-transcriptions-list.component';
 import { TranscriptionContainerComponent } from './components/transcribe/transcription-container/transcription-container.component';
 import { TextEditorComponent } from './components/transcribe/text-editor/text-editor.component';
+import { TranscriptionFormComponent } from './components/transcribe/transcription-form/transcription-form.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { TextEditorComponent } from './components/transcribe/text-editor/text-ed
     MarkDetailsComponent,
     MarkTranscriptionsListComponent,
     TranscriptionContainerComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    TranscriptionFormComponent
   ],
   imports: [
     BrowserModule,

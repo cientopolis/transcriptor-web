@@ -35,6 +35,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   @ViewChild('markModal') markModal: any;
   @ViewChild('markDetailsModal') markDetailsModal: any;
   @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
+  @ViewChild('transcriptionForm') transcriptionForm: any;
 
   options = {
     crs: L.CRS.Simple,
@@ -267,6 +268,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   openMarkTranscriptionsList() {
     this.markTranscriptionsList.open();
+  }
+  
+  openTranscriptionsForm() {
+    this.transcriptionForm.open();
   }
 
   addModalMark() {

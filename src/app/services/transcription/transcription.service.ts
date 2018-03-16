@@ -5,7 +5,8 @@ import { HttpService } from '../../services/http/http.service';
 @Injectable()
 export class TranscriptionService {
 
-  private getPath = '/api/transcription/{transcriptionId}'
+  private getPath = '/api/transcription/{transcriptionId}';
+  private createPath = '/api/transcription';
   private likePath = '/api/transcription/{transcriptionId}/like';
   private listByMarkPath = '/api/mark/{markId}/transcriptions';
   private listVotesUserByMarkPath = '/api/mark/{markId}/votes';
@@ -31,5 +32,9 @@ export class TranscriptionService {
 
   isVoted(transcriptionId, options = {}) {
     return this.httpService.lget([this.voteATranscriptionPath,{transcriptionId:transcriptionId}], options);
+  }
+  
+  create(transcription, options = {}) {
+    return this.httpService.post(this.createPath, transcription, options);
   }
 }

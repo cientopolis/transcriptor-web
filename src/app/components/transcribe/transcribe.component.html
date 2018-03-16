@@ -40,7 +40,8 @@ leafletDraw
   [votable]="vote.vote"
   [modalOptions]="modalOptions"
   (close)="cancelModal()"
-  (successButton)="openMarkTranscriptionsList()">
+  (successButton)="openMarkTranscriptionsList()"
+  (addButton)="openTranscriptionsForm()">
 </app-mark-details>
 
 <app-mark-transcriptions-list
@@ -48,3 +49,10 @@ leafletDraw
   *ngIf="renderedMark != null"
   [mark]="renderedMark.mark">
 </app-mark-transcriptions-list>
+
+<app-transcription-form 
+  #transcriptionForm
+  *ngIf="renderedMark != null"
+  [mark]="renderedMark.mark"
+  [modalOptions]="modalOptions">
+</app-transcription-form>

@@ -15,6 +15,7 @@ export class MarkDetailsComponent implements OnInit {
   @ViewChild('modal') modal;
   @Output() close = new EventEmitter();
   @Output() successButton = new EventEmitter();
+  @Output() addButton = new EventEmitter();
 
   constructor(private transcriptionService:TranscriptionService) { }
 
@@ -31,6 +32,10 @@ export class MarkDetailsComponent implements OnInit {
 
   onSuccessButton() {
     this.successButton.emit();
+  }
+  
+  onAddButton() {
+    this.addButton.emit();
   }
 
   likeTranscription() {
