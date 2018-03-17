@@ -61,6 +61,7 @@ import { MarkTranscriptionsListComponent } from './components/transcribe/mark-tr
 import { TranscriptionContainerComponent } from './components/transcribe/transcription-container/transcription-container.component';
 import { TextEditorComponent } from './components/transcribe/text-editor/text-editor.component';
 import { TranscriptionFormComponent } from './components/transcribe/transcription-form/transcription-form.component';
+import { TranscribeService } from './services/transcribe/transcribe.service';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { TranscriptionFormComponent } from './components/transcribe/transcriptio
     CollectionService,
     UploadService,
     WorkService,
-    TranscriptionService
+    TranscriptionService,
+    TranscribeService
   ],
   bootstrap: [AppComponent]
 })

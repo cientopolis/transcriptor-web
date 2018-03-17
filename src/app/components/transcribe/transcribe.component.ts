@@ -36,6 +36,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   @ViewChild('markDetailsModal') markDetailsModal: any;
   @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
   @ViewChild('transcriptionForm') transcriptionForm: any;
+  @ViewChild('textEditor') textEditor: any;
 
   options = {
     crs: L.CRS.Simple,
@@ -94,6 +95,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    window.scrollTo(0,0);
     $("body").css("overflow", "hidden");
   }
 
@@ -286,6 +288,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             component.openMarkModalByRole(renderedMark)
           });
           this.renderedMarks.push(this.renderedMark);
+          this.textEditor.addMarkText(this.renderedMark.mark);
           this.reset();
         });
   }

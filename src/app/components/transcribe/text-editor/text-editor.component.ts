@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import * as _ from 'lodash';
 
 import { MarkService } from '../../../services/mark/mark.service';
+import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 
 @Component({
   selector: 'app-text-editor',
@@ -21,14 +22,18 @@ export class TextEditorComponent implements OnInit {
     minHeight:"73vh"
   }
   
-  constructor(private markService: MarkService) { }
+  constructor(private markService: MarkService, private transcribeService:TranscribeService) { }
 
   ngOnInit() {
   }
   
   ngOnChanges(changes: SimpleChanges) {
     if(changes.page.currentValue != null && changes.page.currentValue != changes.page.previousValue){
-      this.loadMarks(this.page.id);
+      if(this.page.source_text != null && this.page.source_text != ''){
+        this.htmlContent = this.page.source_text
+      } else {
+        this.loadMarks(this.page.id);
+      }
     }
   }
   
@@ -42,8 +47,7 @@ export class TextEditorComponent implements OnInit {
   
   loadText() {
     this.marks.forEach(mark => {
-      var element = '<span class="contribution-mark-'+ mark.id + '">'+ mark.transcription.text + '</span>';
-      this.htmlContent = this.htmlContent + element;
+      this.createTextElement(mark);
     });
   }
   
@@ -57,11 +61,32 @@ export class TextEditorComponent implements OnInit {
     });
   }
   
+  save() {
+    var pageTranscriptionData = {
+      page:{
+        source_text: this.htmlContent
+      },
+      save: true
+    };
+    this.transcribeService.save(this.page.id, pageTranscriptionData)
+      .subscribe(pageTranscription => {});
+  }
+  
+  addMarkText(mark) {
+    this.createTextElement(mark);
+    this.save();
+  }
+
   private obtainIdFromClass(className) {
     var classes = className.split(' ');
     var markClass = _.find(classes, function(clazz){ 
       return _.startsWith(clazz,'contribution-mark-');
     });
     return parseInt(markClass.replace('contribution-mark-',''));
+  }
+
+  private createTextElement(mark) {
+    var element = '<span class="contribution-mark-'+ mark.id + '">'+ mark.transcription.text + '</span>';
+    this.htmlContent = this.htmlContent + element;
   }
 }
