@@ -9,6 +9,7 @@ import { StartProjectComponent } from '../../components/start-project/start-proj
 import { ShowCollectionComponent } from '../../components/collection/show-collection/show-collection.component';
 import { ShowWorkComponent } from '../../components/work/show-work/show-work.component';
 import { CollectionsComponent } from '../../components/collections/collections.component';
+import { UserComponent } from '../../components/user/user.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'startproject', component: StartProjectComponent },
   { path: 'work/:workId', component: ShowWorkComponent },
 	{ path: 'collections/list', component: CollectionsComponent },
-  { path: 'collection/:collectionId', component: ShowCollectionComponent }
+  { path: 'collection/:collectionId', component: ShowCollectionComponent },
+	{ path: 'user/profile', component: UserComponent },
 ];
 
 @NgModule({

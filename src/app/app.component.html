@@ -11,7 +11,7 @@
   	</mz-navbar-item-container>
   </mz-navbar>
 
-  <mz-dropdown 
+  <mz-dropdown
   *ngIf="global.currentUser"
   [id]="'dropdown-user'"
   [align]="'right'"
@@ -23,7 +23,7 @@
   [inDuration]="300"
   [outDuration]="300"
   [stopPropagation]="true">
-    <mz-dropdown-item><a href="#!">My Profile</a></mz-dropdown-item>
+    <mz-dropdown-item><a routerLink="user/profile">My Profile</a></mz-dropdown-item>
     <mz-dropdown-divider></mz-dropdown-divider>
     <mz-dropdown-item><a (click)="logout()">Sign Out</a></mz-dropdown-item>
   </mz-dropdown>
