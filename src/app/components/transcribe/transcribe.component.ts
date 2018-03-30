@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 
@@ -92,7 +92,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     } // Callback for Modal close
   };
 
-  constructor(private transcriptionService:TranscriptionService,private pageService: PageService, private markService: MarkService, private route: ActivatedRoute, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) {
+  defaultPanelSizes = {
+    map: 55,
+    textEditor: 44
+  };
+  
+  showTextEditor = true;
+
+  constructor(
+    private transcriptionService:TranscriptionService,
+    private pageService: PageService, 
+    private markService: MarkService, 
+    private route: ActivatedRoute, 
+    private changeDetector: ChangeDetectorRef,
+    private applicationRef: ApplicationRef, 
+    private global: SimpleGlobal) {
     this.global['hideFooter']=true;
   }
 
@@ -359,5 +373,18 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     $('.leaflet-draw-draw-polyline').get(0).click();
     window.scrollTo(0,0);
     this.markCreationStrategy = this.textEditorMarkCreationStrategy;
+  }
+
+  // panel logic
+  toggleEditor(){
+    this.showTextEditor = !this.showTextEditor;
+    if(this.showTextEditor){
+      $('.editor-wrapper').show();
+      $('.transcribe-screen').width(this.defaultPanelSizes.map + '%');
+    } else {
+      $('.editor-wrapper').hide();
+      $('.transcribe-screen').width('100%');
+    }
+    this.map['_onResize'](); 
   }
 }

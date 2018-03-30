@@ -6,7 +6,14 @@ leafletDraw
 (leafletMapReady)="onMapReady($event)">
 </div>
 
+<div class="panel-show-button z-depth-1" (click)="toggleEditor()">
+  <i mz-icon-mdi [icon]="'chevron-left'" [align]="'left'"></i> 
+</div>
+
 <div class="editor-wrapper">
+  <div class="panel-hide-button z-depth-1" (click)="toggleEditor()">
+    <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i> 
+  </div>
   <app-text-editor 
     #textEditor 
     class="transcribe-editor" 

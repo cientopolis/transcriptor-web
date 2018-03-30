@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ApplicationRef, ViewChild } from '@angular/core';
 
 import * as $ from 'jquery';
 import * as _ from 'lodash';
@@ -38,7 +38,7 @@ export class TextEditorComponent implements OnInit {
   
   focusedText:any;
   
-  constructor(private markService: MarkService, private transcribeService:TranscribeService, private changeDetector:ChangeDetectorRef) { }
+  constructor(private markService: MarkService, private transcribeService:TranscribeService, private changeDetector:ApplicationRef) { }
 
   ngOnInit() {
     let component=this;
