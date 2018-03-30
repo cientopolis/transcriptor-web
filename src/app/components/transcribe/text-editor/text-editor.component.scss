@@ -7,14 +7,44 @@
 
 :host ::ng-deep [class^="contribution-mark-"]:hover,
 :host ::ng-deep [class^="contribution-mark-"]:focus {
-  background-color: $lightColor;
+  background-color: $lightHoverColor;
 }
 
 :host ::ng-deep [class^="contribution-mark-"].selected {
   background-color: $lightColor;
 }
 
-:host ::ng-deep [class^="contribution-mark-"] {
-  padding-left: 2.5px;
-  padding-right: 2.5px;
+:host ::ng-deep .ngx-toolbar .ngx-toolbar-set .ngx-editor-button:last-child {
+    border-right: 1px solid #ddd;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+:host ::ng-deep .ngx-toolbar .ngx-toolbar-set .ngx-editor-button {
+    background-color: transparent;
+    padding: .4rem;
+    min-width: 2.5rem;
+    float: left;
+    border: 1px solid #ddd;
+    border-right: transparent;
+}
+
+:host ::ng-deep .ngx-toolbar {
+    background-color: #f5f5f5;
+    font-size: .8rem;
+    padding: .2rem;
+    border: 1px solid #ddd;
+}
+
+:host ::ng-deep .ngx-toolbar .ngx-toolbar-set {
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+:host ::ng-deep .ngx-toolbar .ngx-toolbar-set .ngx-editor-button:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+    -webkit-transition: .2s ease;
+    transition: .2s ease;
 }

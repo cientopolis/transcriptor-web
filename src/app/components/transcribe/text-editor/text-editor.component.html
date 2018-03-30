@@ -9,6 +9,7 @@
   </mz-card-title>
   <mz-card-content>
     <app-ngx-editor 
+      #textEditor
       [placeholder]="'Enter text here...'" 
       [spellcheck]="true" 
       [(ngModel)]="htmlContent" 

@@ -7,7 +7,13 @@ leafletDraw
 </div>
 
 <div class="editor-wrapper">
-  <app-text-editor #textEditor class="transcribe-editor" [page]="page" (clickText)="selectMark($event)"></app-text-editor>
+  <app-text-editor 
+    #textEditor 
+    class="transcribe-editor" 
+    [page]="page" 
+    (clickText)="selectMark($event)"
+    (pressTextMarkButton)="setTextEditorMarkCreationStrategy($event)">
+  </app-text-editor>
 </div>
 
 <mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">

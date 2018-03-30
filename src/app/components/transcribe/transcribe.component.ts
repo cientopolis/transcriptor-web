@@ -77,6 +77,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   };
 
   editing:boolean = false;
+  
+  markCreationStrategy:any = this.modalMarkCreationStrategy;
 
   modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -205,9 +207,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
-      component.openMarkModalByRole(renderedMark);
+      // component.openMarkModalByRole(renderedMark);
+      // console.log(this.markCreationStrategy);
+      component.markCreationStrategy(renderedMark,component);
     });
 
+  }
+  
+  modalMarkCreationStrategy(renderedMark,component){
+    this.openMarkModalByRole(renderedMark);
+  }
+  
+  textEditorMarkCreationStrategy(renderedMark,component){
+    renderedMark.mark.transcription_text = this.textEditor.getSelectedText();
+    this.renderedMark = renderedMark;
+    this.addModalMark();
   }
 
   addPolylineHandler(){
@@ -324,6 +338,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   reset() {
     this.editing = false;
     this.renderedMark = null;
+    this.markCreationStrategy = this.modalMarkCreationStrategy;
     this.resetView();
   }
 
@@ -338,5 +353,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.editing = true;
     this.fitToLayer(selectedMark.layer);
     this.openMarkModalByRole(selectedMark);
+  }
+  
+  setTextEditorMarkCreationStrategy(){
+    new L.Draw.Polyline(this.map, this.drawOptions.draw.polyline).enable();
+    this.markCreationStrategy = this.textEditorMarkCreationStrategy;
   }
 }
