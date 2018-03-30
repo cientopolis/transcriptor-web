@@ -379,10 +379,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   toggleEditor(){
     this.showTextEditor = !this.showTextEditor;
     if(this.showTextEditor){
-      $('.editor-wrapper').show();
+      $('.editor-wrapper').removeClass('animated fadeOutRight');      
       $('.transcribe-screen').width(this.defaultPanelSizes.map + '%');
     } else {
-      $('.editor-wrapper').hide();
+      $('.editor-wrapper').addClass('animated fadeOutRight');
       $('.transcribe-screen').width('100%');
     }
     this.map['_onResize'](); 

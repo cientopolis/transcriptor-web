@@ -27,6 +27,7 @@
     "@ngx-progressbar/http": "^4.1.1",
     "@ngx-progressbar/router": "^4.1.1",
     "@types/lodash": "^4.14.104",
+    "animate.css": "^3.6.1",
     "codemirror": "^5.35.0",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
