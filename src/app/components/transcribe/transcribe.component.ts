@@ -356,7 +356,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
   
   setTextEditorMarkCreationStrategy(){
-    new L.Draw.Polyline(this.map, this.drawOptions.draw.polyline).enable();
+    $('.leaflet-draw-draw-polyline').get(0).click();
+    window.scrollTo(0,0);
     this.markCreationStrategy = this.textEditorMarkCreationStrategy;
   }
 }
