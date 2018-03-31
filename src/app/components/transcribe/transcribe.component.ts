@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 
@@ -77,6 +77,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   };
 
   editing:boolean = false;
+  
+  markCreationStrategy:any = this.modalMarkCreationStrategy;
 
   modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -90,7 +92,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     } // Callback for Modal close
   };
 
-  constructor(private transcriptionService:TranscriptionService,private pageService: PageService, private markService: MarkService, private route: ActivatedRoute, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) {
+  defaultPanelSizes = {
+    map: 55,
+    textEditor: 44
+  };
+  
+  showTextEditor = true;
+
+  constructor(
+    private transcriptionService:TranscriptionService,
+    private pageService: PageService, 
+    private markService: MarkService, 
+    private route: ActivatedRoute, 
+    private changeDetector: ChangeDetectorRef,
+    private applicationRef: ApplicationRef, 
+    private global: SimpleGlobal) {
     this.global['hideFooter']=true;
   }
 
@@ -205,9 +221,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
-      component.openMarkModalByRole(renderedMark);
+      // component.openMarkModalByRole(renderedMark);
+      // console.log(this.markCreationStrategy);
+      component.markCreationStrategy(renderedMark,component);
     });
 
+  }
+  
+  modalMarkCreationStrategy(renderedMark,component){
+    this.openMarkModalByRole(renderedMark);
+  }
+  
+  textEditorMarkCreationStrategy(renderedMark,component){
+    renderedMark.mark.transcription_text = this.textEditor.getSelectedText();
+    this.renderedMark = renderedMark;
+    this.addModalMark();
   }
 
   addPolylineHandler(){
@@ -324,6 +352,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   reset() {
     this.editing = false;
     this.renderedMark = null;
+    this.markCreationStrategy = this.modalMarkCreationStrategy;
     this.resetView();
   }
 
@@ -338,5 +367,24 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.editing = true;
     this.fitToLayer(selectedMark.layer);
     this.openMarkModalByRole(selectedMark);
+  }
+  
+  setTextEditorMarkCreationStrategy(){
+    $('.leaflet-draw-draw-polyline').get(0).click();
+    window.scrollTo(0,0);
+    this.markCreationStrategy = this.textEditorMarkCreationStrategy;
+  }
+
+  // panel logic
+  toggleEditor(){
+    this.showTextEditor = !this.showTextEditor;
+    if(this.showTextEditor){
+      $('.editor-wrapper').removeClass('animated fadeOutRight');      
+      $('.transcribe-screen').width(this.defaultPanelSizes.map + '%');
+    } else {
+      $('.editor-wrapper').addClass('animated fadeOutRight');
+      $('.transcribe-screen').width('100%');
+    }
+    this.map['_onResize'](); 
   }
 }

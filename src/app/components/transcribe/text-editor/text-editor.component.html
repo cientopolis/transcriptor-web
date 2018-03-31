@@ -1,19 +1,22 @@
-<mz-card class="m-t-0">
-  <mz-card-title>
-    <h4>
-      Transcription
-      <button class="btn right" mz-button (click)="save()">
-        <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save
-       </button>
-    </h4>
-  </mz-card-title>
-  <mz-card-content>
-    <app-ngx-editor 
-      [placeholder]="'Enter text here...'" 
-      [spellcheck]="true" 
-      [(ngModel)]="htmlContent" 
-      (focus)="onFocus()"
-      [config]="editorConfig">
-    </app-ngx-editor>
-  </mz-card-content>
-</mz-card>
+<div class="text-editor-panel z-depth-1">
+  <mz-card class="text-editor m-t-0 z-depth-0">
+      <mz-card-title>
+        <h4>
+          Transcription
+          <button class="btn right" mz-button (click)="save()">
+            <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save
+          </button>
+        </h4>
+      </mz-card-title>
+      <mz-card-content>
+        <app-ngx-editor 
+        #textEditor
+        [placeholder]="'Enter text here...'" 
+        [spellcheck]="true" 
+        [(ngModel)]="htmlContent" 
+        (focus)="onFocus()"
+        [config]="editorConfig">
+      </app-ngx-editor>
+    </mz-card-content>
+  </mz-card>
+</div>

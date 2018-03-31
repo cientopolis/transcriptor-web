@@ -6,8 +6,21 @@ leafletDraw
 (leafletMapReady)="onMapReady($event)">
 </div>
 
+<div class="panel-show-button z-depth-1" (click)="toggleEditor()">
+  <i mz-icon-mdi [icon]="'chevron-left'" [align]="'left'"></i> 
+</div>
+
 <div class="editor-wrapper">
-  <app-text-editor #textEditor class="transcribe-editor" [page]="page" (clickText)="selectMark($event)"></app-text-editor>
+  <div class="panel-hide-button z-depth-1" (click)="toggleEditor()">
+    <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i> 
+  </div>
+  <app-text-editor 
+    #textEditor 
+    class="transcribe-editor" 
+    [page]="page" 
+    (clickText)="selectMark($event)"
+    (pressTextMarkButton)="setTextEditorMarkCreationStrategy($event)">
+  </app-text-editor>
 </div>
 
 <mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
