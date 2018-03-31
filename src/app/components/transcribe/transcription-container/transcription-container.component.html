@@ -22,25 +22,33 @@
           </div>
           <div class="user-details">
               <a href="#">{{transcription.user.display_name}}</a>
+              <h5>Likes: ({{transcription.cached_weighted_score}})</h5>
           </div>
         </div>
       </div>
-      
+
       <div class="col s4 offset-s4 right-align">
         <mz-spinner
-          *ngIf="votable == null"
+          *ngIf="vote == null"
           [color]="'yellow'"
           [size]="'small'">
         </mz-spinner>
-        
+
         <button
-          *ngIf="votable != null"
-          class="right primary-color-text m-t-15" 
-          mz-button [flat]="true" 
-          [disabled]="!votable" 
-          (click)="likeTranscription(transcription)">
+          *ngIf="vote == null || !vote"
+          class="right primary-color-text m-t-15"
+          style="color:#FFFFFF"
+          mz-button [flat]="false"
+          (click)="likeTranscription(transcription,false)">
           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> Like
          </button>
+         <button
+           *ngIf="vote"
+           class="button-color"
+           mz-button [flat]="true"
+           (click)="likeTranscription(transcription,true)">
+           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> Dislike
+          </button>
       </div>
     </div>
   </mz-card-action>

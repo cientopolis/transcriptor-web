@@ -39,10 +39,13 @@ export class MarkTranscriptionsListComponent implements OnInit {
 
 
   }
-  
+
   loadVotes() {
     this.transcriptionService.listVotesUserByMark(this.mark.id, { fields: ['user']})
       .subscribe(votes => {
+        console.log("--------");
+        console.log(votes);
+        console.log("--------");
         this.votes = votes;
         this.setLikes();
     });
@@ -52,6 +55,7 @@ export class MarkTranscriptionsListComponent implements OnInit {
     for (let transcription of this.transcriptions) {
         for (let vote of this.votes){
           if(vote.id==transcription.id){
+            
             transcription.voted = vote.vote;
             break;
           }
