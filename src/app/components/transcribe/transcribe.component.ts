@@ -14,6 +14,7 @@ import { RenderedMark } from '../../models/renderedMark';
 import { MarkService } from '../../services/mark/mark.service';
 import { PageService } from '../../services/page/page.service';
 import { TranscriptionService } from '../../services/transcription/transcription.service';
+import { FlashMessagesService } from '../../services/util/flash-messages/flash-messages.service';
 
 @Component({
   selector: 'app-transcribe',
@@ -103,6 +104,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private transcriptionService:TranscriptionService,
     private pageService: PageService, 
     private markService: MarkService, 
+    private flashMessagesService: FlashMessagesService,
     private route: ActivatedRoute, 
     private changeDetector: ChangeDetectorRef,
     private applicationRef: ApplicationRef, 
@@ -225,7 +227,26 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       // console.log(this.markCreationStrategy);
       component.markCreationStrategy(renderedMark,component);
     });
-
+    
+    map.on('draw:toolbaropened', function(e:any){
+      $('.leaflet-draw-actions>li>a').last().click(function(){
+        component.map.fire('draw:drawcanceled');
+      });
+    });
+    
+    map.on('draw:drawcanceled', function(e:any){
+      console.log('reset');
+      component.reset();
+    });
+    
+    map.on('draw:canceled', function(e:any){
+      console.log('reset');
+      component.reset();
+    });
+    
+    map.on('draw:drawstop', function(e:any){
+      component.flashMessagesService.clear();
+    });
   }
   
   modalMarkCreationStrategy(renderedMark,component){
@@ -368,12 +389,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.fitToLayer(selectedMark.layer);
     this.openMarkModalByRole(selectedMark);
   }
-  
-  setTextEditorMarkCreationStrategy(){
-    $('.leaflet-draw-draw-polyline').get(0).click();
-    window.scrollTo(0,0);
-    this.markCreationStrategy = this.textEditorMarkCreationStrategy;
-  }
 
   // panel logic
   toggleEditor(){
@@ -386,5 +401,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       $('.transcribe-screen').width('100%');
     }
     this.map['_onResize'](); 
+  }
+
+  setTextEditorMarkCreationStrategy(){
+    this.showMarkCreationToast();
+    $('.leaflet-draw-draw-polyline').get(0).click();
+    window.scrollTo(0,0);
+    this.markCreationStrategy = this.textEditorMarkCreationStrategy;
+  }
+  
+  private showMarkCreationToast(){
+    let component = this;
+    let cancelButton = '<button class="btn-flat toast-action cancel-creation-button">' + 'Cancel' + '</button>';
+    this.flashMessagesService.addFixed('Mark the corresponding line to the highlighted text' + cancelButton);
+    $('.cancel-creation-button').click(function(){
+      $('.leaflet-draw-actions>li>a').last().get(0).click();
+    });
   }
 }

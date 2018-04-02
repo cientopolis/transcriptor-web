@@ -7,8 +7,16 @@ export class FlashMessagesService {
 
   constructor(private toastService: MzToastService) { }
 
-  add(message: string) {
-    this.toastService.show(message, 4000);
+  add(message: string, displayLength = 4000) {
+    this.toastService.show(message, displayLength);
+  }
+  
+  addFixed(message: string) {
+    this.toastService.show(message, NaN);
+  }
+  
+  clear() {
+    Materialize.Toast.removeAll();
   }
   
 }

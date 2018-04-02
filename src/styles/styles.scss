@@ -142,6 +142,10 @@ a {
   left:2%;  
 }
 
+.toast-action:hover {
+    background-color: transparent;
+}
+
 // tabs
 .tabs .tab a:hover, .tabs .tab a.active{
   color: $primaryColor;
