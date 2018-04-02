@@ -38,6 +38,8 @@ export class TextEditorComponent implements OnInit {
   
   focusedText:any;
   
+  private separator = ' ';
+  
   constructor(private markService: MarkService, private transcribeService:TranscribeService, private changeDetector:ApplicationRef) { }
 
   ngOnInit() {
@@ -45,13 +47,18 @@ export class TextEditorComponent implements OnInit {
     $(".ngx-editor-textarea").keydown(function(e){
       // trap the return key being pressed
       if (e.keyCode === 13) {
-        document.execCommand('insertHTML', false, '<br>');
+        if(window.getSelection().focusNode['nextElementSibling']){
+          document.execCommand('insertHTML', false, '<br>');
+        } else {
+          document.execCommand('insertHTML', false, '<br>&zwnj;');
+        }
         return false;
       }
     });
     
     $(".ngx-editor-textarea").keyup(function(e){
       component.focusText();
+      component.setFinalSeparator();
     });
     
     $(".ngx-editor-textarea").click(function(e){
@@ -129,11 +136,12 @@ export class TextEditorComponent implements OnInit {
 
   private createTextElement(mark) {
     var element = '<span class="contribution-mark-'+ mark.id + '">'+ mark.transcription.text + '</span>';
-    var separator = '&nbsp;';
     if(this.elementToReplace == null){
+      // The text come from the modal
       this.htmlContent = this.htmlContent + element;
-      this.htmlContent = this.htmlContent + separator;
+      this.htmlContent = this.htmlContent + this.separator;
     } else {
+      // The text come the editor
       $('.replaceable').replaceWith(element);
       this.elementToReplace=null;
       this.refreshText();
@@ -186,6 +194,29 @@ export class TextEditorComponent implements OnInit {
   }
   
   refreshText(){
-    this.htmlContent= this.textEditor.textArea.nativeElement.innerHTML;
+    this.htmlContent = this.textEditor.textArea.nativeElement.innerHTML;
+    this.setFinalSeparator();
   }
+  
+  private setFinalSeparator(){
+    if(_.endsWith(this.htmlContent,'<br>')){
+      // this.htmlContent = this.htmlContent.slice(0,('<br>'.length)*-1);
+      this.setRangeToEnd();
+    }
+    if(_.endsWith(this.htmlContent,'</span>')){
+      this.htmlContent = this.htmlContent + this.separator;
+    }
+  }
+  
+  private setRangeToEnd() {
+    let el = $('.ngx-editor-textarea')[0];
+    var range = document.createRange();
+    var sel = window.getSelection();
+    var lastNodeIndex=el.childNodes.length - 1;
+    range.setStart(el.childNodes[lastNodeIndex], 0);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
 }

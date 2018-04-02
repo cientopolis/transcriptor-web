@@ -94,7 +94,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   };
 
   defaultPanelSizes = {
-    map: 55,
+    map: 56,
     textEditor: 44
   };
   
