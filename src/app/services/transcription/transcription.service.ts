@@ -8,6 +8,7 @@ export class TranscriptionService {
   private getPath = '/api/transcription/{transcriptionId}';
   private createPath = '/api/transcription';
   private likePath = '/api/transcription/{transcriptionId}/like';
+  private dislikePath = '/api/transcription/{transcriptionId}/dislike';
   private listByMarkPath = '/api/mark/{markId}/transcriptions';
   private listVotesUserByMarkPath = '/api/mark/{markId}/votes';
   private voteATranscriptionPath = '/api/transcription/{transcriptionId}/vote';
@@ -16,6 +17,10 @@ export class TranscriptionService {
 
   like(transcriptionId, options = {}) {
     return this.httpService.get([this.likePath,{transcriptionId:transcriptionId}], options);
+  }
+
+  dislike(transcriptionId, options = {}) {
+    return this.httpService.get([this.dislikePath,{transcriptionId:transcriptionId}], options);
   }
 
   listByMark(markId, options = {}) {
@@ -33,7 +38,7 @@ export class TranscriptionService {
   isVoted(transcriptionId, options = {}) {
     return this.httpService.lget([this.voteATranscriptionPath,{transcriptionId:transcriptionId}], options);
   }
-  
+
   create(transcription, options = {}) {
     return this.httpService.post(this.createPath, transcription, options);
   }

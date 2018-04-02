@@ -10,7 +10,8 @@ import { TranscriptionService } from '../../../services/transcription/transcript
 export class TranscriptionContainerComponent implements OnInit {
 
   @Input() transcription;
-  @Input() votable;
+  @Input() vote;
+  @Input() userVoted;
   @Input() obtainVote;
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
@@ -29,20 +30,40 @@ export class TranscriptionContainerComponent implements OnInit {
       if(this.obtainVote){
         this.transcriptionService.isVoted(this.transcription.id, { fields: ['user']})
           .subscribe(votes => {
-            this.votable = !votes[0].vote;
+            console.log("--------");
+            console.log(votes);
+            console.log("--------");
+            this.vote = votes[0].vote;
+            this.userVoted = !votes[0].isVote;
             this.changeDetector.detectChanges();
         });
       }
     }
   }
 
-  likeTranscription(transcription) {
-    this.transcriptionService.like(transcription.id)
-      .subscribe(responseTranscription => {
-        transcription = responseTranscription;
-        this.votable = false;
-        this.changeDetector.detectChanges();
-      });
+  likeTranscription(transcription,votable) {
+    if(!votable){
+      console.log("no tiene like");
+      this.transcriptionService.like(transcription.id)
+        .subscribe(responseTranscription => {
+          transcription = responseTranscription;
+          console.log(transcription);
+          this.vote = true;
+          this.userVoted = true;
+          this.changeDetector.detectChanges();
+        });
+    }else{
+      console.log("ya tiene like");
+      this.transcriptionService.dislike(transcription.id)
+        .subscribe(responseTranscription => {
+          transcription = responseTranscription;
+          console.log(transcription);
+          this.vote = false;
+          this.userVoted = true;
+          this.changeDetector.detectChanges();
+        });
+    }
+
   }
 
   getAvatarUrl(username) {
