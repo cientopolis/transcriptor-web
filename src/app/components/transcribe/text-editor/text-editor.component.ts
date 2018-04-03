@@ -37,6 +37,7 @@ export class TextEditorComponent implements OnInit {
   }
   
   focusedText:any;
+  currentSelection:any;
   
   private separator = ' ';
   
@@ -58,11 +59,13 @@ export class TextEditorComponent implements OnInit {
     
     $(".ngx-editor-textarea").keyup(function(e){
       component.focusText();
+      component.cutFinalBreakline();
       component.setFinalSeparator();
     });
     
     $(".ngx-editor-textarea").click(function(e){
       component.focusText();
+      component.setFinalSeparator();
     });
   }
   
@@ -72,6 +75,9 @@ export class TextEditorComponent implements OnInit {
     $('#add-text-mark-button').click(function(){
       component.onTextMarkButton();
     });
+    $('.ngx-editor-button').on('mouseup',function(){
+      component.cutFinalBreakline();
+    })
   }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -149,11 +155,13 @@ export class TextEditorComponent implements OnInit {
   }
   
   private focusText(){
-    if(this.focusedText && this.focusedText != window.getSelection().focusNode.parentNode){
-      this.focusedText.classList.remove('selected');
+    if(window.getSelection().parentElement && window.getSelection().parentElement.localName == 'span'){
+      if(this.focusedText && this.focusedText != window.getSelection().focusNode.parentNode){
+        this.focusedText.classList.remove('selected');
+      }
+      this.focusedText = window.getSelection().focusNode.parentNode;
+      this.focusedText.classList.add('selected');
     }
-    this.focusedText = window.getSelection().focusNode.parentNode;
-    this.focusedText.classList.add('selected');
   }
   
   onTextMarkButton(){
@@ -199,12 +207,14 @@ export class TextEditorComponent implements OnInit {
   }
   
   private setFinalSeparator(){
-    if(_.endsWith(this.htmlContent,'<br>')){
-      // this.htmlContent = this.htmlContent.slice(0,('<br>'.length)*-1);
-      this.setRangeToEnd();
-    }
     if(_.endsWith(this.htmlContent,'</span>')){
       this.htmlContent = this.htmlContent + this.separator;
+    }
+  }
+  
+  private cutFinalBreakline(){
+    if(_.endsWith(this.htmlContent,'<br>')){
+      $('.ngx-editor-textarea>br:last').remove();
     }
   }
   
@@ -218,5 +228,30 @@ export class TextEditorComponent implements OnInit {
     sel.removeAllRanges();
     sel.addRange(range);
   }
+    
+  private saveSelection() {
+    if (window.getSelection) {
+        var sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            this.currentSelection = sel.getRangeAt(0);
+        }
+    } else if (document['selection'] && document['selection'].createRange) {
+        this.currentSelection = document['selection'].createRange();
+    }
+    this.currentSelection = null;
+  }
 
+  private restoreSelection() {
+    var range = this.currentSelection;
+    if (range) {
+      if (window.getSelection) {
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+      } else if (document['selection'] && range.select) {
+          range.select();
+      }
+    }
+  }
+    
 }
