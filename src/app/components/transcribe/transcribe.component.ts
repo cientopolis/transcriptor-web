@@ -412,6 +412,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   
   private showMarkCreationToast(){
     let component = this;
+    component.flashMessagesService.clear();
     let cancelButton = '<button class="btn-flat toast-action cancel-creation-button">' + 'Cancel' + '</button>';
     this.flashMessagesService.addFixed('Mark the corresponding line to the highlighted text' + cancelButton);
     $('.cancel-creation-button').click(function(){

@@ -108,9 +108,11 @@ export class TextEditorComponent implements OnInit {
     let component = this;
     $("[class^='contribution-mark-']").unbind('click');
     $("[class^='contribution-mark-']").click(function(e){
-      component.focusText();
-      var markId=component.obtainIdFromClass(this.className);
-      component.clickText.emit(markId);
+      if(component.isSimpleRangeSelection()){
+        component.focusText();
+        var markId=component.obtainIdFromClass(this.className);
+        component.clickText.emit(markId);
+      }
       e.stopPropagation();
     });
   }
@@ -155,13 +157,11 @@ export class TextEditorComponent implements OnInit {
   }
   
   private focusText(){
-    if(window.getSelection().parentElement && window.getSelection().parentElement.localName == 'span'){
-      if(this.focusedText && this.focusedText != window.getSelection().focusNode.parentNode){
-        this.focusedText.classList.remove('selected');
-      }
-      this.focusedText = window.getSelection().focusNode.parentNode;
-      this.focusedText.classList.add('selected');
+    if(this.focusedText && this.focusedText != window.getSelection().focusNode.parentNode){
+      this.focusedText.classList.remove('selected');
     }
+    this.focusedText = window.getSelection().focusNode.parentNode;
+    this.focusedText.classList.add('selected');
   }
   
   onTextMarkButton(){
@@ -252,6 +252,13 @@ export class TextEditorComponent implements OnInit {
           range.select();
       }
     }
+  }
+  
+  private isSimpleRangeSelection(){
+    var selection= window.getSelection();
+    // console.log(selection.anchorOffset + " " + selection.focusOffset);
+    // console.log(selection.anchorOffset == selection.focusOffset);
+    return selection.anchorOffset == selection.focusOffset;
   }
     
 }
