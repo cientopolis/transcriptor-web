@@ -1,10 +1,11 @@
-import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ApplicationRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
 
 import * as $ from 'jquery';
 import * as _ from 'lodash';
 
 import { MarkService } from '../../../services/mark/mark.service';
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
+import { FlashMessagesService } from '../../../services/util/flash-messages/flash-messages.service';
 
 @Component({
   selector: 'app-text-editor',
@@ -24,6 +25,8 @@ export class TextEditorComponent implements OnInit {
   @ViewChild('textEditor') textEditor;
   
   editorConfig = {
+    editable:true,
+    height:"73vh",
     minHeight:"73vh",
     toolbar: [
       ["bold", "italic", "underline", "strikeThrough"],
@@ -41,7 +44,7 @@ export class TextEditorComponent implements OnInit {
   
   private separator = ' ';
   
-  constructor(private markService: MarkService, private transcribeService:TranscribeService, private changeDetector:ApplicationRef) { }
+  constructor(private markService: MarkService, private transcribeService:TranscribeService, private flashMessagesService: FlashMessagesService) { }
 
   ngOnInit() {
     let component=this;
@@ -75,7 +78,7 @@ export class TextEditorComponent implements OnInit {
     $('#add-text-mark-button').click(function(){
       component.onTextMarkButton();
     });
-    $('.ngx-editor-button').on('mouseup',function(){
+    $('.ngx-editor-button').on('mousedown',function(){
       component.cutFinalBreakline();
     })
   }
@@ -150,6 +153,7 @@ export class TextEditorComponent implements OnInit {
       this.htmlContent = this.htmlContent + this.separator;
     } else {
       // The text come the editor
+      this.enableEditor();
       $('.replaceable').replaceWith(element);
       this.elementToReplace=null;
       this.refreshText();
@@ -165,10 +169,15 @@ export class TextEditorComponent implements OnInit {
   }
   
   onTextMarkButton(){
-    this.waitingMark = true;
-    this.selectedText = window.getSelection? window.getSelection().toString() : '';
-    this.prepareToReplaceSelection();
-    this.pressTextMarkButton.emit(this.getSelectedText());
+    if(window.getSelection().toString()){
+      this.waitingMark = true;
+      this.selectedText = window.getSelection? window.getSelection().toString() : '';
+      this.prepareToReplaceSelection();
+      this.pressTextMarkButton.emit(this.getSelectedText());
+      this.disableEditor();
+    } else {
+      this.flashMessagesService.add('You must select text to add a mark!');
+    }
   }
   
   getSelectedText() {
@@ -256,9 +265,16 @@ export class TextEditorComponent implements OnInit {
   
   private isSimpleRangeSelection(){
     var selection= window.getSelection();
-    // console.log(selection.anchorOffset + " " + selection.focusOffset);
-    // console.log(selection.anchorOffset == selection.focusOffset);
     return selection.anchorOffset == selection.focusOffset;
   }
-    
+  
+  enableEditor(){
+    this.editorConfig.editable = true;
+    $('.ngx-editor-button').prop('disabled', false);
+  }
+  
+  disableEditor(){
+    this.editorConfig.editable = false;
+    $('.ngx-editor-button').prop('disabled', true);
+  }
 }

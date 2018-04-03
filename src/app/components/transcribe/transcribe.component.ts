@@ -223,8 +223,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
-      // component.openMarkModalByRole(renderedMark);
-      // console.log(this.markCreationStrategy);
       component.markCreationStrategy(renderedMark,component);
     });
     
@@ -235,12 +233,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     });
     
     map.on('draw:drawcanceled', function(e:any){
-      console.log('reset');
       component.reset();
     });
     
     map.on('draw:canceled', function(e:any){
-      console.log('reset');
       component.reset();
     });
     

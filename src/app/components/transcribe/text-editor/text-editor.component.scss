@@ -48,3 +48,13 @@
     -webkit-transition: .2s ease;
     transition: .2s ease;
 }
+
+:host ::ng-deep .ngx-toolbar .ngx-toolbar-set .ngx-editor-button:disabled {
+    background-color: #f5f5f5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.text-editor-panel {
+  height: 100%;
+}
