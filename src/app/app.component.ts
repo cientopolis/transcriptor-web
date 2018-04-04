@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import {SimpleGlobal} from 'ng2-simple-global';
 
 import { LoginService } from './services/login/login.service';
+import { routeAnimation } from './util/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [ routeAnimation ]
 })
 export class AppComponent implements OnInit{
   title = 'Transcriptor';
@@ -31,5 +33,9 @@ export class AppComponent implements OnInit{
   private setUser(user){
     this.global['currentUser'] = user;
     localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+  
+  getAnimationData(routerOutlet: any) {
+    return routerOutlet.activatedRouteData['animation'] || 'login';
   }
 }

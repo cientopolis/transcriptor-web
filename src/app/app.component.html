@@ -29,8 +29,8 @@
   </mz-dropdown>
 </header>
 
-<main>
-  <router-outlet></router-outlet>
+<main [@routeAnimation]="getAnimationData(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
 </main>
 
 <footer class="page-footer" *ngIf="!global.hideFooter">
