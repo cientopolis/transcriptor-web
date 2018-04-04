@@ -98,7 +98,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     textEditor: 44
   };
   
-  showTextEditor = true;
+  hideTextEditor:boolean = false;
 
   constructor(
     private transcriptionService:TranscriptionService,
@@ -110,6 +110,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private applicationRef: ApplicationRef, 
     private global: SimpleGlobal) {
     this.global['hideFooter']=true;
+    this.hideTextEditor=this.getEditorStatus();
   }
 
   ngOnInit() {
@@ -388,15 +389,24 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   // panel logic
   toggleEditor(){
-    this.showTextEditor = !this.showTextEditor;
-    if(this.showTextEditor){
-      $('.editor-wrapper').removeClass('animated fadeOutRight');      
-      $('.transcribe-screen').width(this.defaultPanelSizes.map + '%');
-    } else {
+    this.hideTextEditor = !this.hideTextEditor;
+    
+    if(this.hideTextEditor){
       $('.editor-wrapper').addClass('animated fadeOutRight');
-      $('.transcribe-screen').width('100%');
+      $('.transcribe-screen').addClass('collapsed');
+    } else {
+      $('.editor-wrapper').removeClass('animated fadeOutRight');      
+      $('.transcribe-screen').removeClass('collapsed');
     }
-    this.map['_onResize'](); 
+    this.map['_onResize']();
+    
+    localStorage.setItem('textEditorDisabled', this.hideTextEditor.toString());
+  }
+  
+  // looks in localstorage for flag 'textEditorEnabled'
+  getEditorStatus(){
+    let textEditorDisabled=localStorage.getItem('textEditorDisabled');
+    return textEditorDisabled != null? (textEditorDisabled == 'true') : this.hideTextEditor;
   }
 
   setTextEditorMarkCreationStrategy(){
