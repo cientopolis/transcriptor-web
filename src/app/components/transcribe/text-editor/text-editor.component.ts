@@ -42,7 +42,7 @@ export class TextEditorComponent implements OnInit {
   focusedText:any;
   currentSelection:any;
   
-  private separator = ' ';
+  private separator = '&nbsp;';
   
   constructor(private markService: MarkService, private transcribeService:TranscribeService, private flashMessagesService: FlashMessagesService) { }
 
@@ -61,14 +61,11 @@ export class TextEditorComponent implements OnInit {
     });
     
     $(".ngx-editor-textarea").keyup(function(e){
-      component.focusText();
-      component.cutFinalBreakline();
-      component.setFinalSeparator();
+      component.refreshPrompt();
     });
     
     $(".ngx-editor-textarea").click(function(e){
-      component.focusText();
-      component.setFinalSeparator();
+      component.refreshPrompt();
     });
   }
   
@@ -211,18 +208,25 @@ export class TextEditorComponent implements OnInit {
   }
   
   refreshText(){
+    this.cutFinalBreakline();
+    this.setFinalSeparator();
     this.htmlContent = this.textEditor.textArea.nativeElement.innerHTML;
+  }
+  
+  refreshPrompt(){
+    this.focusText();
+    this.cutFinalBreakline();
     this.setFinalSeparator();
   }
   
   private setFinalSeparator(){
-    if(_.endsWith(this.htmlContent,'</span>')){
-      this.htmlContent = this.htmlContent + this.separator;
+    if(_.endsWith($('.ngx-editor-textarea').html(),'</span>')){
+      $('.ngx-editor-textarea').append('&nbsp;');
     }
   }
   
   private cutFinalBreakline(){
-    if(_.endsWith(this.htmlContent,'<br>')){
+    if(_.endsWith($('.ngx-editor-textarea').html(),'<br>')){
       $('.ngx-editor-textarea>br:last').remove();
     }
   }
