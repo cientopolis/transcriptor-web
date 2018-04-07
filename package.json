@@ -26,6 +26,8 @@
     "@ngx-progressbar/core": "^4.1.1",
     "@ngx-progressbar/http": "^4.1.1",
     "@ngx-progressbar/router": "^4.1.1",
+    "@ngx-translate/core": "^9.1.1",
+    "@ngx-translate/http-loader": "^2.0.1",
     "@types/lodash": "^4.14.104",
     "animate.css": "^3.6.1",
     "codemirror": "^5.35.0",
