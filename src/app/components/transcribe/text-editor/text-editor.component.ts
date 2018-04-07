@@ -3,6 +3,8 @@ import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitte
 import * as $ from 'jquery';
 import * as _ from 'lodash';
 
+import { TextEditorTranscriptionStrategy } from '../transcription-strategies/text-editor-transcription-strategy';
+
 import { MarkService } from '../../../services/mark/mark.service';
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 import { FlashMessagesService } from '../../../services/util/flash-messages/flash-messages.service';
@@ -17,8 +19,9 @@ export class TextEditorComponent implements OnInit {
   htmlContent = '';
   marks = [];
   @Input() page = null;
+  @Input() transcribeStrategy = null;
+  @Output() transcribeStrategyChange = new EventEmitter();
   @Output() clickText = new EventEmitter();
-  @Output() pressTextMarkButton = new EventEmitter();
   selectedText = null;
   waitingMark = false;
   elementToReplace = null;
@@ -81,11 +84,13 @@ export class TextEditorComponent implements OnInit {
   }
   
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.page.currentValue != null && changes.page.currentValue != changes.page.previousValue){
-      if(this.page.source_text != null && this.page.source_text != ''){
-        this.htmlContent = this.page.source_text
-      } else {
-        this.loadMarks(this.page.id);
+    if(changes.page){
+      if(changes.page.currentValue != null && changes.page.currentValue != changes.page.previousValue){
+        if(this.page.source_text != null && this.page.source_text != ''){
+          this.htmlContent = this.page.source_text
+        } else {
+          this.loadMarks(this.page.id);
+        }
       }
     }
   }
@@ -170,7 +175,9 @@ export class TextEditorComponent implements OnInit {
       this.waitingMark = true;
       this.selectedText = window.getSelection? window.getSelection().toString() : '';
       this.prepareToReplaceSelection();
-      this.pressTextMarkButton.emit(this.getSelectedText());
+      this.transcribeStrategy = TextEditorTranscriptionStrategy;
+      this.transcribeStrategyChange.emit(this.transcribeStrategy);
+      TextEditorTranscriptionStrategy.afterAssign(this);
       this.disableEditor();
     } else {
       this.flashMessagesService.add('You must select text to add a mark!');

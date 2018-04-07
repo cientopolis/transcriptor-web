@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import {SimpleGlobal} from 'ng2-simple-global';
 
 import { LoginService } from './services/login/login.service';
-import { routeAnimation } from './util/animations';
+import { routeAnimation } from './utils/animations';
 
 @Component({
   selector: 'app-root',

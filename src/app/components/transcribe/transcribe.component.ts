@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 
@@ -7,6 +7,11 @@ import * as _ from "lodash";
 
 import * as L from 'leaflet';
 import { latLng, Layer, tileLayer, LatLngBounds, Map, CRS, FeatureGroup } from 'leaflet';
+
+import { LeafletUtils } from '../../utils/leaflet-utils';
+
+import { ModalTranscriptionStrategy } from './transcription-strategies/modal-transcription-strategy';
+import { TextEditorTranscriptionStrategy } from './transcription-strategies/text-editor-transcription-strategy';
 
 import { Mark } from '../../models/mark';
 import { RenderedMark } from '../../models/renderedMark';
@@ -79,7 +84,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   editing:boolean = false;
   
-  markCreationStrategy:any = this.modalMarkCreationStrategy;
+  transcribeStrategy:any = ModalTranscriptionStrategy;
 
   modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -92,13 +97,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       $('.leaflet-draw').fadeIn();
     } // Callback for Modal close
   };
-
-  defaultPanelSizes = {
-    map: 56,
-    textEditor: 44
-  };
   
-  hideTextEditor:boolean = false;
+  transcribeOptions = {
+    hideTextEditor: false,
+    autoZoom: true
+  }
 
   constructor(
     private transcriptionService:TranscriptionService,
@@ -110,7 +113,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private applicationRef: ApplicationRef, 
     private global: SimpleGlobal) {
     this.global['hideFooter']=true;
-    this.hideTextEditor=this.getEditorStatus();
+    this.transcribeOptions=this.getTranscribeOptions();
   }
 
   ngOnInit() {
@@ -121,6 +124,24 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.global['hideFooter']=false;
     $("body").css("overflow", "auto");
+  }
+  
+  ngAfterViewInit() {
+    let component = this;
+    
+    // prevents scroll to anchor deleting references to "#" in map
+    $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
+    
+    let toolbar = LeafletUtils.addToolbar();
+    let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
+    let autoZoomButton = LeafletUtils.addToolbarAction(toolbar, '', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
+    autoZoomButton.click(function(){
+      var toggleIcon = $(this).find('.toggleIcon');
+      toggleIcon.toggleClass('icon-color');
+      toggleIcon.toggleClass('primary-color-text');
+      component.transcribeOptions.autoZoom = !component.transcribeOptions.autoZoom;
+      component.saveTranscribeOptions();
+    })
   }
 
   /**
@@ -148,9 +169,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.page = page;
           this.addPageToMap();
           this.loadMarks();
-
-          // prevents scroll to anchor deleting references to "#" in map
-          $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
         });
   }
 
@@ -224,7 +242,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
-      component.markCreationStrategy(renderedMark,component);
+      component.transcribeStrategy.execute(renderedMark,component);
     });
     
     map.on('draw:toolbaropened', function(e:any){
@@ -244,16 +262,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     map.on('draw:drawstop', function(e:any){
       component.flashMessagesService.clear();
     });
-  }
-  
-  modalMarkCreationStrategy(renderedMark,component){
-    this.openMarkModalByRole(renderedMark);
-  }
-  
-  textEditorMarkCreationStrategy(renderedMark,component){
-    renderedMark.mark.transcription_text = this.textEditor.getSelectedText();
-    this.renderedMark = renderedMark;
-    this.addModalMark();
   }
 
   addPolylineHandler(){
@@ -370,12 +378,14 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   reset() {
     this.editing = false;
     this.renderedMark = null;
-    this.markCreationStrategy = this.modalMarkCreationStrategy;
+    this.transcribeStrategy = ModalTranscriptionStrategy;
     this.resetView();
   }
 
   fitToLayer(layer) {
-    this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
+    if(this.transcribeOptions.autoZoom && this.transcribeStrategy.allowAutoZoom){
+      this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
+    }
   }
   
   selectMark(markId){
@@ -389,9 +399,9 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   // panel logic
   toggleEditor(){
-    this.hideTextEditor = !this.hideTextEditor;
+    this.transcribeOptions.hideTextEditor = !this.transcribeOptions.hideTextEditor;
     
-    if(this.hideTextEditor){
+    if(this.transcribeOptions.hideTextEditor){
       $('.editor-wrapper').addClass('animated fadeOutRight');
       $('.transcribe-screen').addClass('collapsed');
     } else {
@@ -400,29 +410,16 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     }
     this.map['_onResize']();
     
-    localStorage.setItem('textEditorDisabled', this.hideTextEditor.toString());
+    this.saveTranscribeOptions();
   }
   
-  // looks in localstorage for flag 'textEditorEnabled'
-  getEditorStatus(){
-    let textEditorDisabled=localStorage.getItem('textEditorDisabled');
-    return textEditorDisabled != null? (textEditorDisabled == 'true') : this.hideTextEditor;
-  }
-
-  setTextEditorMarkCreationStrategy(){
-    this.showMarkCreationToast();
-    $('.leaflet-draw-draw-polyline').get(0).click();
-    window.scrollTo(0,0);
-    this.markCreationStrategy = this.textEditorMarkCreationStrategy;
+  // looks in localstorage for options to set
+  getTranscribeOptions(){
+    let transcribeOptions=localStorage.getItem('transcribeOptions');
+    return transcribeOptions != null? JSON.parse(transcribeOptions) : this.transcribeOptions;
   }
   
-  private showMarkCreationToast(){
-    let component = this;
-    component.flashMessagesService.clear();
-    let cancelButton = '<button class="btn-flat toast-action cancel-creation-button">' + 'Cancel' + '</button>';
-    this.flashMessagesService.addFixed('Mark the corresponding line to the highlighted text' + cancelButton);
-    $('.cancel-creation-button').click(function(){
-      $('.leaflet-draw-actions>li>a').last().get(0).click();
-    });
+  saveTranscribeOptions(){
+    localStorage.setItem('transcribeOptions', JSON.stringify(this.transcribeOptions));
   }
 }

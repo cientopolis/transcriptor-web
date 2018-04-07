@@ -1,5 +1,5 @@
 <div class="transcribe-screen"
-[ngClass]="{'collapsed': hideTextEditor}"
+[ngClass]="{'collapsed': transcribeOptions.hideTextEditor}"
 leaflet
 leafletDraw
 [leafletOptions]="options"
@@ -11,16 +11,16 @@ leafletDraw
   <i mz-icon-mdi [icon]="'chevron-left'" [align]="'left'"></i> 
 </div>
 
-<div class="editor-wrapper" [hidden]='hideTextEditor'>
+<div class="editor-wrapper" [hidden]='transcribeOptions.hideTextEditor'>
   <div class="panel-hide-button z-depth-1" (click)="toggleEditor()">
     <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i> 
   </div>
   <app-text-editor 
     #textEditor 
     class="transcribe-editor" 
-    [page]="page" 
-    (clickText)="selectMark($event)"
-    (pressTextMarkButton)="setTextEditorMarkCreationStrategy($event)">
+    [page]="page"
+    [(transcribeStrategy)]="transcribeStrategy"
+    (clickText)="selectMark($event)">
   </app-text-editor>
 </div>
 
