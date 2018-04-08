@@ -2,7 +2,7 @@
   <div class="col m10 offset-m1" *ngIf="collection">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-0">{{ collection.title}}</h4>
+        <h4 class="m-b-0">{{ collection.title }}</h4>
       </mz-card-title>
       <mz-card-content>
         
@@ -13,7 +13,7 @@
           [swipeable]="'true'">
           <mz-tab-item
             [class]="'col s12'"
-            [label]="'Pages'">
+            [label]="'showCollection.tab.pages' | translate">
             <div class="row">
               <div class="col s12">
                 <app-list-collection-works [collection]="collection"></app-list-collection-works>
@@ -22,7 +22,7 @@
           </mz-tab-item>
           <mz-tab-item 
             [class]="'col s12'" 
-            [label]="'Settings'">
+            [label]="'showCollection.tab.settings' | translate">
             <div class="row">
               <div class="col s12">
                 <app-edit-collection [collection]="collection"></app-edit-collection>
