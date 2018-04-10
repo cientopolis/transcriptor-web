@@ -40,5 +40,44 @@
         }
       }
     }
+  },
+  "dashboard":{
+    "title":"Dashboard",
+    "tab":{
+      "yourWorks":{
+        "title":"Your Works",
+        "noWorksMessage":"There are no works in this collection yet!"
+      },
+      "startAProject":{
+        "title":"Start a Project"
+      }
+    },
+    "counter":{
+      "collections":"Collections",
+      "works":"Works",
+      "notes":"Notes"
+    },
+    "yourActivity":{
+      "title":"Your Activity",
+      "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
+      "workDeed":"{{user}} {{deedType}} in the work {{work}}",
+      "button":{
+        "show":"Show"
+      }
+    }
+  },
+  "deed_type":{
+    "page_trans":"transcribed page",
+    "page_edit":"edited page",
+    "page_index":"indexed page",
+    "art_edit":"edited {{article}} article",
+    "note_add":"added a note to page",
+    "pg_xlat":"translated page",
+    "pg_xlat_ed":"edited the translation of page",
+    "ocr_corr":"corrected page",
+    "review":"marked page as needing review",
+    "xlat_index":"indexed the translation of page",
+    "xlat_rev":"marked translation page as needing review",
+    "work_add":"added {{work}}"
   }
 }
