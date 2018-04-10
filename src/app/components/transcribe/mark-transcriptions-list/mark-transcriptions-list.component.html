@@ -14,12 +14,12 @@
 
     <app-transcription-container
       [transcription]="transcription"
-      [vote]="!transcription.voted"
+      [vote]="!transcription.vote"
       *ngFor="let transcription of transcriptions">
     </app-transcription-container>
 
   </mz-modal-content>
   <mz-modal-footer>
-    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close>Close</button>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="onCloseButton()">Close</button>
   </mz-modal-footer>
 </mz-modal>
