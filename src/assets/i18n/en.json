@@ -1,4 +1,35 @@
 {
+  "home":{
+    "banner":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
+    "image":{
+      "left":{
+        "title":"Transcribe",
+        "text":"Because Trancriptor runs in your browser, you can read and transcribe materials from anywhere."
+      },
+      "middle":{
+        "title":"Share you opinion",
+        "text":"Users can discuss difficult writing or obscure words within a page to refine their transcription."
+      },
+      "right":{
+        "title":"Explore",
+        "text":"The resulting text is hosted on the web, making documents easy to read and search."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
+    "linksTitle":"Links",
+    "moreLinks":"More Links"
+  },
+  "signIn":{
+    "title":"Sign In"
+  },
+  "signOut":{
+    "title":"Sign Out"
+  },
+  "myProfile":{
+    "title":"My Profile"
+  },
   "editCollection": {
     "label":{
       "title":"Collection Title",
