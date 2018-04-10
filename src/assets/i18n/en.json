@@ -22,7 +22,17 @@
     "moreLinks":"More Links"
   },
   "signIn":{
-    "title":"Sign In"
+    "title":"Sign In",
+    "loginMessage":"Please, login into your account",
+    "label":{
+      "username":"Enter your email",
+      "password":"Enter your password"
+    },
+    "button":{
+      "forgotPassword":"Forgot Password?",
+      "login":"Login",
+      "register":"Create account"
+    }
   },
   "signOut":{
     "title":"Sign Out"
