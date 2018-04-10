@@ -20,5 +20,25 @@
       "pages":"Pages",
       "settings":"Settings"
     }
+  },
+  "collections":{
+    "title":"Collections",
+    "button":{
+      "create":"Create collection",
+      "show":"Show Details"
+    },
+    "modal":{
+      "create":{
+        "title":"Create a new Collection",
+        "label":{
+          "title":"Collection Title",
+          "description":"Description"
+        },
+        "button":{
+          "cancel":"Cancel",
+          "save":"Save"
+        }
+      }
+    }
   }
 }
