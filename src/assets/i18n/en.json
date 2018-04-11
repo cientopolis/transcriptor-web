@@ -120,5 +120,35 @@
     "xlat_index":"indexed the translation of page",
     "xlat_rev":"marked translation page as needing review",
     "work_add":"added {{work}}"
+  },
+  "upload":{
+    "title":"Upload PDF or ZIP File",
+    "label":{
+      "collection":"Collection"
+    },
+    "placeholder":{
+      "collection":"- Select a collection -"
+    },
+    "button":{
+      "browse":"Browse File",
+      "submit":"Upload File",
+      "addCollection":"Add New Collection"
+    },
+    "tips":{
+      "title":"Tips",
+      "lines":[
+          "ZIP files may contain folders containing images, PDFs, or folders containing pdfs.",
+          "Each folder will be treated as a different document, so do not mix pages from different documents in the same folder.",
+          "Each PDF will be treated as its own document, so do not split pages from the same document among more than one PDF.",
+          "For example a ZIP file with 3 images, 2 PDFs, and 1 folder containing 5 more images would create 4 works: the top level images in one, each PDF in their own work, and a last work containing the 5 images from the folder.",
+          "To specify metadata along with images, include a <a href='/static/metadata'>metadata.yml</a> file in each folder specifying fields for the work."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"You must select a collection and select a file to upload!"
+    }
+  },
+  "startAProject":{
+    "title":"Start a Project"
   }
 }

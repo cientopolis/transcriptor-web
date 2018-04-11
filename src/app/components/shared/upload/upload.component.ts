@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import * as $ from 'jquery';
 
 import { UploadService } from '../../../services/upload/upload.service';
@@ -15,18 +16,23 @@ export class UploadComponent implements OnInit {
   @ViewChild('fileInput') fileInput;
   collections = [];
   collectionId:any;
+  tips:string[];
   
-  constructor(private uploadService: UploadService, private collectionService: CollectionService, private flashMessagesService: FlashMessagesService) {}
+  constructor(
+    private uploadService: UploadService, 
+    private collectionService: CollectionService, 
+    private flashMessagesService: FlashMessagesService
+    private translate:TranslateService) {}
   
   ngOnInit() {
     this.collectionService.listOwn().subscribe(collections => this.collections = collections);
+    this.loadTips();
   }
   
   upload() {
-    
     const files: FileList = this.fileInput.nativeElement.files;
     if (files.length === 0 || isNaN(this.collectionId) || this.collectionId === null || this.collectionId === '') { 
-      this.flashMessagesService.add('You must select a collection and select a file to upload!');
+      this.flashMessagesService.addI18n('upload.validationMessages.noFileSelected');
       return; 
     };
 
@@ -44,5 +50,11 @@ export class UploadComponent implements OnInit {
     $('#document_upload_file').val('');
     $('#document_upload_path').val('');
     this.collectionId = '';
+  }
+  
+  loadTips(){
+    this.translate.get('upload.tips.lines').subscribe((tips: string[]) => {
+      this.tips=tips;
+    });
   }
 }
