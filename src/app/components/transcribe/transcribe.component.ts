@@ -379,6 +379,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.editing = false;
     this.renderedMark = null;
     this.transcribeStrategy = ModalTranscriptionStrategy;
+    this.textEditor.enableEditor();
     this.resetView();
   }
 

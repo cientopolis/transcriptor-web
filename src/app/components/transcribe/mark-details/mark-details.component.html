@@ -1,8 +1,8 @@
 <mz-modal #modal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
-    Transcription Details 
+    {{'transcribe.markDetails.title' | translate}}
     <button class="right" mz-button mz-modal-close (click)="onAddButton()">
-      <i mz-icon-mdi [icon]="'note-text'" [align]="'left'"></i> Add Another Transcription
+      <i mz-icon-mdi [icon]="'note-text'" [align]="'left'"></i> {{'transcribe.markDetails.button.addAnotherTranscription' | translate}}
     </button>
   </mz-modal-header>
   <mz-modal-content>
@@ -12,9 +12,11 @@
     </app-transcription-container>
   </mz-modal-content>
   <mz-modal-footer>
-    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">Close</button>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
+      {{'app.button.close' | translate}}
+    </button>
     <button class="primary-color" mz-button (click)="onSuccessButton()">
-      <i mz-icon-mdi [icon]="'view-list'" [align]="'left'"></i> Other Transcriptions
+      <i mz-icon-mdi [icon]="'view-list'" [align]="'left'"></i> {{'transcribe.markTranscriptionsList.title' | translate}}
     </button>
   </mz-modal-footer>
 </mz-modal>

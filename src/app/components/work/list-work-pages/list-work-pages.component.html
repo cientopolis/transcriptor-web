@@ -8,7 +8,7 @@
         </a>
         <div *ngIf="page.status">{{ page.status }}</div>
         <div mz-secondary-content>
-          <a mz-button routerLink="/transcribe/{{page.id}}"><i mz-icon-mdi [icon]="'transcribe'" [align]="'left'"></i> Transcribe</a>
+          <a mz-button routerLink="/transcribe/{{page.id}}"><i mz-icon-mdi [icon]="'transcribe'" [align]="'left'"></i> {{'transcribe.title' | translate}}</a>
         </div>
       </mz-collection-item>
     </mz-collection>

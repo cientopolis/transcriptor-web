@@ -16,15 +16,15 @@ export class FlashMessagesService {
     this.toastService.show(message, NaN);
   }
   
-  addI18n(key: string, displayLength = 4000){
+  addI18n(key: string, displayLength = 4000, html = ''){
     this.translate.get(key).subscribe((res: string) => {
-      this.add(res);
+      this.add(res + html);
     });
   }
   
-  addI18nFixed(key: string){
+  addI18nFixed(key: string, html = ''){
     this.translate.get(key).subscribe((res: string) => {
-      this.addFixed(res);
+      this.addFixed(res + html);
     });
   }
   

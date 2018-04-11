@@ -15,14 +15,14 @@
 
         <div class="user-info user-hover" *ngIf="transcription.user">
           <div class="user-action-time">
-            <p class="m-b-0 m-t-0">Edited <span title="2017-05-10 18:26:34Z" class="relativetime">May 10 '17 at 18:26</span></p>
+            <p class="m-b-0 m-t-0">{{'transcribe.container.edited' | translate}} <span title="2017-05-10 18:26:34Z" class="relativetime">May 10 '17 at 18:26</span></p>
           </div>
           <div class="user-gravatar32 z-depth-1" *ngIf="transcription">
               <div class="gravatar-wrapper-32"><img [src]="getAvatarUrl(transcription.user.display_name)" alt="" width="32" height="32"></div>
           </div>
           <div class="user-details">
               <a href="#">{{transcription.user.display_name}}</a>
-              <h5>Likes: ({{transcription.cached_weighted_score}})</h5>
+              <h5>{{'transcribe.container.likes' | translate}}: ({{transcription.cached_weighted_score}})</h5>
           </div>
         </div>
       </div>
@@ -40,14 +40,14 @@
           style="color:#FFFFFF"
           mz-button [flat]="false"
           (click)="likeTranscription(transcription,false)">
-          <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> Like
+          <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.like' | translate}}
          </button>
          <button
            *ngIf="vote"
            class="button-color"
            mz-button [flat]="true"
            (click)="likeTranscription(transcription,true)">
-           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> Dislike
+           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.dislike' | translate}}
           </button>
       </div>
     </div>

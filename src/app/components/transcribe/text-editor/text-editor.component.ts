@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import * as $ from 'jquery';
 import * as _ from 'lodash';
@@ -47,7 +48,11 @@ export class TextEditorComponent implements OnInit {
   
   private separator = '&nbsp;';
   
-  constructor(private markService: MarkService, private transcribeService:TranscribeService, private flashMessagesService: FlashMessagesService) { }
+  constructor(
+    private markService: MarkService, 
+    private transcribeService:TranscribeService,
+    private flashMessagesService: FlashMessagesService,
+    private translate:TranslateService) { }
 
   ngOnInit() {
     let component=this;
@@ -180,7 +185,7 @@ export class TextEditorComponent implements OnInit {
       TextEditorTranscriptionStrategy.afterAssign(this);
       this.disableEditor();
     } else {
-      this.flashMessagesService.add('You must select text to add a mark!');
+      this.flashMessagesService.addI18n('transcribe.textEditor.message.noTextSelected');
     }
   }
   

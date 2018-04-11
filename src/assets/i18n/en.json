@@ -1,4 +1,14 @@
 {
+  "app":{
+    "button":{
+      "close":"Close",
+      "cancel":"Cancel",
+      "save":"Save",
+      "saveChanges":"Save Changes",
+      "delete":"Delete",
+      "show":"Show"
+    }
+  },
   "home":{
     "banner":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
     "image":{
@@ -47,13 +57,7 @@
       "description":"Description"
     },
     "button":{
-      "delete":"Delete Collection",
-      "save":"Save Changes"
-    }
-  },
-  "listCollectionWorks":{
-    "button":{
-      "show":"Show"
+      "delete":"Delete Collection"
     }
   },
   "showCollection":{
@@ -82,6 +86,26 @@
       }
     }
   },
+  "showWork":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Settings"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Work Title",
+        "author":"Author",
+        "location":"Location",
+        "url":"URL",
+        "description":"Description",
+        "physicalDescription":"Physical Description",
+        "documentHistory":"Document History"
+    },
+    "button":{
+      "delete":"Delete Page"
+    }
+  },
   "dashboard":{
     "title":"Dashboard",
     "tab":{
@@ -101,10 +125,7 @@
     "yourActivity":{
       "title":"Your Activity",
       "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
-      "workDeed":"{{user}} {{deedType}} in the work {{work}}",
-      "button":{
-        "show":"Show"
-      }
+      "workDeed":"{{user}} {{deedType}} in the work {{work}}"
     }
   },
   "deed_type":{
@@ -150,5 +171,40 @@
   },
   "startAProject":{
     "title":"Start a Project"
+  },
+  "transcribe":{
+    "title":"Transcribe",
+    "modal":{
+      "mark":{
+        "title":"What does it say here?",
+        "label":{
+          "transcriptionText":"Transcribe the text of the marked line"
+        }
+      }
+    },
+    "textEditor":{
+      "placeholder":"Enter text here...",
+      "message":{
+        "markLineInPage":"Mark the corresponding line to the highlighted text",
+        "noTextSelected":"You must select text to add a mark!"
+      }
+    },
+    "container":{
+      "edited":"Edited",
+      "likes":"Likes",
+      "button":{
+        "like":"Like",
+        "dislike":"Dislike"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Other Transcriptions"
+    },
+    "markDetails":{
+      "title":"Transcription Details",
+      "button":{
+        "addAnotherTranscription":"Add Another Transcription"
+      }
+    }
   }
 }

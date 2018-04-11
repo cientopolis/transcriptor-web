@@ -3,7 +3,7 @@
     <mz-input-container>
       <input mz-input
         class="input-field-primary-color"
-        [label]="'Work Title'"
+        [label]="'editWork.label.title' | translate"
         [(ngModel)]="work.title"
         type="text">
     </mz-input-container>
@@ -18,7 +18,7 @@
     <mz-input-container>
       <input mz-input
         class="input-field-primary-color"
-        [label]="'Author'"
+        [label]="'editWork.label.author' | translate"
         [(ngModel)]="work.author"
         type="text">
     </mz-input-container>
@@ -27,7 +27,7 @@
     <mz-input-container>
       <input mz-input
         class="input-field-primary-color"
-        [label]="'Location'"
+        [label]="'editWork.label.location' | translate"
         [(ngModel)]="work.location_of_composition"
         type="text">
     </mz-input-container>
@@ -39,7 +39,7 @@
     <mz-input-container>
       <input mz-input
         class="input-field-primary-color"
-        [label]="'URL'"
+        [label]="'editWork.label.url' | translate"
         [(ngModel)]="work.slug"
         type="text">
     </mz-input-container>
@@ -51,7 +51,7 @@
     <mz-textarea-container>
       <textarea mz-textarea
         [(ngModel)]="work.description"
-        [label]="'Description'">
+        [label]="'editWork.label.description' | translate">
       </textarea>
     </mz-textarea-container>
   </div>
@@ -62,7 +62,7 @@
     <mz-textarea-container>
       <textarea mz-textarea
         [(ngModel)]="work.physical_description"
-        [label]="'Physical Description'">
+        [label]="'editWork.label.physicalDescription' | translate">
       </textarea>
     </mz-textarea-container>
   </div>
@@ -73,7 +73,7 @@
     <mz-textarea-container>
       <textarea mz-textarea
         [(ngModel)]="work.document_history"
-        [label]="'Document History'">
+        [label]="'editWork.label.documentHistory' | translate">
       </textarea>
     </mz-textarea-container>
   </div>
@@ -81,9 +81,9 @@
 
 <div class="row">
   <div class="col m6">
-    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> Delete Page</button>
+    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editWork.button.delete' | translate}}</button>
   </div>
   <div class="col m6 right-align">
-    <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save Changes</button>
+    <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.saveChanges' | translate}}</button>
   </div>
 </div>

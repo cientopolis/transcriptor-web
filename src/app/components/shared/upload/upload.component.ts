@@ -21,7 +21,7 @@ export class UploadComponent implements OnInit {
   constructor(
     private uploadService: UploadService, 
     private collectionService: CollectionService, 
-    private flashMessagesService: FlashMessagesService
+    private flashMessagesService: FlashMessagesService,
     private translate:TranslateService) {}
   
   ngOnInit() {

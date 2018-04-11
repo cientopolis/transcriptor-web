@@ -16,10 +16,12 @@ export class TextEditorTranscriptionStrategy {
   
   private static showMarkCreationToast(component){
     component.flashMessagesService.clear();
-    let cancelButton = '<button class="btn-flat toast-action cancel-creation-button">' + 'Cancel' + '</button>';
-    component.flashMessagesService.addFixed('Mark the corresponding line to the highlighted text' + cancelButton);
-    $('.cancel-creation-button').click(function(){
-      $('.leaflet-draw-actions>li>a').last().get(0).click();
-    });
+    component.translate.get('app.button.cancel').subscribe((buttonText: string) => {
+      let cancelButton = '<button class="btn-flat toast-action cancel-creation-button">' + buttonText + '</button>';
+      component.flashMessagesService.addI18nFixed('transcribe.textEditor.message.markLineInPage', cancelButton);
+      $('.cancel-creation-button').click(function(){
+        $('.leaflet-draw-actions>li>a').last().get(0).click();
+      });
+    })
   }
 }
