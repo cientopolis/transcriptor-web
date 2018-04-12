@@ -11,8 +11,4 @@ export class StartProjectComponent implements OnInit {
 
   ngOnInit() {
   }
-  
-  lala(e){
-    console.log(e);
-  }
 }

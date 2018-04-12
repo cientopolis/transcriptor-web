@@ -26,9 +26,9 @@ leafletDraw
 
 <mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
-    What does it say here? 
+    {{'transcribe.modal.mark.title' | translate}} 
     <button class="btn-delete right float-correction" mz-button mz-modal-close *ngIf="editing" (click)="deleteModalMark()">
-      <i mz-icon-mdi [icon]="'delete'" [align]="'left'"></i> Delete
+      <i mz-icon-mdi [icon]="'delete'" [align]="'left'"></i> {{'app.button.delete' | translate}}
      </button>
   </mz-modal-header>
   <mz-modal-content>
@@ -36,14 +36,14 @@ leafletDraw
       *ngIf="renderedMark != null">
       <textarea mz-textarea
         [(ngModel)]="renderedMark.mark.transcription_text"
-        [label]="'Transcribe the text of the marked line'">
+        [label]="'transcribe.modal.mark.label.transcriptionText' | translate">
       </textarea>
     </mz-textarea-container>
   </mz-modal-content>
   <mz-modal-footer>
-    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="cancelModal()">Cancel</button>
-    <button class="primary-color" mz-button mz-modal-close *ngIf="!editing" (click)="addModalMark()">Save</button>
-    <button class="primary-color" mz-button mz-modal-close *ngIf="editing" (click)="editModalMark()">Save Changes</button>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="cancelModal()">{{'app.button.cancel' | translate}}</button>
+    <button class="primary-color" mz-button mz-modal-close *ngIf="!editing" (click)="addModalMark()">{{'app.button.save' | translate}}</button>
+    <button class="primary-color" mz-button mz-modal-close *ngIf="editing" (click)="editModalMark()">{{'app.button.saveChanges' | translate}}</button>
   </mz-modal-footer>
 </mz-modal>
 

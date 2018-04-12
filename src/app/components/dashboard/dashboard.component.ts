@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { Collection } from '../../models/Collection';
 import { DashboardResponse } from '../../models/dashboardResponse';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,7 +15,7 @@ import { DashboardResponse } from '../../models/dashboardResponse';
 export class DashboardComponent implements OnInit {
   collectionsDeeds: DashboardResponse;
   collectionsOwner:DashboardResponse;
-  constructor(private dashboardService: DashboardService,private global: SimpleGlobal) { }
+  constructor(private dashboardService: DashboardService,private global: SimpleGlobal, private translate:TranslateService) { }
 
   ngOnInit() {
 
@@ -55,5 +57,12 @@ export class DashboardComponent implements OnInit {
     private handleResponse(collection) {
       this.collectionsDeeds=collection;
     }
-
+    
+    getDeedMessage(key){
+      var message;
+      this.translate.get('deed_type.'+key).subscribe((res: string) => {
+        message=res;
+      });
+      return message;
+    }
 }

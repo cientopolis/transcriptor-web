@@ -1,6 +1,6 @@
 <mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
   <mz-modal-header>
-    Other Transcriptions
+    {{'transcribe.markTranscriptionsList.title' | translate}}
   </mz-modal-header>
   <mz-modal-content>
 
@@ -20,6 +20,8 @@
 
   </mz-modal-content>
   <mz-modal-footer>
-    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="onCloseButton()">Close</button>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close>
+      {{'app.button.close' | translate}}
+    </button>
   </mz-modal-footer>
 </mz-modal>

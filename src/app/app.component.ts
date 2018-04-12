@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {SimpleGlobal} from 'ng2-simple-global';
+import {TranslateService} from '@ngx-translate/core';
 
 import { LoginService } from './services/login/login.service';
 import { routeAnimation } from './utils/animations';
@@ -14,7 +15,14 @@ import { routeAnimation } from './utils/animations';
 export class AppComponent implements OnInit{
   title = 'Transcriptor';
   
-  constructor(private loginService: LoginService, private global: SimpleGlobal, private router: Router) {}
+  constructor(private loginService: LoginService, private global: SimpleGlobal, private router: Router, public translate: TranslateService) {
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('en');
+
+    // const browserLang = translate.getBrowserLang();
+    const browserLang = 'en';
+    translate.use(browserLang.match(/en|es/) ? browserLang : 'en');
+  }
   
   ngOnInit() {
     //usar interceptor
@@ -37,5 +45,9 @@ export class AppComponent implements OnInit{
   
   getAnimationData(routerOutlet: any) {
     return routerOutlet.activatedRouteData['animation'] || 'login';
+  }
+  
+  useLanguage(lang){
+    this.translate.use(lang)
   }
 }
