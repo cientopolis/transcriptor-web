@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild ,ChangeDetectorRef} from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
 
@@ -17,7 +17,7 @@ export class MarkDetailsComponent implements OnInit {
   @Output() successButton = new EventEmitter();
   @Output() addButton = new EventEmitter();
 
-  constructor(private transcriptionService:TranscriptionService) { }
+  constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -28,12 +28,13 @@ export class MarkDetailsComponent implements OnInit {
 
   closeModal() {
     this.close.emit();
+    this.changeDetector.detectChanges();
   }
 
   onSuccessButton() {
     this.successButton.emit();
   }
-  
+
   onAddButton() {
     this.addButton.emit();
   }

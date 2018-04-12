@@ -13,10 +13,11 @@ export class TranscriptionContainerComponent implements OnInit {
   @Input() vote;
   @Input() userVoted;
   @Input() obtainVote;
+  score:string;
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
-  ngOnInit() {}
+  ngOnInit() {this.score=this.transcription.cached_weighted_score + " likes";}
 
   ngOnChanges(changes: SimpleChanges) {
     if(this.transcription){
@@ -24,15 +25,13 @@ export class TranscriptionContainerComponent implements OnInit {
         this.transcriptionService.get(this.transcription.id, {fields:['user']})
           .subscribe(transcription => {
             this.transcription.user = transcription.user;
+            this.score = this.transcription.cached_weighted_score + " likes";
             this.changeDetector.detectChanges();
           });
       }
       if(this.obtainVote){
         this.transcriptionService.isVoted(this.transcription.id, { fields: ['user']})
           .subscribe(votes => {
-            console.log("--------");
-            console.log(votes);
-            console.log("--------");
             this.vote = votes[0].vote;
             this.userVoted = !votes[0].isVote;
             this.changeDetector.detectChanges();
@@ -43,23 +42,24 @@ export class TranscriptionContainerComponent implements OnInit {
 
   likeTranscription(transcription,votable) {
     if(!votable){
-      console.log("no tiene like");
       this.transcriptionService.like(transcription.id)
         .subscribe(responseTranscription => {
           transcription = responseTranscription;
-          console.log(transcription);
+          this.score = transcription.cached_weighted_score + " likes";
           this.vote = true;
           this.userVoted = true;
+          this.transcription=transcription;
           this.changeDetector.detectChanges();
         });
     }else{
-      console.log("ya tiene like");
+
       this.transcriptionService.dislike(transcription.id)
         .subscribe(responseTranscription => {
           transcription = responseTranscription;
-          console.log(transcription);
           this.vote = false;
+          this.score = transcription.cached_weighted_score + " likes";
           this.userVoted = true;
+          this.transcription=transcription;
           this.changeDetector.detectChanges();
         });
     }
