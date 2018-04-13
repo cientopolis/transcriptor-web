@@ -16,6 +16,7 @@ export class MarkDetailsComponent implements OnInit {
   @Output() close = new EventEmitter();
   @Output() successButton = new EventEmitter();
   @Output() addButton = new EventEmitter();
+  @ViewChild('transcriptionContainer') transcriptionContainer;
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
@@ -42,5 +43,9 @@ export class MarkDetailsComponent implements OnInit {
   likeTranscription() {
     this.transcriptionService.like(this.mark.transcription.id)
       .subscribe(transcription => this.mark.transcription = transcription);
+  }
+  
+  refresh(){
+    this.transcriptionContainer.update();
   }
 }

@@ -61,7 +61,8 @@ leafletDraw
 <app-mark-transcriptions-list
   #markTranscriptionsList
   *ngIf="renderedMark != null"
-  [mark]="renderedMark.mark">
+  [mark]="renderedMark.mark"
+  (close)="markDetailsModal.refresh()">
 </app-mark-transcriptions-list>
 
 <app-transcription-form 

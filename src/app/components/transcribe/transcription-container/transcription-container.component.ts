@@ -20,24 +20,7 @@ export class TranscriptionContainerComponent implements OnInit {
   ngOnInit() {this.score=this.transcription.cached_weighted_score + " likes";}
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.transcription){
-      if(!this.transcription.user){
-        this.transcriptionService.get(this.transcription.id, {fields:['user']})
-          .subscribe(transcription => {
-            this.transcription.user = transcription.user;
-            this.score = this.transcription.cached_weighted_score + " likes";
-            this.changeDetector.detectChanges();
-          });
-      }
-      if(this.obtainVote){
-        this.transcriptionService.isVoted(this.transcription.id, { fields: ['user']})
-          .subscribe(votes => {
-            this.vote = votes[0].vote;
-            this.userVoted = !votes[0].isVote;
-            this.changeDetector.detectChanges();
-        });
-      }
-    }
+    this.update();
   }
 
   likeTranscription(transcription,votable) {
@@ -69,4 +52,26 @@ export class TranscriptionContainerComponent implements OnInit {
   getAvatarUrl(username) {
     return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff';
   }
+  
+  update() {
+    if(this.transcription){
+      if(!this.transcription.user){
+        this.transcriptionService.get(this.transcription.id, {fields:['user']})
+          .subscribe(transcription => {
+            this.transcription.user = transcription.user;
+            this.score = this.transcription.cached_weighted_score + " likes";
+            this.changeDetector.detectChanges();
+          });
+      }
+      if(this.obtainVote){
+        this.transcriptionService.isVoted(this.transcription.id, { fields: ['user']})
+          .subscribe(votes => {
+            this.vote = votes[0].vote;
+            this.userVoted = !votes[0].isVote;
+            this.changeDetector.detectChanges();
+        });
+      }
+    }
+  }
+  
 }
