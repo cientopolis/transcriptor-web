@@ -13,14 +13,14 @@ import { CollectionsComponent } from '../../components/collections/collections.c
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'transcribe/:pageId', component: TranscribeComponent },
-  { path: 'startproject', component: StartProjectComponent },
-  { path: 'work/:workId', component: ShowWorkComponent },
-	{ path: 'collections/list', component: CollectionsComponent },
-  { path: 'collection/:collectionId', component: ShowCollectionComponent }
+  { path: 'home', component: HomeComponent, data: {animation:'home'} },
+  { path: 'login', component: LoginComponent, data: {animation:'login'} },
+  { path: 'dashboard', component: DashboardComponent, data: {animation:'dashboard'} },
+  { path: 'transcribe/:pageId', component: TranscribeComponent, data: {animation:'transcribe'} },
+  { path: 'startproject', component: StartProjectComponent, data: {animation:'startProject'} },
+  { path: 'work/:workId', component: ShowWorkComponent, data: {animation:'work'} },
+	{ path: 'collections/list', component: CollectionsComponent, data: {animation:'collections'} },
+  { path: 'collection/:collectionId', component: ShowCollectionComponent, data: {animation:'collection'} }
 ];
 
 @NgModule({

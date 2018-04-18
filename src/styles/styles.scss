@@ -2,6 +2,10 @@
 @import './variables';
 @import './mixins';
 
+header {
+  z-index: 9999;
+}
+
 body{
 	background-color: $bodyColor;
   background-image: $pattern;
@@ -138,6 +142,10 @@ a {
   left:2%;  
 }
 
+.toast-action:hover {
+    background-color: transparent;
+}
+
 // tabs
 .tabs .tab a:hover, .tabs .tab a.active{
   color: $primaryColor;
@@ -163,4 +171,9 @@ a {
 // helpers
 .float-correction {
   margin-top: 10px;
+}
+
+.card .card-action {
+  padding: 0;
+  padding-bottom: 5px;
 }

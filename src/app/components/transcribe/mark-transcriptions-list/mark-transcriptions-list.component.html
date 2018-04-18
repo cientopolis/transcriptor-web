@@ -1,0 +1,27 @@
+<mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
+  <mz-modal-header>
+    {{'transcribe.markTranscriptionsList.title' | translate}}
+  </mz-modal-header>
+  <mz-modal-content>
+
+    <div class="center-align">
+      <mz-spinner
+        *ngIf="transcriptions.length == 0"
+        [color]="'yellow'"
+        [size]="'big'">
+      </mz-spinner>
+    </div>
+
+    <app-transcription-container
+      [transcription]="transcription"
+      [vote]="!transcription.vote"
+      *ngFor="let transcription of transcriptions">
+    </app-transcription-container>
+
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
+      {{'app.button.close' | translate}}
+    </button>
+  </mz-modal-footer>
+</mz-modal>

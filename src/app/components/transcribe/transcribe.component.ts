@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 
@@ -8,11 +8,18 @@ import * as _ from "lodash";
 import * as L from 'leaflet';
 import { latLng, Layer, tileLayer, LatLngBounds, Map, CRS, FeatureGroup } from 'leaflet';
 
+import { LeafletUtils } from '../../utils/leaflet-utils';
+
+import { ModalTranscriptionStrategy } from './transcription-strategies/modal-transcription-strategy';
+import { TextEditorTranscriptionStrategy } from './transcription-strategies/text-editor-transcription-strategy';
+
 import { Mark } from '../../models/mark';
 import { RenderedMark } from '../../models/renderedMark';
 
 import { MarkService } from '../../services/mark/mark.service';
 import { PageService } from '../../services/page/page.service';
+import { TranscriptionService } from '../../services/transcription/transcription.service';
+import { FlashMessagesService } from '../../services/util/flash-messages/flash-messages.service';
 
 @Component({
   selector: 'app-transcribe',
@@ -26,11 +33,16 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   map: Map;
   bounds: LatLngBounds;
-  
+
   renderedMark: RenderedMark = null;
+  vote= [];
   renderedMarks: RenderedMark[] = [];
-  
+
   @ViewChild('markModal') markModal: any;
+  @ViewChild('markDetailsModal') markDetailsModal: any;
+  @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
+  @ViewChild('transcriptionForm') transcriptionForm: any;
+  @ViewChild('textEditor') textEditor: any;
 
   options = {
     crs: L.CRS.Simple,
@@ -39,15 +51,15 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     zoom: 0,
   	center: latLng(0, 0),
   };
-  
+
   shapeOptions = {
     color: '#e65100',
     weight: 6,
     opacity: 0.7
   }
-  
+
   drawnLayers = new L.FeatureGroup();
-  
+
   drawOptions = {
     position: 'topright',
     draw: {
@@ -69,9 +81,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       remove: false
     }
   };
-  
+
   editing:boolean = false;
   
+  transcribeStrategy:any = ModalTranscriptionStrategy;
+
   modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
     opacity: 0, // Opacity of modal background
@@ -79,42 +93,75 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       $('.modal-overlay').hide();
       $('.leaflet-draw').fadeOut();
     },
-    complete: () => { 
+    complete: () => {
       $('.leaflet-draw').fadeIn();
     } // Callback for Modal close
   };
   
-  constructor(private pageService: PageService, private markService: MarkService, private route: ActivatedRoute, private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { 
+  transcribeOptions = {
+    hideTextEditor: false,
+    autoZoom: true
+  }
+
+  constructor(
+    private transcriptionService:TranscriptionService,
+    private pageService: PageService, 
+    private markService: MarkService, 
+    private flashMessagesService: FlashMessagesService,
+    private route: ActivatedRoute, 
+    private changeDetector: ChangeDetectorRef,
+    private applicationRef: ApplicationRef, 
+    private global: SimpleGlobal) {
     this.global['hideFooter']=true;
+    this.transcribeOptions=this.getTranscribeOptions();
   }
 
   ngOnInit() {
+    window.scrollTo(0,0);
     $("body").css("overflow", "hidden");
   }
-  
+
   ngOnDestroy() {
     this.global['hideFooter']=false;
     $("body").css("overflow", "auto");
   }
   
+  ngAfterViewInit() {
+    let component = this;
+    
+    // prevents scroll to anchor deleting references to "#" in map
+    $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
+    
+    let toolbar = LeafletUtils.addToolbar();
+    let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
+    let autoZoomButton = LeafletUtils.addToolbarAction(toolbar, '', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
+    autoZoomButton.click(function(){
+      var toggleIcon = $(this).find('.toggleIcon');
+      toggleIcon.toggleClass('icon-color');
+      toggleIcon.toggleClass('primary-color-text');
+      component.transcribeOptions.autoZoom = !component.transcribeOptions.autoZoom;
+      component.saveTranscribeOptions();
+    })
+  }
+
   /**
   /* do some configuration stuff before map initializes
   */
   onMapReady(map: Map) {
     this.map=map;
-    
+
     // sets the edit featureGroup to map
     this.drawnLayers.addTo(this.map);
-    
+
     this.loadPage();
-    
+
     this.addWaterMark();
     this.addLeafletHandlers();
     this.addMapListeners();
-    
+
     this.changeDetector.detectChanges();
   }
-  
+
   loadPage() {
     const pageId = +this.route.snapshot.paramMap.get('pageId');
     this.pageService.get(pageId)
@@ -122,24 +169,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.page = page;
           this.addPageToMap();
           this.loadMarks();
-          
-          // prevents scroll to anchor deleting references to "#" in map
-          $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
         });
   }
-    
+
   addPageToMap() {
     var h= -1910;
     var w= 1570;
     var southWest = this.map.unproject([0, h], this.map.getZoom()-2);
     var northEast = this.map.unproject([w, 0], this.map.getZoom()-2);
     this.bounds = new L.LatLngBounds(southWest, northEast);
-    
+
     L.imageOverlay(this.pageService.imagePath(this.page), this.bounds).addTo(this.map);
-    
+
     // set limits of page view
     this.map.setMaxBounds(this.bounds);
-    this.resetView();    
+    this.resetView();
   }
 
   loadMarks() {
@@ -152,14 +196,15 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             renderedMark.layer.on('click', function(){
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
-              component.openMarkModal(renderedMark)
+              component.openMarkModalByRole(renderedMark);
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
+
           });
         });
   }
-  
+
   addWaterMark(){
     L.Control['Watermark'] = L.Control.extend({
         onAdd: function(map) {
@@ -177,11 +222,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     }
     L.control['watermark']({ position: 'bottomright' }).addTo(this.map);
   }
-  
+
   addLeafletHandlers(){
     this.addPolylineHandler();
   }
-  
+
   addMapListeners(){
     var component = this;
     var map=this.map
@@ -192,16 +237,33 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
       // fits zoom to selected line
       component.fitToLayer(layer);
-      
+
       // Do whatever else you need to. (save to db; add to map etc)
       var mark = new Mark(component.page, layer, type);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
-      component.openMarkModal(renderedMark);
+      component.transcribeStrategy.execute(renderedMark,component);
     });
     
+    map.on('draw:toolbaropened', function(e:any){
+      $('.leaflet-draw-actions>li>a').last().click(function(){
+        component.map.fire('draw:drawcanceled');
+      });
+    });
+    
+    map.on('draw:drawcanceled', function(e:any){
+      component.reset();
+    });
+    
+    map.on('draw:canceled', function(e:any){
+      component.reset();
+    });
+    
+    map.on('draw:drawstop', function(e:any){
+      component.flashMessagesService.clear();
+    });
   }
-  
+
   addPolylineHandler(){
     L.Draw.Polyline.prototype['addVertex']= function (latlng) {
       var markersLength = this._markers.length;
@@ -231,19 +293,43 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       }
     };
   }
-  
+
   resetView() {
+    // prevents overflow-y when reset view
+    $("body").css("overflow", "hidden");
+
     // initial view configuration(you can change between modes)
-    // map.fitBounds(this.bounds); //fits all page
-    this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
+    this.map.fitBounds(this.bounds); //fits all page
+    // this.map.setView(this.bounds.getNorthEast(), -2); //fits the width of page
   }
-  
-  openMarkModal(renderedMark: RenderedMark) {
+
+  openMarkModalByRole(renderedMark: RenderedMark) {
     this.renderedMark = renderedMark;
     this.changeDetector.detectChanges();
+    let currentTranscription = this.renderedMark.mark.transcription;
+    if(currentTranscription != null && currentTranscription.user_id == this.global['currentUser'].id){
+      this.openMarkDetailsModal();
+    } else {
+      this.openMarkModal();
+    }
+  }
+
+  openMarkModal() {
     this.markModal.open();
   }
+
+  openMarkDetailsModal() {
+    this.markDetailsModal.open();
+  }
+
+  openMarkTranscriptionsList() {
+    this.markTranscriptionsList.open();
+  }
   
+  openTranscriptionsForm() {
+    this.transcriptionForm.open();
+  }
+
   addModalMark() {
     var component=this;
     var renderedMark = this.renderedMark;
@@ -253,13 +339,14 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.renderedMark.layer.on('click', function(){
             component.editing = true;
             component.fitToLayer(renderedMark.layer);
-            component.openMarkModal(renderedMark)
+            component.openMarkModalByRole(renderedMark)
           });
           this.renderedMarks.push(this.renderedMark);
+          this.textEditor.addMarkText(this.renderedMark.mark);
           this.reset();
         });
   }
-  
+
   editModalMark() {
     this.markService.edit(this.renderedMark.mark)
         .subscribe(mark => {
@@ -268,7 +355,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.reset();
         });
   }
-  
+
   deleteModalMark() {
     var component = this;
     this.markService.delete(this.renderedMark.mark)
@@ -280,21 +367,60 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.reset();
         });
   }
-  
+
   cancelModal() {
     if(!this.editing){
       this.renderedMark.layer.remove();
     }
     this.reset();
   }
-  
+
   reset() {
     this.editing = false;
     this.renderedMark = null;
+    this.transcribeStrategy = ModalTranscriptionStrategy;
+    this.textEditor.enableEditor();
     this.resetView();
   }
-  
+
   fitToLayer(layer) {
-    this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
+    if(this.transcribeOptions.autoZoom && this.transcribeStrategy.allowAutoZoom){
+      this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
+    }
+  }
+  
+  selectMark(markId){
+    var selectedMark = _.find(this.renderedMarks, function(renderedMark){
+      return renderedMark.mark.id == markId;
+    });
+    this.editing = true;
+    this.fitToLayer(selectedMark.layer);
+    this.openMarkModalByRole(selectedMark);
+  }
+
+  // panel logic
+  toggleEditor(){
+    this.transcribeOptions.hideTextEditor = !this.transcribeOptions.hideTextEditor;
+    
+    if(this.transcribeOptions.hideTextEditor){
+      $('.editor-wrapper').addClass('animated fadeOutRight');
+      $('.transcribe-screen').addClass('collapsed');
+    } else {
+      $('.editor-wrapper').removeClass('animated fadeOutRight');      
+      $('.transcribe-screen').removeClass('collapsed');
+    }
+    this.map['_onResize']();
+    
+    this.saveTranscribeOptions();
+  }
+  
+  // looks in localstorage for options to set
+  getTranscribeOptions(){
+    let transcribeOptions=localStorage.getItem('transcribeOptions');
+    return transcribeOptions != null? JSON.parse(transcribeOptions) : this.transcribeOptions;
+  }
+  
+  saveTranscribeOptions(){
+    localStorage.setItem('transcribeOptions', JSON.stringify(this.transcribeOptions));
   }
 }

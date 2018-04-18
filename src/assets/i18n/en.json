@@ -1,0 +1,210 @@
+{
+  "app":{
+    "button":{
+      "close":"Close",
+      "cancel":"Cancel",
+      "save":"Save",
+      "saveChanges":"Save Changes",
+      "delete":"Delete",
+      "show":"Show"
+    }
+  },
+  "home":{
+    "banner":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
+    "image":{
+      "left":{
+        "title":"Transcribe",
+        "text":"Because Trancriptor runs in your browser, you can read and transcribe materials from anywhere."
+      },
+      "middle":{
+        "title":"Share your opinion",
+        "text":"Users can discuss difficult writing or obscure words within a page to refine their transcription."
+      },
+      "right":{
+        "title":"Explore",
+        "text":"The resulting text is hosted on the web, making documents easy to read and search."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
+    "linksTitle":"Links",
+    "moreLinks":"More Links"
+  },
+  "signIn":{
+    "title":"Sign In",
+    "loginMessage":"Please, login into your account",
+    "label":{
+      "username":"Enter your email",
+      "password":"Enter your password"
+    },
+    "button":{
+      "forgotPassword":"Forgot Password?",
+      "login":"Login",
+      "register":"Create account"
+    }
+  },
+  "signOut":{
+    "title":"Sign Out"
+  },
+  "myProfile":{
+    "title":"My Profile"
+  },
+  "editCollection": {
+    "label":{
+      "title":"Collection Title",
+      "url":"URL",
+      "description":"Description"
+    },
+    "button":{
+      "delete":"Delete Collection"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Settings"
+    }
+  },
+  "collections":{
+    "title":"Collections",
+    "button":{
+      "create":"Create collection",
+      "show":"Show Details"
+    },
+    "modal":{
+      "create":{
+        "title":"Create a new Collection",
+        "label":{
+          "title":"Collection Title",
+          "description":"Description"
+        },
+        "button":{
+          "cancel":"Cancel",
+          "save":"Save"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Settings"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Work Title",
+        "author":"Author",
+        "location":"Location",
+        "url":"URL",
+        "description":"Description",
+        "physicalDescription":"Physical Description",
+        "documentHistory":"Document History"
+    },
+    "button":{
+      "delete":"Delete Page"
+    }
+  },
+  "dashboard":{
+    "title":"Dashboard",
+    "tab":{
+      "yourWorks":{
+        "title":"Your Works",
+        "noWorksMessage":"There are no works in this collection yet!"
+      },
+      "startAProject":{
+        "title":"Start a Project"
+      }
+    },
+    "counter":{
+      "collections":"Collections",
+      "works":"Works",
+      "notes":"Notes"
+    },
+    "yourActivity":{
+      "title":"Your Activity",
+      "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
+      "workDeed":"{{user}} {{deedType}} in the work {{work}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"transcribed page",
+    "page_edit":"edited page",
+    "page_index":"indexed page",
+    "art_edit":"edited {{article}} article",
+    "note_add":"added a note to page",
+    "pg_xlat":"translated page",
+    "pg_xlat_ed":"edited the translation of page",
+    "ocr_corr":"corrected page",
+    "review":"marked page as needing review",
+    "xlat_index":"indexed the translation of page",
+    "xlat_rev":"marked translation page as needing review",
+    "work_add":"added {{work}}"
+  },
+  "upload":{
+    "title":"Upload PDF or ZIP File",
+    "label":{
+      "collection":"Collection"
+    },
+    "placeholder":{
+      "collection":"- Select a collection -"
+    },
+    "button":{
+      "browse":"Browse File",
+      "submit":"Upload File",
+      "addCollection":"Add New Collection"
+    },
+    "tips":{
+      "title":"Tips",
+      "lines":[
+          "ZIP files may contain folders containing images, PDFs, or folders containing pdfs.",
+          "Each folder will be treated as a different document, so do not mix pages from different documents in the same folder.",
+          "Each PDF will be treated as its own document, so do not split pages from the same document among more than one PDF.",
+          "For example a ZIP file with 3 images, 2 PDFs, and 1 folder containing 5 more images would create 4 works: the top level images in one, each PDF in their own work, and a last work containing the 5 images from the folder.",
+          "To specify metadata along with images, include a <a href='/static/metadata'>metadata.yml</a> file in each folder specifying fields for the work."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"You must select a collection and select a file to upload!"
+    }
+  },
+  "startAProject":{
+    "title":"Start a Project"
+  },
+  "transcribe":{
+    "title":"Transcribe",
+    "modal":{
+      "mark":{
+        "title":"What does it say here?",
+        "label":{
+          "transcriptionText":"Transcribe the text of the marked line"
+        }
+      }
+    },
+    "textEditor":{
+      "placeholder":"Enter text here...",
+      "message":{
+        "markLineInPage":"Mark the corresponding line to the highlighted text",
+        "noTextSelected":"You must select text to add a mark!"
+      }
+    },
+    "container":{
+      "edited":"Edited",
+      "likes":"Likes",
+      "button":{
+        "like":"Like",
+        "dislike":"Dislike"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Other Transcriptions"
+    },
+    "markDetails":{
+      "title":"Transcription Details",
+      "button":{
+        "addAnotherTranscription":"Add Another Transcription"
+      }
+    }
+  }
+}
