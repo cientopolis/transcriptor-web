@@ -47,6 +47,27 @@
   "signOut":{
     "title":"Sign Out"
   },
+  "passwordRecover":{
+    "title":"Recover your account",
+    "label":{
+      "email":"Enter your email",
+      "instructions":"We will use the email address to send you a confirmation of your password change request"
+    },
+    "button":{
+      "request":"Request Password Change",
+      "back":"Use another account"
+    }
+  },
+  "changePassword":{
+    "title":"Change your Password",
+    "label":{
+      "password":"Enter your new password",
+      "passwordConfirmation":"Confirm your new password"
+    },
+    "button":{
+      "changePassword":"Change Password"
+    }
+  },
   "myProfile":{
     "title":"My Profile"
   },
