@@ -4,6 +4,7 @@ import { SimpleGlobal } from 'ng2-simple-global';
 import * as UriTemplate from 'uri-templates';
 
 import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
+import { AlertMessagesService } from '../util/alert-messages/alert-messages.service';
 
 import { WebserviceResponse } from '../../models/webserviceResponse';
 
@@ -32,7 +33,11 @@ export class HttpService {
     flashMessages: false
   };
 
-  constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
+  constructor(
+    private http: HttpClient,
+    private global: SimpleGlobal,
+    private flashMessagesService: FlashMessagesService,
+    private alertMessagesService: AlertMessagesService) { }
 
   // loading methods(shortcut without feedback) are represented with initial l
   lget(path, requestOptions = this.getDefaultOptions()) {

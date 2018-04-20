@@ -29,7 +29,6 @@ import { MzSelectModule } from 'ng2-materialize';
 import { MzTabModule } from 'ng2-materialize';
 import { MzCollectionModule } from 'ng2-materialize';
 import { MzSpinnerModule } from 'ng2-materialize';
-
 import { MzTooltipModule } from 'ng2-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
@@ -41,6 +40,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { NgxEditorModule } from 'ngx-editor';
+
+import { Ng2IziToastModule } from 'ng2-izitoast';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -75,6 +76,7 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
 import { RequestPasswordRecoverComponent } from './components/password/request-password-recover/request-password-recover.component';
 import { ChangePasswordComponent } from './components/password/change-password/change-password.component';
 import { PasswordService } from './services/password/password.service';
+import { AlertMessagesService } from './services/util/alert-messages/alert-messages.service';
 
 @NgModule({
   declarations: [
@@ -126,6 +128,7 @@ import { PasswordService } from './services/password/password.service';
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     NgxEditorModule,
+    Ng2IziToastModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -151,7 +154,8 @@ import { PasswordService } from './services/password/password.service';
     WorkService,
     TranscriptionService,
     TranscribeService,
-    PasswordService
+    PasswordService,
+    AlertMessagesService
   ],
   bootstrap: [AppComponent]
 })
