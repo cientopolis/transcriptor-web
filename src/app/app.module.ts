@@ -72,6 +72,9 @@ import { TranscriptionContainerComponent } from './components/transcribe/transcr
 import { TextEditorComponent } from './components/transcribe/text-editor/text-editor.component';
 import { TranscriptionFormComponent } from './components/transcribe/transcription-form/transcription-form.component';
 import { TranscribeService } from './services/transcribe/transcribe.service';
+import { RequestPasswordRecoverComponent } from './components/password/request-password-recover/request-password-recover.component';
+import { ChangePasswordComponent } from './components/password/change-password/change-password.component';
+import { PasswordService } from './services/password/password.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +97,9 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
     MarkTranscriptionsListComponent,
     TranscriptionContainerComponent,
     TextEditorComponent,
-    TranscriptionFormComponent
+    TranscriptionFormComponent,
+    RequestPasswordRecoverComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -145,7 +150,8 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
     UploadService,
     WorkService,
     TranscriptionService,
-    TranscribeService
+    TranscribeService,
+    PasswordService
   ],
   bootstrap: [AppComponent]
 })
