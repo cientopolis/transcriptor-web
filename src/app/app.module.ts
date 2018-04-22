@@ -57,14 +57,17 @@ import { UploadComponent } from './components/shared/upload/upload.component';
 import { StartProjectComponent } from './components/start-project/start-project.component';
 import { CollectionService } from './services/collection/collection.service';
 import { UploadService } from './services/upload/upload.service';
+
 import { ShowWorkComponent } from './components/work/show-work/show-work.component';
 import { WorkService } from './services/work/work.service';
+import { UserService } from './services/user/user.service';
 import { EditWorkComponent } from './components/work/edit-work/edit-work.component';
 import { ListWorkPagesComponent } from './components/work/list-work-pages/list-work-pages.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { ShowCollectionComponent } from './components/collection/show-collection/show-collection.component';
 import { ListCollectionWorksComponent } from './components/collection/list-collection-works/list-collection-works.component';
 import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
+import { UserComponent } from './components/user/user.component';
 import { MarkDetailsComponent } from './components/transcribe/mark-details/mark-details.component';
 import { TranscriptionService } from './services/transcription/transcription.service';
 import { MarkTranscriptionsListComponent } from './components/transcribe/mark-transcriptions-list/mark-transcriptions-list.component';
@@ -93,6 +96,7 @@ import { PasswordService } from './services/password/password.service';
     ListCollectionWorksComponent,
     EditCollectionComponent,
     DashboardComponent,
+    UserComponent,
     MarkDetailsComponent,
     MarkTranscriptionsListComponent,
     TranscriptionContainerComponent,
@@ -149,6 +153,7 @@ import { PasswordService } from './services/password/password.service';
     CollectionService,
     UploadService,
     WorkService,
+    UserService,
     TranscriptionService,
     TranscribeService,
     PasswordService

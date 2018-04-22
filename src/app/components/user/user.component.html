@@ -1,0 +1,115 @@
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-56">
+          <a mz-avatar mz-icon-mdi [icon]="'account-circle'" [align]="'left'"></a> User profile</h4>
+        </mz-card-title>
+      <mz-card-content>
+        <div class="row">
+          <div class="col m12">
+            <button mz-button class="right m-t-10" (click)="openModalEditProfile()">
+              <i mz-avatar mz-icon-mdi [icon]="'account-edit'" [align]="'left'"></i>Edit Profile</button>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col m12">
+            <h5 class="m-b-20">
+              Name: {{user.display_name}}
+            </h5>
+            <h5 class="m-b-20" *ngIf="user.location != null">
+              Location: {{user.location}}
+            </h5>
+            <h5 class="m-b-20" *ngIf="user.website != null">
+              Website: {{user.website}}
+            </h5>
+            <h5 class="m-b-20" *ngIf="user.about != null">
+              About: {{user.about}}
+            </h5>
+          </div>
+        </div>
+
+      </mz-card-content>
+    </mz-card>
+  </div>
+</div>
+
+
+<mz-modal #modalEditProfile [fixedFooter]="true">
+  <mz-modal-header>
+    Update user profile
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Name user'"
+            [(ngModel)]="user.display_name"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Login user'"
+            [(ngModel)]="user.login"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Mail user'"
+            [(ngModel)]="user.email"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Website'"
+            [(ngModel)]="user.website"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Location'"
+            [(ngModel)]="user.location"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-textarea-container>
+          <textarea mz-textarea
+            [label]="'About user'"
+            [(ngModel)]="user.about">
+          </textarea>
+        </mz-textarea-container>
+      </div>
+    </div>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button [flat]="true" mz-modal-close (click)="updateUser()">Save</button>
+  </mz-modal-footer>
+</mz-modal>
