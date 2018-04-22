@@ -2,8 +2,8 @@
   <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-20">Collections <button mz-button class="right m-t-10" (click)="openModalCollection()">
-          <i mz-avatar mz-icon-mdi [icon]="'library-plus'" [align]="'left'"></i>Create collection</button></h4>
+        <h4 class="m-b-20">{{'collections.title' | translate}} <button mz-button class="right m-t-10" (click)="openModalCollection()">
+          <i mz-avatar mz-icon-mdi [icon]="'library-plus'" [align]="'left'"></i>{{'collections.button.create' | translate}}</button></h4>
       </mz-card-title>
       <mz-card-content>
         <mz-collection>
@@ -14,7 +14,7 @@
               <p>{{collection.description}}</p>
             </a>
             <div mz-secondary-content>
-              <a mz-button routerLink="/collection/{{ collection.id }}"><i mz-icon-mdi [icon]="'eye'" [align]="'left'"></i> Show Details</a>
+              <a mz-button routerLink="/collection/{{ collection.id }}"><i mz-icon-mdi [icon]="'eye'" [align]="'left'"></i> {{'show' | translate}}</a>
             </div>
           </mz-collection-item>
         </mz-collection>
@@ -25,7 +25,7 @@
 
 <mz-modal #modalCollection [fixedFooter]="true">
   <mz-modal-header>
-    Create a new Collection
+    {{'collections.modal.create.title' | translate}}
   </mz-modal-header>
   <mz-modal-content>
     <div class="row">
@@ -33,7 +33,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Collection Title'"
+            [label]="'collections.modal.create.label.title' | translate"
             [(ngModel)]="collection.title"
             type="text">
         </mz-input-container>
@@ -45,14 +45,14 @@
         <mz-textarea-container>
           <textarea mz-textarea
             [(ngModel)]="collection.description"
-            [label]="'Description'">
+            [label]="'collections.modal.create.label.description' | translate">
           </textarea>
         </mz-textarea-container>
       </div>
     </div>
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
-    <button mz-button [flat]="true" mz-modal-close (click)="createCollection()">Save</button>
+    <button mz-button [flat]="true" mz-modal-close>{{'collections.modal.create.button.cancel' | translate}}</button>
+    <button mz-button [flat]="true" mz-modal-close (click)="createCollection()">{{'collections.modal.create.button.save' | translate}}</button>
   </mz-modal-footer>
 </mz-modal>

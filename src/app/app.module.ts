@@ -1,9 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClient, HttpClientModule }    from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 import { MzNavbarModule } from 'ng2-materialize';
 import { MzParallaxModule } from 'ng2-materialize';
@@ -20,6 +28,9 @@ import { MzToastService } from 'ng2-materialize';
 import { MzSelectModule } from 'ng2-materialize';
 import { MzTabModule } from 'ng2-materialize';
 import { MzCollectionModule } from 'ng2-materialize';
+import { MzSpinnerModule } from 'ng2-materialize';
+
+import { MzTooltipModule } from 'ng2-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -28,6 +39,8 @@ import { NgProgressRouterModule } from '@ngx-progressbar/router';
 import { SimpleGlobal } from 'ng2-simple-global';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
+
+import { NgxEditorModule } from 'ngx-editor';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -55,6 +68,16 @@ import { ShowCollectionComponent } from './components/collection/show-collection
 import { ListCollectionWorksComponent } from './components/collection/list-collection-works/list-collection-works.component';
 import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
 import { UserComponent } from './components/user/user.component';
+import { MarkDetailsComponent } from './components/transcribe/mark-details/mark-details.component';
+import { TranscriptionService } from './services/transcription/transcription.service';
+import { MarkTranscriptionsListComponent } from './components/transcribe/mark-transcriptions-list/mark-transcriptions-list.component';
+import { TranscriptionContainerComponent } from './components/transcribe/transcription-container/transcription-container.component';
+import { TextEditorComponent } from './components/transcribe/text-editor/text-editor.component';
+import { TranscriptionFormComponent } from './components/transcribe/transcription-form/transcription-form.component';
+import { TranscribeService } from './services/transcribe/transcribe.service';
+import { RequestPasswordRecoverComponent } from './components/password/request-password-recover/request-password-recover.component';
+import { ChangePasswordComponent } from './components/password/change-password/change-password.component';
+import { PasswordService } from './services/password/password.service';
 
 @NgModule({
   declarations: [
@@ -73,10 +96,18 @@ import { UserComponent } from './components/user/user.component';
     ListCollectionWorksComponent,
     EditCollectionComponent,
     DashboardComponent,
-    UserComponent
+    UserComponent,
+    MarkDetailsComponent,
+    MarkTranscriptionsListComponent,
+    TranscriptionContainerComponent,
+    TextEditorComponent,
+    TranscriptionFormComponent,
+    RequestPasswordRecoverComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     MzNavbarModule,
     MzParallaxModule,
@@ -91,14 +122,23 @@ import { UserComponent } from './components/user/user.component';
     MzSelectModule,
     MzTabModule,
     MzCollectionModule,
+    MzSpinnerModule,
+    MzTooltipModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
     NgProgressRouterModule,
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
+    NgxEditorModule,
     AppRoutingModule,
     HttpClientModule,
-    MzTabModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     SimpleGlobal,
@@ -113,7 +153,10 @@ import { UserComponent } from './components/user/user.component';
     CollectionService,
     UploadService,
     WorkService,
-    UserService
+    UserService,
+    TranscriptionService,
+    TranscribeService,
+    PasswordService
   ],
   bootstrap: [AppComponent]
 })

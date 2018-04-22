@@ -3,7 +3,7 @@
     <mz-input-container>
       <input mz-input
         class="input-field-primary-color"
-        [label]="'Collection Title'"
+        [label]="'editCollection.label.title' | translate"
         [(ngModel)]="collection.title"
         type="text">
     </mz-input-container>
@@ -15,7 +15,7 @@
     <mz-input-container>
       <input mz-input
         class="input-field-primary-color"
-        [label]="'URL'"
+        [label]="'editCollection.label.url' | translate"
         [(ngModel)]="collection.slug"
         type="text">
     </mz-input-container>
@@ -27,7 +27,7 @@
     <mz-textarea-container>
       <textarea mz-textarea
         [(ngModel)]="collection.description"
-        [label]="'Description'">
+        [label]="'editCollection.label.description' | translate">
       </textarea>
     </mz-textarea-container>
   </div>
@@ -35,9 +35,9 @@
 
 <div class="row">
   <div class="col m6">
-    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> Delete Collection</button>
+    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editCollection.button.delete' | translate}}</button>
   </div>
   <div class="col m6 right-align">
-    <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> Save Changes</button>
+    <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}</button>
   </div>
 </div>

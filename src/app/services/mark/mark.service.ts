@@ -15,19 +15,19 @@ export class MarkService {
   private listByPagePath = '/api/page/';
 
   constructor(private httpService: HttpService) { }
-  
+
   create(mark: Mark): Observable<Mark> {
     return this.httpService.post(this.createPath, mark) as Observable<Mark>;
   }
-  
+
   edit(mark: Mark): Observable<Mark> {
     return this.httpService.put(this.editPath + mark.id, mark) as Observable<Mark>;
   }
-  
+
   delete(mark: Mark): Observable<Mark> {
     return this.httpService.delete(this.deletePath + mark.id) as Observable<Mark>;
   }
-  
+
   listByPage(pageId): Observable<Mark[]> {
     let path = this.listByPagePath + pageId + "/marks";
     return this.httpService.lget(path) as Observable<Mark[]>;

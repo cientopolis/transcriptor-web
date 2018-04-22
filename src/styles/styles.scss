@@ -2,6 +2,10 @@
 @import './variables';
 @import './mixins';
 
+header {
+  z-index: 9999;
+}
+
 body{
 	background-color: $bodyColor;
   background-image: $pattern;
@@ -115,7 +119,7 @@ nav .brand-logo img {
 }
 
 .btn-flat:hover {
-  background-color: #d9d9d9;
+  background-color: rgba(74, 74, 74, 0.15);
 }
 
 .btn-delete,.btn-delete:focus {
@@ -136,6 +140,10 @@ a {
   right: auto !important;
   bottom: 3%;
   left:2%;  
+}
+
+.toast-action:hover {
+    background-color: transparent;
 }
 
 // tabs
@@ -163,4 +171,9 @@ a {
 // helpers
 .float-correction {
   margin-top: 10px;
+}
+
+.card .card-action {
+  padding: 0;
+  padding-bottom: 5px;
 }

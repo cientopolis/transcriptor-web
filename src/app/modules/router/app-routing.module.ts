@@ -10,19 +10,23 @@ import { ShowCollectionComponent } from '../../components/collection/show-collec
 import { ShowWorkComponent } from '../../components/work/show-work/show-work.component';
 import { CollectionsComponent } from '../../components/collections/collections.component';
 import { UserComponent } from '../../components/user/user.component';
+import { RequestPasswordRecoverComponent } from '../../components/password/request-password-recover/request-password-recover.component';
+import { ChangePasswordComponent } from '../../components/password/change-password/change-password.component';
 
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'transcribe/:pageId', component: TranscribeComponent },
-  { path: 'startproject', component: StartProjectComponent },
-  { path: 'work/:workId', component: ShowWorkComponent },
-	{ path: 'collections/list', component: CollectionsComponent },
-  { path: 'collection/:collectionId', component: ShowCollectionComponent },
-	{ path: 'user/profile', component: UserComponent },
+  { path: 'home', component: HomeComponent, data: {animation:'home'} },
+  { path: 'login', component: LoginComponent, data: {animation:'login'} },
+  { path: 'dashboard', component: DashboardComponent, data: {animation:'dashboard'} },
+  { path: 'transcribe/:pageId', component: TranscribeComponent, data: {animation:'transcribe'} },
+  { path: 'startproject', component: StartProjectComponent, data: {animation:'startProject'} },
+  { path: 'work/:workId', component: ShowWorkComponent, data: {animation:'work'} },
+	{ path: 'collections/list', component: CollectionsComponent, data: {animation:'collections'} },
+  { path: 'collection/:collectionId', component: ShowCollectionComponent, data: {animation:'collection'} },
+  { path: 'user/profile', component: UserComponent },
+  { path: 'users/password/recover', component: RequestPasswordRecoverComponent, data: {animation:'collection'} },
+  { path: 'users/password/edit', component: ChangePasswordComponent, data: {animation:'collection'} }
 ];
 
 @NgModule({
