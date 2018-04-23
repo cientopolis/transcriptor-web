@@ -24,7 +24,8 @@ export class HttpService {
     fields: [],
     feedback: {
       flashNotifications: true,
-      flashMessages: true
+      flashMessages: true,
+      alertMessages: true
     }
   };
 
@@ -119,7 +120,7 @@ export class HttpService {
 
   private handleResponse(observable, path, requestMethod, requestOptions) {
     return observable.pipe(
-      tap((response: WebserviceResponse) => this.log(response.message, requestOptions)),
+      tap((response: WebserviceResponse) => this.generateMessages(response, requestOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod)),
       map((response: WebserviceResponse) => response.data)
     );
@@ -138,10 +139,21 @@ export class HttpService {
       return of(result as T);
     };
   }
-
+  
+  private generateMessages(response:any,requestOptions = this.getDefaultOptions()){
+    this.log(response.message, requestOptions);
+    this.throwAlert(response.alert, requestOptions);
+  }
+  
   private log(message: string, requestOptions = this.getDefaultOptions()) {
     if(requestOptions && requestOptions.feedback.flashMessages) {
       this.flashMessagesService.add(message);
+    }
+  }
+  
+  private throwAlert(alert: any, requestOptions = this.getDefaultOptions()) {
+    if(alert && requestOptions && requestOptions.feedback.alertMessages) {
+      this.alertMessagesService.add(alert.title,alert.message);
     }
   }
 
