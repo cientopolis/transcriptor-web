@@ -4,6 +4,7 @@ import { SimpleGlobal } from 'ng2-simple-global';
 import * as UriTemplate from 'uri-templates';
 
 import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
+import { AlertMessagesService } from '../util/alert-messages/alert-messages.service';
 
 import { WebserviceResponse } from '../../models/webserviceResponse';
 
@@ -23,7 +24,8 @@ export class HttpService {
     fields: [],
     feedback: {
       flashNotifications: true,
-      flashMessages: true
+      flashMessages: true,
+      alertMessages: true
     }
   };
 
@@ -32,7 +34,11 @@ export class HttpService {
     flashMessages: false
   };
 
-  constructor(private http: HttpClient, private global: SimpleGlobal, private flashMessagesService: FlashMessagesService) { }
+  constructor(
+    private http: HttpClient,
+    private global: SimpleGlobal,
+    private flashMessagesService: FlashMessagesService,
+    private alertMessagesService: AlertMessagesService) { }
 
   // loading methods(shortcut without feedback) are represented with initial l
   lget(path, requestOptions = this.getDefaultOptions()) {
@@ -114,7 +120,7 @@ export class HttpService {
 
   private handleResponse(observable, path, requestMethod, requestOptions) {
     return observable.pipe(
-      tap((response: WebserviceResponse) => this.log(response.message, requestOptions)),
+      tap((response: WebserviceResponse) => this.generateMessages(response, requestOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod)),
       map((response: WebserviceResponse) => response.data)
     );
@@ -133,10 +139,21 @@ export class HttpService {
       return of(result as T);
     };
   }
-
+  
+  private generateMessages(response:any,requestOptions = this.getDefaultOptions()){
+    this.log(response.message, requestOptions);
+    this.throwAlert(response.alert, requestOptions);
+  }
+  
   private log(message: string, requestOptions = this.getDefaultOptions()) {
     if(requestOptions && requestOptions.feedback.flashMessages) {
       this.flashMessagesService.add(message);
+    }
+  }
+  
+  private throwAlert(alert: any, requestOptions = this.getDefaultOptions()) {
+    if(alert && requestOptions && requestOptions.feedback.alertMessages) {
+      this.alertMessagesService.add(alert.title,alert.message);
     }
   }
 

@@ -29,7 +29,6 @@ import { MzSelectModule } from 'ng2-materialize';
 import { MzTabModule } from 'ng2-materialize';
 import { MzCollectionModule } from 'ng2-materialize';
 import { MzSpinnerModule } from 'ng2-materialize';
-
 import { MzTooltipModule } from 'ng2-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
@@ -41,6 +40,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { NgxEditorModule } from 'ngx-editor';
+
+import { Ng2IziToastModule } from 'ng2-izitoast';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -57,14 +58,17 @@ import { UploadComponent } from './components/shared/upload/upload.component';
 import { StartProjectComponent } from './components/start-project/start-project.component';
 import { CollectionService } from './services/collection/collection.service';
 import { UploadService } from './services/upload/upload.service';
+
 import { ShowWorkComponent } from './components/work/show-work/show-work.component';
 import { WorkService } from './services/work/work.service';
+import { UserService } from './services/user/user.service';
 import { EditWorkComponent } from './components/work/edit-work/edit-work.component';
 import { ListWorkPagesComponent } from './components/work/list-work-pages/list-work-pages.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { ShowCollectionComponent } from './components/collection/show-collection/show-collection.component';
 import { ListCollectionWorksComponent } from './components/collection/list-collection-works/list-collection-works.component';
 import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
+import { UserComponent } from './components/user/user.component';
 import { MarkDetailsComponent } from './components/transcribe/mark-details/mark-details.component';
 import { TranscriptionService } from './services/transcription/transcription.service';
 import { MarkTranscriptionsListComponent } from './components/transcribe/mark-transcriptions-list/mark-transcriptions-list.component';
@@ -72,6 +76,10 @@ import { TranscriptionContainerComponent } from './components/transcribe/transcr
 import { TextEditorComponent } from './components/transcribe/text-editor/text-editor.component';
 import { TranscriptionFormComponent } from './components/transcribe/transcription-form/transcription-form.component';
 import { TranscribeService } from './services/transcribe/transcribe.service';
+import { RequestPasswordRecoverComponent } from './components/password/request-password-recover/request-password-recover.component';
+import { ChangePasswordComponent } from './components/password/change-password/change-password.component';
+import { PasswordService } from './services/password/password.service';
+import { AlertMessagesService } from './services/util/alert-messages/alert-messages.service';
 
 @NgModule({
   declarations: [
@@ -90,11 +98,14 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
     ListCollectionWorksComponent,
     EditCollectionComponent,
     DashboardComponent,
+    UserComponent,
     MarkDetailsComponent,
     MarkTranscriptionsListComponent,
     TranscriptionContainerComponent,
     TextEditorComponent,
-    TranscriptionFormComponent
+    TranscriptionFormComponent,
+    RequestPasswordRecoverComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -121,6 +132,7 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     NgxEditorModule,
+    Ng2IziToastModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -144,8 +156,11 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
     CollectionService,
     UploadService,
     WorkService,
+    UserService,
     TranscriptionService,
-    TranscribeService
+    TranscribeService,
+    PasswordService,
+    AlertMessagesService
   ],
   bootstrap: [AppComponent]
 })

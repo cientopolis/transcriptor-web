@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
 
@@ -14,6 +14,7 @@ export class MarkTranscriptionsListComponent implements OnInit {
   @ViewChild('modal') modal;
   transcriptions = [];
   votes = [];
+  @Output() close = new EventEmitter();
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector:ChangeDetectorRef) { }
 
@@ -26,10 +27,8 @@ export class MarkTranscriptionsListComponent implements OnInit {
   }
 
   closeModal() {
-
-    this.changeDetector.detectChanges();
+    this.close.emit();
   }
-
 
   loadTranscriptions() {
     this.transcriptionService.listByMark(this.mark.id, { fields: ['user']})
@@ -41,9 +40,6 @@ export class MarkTranscriptionsListComponent implements OnInit {
         this.loadVotes();
         this.changeDetector.detectChanges();
       });
-
-
-
   }
 
   loadVotes() {

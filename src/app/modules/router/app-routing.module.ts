@@ -9,6 +9,9 @@ import { StartProjectComponent } from '../../components/start-project/start-proj
 import { ShowCollectionComponent } from '../../components/collection/show-collection/show-collection.component';
 import { ShowWorkComponent } from '../../components/work/show-work/show-work.component';
 import { CollectionsComponent } from '../../components/collections/collections.component';
+import { UserComponent } from '../../components/user/user.component';
+import { RequestPasswordRecoverComponent } from '../../components/password/request-password-recover/request-password-recover.component';
+import { ChangePasswordComponent } from '../../components/password/change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -20,7 +23,10 @@ const routes: Routes = [
   { path: 'startproject', component: StartProjectComponent, data: {animation:'startProject'} },
   { path: 'work/:workId', component: ShowWorkComponent, data: {animation:'work'} },
 	{ path: 'collections/list', component: CollectionsComponent, data: {animation:'collections'} },
-  { path: 'collection/:collectionId', component: ShowCollectionComponent, data: {animation:'collection'} }
+  { path: 'collection/:collectionId', component: ShowCollectionComponent, data: {animation:'collection'} },
+  { path: 'user/profile', component: UserComponent },
+  { path: 'users/password/recover', component: RequestPasswordRecoverComponent, data: {animation:'collection'} },
+  { path: 'users/password/edit', component: ChangePasswordComponent, data: {animation:'collection'} }
 ];
 
 @NgModule({

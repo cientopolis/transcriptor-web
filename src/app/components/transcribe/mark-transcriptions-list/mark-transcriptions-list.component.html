@@ -20,7 +20,7 @@
 
   </mz-modal-content>
   <mz-modal-footer>
-    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
       {{'app.button.close' | translate}}
     </button>
   </mz-modal-footer>

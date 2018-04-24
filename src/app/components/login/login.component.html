@@ -22,7 +22,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class='row'>
             <div class="col s12">
               <div class='input-field'>
@@ -30,7 +30,7 @@
                 <label for='password'>{{'signIn.label.password' | translate}}</label>
               </div>
               <div class="right-align">
-                <a class='primary-color-text' href='#!'><b>{{'signIn.button.forgotPassword' | translate}}</b></a>
+                <a class='primary-color-text' routerLink="/users/password/recover"><b>{{'signIn.button.forgotPassword' | translate}}</b></a>
               </div>
             </div>
           </div>
@@ -46,6 +46,80 @@
 
     </div>
   </div>
-  <a href="" class="waves-effect btn-flat primary-color-text">{{'signIn.button.register' | translate}}</a>
+  <a (click)="openCreateAccount()" class="waves-effect btn-flat primary-color-text">{{'signIn.button.register' | translate}}</a>
 
 </div>
+
+
+<mz-modal #modalCreateUser [fixedFooter]="true">
+  <mz-modal-header>
+    Create account
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Login user'"
+            [(ngModel)]="user.login"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Mail user'"
+            [(ngModel)]="user.email"
+            type="email">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Password'"
+            [(ngModel)]="user.password"
+            type="password">
+        </mz-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Password confirmation'"
+            [(ngModel)]="user.password_confirmation"
+            type="password">
+        </mz-input-container>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col m12">
+        <mz-input-container>
+          <input mz-input
+            class="input-field-primary-color"
+            [label]="'Name user'"
+            [(ngModel)]="user.display_name"
+            type="text">
+        </mz-input-container>
+      </div>
+    </div>
+
+
+
+
+
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button [flat]="true" mz-modal-close (click)="createUser()">Save</button>
+  </mz-modal-footer>
+</mz-modal>
