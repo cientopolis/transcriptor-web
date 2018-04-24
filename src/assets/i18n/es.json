@@ -1,3 +1,231 @@
 {
-  "hello":"hola mundo!"
+  "app":{
+    "button":{
+      "close":"Cerrar",
+      "cancel":"Cancelar",
+      "save":"Guardar",
+      "saveChanges":"Guardar Cambios",
+      "delete":"Eliminar",
+      "show":"Ver"
+    }
+  },
+  "home":{
+    "banner":"\"Transcriba y Traduzca Manuscritos de manera práctica, colaborando en línea con muchos otros usuarios\"",
+    "image":{
+      "left":{
+        "title":"Trancribir",
+        "text":"Debido a que Trancriptor se ejecuta en su navegador, puede leer y transcribir materiales desde cualquier lugar."
+      },
+      "middle":{
+        "title":"Comparte tu opinión",
+        "text":"Los usuarios pueden discutir escritos complejos o palabras oscuras dentro de una página para refinar su transcripción."
+      },
+      "right":{
+        "title":"Explora",
+        "text":"El texto resultante está alojado en la web, por lo que los documentos son fáciles de leer y buscar."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcriba y Traduzca Manuscritos de manera práctica, colaborando en línea con muchos otros usuarios\"",
+    "linksTitle":"Links",
+    "moreLinks":"Más Links"
+  },
+  "signIn":{
+    "title":"Iniciar Sesión",
+    "loginMessage":"Por favor, Inicia sesión con tu Cuenta",
+    "label":{
+      "username":"Ingresa tu email",
+      "password":"Ingresa tu contraseña"
+    },
+    "button":{
+      "forgotPassword":"¿Olvidaste tu contraseña?",
+      "login":"Iniciar sesión",
+      "register":"Crear cuenta"
+    }
+  },
+  "signOut":{
+    "title":"Cerrar Sesión"
+  },
+  "passwordRecover":{
+    "title":"Recuperar tu Cuenta",
+    "label":{
+      "email":"Ingresa tu email",
+      "instructions":"We will use the email address to send you a confirmation of your password change request"
+    },
+    "button":{
+      "request":"Solicitar un cambio de contraseña",
+      "back":"Usar otra cuenta"
+    }
+  },
+  "changePassword":{
+    "title":"Cambia ru contraseña",
+    "label":{
+      "password":"Ingresa tu nueva contraseña",
+      "passwordConfirmation":"Confirma tu nueva contraseña"
+    },
+    "button":{
+      "changePassword":"Cambiar Contraseña"
+    }
+  },
+  "myProfile":{
+    "title":"Mi Perfil"
+  },
+  "editCollection": {
+    "label":{
+      "title":"Título de la Colección",
+      "url":"URL",
+      "description":"Descripción"
+    },
+    "button":{
+      "delete":"Eliminar Colección"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Páginas",
+      "settings":"Configuración"
+    }
+  },
+  "collections":{
+    "title":"Colecciones",
+    "button":{
+      "create":"Crear una Colección",
+      "show":"Ver Detalles"
+    },
+    "modal":{
+      "create":{
+        "title":"Crear una nueva Colección",
+        "label":{
+          "title":"Título de la Colección",
+          "description":"Descripción"
+        },
+        "button":{
+          "cancel":"Cancelar",
+          "save":"Guardar"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Páginas",
+      "settings":"Configuración"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Título del Trabajo",
+        "author":"Autor",
+        "location":"Lugar",
+        "url":"URL",
+        "description":"Descripción",
+        "physicalDescription":"Descripción Física",
+        "documentHistory":"Historia del Documento"
+    },
+    "button":{
+      "delete":"Eliminar Página"
+    }
+  },
+  "dashboard":{
+    "title":"Tablero",
+    "tab":{
+      "yourWorks":{
+        "title":"Tus Trabajos",
+        "noWorksMessage":"¡Aún no existen Trabajos en esta Colección!"
+      },
+      "startAProject":{
+        "title":"Iniciar un Proyecto"
+      }
+    },
+    "counter":{
+      "collections":"Colecciones",
+      "works":"Trabajos",
+      "notes":"Notas"
+    },
+    "yourActivity":{
+      "title":"Tu Actividad",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"Transcribió una Página",
+    "page_edit":"Editó una Página",
+    "page_index":"Indexó una Página",
+    "art_edit":"Editó el artículo {{article}}",
+    "note_add":"agregó una nota a una página",
+    "pg_xlat":"Tradujo una Página",
+    "pg_xlat_ed":"Editó la Traducción de una Página",
+    "ocr_corr":"Corrigió una Página",
+    "review":"Marcó que una Página Necesita Revisión",
+    "xlat_index":"Indexó la Traducción de una Página",
+    "xlat_rev":"Marcó que la Traducción de una Página Necesita Revisión",
+    "work_add":"Agregó el Trabajo {{work}}"
+  },
+  "upload":{
+    "title":"Cargar un Archivo PDF o ZIP",
+    "label":{
+      "collection":"Colección"
+    },
+    "placeholder":{
+      "collection":"- Selecciona una Colección -"
+    },
+    "button":{
+      "browse":"Seleccionar Archivo",
+      "submit":"Cargar Archivo",
+      "addCollection":"Crear una nueva Colección"
+    },
+    "tips":{
+      "title":"Consejos",
+      "lines":[
+          "Los archivos ZIP pueden contener carpetas conteniendo imagenes, PDFs, o carpetas conteniendo PDFs",
+          "Cada carpeta se tratará como un documento diferente, por lo tanto, no mezclar páginas de diferentes documentos en la misma carpeta.",
+          "Cada PDF se tratará como un unico documento, por lo que no separe las páginas del mismo documento entre más de un PDF.",
+          "Por ejemplo, un archivo ZIP con 3 imagenes, 2 PDFs y una carpeta que contiene 5 imagenes más generaria 4 Trabajos: las imagenes en el nivel superior en uno, cada PDF su trabajo correspondiente y un ultimo conteniendo las 5 imagenes de la carpeta.",
+          "Para especificar metadatos junto con imágenes, incluir un archivo <a href='/static/metadata'>metadata.yml</a> en cada carpeta especificando cada campo del trabajo."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"¡Debes seleccionar una colección y un archivo para subir!"
+    }
+  },
+  "startAProject":{
+    "title":"Iniciar un Proyecto"
+  },
+  "transcribe":{
+    "title":"Transcripción",
+    "modal":{
+      "mark":{
+        "title":"¿Qué dice aquí?",
+        "label":{
+          "transcriptionText":"Transcribe el texto correspondiente a la línea marcada"
+        }
+      }
+    },
+    "textEditor":{
+      "placeholder":"Ingresa el texto aquí...",
+      "message":{
+        "markLineInPage":"Marque la línea correspondiente al texto seleccionado",
+        "noTextSelected":"¡Debe seleccionar texto para agregar una marca!"
+      }
+    },
+    "container":{
+      "edited":"Editado",
+      "likes":"Me gusta",
+      "button":{
+        "like":"Me gusta",
+        "dislike":"Ya no me gusta"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Otras Transcripciones"
+    },
+    "markDetails":{
+      "title":"Detalles de la Transcripción",
+      "button":{
+        "addAnotherTranscription":"Agregar Otra Transcripción"
+      }
+    }
+  }
 }
