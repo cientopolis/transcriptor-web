@@ -30,6 +30,8 @@ import { MzTabModule } from 'ng2-materialize';
 import { MzCollectionModule } from 'ng2-materialize';
 import { MzSpinnerModule } from 'ng2-materialize';
 
+import { MzTooltipModule } from 'ng2-materialize';
+
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { NgProgressRouterModule } from '@ngx-progressbar/router';
@@ -112,6 +114,7 @@ import { TranscribeService } from './services/transcribe/transcribe.service';
     MzTabModule,
     MzCollectionModule,
     MzSpinnerModule,
+    MzTooltipModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
     NgProgressRouterModule,

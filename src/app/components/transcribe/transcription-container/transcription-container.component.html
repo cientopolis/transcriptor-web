@@ -33,7 +33,6 @@
           [color]="'yellow'"
           [size]="'small'">
         </mz-spinner>
-
         <button
           *ngIf="vote == null || !vote"
           class="right primary-color-text m-t-15"
@@ -44,7 +43,9 @@
          </button>
          <button
            *ngIf="vote"
-           class="button-color"
+           class="right primary-color-text m-t-15 btn-flat"
+
+           mz-tooltip [tooltip]="score"
            mz-button [flat]="true"
            (click)="likeTranscription(transcription,true)">
            <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.dislike' | translate}}
