@@ -47,6 +47,16 @@
   "signOut":{
     "title":"Cerrar Sesión"
   },
+  "registration":{
+    "title":"Crear Cuenta",
+    "label":{
+      "username":"Nombre de Usuario",
+      "email":"Email",
+      "password":"Contraseña",
+      "passwordConfirmation":"Confirmar Contraseña",
+      "displayName":"Nombre a mostrar"
+    }
+  },
   "passwordRecover":{
     "title":"Recuperar tu Cuenta",
     "label":{

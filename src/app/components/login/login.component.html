@@ -53,7 +53,7 @@
 
 <mz-modal #modalCreateUser [fixedFooter]="true">
   <mz-modal-header>
-    Create account
+    {{'registration.title' | translate}}
   </mz-modal-header>
   <mz-modal-content>
     <div class="row">
@@ -61,7 +61,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Login user'"
+            [label]="'registration.label.username' | translate"
             [(ngModel)]="user.login"
             type="text">
         </mz-input-container>
@@ -72,7 +72,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Mail user'"
+            [label]="'registration.label.email' | translate"
             [(ngModel)]="user.email"
             type="email">
         </mz-input-container>
@@ -83,7 +83,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Password'"
+            [label]="'registration.label.password' | translate"
             [(ngModel)]="user.password"
             type="password">
         </mz-input-container>
@@ -94,7 +94,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Password confirmation'"
+            [label]="'registration.label.passwordConfirmation' | translate"
             [(ngModel)]="user.password_confirmation"
             type="password">
         </mz-input-container>
@@ -106,7 +106,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Name user'"
+            [label]="'registration.label.displayName' | translate"
             [(ngModel)]="user.display_name"
             type="text">
         </mz-input-container>
@@ -119,7 +119,7 @@
 
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
-    <button mz-button [flat]="true" mz-modal-close (click)="createUser()">Save</button>
+    <button mz-button [flat]="true" mz-modal-close>{{'app.button.cancel' | translate}}</button>
+    <button mz-button [flat]="true" mz-modal-close (click)="createUser()">{{'app.button.save' | translate}}</button>
   </mz-modal-footer>
 </mz-modal>
