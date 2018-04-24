@@ -26,7 +26,7 @@
                         <mz-collection>
                           <mz-collection-header><h5>{{collection.collection.title}}</h5></mz-collection-header>
                           <div class="container center-align" *ngIf="collection.works.length == 0">
-                            <p>{{'dashboard.tab.noWorksMessage'| translate}}</p>
+                            <p>{{'dashboard.tab.yourWorks.noWorksMessage'| translate}}</p>
                           </div>
                           <a mz-collection-link href="#!" *ngFor="let work of collection.works" routerLink="/work/{{work.id}}">{{work.title}}</a>
                         </mz-collection>
