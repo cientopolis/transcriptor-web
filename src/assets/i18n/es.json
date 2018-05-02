@@ -79,7 +79,17 @@
     }
   },
   "myProfile":{
-    "title":"Mi Perfil"
+    "title":"Mi Perfil",
+    "edit":"Editar Perfil",
+    "badges":"Mis Insignias",
+    "label":{
+      "name":"Nombre",
+      "email":"Email",
+      "website":"Website",
+      "username":"Nombre de Usuario",
+      "location":"Ubicación",
+      "about":"Sobre Mí"
+    }
   },
   "editCollection": {
     "label":{

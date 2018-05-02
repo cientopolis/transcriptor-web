@@ -80,6 +80,8 @@ import { RequestPasswordRecoverComponent } from './components/password/request-p
 import { ChangePasswordComponent } from './components/password/change-password/change-password.component';
 import { PasswordService } from './services/password/password.service';
 import { AlertMessagesService } from './services/util/alert-messages/alert-messages.service';
+import { BadgesComponent } from './components/user/badges/badges.component';
+import { BadgeService } from './services/badge/badge.service';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,8 @@ import { AlertMessagesService } from './services/util/alert-messages/alert-messa
     TextEditorComponent,
     TranscriptionFormComponent,
     RequestPasswordRecoverComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    BadgesComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +163,8 @@ import { AlertMessagesService } from './services/util/alert-messages/alert-messa
     TranscriptionService,
     TranscribeService,
     PasswordService,
-    AlertMessagesService
+    AlertMessagesService,
+    BadgeService
   ],
   bootstrap: [AppComponent]
 })
