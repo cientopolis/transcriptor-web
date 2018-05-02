@@ -79,7 +79,17 @@
     }
   },
   "myProfile":{
-    "title":"My Profile"
+    "title":"My Profile",
+    "edit":"Edit Profile",
+    "badges":"My Badges",
+    "label":{
+      "name":"Name",
+      "email":"Email",
+      "website":"Website",
+      "username":"Username",
+      "location":"Location",
+      "about":"About Me"
+    }
   },
   "editCollection": {
     "label":{

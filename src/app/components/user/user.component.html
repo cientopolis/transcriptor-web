@@ -2,31 +2,36 @@
   <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-56">
-          <a mz-avatar mz-icon-mdi [icon]="'account-circle'" [align]="'left'"></a> User profile</h4>
-        </mz-card-title>
-      <mz-card-content>
-        <div class="row">
-          <div class="col m12">
+          <h4 class="m-b-56">{{'myProfile.title' | translate}}
             <button mz-button class="right m-t-10" (click)="openModalEditProfile()">
-              <i mz-avatar mz-icon-mdi [icon]="'account-edit'" [align]="'left'"></i>Edit Profile</button>
-          </div>
-        </div>
+              <i mz-avatar mz-icon-mdi [icon]="'account-edit'" [align]="'left'"></i>{{'myProfile.edit' | translate}}
+            </button>
+          </h4>
+      </mz-card-title>
+      <mz-card-content>
+        <br>
         <div class="row">
-
           <div class="col m12">
-            <h5 class="m-b-20">
-              Name: {{user.display_name}}
-            </h5>
-            <h5 class="m-b-20" *ngIf="user.location != null">
-              Location: {{user.location}}
-            </h5>
-            <h5 class="m-b-20" *ngIf="user.website != null">
-              Website: {{user.website}}
-            </h5>
-            <h5 class="m-b-20" *ngIf="user.about != null">
-              About: {{user.about}}
-            </h5>
+            <ul>
+              <li class="m-b-10">
+                <b>{{'myProfile.label.name' | translate}}:</b> {{user.display_name}}
+              </li>
+              <li class="m-b-10">
+                <b>{{'myProfile.label.username' | translate}}:</b> {{user.login}}
+              </li>
+              <li class="m-b-10">
+                <b>{{'myProfile.label.email' | translate}}:</b> {{user.email}}
+              </li>
+              <li class="m-b-10" *ngIf="user.location != null">
+                <b>{{'myProfile.label.location' | translate}}:</b> {{user.location}}
+              </li>
+              <li class="m-b-10" *ngIf="user.website != null">
+                <b>{{'myProfile.label.website' | translate}}:</b> {{user.website}}
+              </li>
+              <li class="m-b-10" *ngIf="user.about != null">
+                <b>{{'myProfile.label.about' | translate}}:</b> {{user.about}}
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -35,10 +40,15 @@
   </div>
 </div>
 
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
+    <app-badges></app-badges>
+  </div>
+</div>
 
 <mz-modal #modalEditProfile [fixedFooter]="true">
   <mz-modal-header>
-    Update user profile
+    {{'myProfile.edit' | translate}}
   </mz-modal-header>
   <mz-modal-content>
     <div class="row">
@@ -46,7 +56,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Name user'"
+            [label]="'myProfile.label.name' | translate"
             [(ngModel)]="user.display_name"
             type="text">
         </mz-input-container>
@@ -57,7 +67,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Login user'"
+            [label]="'myProfile.label.username' | translate"
             [(ngModel)]="user.login"
             type="text">
         </mz-input-container>
@@ -68,7 +78,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Mail user'"
+            [label]="'myProfile.label.email' | translate"
             [(ngModel)]="user.email"
             type="text">
         </mz-input-container>
@@ -80,7 +90,7 @@
         <mz-input-container>
           <input mz-input
             class="input-field-primary-color"
-            [label]="'Website'"
+            [label]="'myProfile.label.website' | translate"
             [(ngModel)]="user.website"
             type="text">
         </mz-input-container>
@@ -101,7 +111,7 @@
       <div class="col m12">
         <mz-textarea-container>
           <textarea mz-textarea
-            [label]="'About user'"
+            [label]="'myProfile.label.about' | translate"
             [(ngModel)]="user.about">
           </textarea>
         </mz-textarea-container>
@@ -109,7 +119,7 @@
     </div>
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
-    <button mz-button [flat]="true" mz-modal-close (click)="updateUser()">Save</button>
+    <button mz-button [flat]="true" mz-modal-close>{{'app.button.cancel' | translate}}</button>
+    <button mz-button [flat]="true" mz-modal-close (click)="updateUser()">{{'app.button.save' | translate}}</button>
   </mz-modal-footer>
 </mz-modal>
