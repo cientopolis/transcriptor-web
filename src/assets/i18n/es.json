@@ -103,8 +103,8 @@
   },
   "showCollection":{
     "tab":{
-      "pages":"Páginas",
-      "settings":"Configuración"
+      "pages":"Paginas",
+      "settings":"Configuracion"
     }
   },
   "collections":{
@@ -129,8 +129,8 @@
   },
   "showWork":{
     "tab":{
-      "pages":"Páginas",
-      "settings":"Configuración"
+      "pages":"Paginas",
+      "settings":"Configuracion"
     }
   },
   "editWork":{
