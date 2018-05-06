@@ -247,5 +247,28 @@
         "addAnotherTranscription":"Agregar Otra Transcripción"
       }
     }
+  },
+  "forum":{
+    "title":"Foro",
+    "button":{
+        "addForum":"Foro"
+        }
+},
+"publication":{
+    "title":"Publicación",
+    "user":{
+      "from":"De"
+    },
+    "button":{
+      "response":"Responder",
+      "delete":"Borrar"
+    },
+    "list":{
+      "title":"Publicaciones",
+      "addPublication":"Agregar un comentario"
+    },
+    "transcription":{
+      "label":"Transcripción"
+    }
   }
 }

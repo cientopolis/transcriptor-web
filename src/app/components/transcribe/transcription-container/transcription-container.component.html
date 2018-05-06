@@ -22,10 +22,18 @@
           </div>
           <div class="user-details">
               <a href="#">{{transcription.user.display_name}}</a>
-              <h5>{{'transcribe.container.likes' | translate}}: ({{transcription.cached_weighted_score}})</h5>
           </div>
         </div>
       </div>
+
+      <app-publications-list
+        #publicationsList
+        [forum]="forum"
+        [element]="transcription"
+        (close)="cancelModal()"
+        (successButton)="openPublicationsList()"
+        [modalOptions]="modalOptions">
+      </app-publications-list>
 
       <div class="col s4 offset-s4 right-align">
         <mz-spinner
@@ -44,12 +52,22 @@
          <button
            *ngIf="vote"
            class="right primary-color-text m-t-15 btn-flat"
-
            mz-tooltip [tooltip]="score"
            mz-button [flat]="true"
            (click)="likeTranscription(transcription,true)">
            <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.dislike' | translate}}
           </button>
+      </div>
+    </div>
+    <div class="row m-b-0">
+      <div class="col s12">
+        <button
+          class="right primary-color-text m-t-15 btn-flat"
+          style="width: 100%;"
+          mz-button [flat]="true"
+          (click)="viewPublications()">
+          <i mz-icon-mdi [icon]="'comment-multiple-outline'" [align]="'left'" ></i>{{'forum.button.addForum' | translate}}
+         </button>
       </div>
     </div>
   </mz-card-action>

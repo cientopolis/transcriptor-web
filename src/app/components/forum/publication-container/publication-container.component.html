@@ -1,0 +1,48 @@
+<mz-card *ngIf="publication != null">
+  <mz-card-title>
+    {{publication.text}}
+  </mz-card-title>
+  <mz-card-content>
+    <div class="row m-b-0">
+      <div class="col s6">
+        <div class="user-info user-hover" *ngIf="publication.user">
+          <div class="user-action-time">
+            <p class="m-b-0 m-t-0">{{'publication.user.from' | translate}}: <a href="#">{{publication.user.display_name}}</a></p>
+          </div>
+          <app-publication-container
+            [publication]="publicationChild"
+            (publicationEventParent)="deletePublicationChild($event)"
+            *ngFor="let publicationChild of publicationsChilds">
+          </app-publication-container>
+        </div>
+      </div>
+    </div>
+  </mz-card-content>
+  <mz-card-action>
+    <div class="row m-b-0">
+      <div class="col s12">
+        <mz-textarea-container>
+          <textarea mz-textarea
+            *ngIf="publication!=null && publication.parent_id==null"
+            [(ngModel)]="publicationNew.text"
+            [label]="'add response'">
+          </textarea>
+        </mz-textarea-container>
+        <button
+          *ngIf="publication!=null && publication.parent_id==null"
+          class="right primary-color-text m-t-15 btn-flat"
+          mz-button [flat]="true"
+          (click)="addComment()">
+          <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i>{{'publication.button.response' | translate}}
+         </button>
+         <button
+           *ngIf="publication!=null && publication.user.id == currentUser.id"
+           class="right primary-color-text m-t-15 btn-flat"
+           mz-button [flat]="true"
+           (click)="deleteComment(publication)">
+           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'publication.button.delete' | translate}}
+          </button>
+      </div>
+    </div>
+  </mz-card-action>
+</mz-card>

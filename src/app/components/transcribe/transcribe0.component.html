@@ -1,0 +1,73 @@
+<div class="transcribe-screen"
+[ngClass]="{'collapsed': transcribeOptions.hideTextEditor}"
+leaflet
+leafletDraw
+[leafletOptions]="options"
+[leafletDrawOptions]="drawOptions"
+(leafletMapReady)="onMapReady($event)">
+</div>
+
+<div class="panel-show-button z-depth-1" (click)="toggleEditor()">
+  <i mz-icon-mdi [icon]="'chevron-left'" [align]="'left'"></i>
+</div>
+
+<div class="editor-wrapper" [hidden]='transcribeOptions.hideTextEditor'>
+  <div class="panel-hide-button z-depth-1" (click)="toggleEditor()">
+    <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i>
+  </div>
+  <app-text-editor
+    #textEditor
+    class="transcribe-editor"
+    [page]="page"
+    [(transcribeStrategy)]="transcribeStrategy"
+    (clickText)="selectMark($event)">
+  </app-text-editor>
+</div>
+
+<mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
+  <mz-modal-header>
+    {{'transcribe.modal.mark.title' | translate}}
+    <button class="btn-delete right float-correction" mz-button mz-modal-close *ngIf="editing" (click)="deleteModalMark()">
+      <i mz-icon-mdi [icon]="'delete'" [align]="'left'"></i> {{'app.button.delete' | translate}}
+     </button>
+  </mz-modal-header>
+  <mz-modal-content>
+    <mz-textarea-container
+      *ngIf="renderedMark != null">
+      <textarea mz-textarea
+        [(ngModel)]="renderedMark.mark.transcription_text"
+        [label]="'transcribe.modal.mark.label.transcriptionText' | translate">
+      </textarea>
+    </mz-textarea-container>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="cancelModal()">{{'app.button.cancel' | translate}}</button>
+    <button class="primary-color" mz-button mz-modal-close *ngIf="!editing" (click)="addModalMark()">{{'app.button.save' | translate}}</button>
+    <button class="primary-color" mz-button mz-modal-close *ngIf="editing" (click)="editModalMark()">{{'app.button.saveChanges' | translate}}</button>
+  </mz-modal-footer>
+</mz-modal>
+
+<app-mark-details
+  #markDetailsModal
+  *ngIf="renderedMark != null"
+  [mark]="renderedMark.mark"
+  [votable]="vote.vote"
+  [modalOptions]="modalOptions"
+  (close)="cancelModal()"
+  (successButton)="openMarkTranscriptionsList()"
+  (addButton)="openTranscriptionsForm()">
+</app-mark-details>
+
+<app-mark-transcriptions-list
+  #markTranscriptionsList
+  *ngIf="renderedMark != null"
+  [mark]="renderedMark.mark"
+  (close)="markDetailsModal.refresh()">
+</app-mark-transcriptions-list>
+
+<app-transcription-form
+  #transcriptionForm
+  *ngIf="renderedMark != null"
+  [mark]="renderedMark.mark"
+  [modalOptions]="modalOptions">
+</app-transcription-form>
