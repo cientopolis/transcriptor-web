@@ -22,7 +22,6 @@
           </div>
           <div class="user-details">
               <a href="#">{{transcription.user.display_name}}</a>
-              <h5>{{'transcribe.container.likes' | translate}}: ({{transcription.cached_weighted_score}})</h5>
           </div>
         </div>
       </div>
@@ -34,7 +33,7 @@
           [size]="'small'">
         </mz-spinner>
         <button
-          *ngIf="vote == null || !vote"
+          *ngIf="vote == false"
           class="right primary-color-text m-t-15"
           style="color:#FFFFFF"
           mz-button [flat]="false"
@@ -42,9 +41,8 @@
           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.like' | translate}}
          </button>
          <button
-           *ngIf="vote"
+           *ngIf="vote == true"
            class="right primary-color-text m-t-15 btn-flat"
-
            mz-tooltip [tooltip]="score"
            mz-button [flat]="true"
            (click)="likeTranscription(transcription,true)">

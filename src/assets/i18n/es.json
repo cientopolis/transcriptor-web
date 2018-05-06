@@ -61,7 +61,7 @@
     "title":"Recuperar tu Cuenta",
     "label":{
       "email":"Ingresa tu email",
-      "instructions":"We will use the email address to send you a confirmation of your password change request"
+      "instructions":"Utilizaremos la dirección de correo electrónico para enviarle una confirmación de su solicitud de cambio de contraseña"
     },
     "button":{
       "request":"Solicitar un cambio de contraseña",
@@ -69,7 +69,7 @@
     }
   },
   "changePassword":{
-    "title":"Cambia ru contraseña",
+    "title":"Cambia tu contraseña",
     "label":{
       "password":"Ingresa tu nueva contraseña",
       "passwordConfirmation":"Confirma tu nueva contraseña"

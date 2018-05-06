@@ -307,7 +307,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.renderedMark = renderedMark;
     this.changeDetector.detectChanges();
     let currentTranscription = this.renderedMark.mark.transcription;
-    if(currentTranscription != null && currentTranscription.user_id == this.global['currentUser'].id){
+    if(currentTranscription != null){
       this.openMarkDetailsModal();
     } else {
       this.openMarkModal();

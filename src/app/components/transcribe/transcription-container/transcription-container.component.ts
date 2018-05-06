@@ -10,14 +10,18 @@ import { TranscriptionService } from '../../../services/transcription/transcript
 export class TranscriptionContainerComponent implements OnInit {
 
   @Input() transcription;
-  @Input() vote;
+  @Input() vote = null;
   @Input() userVoted;
   @Input() obtainVote;
   score:string;
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
 
-  ngOnInit() {this.score=this.transcription.cached_weighted_score + " likes";}
+  ngOnInit() {
+    if(this.transcription){
+      this.score=this.transcription.cached_weighted_score + " likes";
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.update();
@@ -35,7 +39,6 @@ export class TranscriptionContainerComponent implements OnInit {
           this.changeDetector.detectChanges();
         });
     }else{
-
       this.transcriptionService.dislike(transcription.id)
         .subscribe(responseTranscription => {
           transcription = responseTranscription;
@@ -66,8 +69,8 @@ export class TranscriptionContainerComponent implements OnInit {
       if(this.obtainVote){
         this.transcriptionService.isVoted(this.transcription.id, { fields: ['user']})
           .subscribe(votes => {
-            this.vote = votes[0].vote;
-            this.userVoted = !votes[0].isVote;
+            this.vote = Boolean(votes[0].vote);
+            this.userVoted = !Boolean(votes[0].isVote);
             this.changeDetector.detectChanges();
         });
       }
