@@ -83,7 +83,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   };
 
   editing:boolean = false;
-  
+
   transcribeStrategy:any = ModalTranscriptionStrategy;
 
   modalOptions: Materialize.ModalOptions = {
@@ -97,7 +97,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       $('.leaflet-draw').fadeIn();
     } // Callback for Modal close
   };
-  
+
   transcribeOptions = {
     hideTextEditor: false,
     autoZoom: true
@@ -105,12 +105,12 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   constructor(
     private transcriptionService:TranscriptionService,
-    private pageService: PageService, 
-    private markService: MarkService, 
+    private pageService: PageService,
+    private markService: MarkService,
     private flashMessagesService: FlashMessagesService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
-    private applicationRef: ApplicationRef, 
+    private applicationRef: ApplicationRef,
     private global: SimpleGlobal) {
     this.global['hideFooter']=true;
     this.transcribeOptions=this.getTranscribeOptions();
@@ -125,13 +125,13 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.global['hideFooter']=false;
     $("body").css("overflow", "auto");
   }
-  
+
   ngAfterViewInit() {
     let component = this;
-    
+
     // prevents scroll to anchor deleting references to "#" in map
     $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
-    
+
     let toolbar = LeafletUtils.addToolbar();
     let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
     let autoZoomButton = LeafletUtils.addToolbarAction(toolbar, '', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
@@ -244,21 +244,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       component.drawnLayers.addLayer(layer);
       component.transcribeStrategy.execute(renderedMark,component);
     });
-    
+
     map.on('draw:toolbaropened', function(e:any){
       $('.leaflet-draw-actions>li>a').last().click(function(){
         component.map.fire('draw:drawcanceled');
       });
     });
-    
+
     map.on('draw:drawcanceled', function(e:any){
       component.reset();
     });
-    
+
     map.on('draw:canceled', function(e:any){
       component.reset();
     });
-    
+
     map.on('draw:drawstop', function(e:any){
       component.flashMessagesService.clear();
     });
@@ -325,7 +325,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   openMarkTranscriptionsList() {
     this.markTranscriptionsList.open();
   }
-  
+
   openTranscriptionsForm() {
     this.transcriptionForm.open();
   }
@@ -388,7 +388,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       this.map.fitBounds(layer.getBounds(), {padding: [100, 100]});
     }
   }
-  
+
   selectMark(markId){
     var selectedMark = _.find(this.renderedMarks, function(renderedMark){
       return renderedMark.mark.id == markId;
@@ -401,25 +401,25 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   // panel logic
   toggleEditor(){
     this.transcribeOptions.hideTextEditor = !this.transcribeOptions.hideTextEditor;
-    
+
     if(this.transcribeOptions.hideTextEditor){
       $('.editor-wrapper').addClass('animated fadeOutRight');
       $('.transcribe-screen').addClass('collapsed');
     } else {
-      $('.editor-wrapper').removeClass('animated fadeOutRight');      
+      $('.editor-wrapper').removeClass('animated fadeOutRight');
       $('.transcribe-screen').removeClass('collapsed');
     }
     this.map['_onResize']();
-    
+
     this.saveTranscribeOptions();
   }
-  
+
   // looks in localstorage for options to set
   getTranscribeOptions(){
     let transcribeOptions=localStorage.getItem('transcribeOptions');
     return transcribeOptions != null? JSON.parse(transcribeOptions) : this.transcribeOptions;
   }
-  
+
   saveTranscribeOptions(){
     localStorage.setItem('transcribeOptions', JSON.stringify(this.transcribeOptions));
   }

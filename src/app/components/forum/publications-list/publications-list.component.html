@@ -1,0 +1,42 @@
+<mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
+  <mz-modal-header>
+    <mz-card>
+      <mz-card-title>
+        {{'publication.list.title' | translate}}
+
+      </mz-card-title>
+      <mz-card-content>
+        {{'publication.transcription.label' | translate}}: {{text}}
+      </mz-card-content>
+
+    </mz-card>
+  </mz-modal-header>
+  <mz-modal-content>
+    <div class="center-align">
+      <mz-spinner
+        *ngIf="!publicationsResult"
+        [color]="'yellow'"
+        [size]="'big'">
+      </mz-spinner>
+    </div>
+    <app-publication-container
+      [forum]="forum"
+      [publication]="publication"
+      [publications] = "publications"
+      (publicationEvent)="showPublication($event)"
+      *ngFor="let publication of publications">
+    </app-publication-container>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <mz-textarea-container>
+      <textarea mz-textarea
+        [(ngModel)]="publication.text"
+        [label]="'publication.list.addPublication' | translate">
+      </textarea>
+    </mz-textarea-container>
+    <button class="primary-color" mz-button *ngIf="!editing" (click)="addComment()">{{'app.button.save' | translate}}</button>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
+      {{'app.button.close' | translate}}
+    </button>
+  </mz-modal-footer>
+</mz-modal>

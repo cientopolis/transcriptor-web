@@ -82,6 +82,11 @@ import { PasswordService } from './services/password/password.service';
 import { AlertMessagesService } from './services/util/alert-messages/alert-messages.service';
 import { BadgesComponent } from './components/user/badges/badges.component';
 import { BadgeService } from './services/badge/badge.service';
+import { PublicationContainerComponent } from './components/forum/publication-container/publication-container.component';
+import { PublicationService } from './services/forum/publication.service';
+import { ForumComponent } from './components/forum/forum.component';
+import { ForumService } from './services/forum/forum.service';
+import { PublicationsListComponent } from './components/forum/publications-list/publications-list.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +113,10 @@ import { BadgeService } from './services/badge/badge.service';
     TranscriptionFormComponent,
     RequestPasswordRecoverComponent,
     ChangePasswordComponent,
-    BadgesComponent
+    BadgesComponent,
+    PublicationContainerComponent,
+    ForumComponent,
+    PublicationsListComponent
   ],
   imports: [
     BrowserModule,
@@ -164,7 +172,9 @@ import { BadgeService } from './services/badge/badge.service';
     TranscribeService,
     PasswordService,
     AlertMessagesService,
-    BadgeService
+    BadgeService,
+    PublicationService,
+    ForumService
   ],
   bootstrap: [AppComponent]
 })
