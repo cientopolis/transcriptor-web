@@ -25,7 +25,7 @@
           <textarea mz-textarea
             *ngIf="publication!=null && publication.parent_id==null"
             [(ngModel)]="publicationNew.text"
-            [label]="'add response'">
+            [label]="'publication.list.addPublication' | translate">
           </textarea>
         </mz-textarea-container>
         <button
