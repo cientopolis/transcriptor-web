@@ -127,8 +127,10 @@ export class TextEditorComponent implements OnInit {
     });
   }
   
-  save() {
-    this.refreshText();
+  save(refresh = true) {
+    if(refresh) {
+      this.refreshText();
+    }
     var pageTranscriptionData = {
       page:{
         source_text: this.htmlContent
@@ -141,7 +143,7 @@ export class TextEditorComponent implements OnInit {
   
   addMarkText(mark) {
     this.createTextElement(mark);
-    this.save();
+    this.save(false);
   }
 
   private obtainIdFromClass(className) {
