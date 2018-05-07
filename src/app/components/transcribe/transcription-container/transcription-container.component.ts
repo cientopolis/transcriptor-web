@@ -1,6 +1,8 @@
-import { Component, OnInit, OnChanges, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ChangeDetectorRef, SimpleChanges,ViewChild } from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
+import { ForumService } from '../../../services/forum/forum.service';
+
 
 @Component({
   selector: 'app-transcription-container',
@@ -13,9 +15,13 @@ export class TranscriptionContainerComponent implements OnInit {
   @Input() vote = null;
   @Input() userVoted;
   @Input() obtainVote;
+  forum = {};
   score:string;
 
-  constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
+  @ViewChild('publicationsList') publicationsList: any;
+
+
+  constructor(private transcriptionService:TranscriptionService,private forumService:ForumService ,private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     if(this.transcription){
@@ -55,7 +61,7 @@ export class TranscriptionContainerComponent implements OnInit {
   getAvatarUrl(username) {
     return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff';
   }
-  
+
   update() {
     if(this.transcription){
       if(!this.transcription.user){
@@ -76,5 +82,40 @@ export class TranscriptionContainerComponent implements OnInit {
       }
     }
   }
-  
+
+  viewPublications(){
+    this.getForum(this.transcription.id);
+  }
+
+  getForum(id) {
+    console.log("lalalala");
+    this.forumService.getElement(id,"Contribution",{ fields: ['user','element']})
+        .subscribe(response => this.setForum(response));
+  }
+
+  private setForum(forum) {
+    console.log(forum);
+    if(forum==null){
+      console.log("crear");
+      this.createForum();
+    }else{
+      this.forum=forum;
+      this.changeDetector.detectChanges();
+      this.openPublicationsList();
+    }
+
+  }
+
+  openPublicationsList() {
+    this.publicationsList.open();
+  }
+
+  createForum() {
+    this.forum={element:{id: this.transcription.id,className:"Contribution"}};
+    this.forumService.create(this.forum)
+      .subscribe(response =>this.setForum(response));
+    }
+
+
+
 }

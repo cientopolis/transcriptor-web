@@ -12,6 +12,10 @@ import { CollectionsComponent } from '../../components/collections/collections.c
 import { UserComponent } from '../../components/user/user.component';
 import { RequestPasswordRecoverComponent } from '../../components/password/request-password-recover/request-password-recover.component';
 import { ChangePasswordComponent } from '../../components/password/change-password/change-password.component';
+import { PublicationContainerComponent } from '../../components/forum/publication-container/publication-container.component';
+import { ForumComponent } from '../../components/forum/forum.component';
+
+
 
 
 const routes: Routes = [
@@ -26,7 +30,8 @@ const routes: Routes = [
   { path: 'collection/:collectionId', component: ShowCollectionComponent, data: {animation:'collection'} },
   { path: 'user/profile', component: UserComponent },
   { path: 'users/password/recover', component: RequestPasswordRecoverComponent, data: {animation:'collection'} },
-  { path: 'users/password/edit', component: ChangePasswordComponent, data: {animation:'collection'} }
+  { path: 'users/password/edit', component: ChangePasswordComponent, data: {animation:'collection'} },
+	{ path: 'forum/:transcriptionId', component: ForumComponent, data: {animation:'transcription'} }
 ];
 
 @NgModule({
