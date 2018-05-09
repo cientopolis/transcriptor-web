@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { SimpleGlobal } from 'ng2-simple-global';
 import * as UriTemplate from 'uri-templates';
 
+import { environment } from '../../../environments/environment';
+
 import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
 import { AlertMessagesService } from '../util/alert-messages/alert-messages.service';
 
@@ -15,7 +17,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class HttpService {
 
-  baseUrl = 'http://localhost:3000';
+  baseUrl = environment.apiUrl;
 
   private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
 
