@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
+import { environment } from '../../../environments/environment';
 
 import * as $ from 'jquery';
 import * as _ from "lodash";
@@ -60,7 +61,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   drawnLayers = new L.FeatureGroup();
 
-  drawOptions = {
+  drawOptions:any = {
     position: 'topright',
     draw: {
       polyline: {
@@ -103,6 +104,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     autoZoom: true
   }
 
+  classicMode:boolean = environment.transcribe.classicMode;
+
   constructor(
     private transcriptionService:TranscriptionService,
     private pageService: PageService,
@@ -114,6 +117,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private global: SimpleGlobal) {
     this.global['hideFooter']=true;
     this.transcribeOptions=this.getTranscribeOptions();
+    if(this.classicMode){
+      this.drawOptions.draw.polyline = false;
+      this.drawOptions.draw.rectangle = false;
+    }
   }
 
   ngOnInit() {
@@ -131,17 +138,19 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
     // prevents scroll to anchor deleting references to "#" in map
     $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
-
-    let toolbar = LeafletUtils.addToolbar();
-    let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
-    let autoZoomButton = LeafletUtils.addToolbarAction(toolbar, '', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
-    autoZoomButton.click(function(){
-      var toggleIcon = $(this).find('.toggleIcon');
-      toggleIcon.toggleClass('icon-color');
-      toggleIcon.toggleClass('primary-color-text');
-      component.transcribeOptions.autoZoom = !component.transcribeOptions.autoZoom;
-      component.saveTranscribeOptions();
-    })
+    
+    if(!this.classicMode){
+      let toolbar = LeafletUtils.addToolbar();
+      let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
+      let autoZoomButton = LeafletUtils.addToolbarAction(toolbar, '', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
+      autoZoomButton.click(function(){
+        var toggleIcon = $(this).find('.toggleIcon');
+        toggleIcon.toggleClass('icon-color');
+        toggleIcon.toggleClass('primary-color-text');
+        component.transcribeOptions.autoZoom = !component.transcribeOptions.autoZoom;
+        component.saveTranscribeOptions();
+      })
+    }
   }
 
   /**
