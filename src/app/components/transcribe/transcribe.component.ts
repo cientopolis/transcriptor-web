@@ -103,6 +103,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     autoZoom: true
   }
 
+  classicMode:boolean = true;
+
   constructor(
     private transcriptionService:TranscriptionService,
     private pageService: PageService,

@@ -87,6 +87,7 @@ import { PublicationService } from './services/forum/publication.service';
 import { ForumComponent } from './components/forum/forum.component';
 import { ForumService } from './services/forum/forum.service';
 import { PublicationsListComponent } from './components/forum/publications-list/publications-list.component';
+import { BasicTextEditorComponent } from './components/transcribe/basic-text-editor/basic-text-editor.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { PublicationsListComponent } from './components/forum/publications-list/
     BadgesComponent,
     PublicationContainerComponent,
     ForumComponent,
-    PublicationsListComponent
+    PublicationsListComponent,
+    BasicTextEditorComponent
   ],
   imports: [
     BrowserModule,
