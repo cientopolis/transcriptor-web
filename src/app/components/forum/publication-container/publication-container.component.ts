@@ -3,6 +3,7 @@ import { Component, OnInit,Input,Output,EventEmitter,ChangeDetectorRef, SimpleCh
 import { PublicationService } from '../../../services/forum/publication.service';
 import { SimpleGlobal } from 'ng2-simple-global';
 
+
 @Component({
   selector: 'app-publication-container',
   templateUrl: './publication-container.component.html',
@@ -37,7 +38,7 @@ export class PublicationContainerComponent implements OnInit {
   }
 
   deleteComment(publicationP) {
-    this.publication=publicationP;
+  //  this.publication=publicationP;
     this.publicationService.delete(publicationP.id)
       .subscribe(publication => {
           //borrar publication
@@ -45,7 +46,14 @@ export class PublicationContainerComponent implements OnInit {
           if(publicationP.parent_id==null){
             this.publicationEvent.emit({publication:this.publication,deleteAction:this.deleteAction});
           }else{
-            this.publicationEventParent.emit({publication:this.publication,deleteAction:this.deleteAction});
+            for (let publicationF of this.publicationsChilds) {
+                if(publication.id == publicationF.id ){
+              
+                  var index = this.publicationsChilds.indexOf(publicationF);
+                  this.publicationsChilds.splice(index,1);
+                }
+            }
+          //  this.publicationEventParent.emit({publication:this.publication,deleteAction:this.deleteAction});
           }
           this.changeDetector.detectChanges();
       });
@@ -86,6 +94,7 @@ export class PublicationContainerComponent implements OnInit {
         this.changeDetector.detectChanges();
       });
   }
+
 
 
 }
