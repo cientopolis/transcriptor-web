@@ -20,8 +20,13 @@ leafletDraw
     class="transcribe-editor" 
     [page]="page"
     [(transcribeStrategy)]="transcribeStrategy"
-    (clickText)="selectMark($event)">
+    (clickText)="selectMark($event)"
+    *ngIf="!classicMode">
   </app-text-editor>
+  <app-basic-text-editor
+    [page]="page"
+    *ngIf="classicMode">
+  </app-basic-text-editor>
 </div>
 
 <mz-modal id="markModal" #markModal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">

@@ -224,6 +224,7 @@
       }
     },
     "textEditor":{
+      "label":"Contenido de la Página",
       "placeholder":"Ingresa el texto aquí...",
       "message":{
         "markLineInPage":"Marque la línea correspondiente al texto seleccionado",
