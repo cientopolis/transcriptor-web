@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild ,ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, ViewChild ,ChangeDetectorRef} from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
 import { MarkService } from '../../../services/mark/mark.service';
@@ -25,10 +25,7 @@ export class MarkDetailsComponent implements OnInit {
   ngOnInit() {}
   
   ngOnChanges(changes: SimpleChanges) {
-    if(this.mark && this.obtainMark){
-      this.markService.get(this.mark.id, {fields:['transcription']})
-        .subscribe(mark => this.mark.transcription = mark.transcription);
-    }
+    this.tryFetchMark();
   }
 
   open() {
@@ -54,6 +51,14 @@ export class MarkDetailsComponent implements OnInit {
   }
   
   refresh(){
+    this.tryFetchMark();
     this.transcriptionContainer.update();
+  }
+  
+  tryFetchMark(){
+    if(this.mark && this.obtainMark){
+      this.markService.get(this.mark.id, {fields:['transcription']})
+        .subscribe(mark => this.mark.transcription = mark.transcription);
+    }
   }
 }
