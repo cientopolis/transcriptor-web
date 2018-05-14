@@ -56,6 +56,7 @@ leafletDraw
   #markDetailsModal
   *ngIf="renderedMark != null"
   [mark]="renderedMark.mark"
+  [obtainMark]="true"
   [votable]="vote.vote"
   [modalOptions]="modalOptions"
   (close)="cancelModal()"

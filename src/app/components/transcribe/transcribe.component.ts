@@ -206,6 +206,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
               component.openMarkModalByRole(renderedMark);
+              component.textEditor.focusMark(mark.id);
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
@@ -349,6 +350,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             component.editing = true;
             component.fitToLayer(renderedMark.layer);
             component.openMarkModalByRole(renderedMark)
+            component.textEditor.focusMark(mark.id);
           });
           this.renderedMarks.push(this.renderedMark);
           this.textEditor.addMarkText(this.renderedMark.mark);
@@ -388,6 +390,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.editing = false;
     this.renderedMark = null;
     this.transcribeStrategy = ModalTranscriptionStrategy;
+    this.textEditor.blurMark();
     this.textEditor.enableEditor();
     this.resetView();
   }

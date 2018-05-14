@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild ,ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild ,ChangeDetectorRef} from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
+import { MarkService } from '../../../services/mark/mark.service';
 
 @Component({
   selector: 'app-mark-details',
@@ -10,6 +11,7 @@ import { TranscriptionService } from '../../../services/transcription/transcript
 export class MarkDetailsComponent implements OnInit {
 
   @Input() mark;
+  @Input() obtainMark = false;
   @Input() votable;
   @Input() modalOptions;
   @ViewChild('modal') modal;
@@ -18,9 +20,15 @@ export class MarkDetailsComponent implements OnInit {
   @Output() addButton = new EventEmitter();
   @ViewChild('transcriptionContainer') transcriptionContainer;
 
-  constructor(private transcriptionService:TranscriptionService, private changeDetector: ChangeDetectorRef) { }
+  constructor(private transcriptionService:TranscriptionService, private markService: MarkService, private changeDetector: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if(this.mark && this.obtainMark){
+      this.markService.get(this.mark.id, {fields:['transcription']})
+        .subscribe(mark => this.mark.transcription = mark.transcription);
+    }
   }
 
   open() {

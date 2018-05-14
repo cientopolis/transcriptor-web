@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
   transcribe: {
-    classicMode: true
+    classicMode: false
   }
 };

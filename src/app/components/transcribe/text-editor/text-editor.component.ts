@@ -10,6 +10,8 @@ import { MarkService } from '../../../services/mark/mark.service';
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 import { FlashMessagesService } from '../../../services/util/flash-messages/flash-messages.service';
 
+import { TextUtils } from '../../../utils/text-utils';
+
 @Component({
   selector: 'app-text-editor',
   templateUrl: './text-editor.component.html',
@@ -92,14 +94,14 @@ export class TextEditorComponent implements OnInit {
     if(changes.page){
       if(changes.page.currentValue != null && changes.page.currentValue != changes.page.previousValue){
         if(this.page.source_text != null && this.page.source_text != ''){
-          this.htmlContent = this.page.source_text
-        } else {
-          this.loadMarks(this.page.id);
+          // this.htmlContent = this.page.source_text;
+          this.compileText(this.page);
         }
       }
     }
   }
   
+  // Deprecated, used to load text using only marks
   loadMarks(pageId) {
     this.markService.listByPage(pageId)
       .subscribe(marks => {
@@ -108,16 +110,34 @@ export class TextEditorComponent implements OnInit {
       });
   }
   
+  // Deprecated, used to load text using only marks
   loadText() {
     this.marks.forEach(mark => {
       this.createTextElement(mark);
     });
   }
   
+  compileText(page){
+    this.markService.listByPage(page.id)
+      .subscribe(marks => {
+        let marksData = {};
+        this.marks = marks;
+        this.marks.forEach(mark => {
+          marksData['contributionMark'+mark.id] = mark.transcription.text;
+        });
+        
+        _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+        var compiled = _.template(page.source_template);
+        this.htmlContent = compiled(marksData);
+      });
+  }
+  
   onFocus() {
     let component = this;
+    $("[class^='contribution-mark-']").attr('contenteditable','false');
     $("[class^='contribution-mark-']").unbind('click');
     $("[class^='contribution-mark-']").click(function(e){
+      $(this).attr('contenteditable','false');
       if(component.isSimpleRangeSelection()){
         component.focusText();
         var markId=component.obtainIdFromClass(this.className);
@@ -130,6 +150,7 @@ export class TextEditorComponent implements OnInit {
   save(refresh = true) {
     if(refresh) {
       this.refreshText();
+      $('.ngx-editor-textarea>.selected').removeClass('selected');
     }
     var pageTranscriptionData = {
       page:{
@@ -171,7 +192,8 @@ export class TextEditorComponent implements OnInit {
   
   private focusText(){
     if(this.focusedText && this.focusedText != window.getSelection().focusNode.parentNode){
-      this.focusedText.classList.remove('selected');
+      // this.focusedText.classList.remove('selected');
+      $('.ngx-editor-textarea .selected').removeClass('selected');
     }
     this.focusedText = window.getSelection().focusNode.parentNode;
     this.focusedText.classList.add('selected');
@@ -234,7 +256,7 @@ export class TextEditorComponent implements OnInit {
   }
   
   private setFinalSeparator(){
-    if(_.endsWith($('.ngx-editor-textarea').html(),'</span>')){
+    if(TextUtils.endsWith($('.ngx-editor-textarea').html(),['</span>','</b>','</i>','</u>'])){
       $('.ngx-editor-textarea').append('&nbsp;');
     }
   }
@@ -294,5 +316,15 @@ export class TextEditorComponent implements OnInit {
   disableEditor(){
     this.editorConfig.editable = false;
     $('.ngx-editor-button').prop('disabled', true);
+  }
+  
+  // Method called from transcription component when focus a mark
+  focusMark(markId) {
+    $('.ngx-editor-textarea .selected').removeClass('selected');
+    $('.contribution-mark-'+markId).addClass('selected');
+  }
+  
+  blurMark() {
+    $('.ngx-editor-textarea .selected').removeClass('selected');
   }
 }
