@@ -33,29 +33,27 @@ export class TranscriptionContainerComponent implements OnInit {
     this.update();
   }
 
-  likeTranscription(transcription,votable) {
+  likeTranscription(votable) {
     if(!votable){
-      this.transcriptionService.like(transcription.id)
+      this.transcriptionService.like(this.transcription.id)
         .subscribe(responseTranscription => {
-          transcription = responseTranscription;
-          this.score = transcription.cached_weighted_score + " likes";
-          this.vote = true;
-          this.userVoted = true;
-          this.transcription=transcription;
-          this.changeDetector.detectChanges();
+          this.changeLikeStatus(responseTranscription, true);
         });
     }else{
-      this.transcriptionService.dislike(transcription.id)
+      this.transcriptionService.dislike(this.transcription.id)
         .subscribe(responseTranscription => {
-          transcription = responseTranscription;
-          this.vote = false;
-          this.score = transcription.cached_weighted_score + " likes";
-          this.userVoted = true;
-          this.transcription=transcription;
-          this.changeDetector.detectChanges();
+          this.changeLikeStatus(responseTranscription, false);
         });
     }
-
+  }
+  
+  private changeLikeStatus(newTranscriptionStatus,liked){
+    newTranscriptionStatus.user = this.transcription.user;
+    this.transcription = newTranscriptionStatus;
+    this.score = this.transcription.cached_weighted_score + " likes";
+    this.vote = liked;
+    this.userVoted = true;
+    this.changeDetector.detectChanges();
   }
 
   getAvatarUrl(username) {
@@ -88,15 +86,12 @@ export class TranscriptionContainerComponent implements OnInit {
   }
 
   getForum(id) {
-    console.log("lalalala");
     this.forumService.getElement(id,"Contribution",{ fields: ['user','element']})
         .subscribe(response => this.setForum(response));
   }
 
   private setForum(forum) {
-    console.log(forum);
     if(forum==null){
-      console.log("crear");
       this.createForum();
     }else{
       this.forum=forum;
