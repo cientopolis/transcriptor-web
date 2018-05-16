@@ -331,6 +331,6 @@ export class TextEditorComponent implements OnInit {
   }
   
   update() {
-    this.compileText();
+    this.save();
   }
 }
