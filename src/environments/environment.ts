@@ -8,5 +8,6 @@ export const environment = {
   apiUrl: 'http://localhost:3000',
   transcribe: {
     classicMode: false
-  }
+  },
+  usePusher: false
 };

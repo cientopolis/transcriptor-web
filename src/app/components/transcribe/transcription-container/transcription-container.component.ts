@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, ChangeDetectorRef, SimpleChanges,ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ChangeDetectorRef, SimpleChanges,ViewChild } from '@angular/core';
 
 import { TranscriptionService } from '../../../services/transcription/transcription.service';
 import { ForumService } from '../../../services/forum/forum.service';
@@ -15,6 +15,7 @@ export class TranscriptionContainerComponent implements OnInit {
   @Input() vote = null;
   @Input() userVoted;
   @Input() obtainVote;
+  @Output() registerVote = new EventEmitter();;
   forum = {};
   score:string;
 
@@ -54,6 +55,7 @@ export class TranscriptionContainerComponent implements OnInit {
     this.vote = liked;
     this.userVoted = true;
     this.changeDetector.detectChanges();
+    this.registerVote.emit(liked);
   }
 
   getAvatarUrl(username) {

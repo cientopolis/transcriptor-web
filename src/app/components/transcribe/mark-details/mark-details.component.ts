@@ -18,6 +18,7 @@ export class MarkDetailsComponent implements OnInit {
   @Output() close = new EventEmitter();
   @Output() successButton = new EventEmitter();
   @Output() addButton = new EventEmitter();
+  @Output() changedTranscription = new EventEmitter();
   @ViewChild('transcriptionContainer') transcriptionContainer;
 
   constructor(private transcriptionService:TranscriptionService, private markService: MarkService, private changeDetector: ChangeDetectorRef) {}
@@ -56,9 +57,14 @@ export class MarkDetailsComponent implements OnInit {
   }
   
   tryFetchMark(){
-    if(this.mark && this.obtainMark){
+    if(this.mark && this.mark.id && this.obtainMark){
       this.markService.get(this.mark.id, {fields:['transcription']})
-        .subscribe(mark => this.mark.transcription = mark.transcription);
+        .subscribe(mark => {
+          if(this.mark.transcription.id != mark.transcription.id){
+            this.changedTranscription.emit();
+          }
+          this.mark.transcription = mark.transcription;
+        });
     }
   }
 }

@@ -435,4 +435,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   saveTranscribeOptions(){
     localStorage.setItem('transcribeOptions', JSON.stringify(this.transcribeOptions));
   }
+  
+  updateTextEditor(){
+    if(!environment.usePusher){
+      this.textEditor.update();
+    }
+  }
 }

@@ -92,44 +92,43 @@ export class TextEditorComponent implements OnInit {
   
   ngOnChanges(changes: SimpleChanges) {
     if(changes.page){
-      if(changes.page.currentValue != null && changes.page.currentValue != changes.page.previousValue){
+      if(changes.page.currentValue != null && !_.isEqual(changes.page.currentValue, changes.page.previousValue)){
         if(this.page.source_text != null && this.page.source_text != ''){
           // this.htmlContent = this.page.source_text;
-          this.compileText(this.page);
+          this.compileText();
         }
       }
     }
   }
   
-  // Deprecated, used to load text using only marks
-  loadMarks(pageId) {
-    this.markService.listByPage(pageId)
+  loadMarks(successFn) {
+    this.markService.listByPage(this.page.id)
       .subscribe(marks => {
         this.marks = marks;
-        this.loadText();
+        successFn(marks);
       });
   }
   
   // Deprecated, used to load text using only marks
   loadText() {
-    this.marks.forEach(mark => {
-      this.createTextElement(mark);
+    this.loadMarks(marks => {
+      this.marks.forEach(mark => {
+        this.createTextElement(mark);
+      });
     });
   }
   
-  compileText(page){
-    this.markService.listByPage(page.id)
-      .subscribe(marks => {
-        let marksData = {};
-        this.marks = marks;
-        this.marks.forEach(mark => {
-          marksData['contributionMark'+mark.id] = mark.transcription.text;
-        });
-        
-        _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
-        var compiled = _.template(page.source_template);
-        this.htmlContent = compiled(marksData);
+  compileText(){
+    this.loadMarks(marks => {
+      let marksData = {};
+      this.marks.forEach(mark => {
+        marksData['contributionMark'+mark.id] = mark.transcription.text;
       });
+   
+      _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+      var compiled = _.template(this.page.source_template);
+      this.htmlContent = compiled(marksData);
+    });
   }
   
   onFocus() {
@@ -159,7 +158,10 @@ export class TextEditorComponent implements OnInit {
       save: true
     };
     this.transcribeService.save(this.page.id, pageTranscriptionData)
-      .subscribe(pageTranscription => {});
+      .subscribe(pageTranscription => {
+        this.page = pageTranscription;
+        this.compileText();
+      }); 
   }
   
   addMarkText(mark) {
@@ -326,5 +328,9 @@ export class TextEditorComponent implements OnInit {
   
   blurMark() {
     $('.ngx-editor-textarea .selected').removeClass('selected');
+  }
+  
+  update() {
+    this.compileText();
   }
 }
