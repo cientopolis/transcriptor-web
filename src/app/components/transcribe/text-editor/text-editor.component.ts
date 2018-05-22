@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Sortable } from '@shopify/draggable';
 
 import * as $ from 'jquery';
 import * as _ from 'lodash';
@@ -47,8 +48,10 @@ export class TextEditorComponent implements OnInit {
   
   focusedText:any;
   currentSelection:any;
-  
   private separator = '&nbsp;';
+  
+  sortable = null;
+  textSortEnabled = false;
   
   constructor(
     private markService: MarkService, 
@@ -85,9 +88,16 @@ export class TextEditorComponent implements OnInit {
     $('#add-text-mark-button').click(function(){
       component.onTextMarkButton();
     });
+    $('.ngx-toolbar').append("<div class='ngx-toolbar-set'><button id='order-text-mark-button' class='ngx-editor-button' title='Order Text' type='button'><i class='fa fa-arrows'></i></button></div>");
+    $('#order-text-mark-button').click(function(){
+      component.toggleTextOrder();
+    });
     $('.ngx-editor-button').on('mousedown',function(){
       component.cutFinalBreakline();
-    })
+    });
+    $('.ngx-editor-textarea').one('mousedown',function(){
+      component.onFocus();
+    });
   }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -149,7 +159,6 @@ export class TextEditorComponent implements OnInit {
   save(refresh = true) {
     if(refresh) {
       this.refreshText();
-      $('.ngx-editor-textarea>.selected').removeClass('selected');
     }
     var pageTranscriptionData = {
       page:{
@@ -248,6 +257,7 @@ export class TextEditorComponent implements OnInit {
   refreshText(){
     this.cutFinalBreakline();
     this.setFinalSeparator();
+    $('.ngx-editor-textarea>.selected').removeClass('selected');
     this.htmlContent = this.textEditor.textArea.nativeElement.innerHTML;
   }
   
@@ -255,6 +265,55 @@ export class TextEditorComponent implements OnInit {
     this.focusText();
     this.cutFinalBreakline();
     this.setFinalSeparator();
+  }
+  
+  cleanText(){
+    $("[class^='contribution-mark-']").each(function(){
+      let markToEval:any = $(this);
+      if(markToEval.parent('.ngx-editor-textarea').length == 0){
+          markToEval = markToEval.parent(); 
+      }
+      if(markToEval[0].nextSibling && !(_.includes(markToEval[0].nextSibling.nodeValue, "\u00A0") || _.includes(markToEval[0].nextSibling.nodeValue, " "))){
+        markToEval.first().after('&nbsp;');
+      }
+    });
+  }
+  
+  toggleTextOrder(){
+    this.textSortEnabled = !this.textSortEnabled;
+    if(this.textSortEnabled){
+      // adds class .sortable to top level marks
+      $(".ngx-editor-textarea>[class^='contribution-mark-']").addClass('sortable');
+      // adds class .sortable to styled marks
+      $("[class^='contribution-mark-']").parents().filter(function() {
+        return $(this).parent().is('.ngx-editor-textarea');
+      }).addClass('sortable');
+      
+      this.configureSortable();
+    } else {
+      $('.sortable').removeClass('sortable')
+      this.sortable.destroy();
+    }
+    $('#order-text-mark-button').toggleClass('active');
+    $('.ngx-editor-textarea').attr('contenteditable', !JSON.parse($('.ngx-editor-textarea').attr('contenteditable')));
+  }
+  
+  private configureSortable(){
+    this.sortable = new Sortable($('.ngx-editor-textarea')[0], {
+      draggable: '.sortable'
+    });
+    
+    this.sortable.on('drag:stop', (event) => {
+      this.cleanText();
+    });
+    
+    this.sortable.on('sortable:sorted', (sortableEvent) => {
+      const {source, over} = sortableEvent.dragEvent;
+    
+      // Can be done in a separate frame
+      requestAnimationFrame(() => {
+      });
+    });
   }
   
   private setFinalSeparator(){
