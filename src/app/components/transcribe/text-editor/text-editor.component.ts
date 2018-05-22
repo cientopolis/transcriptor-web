@@ -84,13 +84,13 @@ export class TextEditorComponent implements OnInit {
   
   ngAfterViewInit() {
     let component = this;
-    $('.ngx-toolbar').append("<div class='ngx-toolbar-set'><button id='add-text-mark-button' class='ngx-editor-button' title='Add Text Mark' type='button'><i class='fa fa-bookmark'></i></button></div>");
-    $('#add-text-mark-button').click(function(){
-      component.onTextMarkButton();
-    });
     $('.ngx-toolbar').append("<div class='ngx-toolbar-set'><button id='order-text-mark-button' class='ngx-editor-button' title='Order Text' type='button'><i class='fa fa-arrows'></i></button></div>");
     $('#order-text-mark-button').click(function(){
       component.toggleTextOrder();
+    });
+    $('.ngx-toolbar').append("<div class='ngx-toolbar-set'><button id='add-text-mark-button' class='ngx-editor-button' title='Add Text Mark' type='button'><i class='fa fa-bookmark'></i></button></div>");
+    $('#add-text-mark-button').click(function(){
+      component.onTextMarkButton();
     });
     $('.ngx-editor-button').on('mousedown',function(){
       component.cutFinalBreakline();
@@ -295,7 +295,7 @@ export class TextEditorComponent implements OnInit {
       this.sortable.destroy();
     }
     $('#order-text-mark-button').toggleClass('active');
-    $('.ngx-editor-textarea').attr('contenteditable', !JSON.parse($('.ngx-editor-textarea').attr('contenteditable')));
+    $('.ngx-editor-textarea').attr('contenteditable', !JSON.parse($('.ngx-editor-textarea').attr('contenteditable')) + '');
   }
   
   private configureSortable(){

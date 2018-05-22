@@ -56,7 +56,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   shapeOptions = {
     color: '#e65100',
     weight: 6,
-    opacity: 0.7
+    opacity: 0.5
   }
 
   drawnLayers = new L.FeatureGroup();
