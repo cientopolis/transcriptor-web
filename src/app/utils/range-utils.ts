@@ -20,11 +20,9 @@ export class RangeUtils {
     let isNeightbor = elementToEval.is(selector);
     if(!isNeightbor && contains){
       isNeightbor = elementToEval.find(selector).length != 0;
-      console.log(isNeightbor);
     }
-    console.log(selection.focusOffset == selection.focusNode.length);
     if(selection.isCollapsed 
-      && selection.focusOffset == selection.focusNode.length 
+      && selection.focusOffset == selection.focusNode['length'] 
       && isNeightbor){
       return true;
     }
@@ -37,7 +35,6 @@ export class RangeUtils {
     let isNeightbor = elementToEval.is(selector);
     if(!isNeightbor && contains){
       isNeightbor = elementToEval.find(selector).length != 0;
-      console.log(isNeightbor);
     }
     if(selection.isCollapsed 
       && selection.focusOffset == 0 
