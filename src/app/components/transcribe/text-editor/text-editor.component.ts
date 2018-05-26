@@ -4,6 +4,7 @@ import { Sortable } from '@shopify/draggable';
 
 import * as $ from 'jquery';
 import * as _ from 'lodash';
+import * as rangy from 'rangy';
 
 import { TextEditorTranscriptionStrategy } from '../transcription-strategies/text-editor-transcription-strategy';
 
@@ -12,6 +13,7 @@ import { TranscribeService } from '../../../services/transcribe/transcribe.servi
 import { FlashMessagesService } from '../../../services/util/flash-messages/flash-messages.service';
 
 import { TextUtils } from '../../../utils/text-utils';
+import { RangeUtils } from '../../../utils/range-utils';
 
 @Component({
   selector: 'app-text-editor',
@@ -60,16 +62,26 @@ export class TextEditorComponent implements OnInit {
     private translate:TranslateService) { }
 
   ngOnInit() {
+    window['rangy'] = rangy;
     let component=this;
     $(".ngx-editor-textarea").keydown(function(e){
-      // trap the return key being pressed
-      if (e.keyCode === 13) {
-        if(window.getSelection().focusNode['nextElementSibling']){
-          document.execCommand('insertHTML', false, '<br>');
-        } else {
-          document.execCommand('insertHTML', false, '<br>&zwnj;');
-        }
-        return false;
+      // trap the key being pressed
+      switch(e.keyCode) {
+          case 13: //catch the "enter" key
+            if(window.getSelection().focusNode['nextElementSibling']){
+              document.execCommand('insertHTML', false, '<br>');
+            } else {
+              document.execCommand('insertHTML', false, '<br>&zwnj;');
+            }
+            return false;
+          case 8: //catch the "backspace" key
+            if(RangeUtils.isPreviousToSelection("[class^='contribution-mark-']",true)){ return false };
+            if(RangeUtils.containsSelection("[class^='contribution-mark-']")){ return false };
+            break;
+          case 46: //catch the "del" key
+            if(RangeUtils.isNextToSelection("[class^='contribution-mark-']",true)){ return false };
+            if(RangeUtils.containsSelection("[class^='contribution-mark-']")){ return false };
+            break;
       }
     });
     
