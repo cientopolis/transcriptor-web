@@ -130,6 +130,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.global['hideFooter']=false;
+    this.global['routeBack'] = null;
     $("body").css("overflow", "auto");
   }
 
@@ -138,7 +139,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
     // prevents scroll to anchor deleting references to "#" in map
     $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
-    
+
     if(!this.classicMode){
       let toolbar = LeafletUtils.addToolbar();
       let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
@@ -173,9 +174,14 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   loadPage() {
     const pageId = +this.route.snapshot.paramMap.get('pageId');
+
     this.pageService.get(pageId)
         .subscribe(page => {
           this.page = page;
+
+          this.global['routeBack'] = "work/"+this.page.work_id;
+          console.log(this.global['routeBack']);
+          this.changeDetector.detectChanges();
           this.addPageToMap();
           this.loadMarks();
         });
@@ -209,7 +215,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
-
+            console.log(this.page);
           });
         });
   }
@@ -432,4 +438,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   saveTranscribeOptions(){
     localStorage.setItem('transcribeOptions', JSON.stringify(this.transcribeOptions));
   }
+
+
 }
