@@ -68,18 +68,19 @@ export class TextEditorComponent implements OnInit {
       // trap the key being pressed
       switch(e.keyCode) {
           case 13: //catch the "enter" key
-            if(window.getSelection().focusNode['nextElementSibling']){
-              document.execCommand('insertHTML', false, '<br>');
-            } else {
-              document.execCommand('insertHTML', false, '<br>&zwnj;');
-            }
+            // if(window.getSelection().focusNode['nextElementSibling']){
+            //   document.execCommand('insertHTML', false, '<br>');
+            // } else {
+            //   document.execCommand('insertHTML', false, '<br>&zwnj;');
+            // }
+            document.execCommand('insertHTML', false, '<br>&zwnj;');
             return false;
           case 8: //catch the "backspace" key
-            if(RangeUtils.isPreviousToSelection("[class^='contribution-mark-']",true)){ return false };
+            if(RangeUtils.isPreviousToSelection("[class^='contribution-mark-']","ngx-editor-textarea",true)){ return false };
             if(RangeUtils.containsSelection("[class^='contribution-mark-']")){ return false };
             break;
           case 46: //catch the "del" key
-            if(RangeUtils.isNextToSelection("[class^='contribution-mark-']",true)){ return false };
+            if(RangeUtils.isNextToSelection("[class^='contribution-mark-']","ngx-editor-textarea",true)){ return false };
             if(RangeUtils.containsSelection("[class^='contribution-mark-']")){ return false };
             break;
       }
