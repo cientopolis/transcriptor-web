@@ -14,7 +14,7 @@ import { routeAnimation } from './utils/animations';
 })
 export class AppComponent implements OnInit{
   title = 'Transcriptor';
-  
+
   constructor(private loginService: LoginService, private global: SimpleGlobal, private router: Router, public translate: TranslateService) {
     translate.addLangs(['en', 'es']);
     translate.setDefaultLang('en');
@@ -22,30 +22,31 @@ export class AppComponent implements OnInit{
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/en|es/) ? browserLang : 'en');
   }
-  
+
   ngOnInit() {
     //usar interceptor
+    this.global['routeBack']=null;
     let storedUser=localStorage.getItem('currentUser');
     if(storedUser != null){
       this.setUser(JSON.parse(storedUser));
     }
   }
-  
+
   logout() : void {
     localStorage.removeItem('currentUser');
     this.global['currentUser'] = null;
     this.router.navigate(['home'])
   }
-  
+
   private setUser(user){
     this.global['currentUser'] = user;
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
-  
+
   getAnimationData(routerOutlet: any) {
     return routerOutlet.activatedRouteData['animation'] || 'login';
   }
-  
+
   useLanguage(lang){
     this.translate.use(lang)
   }

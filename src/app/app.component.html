@@ -2,13 +2,26 @@
   <ng-progress [min]="0" [spinner]="false" [thick]="true" [color]="'#ffd54f'" [ease]="'ease-in'"></ng-progress>
 
   <mz-navbar navbarClass="main-navbar">
+    <a routerLink="{{global.routeBack}}" *ngIf="global.routeBack"><i mz-icon-mdi [icon]="'arrow-left'" [align]="'left'" style="
+    margin-right: 0px;"></i></a>
+
   	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
-  	<mz-navbar-item-container [align]="'right'">
+
+
+    <mz-navbar-item-container [align]="'right'">
       <mz-navbar-item><a routerLink="/collections/list">{{'collections.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item><a routerLink="dashboard">{{'dashboard.title' | translate}}</a></mz-navbar-item>
-      	<mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
-        <mz-navbar-item *ngIf="global.currentUser"><a id="btn-dropdown-demo"><b>{{global.currentUser.display_name}}</b></a></mz-navbar-item>
-  	</mz-navbar-item-container>
+        <mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
+        <mz-navbar-item *ngIf="global.currentUser">
+          <a id="btn-dropdown-demo">
+            <b><p style="
+              line-height: 32px;
+              margin-bottom:  0px;
+              margin-top: 10px;">{{global.currentUser.display_name}}</p></b><p *ngIf="global.currentUser.rank" style="font-size:15px;line-height: 15px;margin: 0px;text-align: center;" >({{global.currentUser.rank}})</p>
+          </a>
+        </mz-navbar-item>
+    </mz-navbar-item-container>
+
   </mz-navbar>
 
   <mz-dropdown
@@ -27,6 +40,20 @@
     <mz-dropdown-divider></mz-dropdown-divider>
     <mz-dropdown-item><a (click)="logout()">{{'signOut.title' | translate}}</a></mz-dropdown-item>
   </mz-dropdown>
+  <!--
+  <nav class="clean" style="
+    padding-left: 100px;">
+    <div class="nav-wrapper">
+      <div >
+        <a href="#!" class="breadcrumb">First</a>
+        <a href="#!" class="breadcrumb">Second</a>
+        <a href="#!" class="breadcrumb">Third</a>
+      </div>
+    </div>
+  </nav>
+-->
+
+
 </header>
 
 <main [@routeAnimation]="getAnimationData(routerOutlet)">

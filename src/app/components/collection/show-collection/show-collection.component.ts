@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import {SimpleGlobal} from 'ng2-simple-global';
 import { CollectionService } from '../../../services/collection/collection.service';
 
 @Component({
@@ -9,19 +9,24 @@ import { CollectionService } from '../../../services/collection/collection.servi
   styleUrls: ['./show-collection.component.scss']
 })
 export class ShowCollectionComponent implements OnInit {
-  
+
   collection = null;
 
-  constructor(private collectionService: CollectionService, private route: ActivatedRoute) { }
+  constructor(private collectionService: CollectionService, private route: ActivatedRoute, private global: SimpleGlobal,private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.global['routeBack'] = "collections/list";
     const collectionId = +this.route.snapshot.paramMap.get('collectionId');
     this.collectionService.get(collectionId, { fields: ['owner']})
       .subscribe(collection => this.collection=collection);
+    this.changeDetector.detectChanges();
   }
-  
+
   onShow() {
     $('.tabs-content.carousel').height($('.carousel-item.active .row').height());
+  }
+  ngOnDestroy() {
+    this.global['routeBack'] = null;
   }
 
 }

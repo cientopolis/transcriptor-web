@@ -30,6 +30,7 @@ import { MzTabModule } from 'ng2-materialize';
 import { MzCollectionModule } from 'ng2-materialize';
 import { MzSpinnerModule } from 'ng2-materialize';
 import { MzTooltipModule } from 'ng2-materialize';
+import { MzCollapsibleModule } from 'ng2-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -139,6 +140,7 @@ import { BasicTextEditorComponent } from './components/transcribe/basic-text-edi
     MzCollectionModule,
     MzSpinnerModule,
     MzTooltipModule,
+    MzCollapsibleModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
     NgProgressRouterModule,

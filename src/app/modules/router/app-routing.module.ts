@@ -20,9 +20,14 @@ import { ForumComponent } from '../../components/forum/forum.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, data: {animation:'home'} },
+  { path: 'home', component: HomeComponent,
+	data:{
+			breadcrumb: 'Home',
+			url:'/home'
+		}
+	},
   { path: 'login', component: LoginComponent, data: {animation:'login'} },
-  { path: 'dashboard', component: DashboardComponent, data: {animation:'dashboard'} },
+  { path: 'dashboard', component: DashboardComponent, data: {animation:'dashboard',breadcrumb: 'Dashboard',url:'dashboard'} },
   { path: 'transcribe/:pageId', component: TranscribeComponent, data: {animation:'transcribe'} },
   { path: 'startproject', component: StartProjectComponent, data: {animation:'startProject'} },
   { path: 'work/:workId', component: ShowWorkComponent, data: {animation:'work'} },
