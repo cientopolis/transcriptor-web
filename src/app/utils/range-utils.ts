@@ -48,21 +48,24 @@ export class RangeUtils {
   
   public static isNextToSelection(selector, parentClass, contains = false){
     let selection = rangy.getSelection();
-    let focusNode = selection.focusNode;
-    let fixed = false; 
-    if($(focusNode).hasClass(parentClass)){
-      focusNode = focusNode.childNodes[selection.focusOffset];
-      fixed = true;
-    }
-    let elementToEval = $(focusNode.nextSibling);
-    if($(focusNode).is(selector) || $(focusNode).find(selector).length != 0){
-      return true;
-    } else {
-      if(fixed || selection.focusOffset == focusNode['length']){
-        $(focusNode).replaceWith(' ' + focusNode.textContent + '&zwnj;');
+    if(selection.isCollapsed){
+      let focusNode = selection.focusNode;
+      let fixed = false; 
+      if($(focusNode).hasClass(parentClass)){
+        focusNode = focusNode.childNodes[selection.focusOffset];
+        fixed = true;
       }
-      return false;
+      let elementToEval = $(focusNode.nextSibling);
+      if($(focusNode).is(selector) || $(focusNode).find(selector).length != 0){
+        return true;
+      } else {
+        if(fixed || selection.focusOffset == focusNode['length']){
+          $(focusNode).replaceWith(' ' + focusNode.textContent + '&zwnj;');
+        }
+        return false;
+      }
     }
+    return false;
   }
   
   public static isPreviousToSelection(selector, parentClass, contains = false){
