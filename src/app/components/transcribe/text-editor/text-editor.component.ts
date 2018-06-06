@@ -1,14 +1,19 @@
 import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Sortable } from '@shopify/draggable';
 
 import * as $ from 'jquery';
 import * as _ from 'lodash';
+import * as rangy from 'rangy';
 
 import { TextEditorTranscriptionStrategy } from '../transcription-strategies/text-editor-transcription-strategy';
 
 import { MarkService } from '../../../services/mark/mark.service';
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 import { FlashMessagesService } from '../../../services/util/flash-messages/flash-messages.service';
+
+import { TextUtils } from '../../../utils/text-utils';
+import { RangeUtils } from '../../../utils/range-utils';
 
 @Component({
   selector: 'app-text-editor',
@@ -45,8 +50,10 @@ export class TextEditorComponent implements OnInit {
   
   focusedText:any;
   currentSelection:any;
-  
   private separator = '&nbsp;';
+  
+  sortable = null;
+  textSortEnabled = false;
   
   constructor(
     private markService: MarkService, 
@@ -55,16 +62,27 @@ export class TextEditorComponent implements OnInit {
     private translate:TranslateService) { }
 
   ngOnInit() {
+    window['rangy'] = rangy;
     let component=this;
     $(".ngx-editor-textarea").keydown(function(e){
-      // trap the return key being pressed
-      if (e.keyCode === 13) {
-        if(window.getSelection().focusNode['nextElementSibling']){
-          document.execCommand('insertHTML', false, '<br>');
-        } else {
-          document.execCommand('insertHTML', false, '<br>&zwnj;');
-        }
-        return false;
+      // trap the key being pressed
+      switch(e.keyCode) {
+          case 13: //catch the "enter" key
+            // if(window.getSelection().focusNode['nextElementSibling']){
+            //   document.execCommand('insertHTML', false, '<br>');
+            // } else {
+            //   document.execCommand('insertHTML', false, '<br>&zwnj;');
+            // }
+            document.execCommand('insertHTML', false, '<br>&zwnj;');
+            return false;
+          case 8: //catch the "backspace" key
+            if(RangeUtils.isPreviousToSelection("[class^='contribution-mark-']","ngx-editor-textarea",true)){ return false };
+            if(RangeUtils.containsSelection("[class^='contribution-mark-']")){ return false };
+            break;
+          case 46: //catch the "del" key
+            if(RangeUtils.isNextToSelection("[class^='contribution-mark-']","ngx-editor-textarea",true)){ return false };
+            if(RangeUtils.containsSelection("[class^='contribution-mark-']")){ return false };
+            break;
       }
     });
     
@@ -79,45 +97,69 @@ export class TextEditorComponent implements OnInit {
   
   ngAfterViewInit() {
     let component = this;
+    $('.ngx-toolbar').append("<div class='ngx-toolbar-set'><button id='order-text-mark-button' class='ngx-editor-button' title='Order Text' type='button'><i class='fa fa-arrows'></i></button></div>");
+    $('#order-text-mark-button').click(function(){
+      component.toggleTextOrder();
+    });
     $('.ngx-toolbar').append("<div class='ngx-toolbar-set'><button id='add-text-mark-button' class='ngx-editor-button' title='Add Text Mark' type='button'><i class='fa fa-bookmark'></i></button></div>");
     $('#add-text-mark-button').click(function(){
       component.onTextMarkButton();
     });
     $('.ngx-editor-button').on('mousedown',function(){
       component.cutFinalBreakline();
-    })
+    });
+    $('.ngx-editor-textarea').one('mousedown',function(){
+      component.onFocus();
+    });
   }
   
   ngOnChanges(changes: SimpleChanges) {
     if(changes.page){
-      if(changes.page.currentValue != null && changes.page.currentValue != changes.page.previousValue){
+      if(changes.page.currentValue != null && !_.isEqual(changes.page.currentValue, changes.page.previousValue)){
         if(this.page.source_text != null && this.page.source_text != ''){
-          this.htmlContent = this.page.source_text
-        } else {
-          this.loadMarks(this.page.id);
+          // this.htmlContent = this.page.source_text;
+          this.compileText();
         }
       }
     }
   }
   
-  loadMarks(pageId) {
-    this.markService.listByPage(pageId)
+  loadMarks(successFn) {
+    this.markService.listByPage(this.page.id)
       .subscribe(marks => {
         this.marks = marks;
-        this.loadText();
+        successFn(marks);
       });
   }
   
+  // Deprecated, used to load text using only marks
   loadText() {
-    this.marks.forEach(mark => {
-      this.createTextElement(mark);
+    this.loadMarks(marks => {
+      this.marks.forEach(mark => {
+        this.createTextElement(mark);
+      });
+    });
+  }
+  
+  compileText(){
+    this.loadMarks(marks => {
+      let marksData = {};
+      this.marks.forEach(mark => {
+        marksData['contributionMark'+mark.id] = mark.transcription.text;
+      });
+   
+      _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+      var compiled = _.template(this.page.source_template);
+      this.htmlContent = compiled(marksData);
     });
   }
   
   onFocus() {
     let component = this;
+    $("[class^='contribution-mark-']").attr('contenteditable','false');
     $("[class^='contribution-mark-']").unbind('click');
     $("[class^='contribution-mark-']").click(function(e){
+      $(this).attr('contenteditable','false');
       if(component.isSimpleRangeSelection()){
         component.focusText();
         var markId=component.obtainIdFromClass(this.className);
@@ -138,7 +180,10 @@ export class TextEditorComponent implements OnInit {
       save: true
     };
     this.transcribeService.save(this.page.id, pageTranscriptionData)
-      .subscribe(pageTranscription => {});
+      .subscribe(pageTranscription => {
+        this.page = pageTranscription;
+        this.compileText();
+      }); 
   }
   
   addMarkText(mark) {
@@ -171,7 +216,8 @@ export class TextEditorComponent implements OnInit {
   
   private focusText(){
     if(this.focusedText && this.focusedText != window.getSelection().focusNode.parentNode){
-      this.focusedText.classList.remove('selected');
+      // this.focusedText.classList.remove('selected');
+      $('.ngx-editor-textarea .selected').removeClass('selected');
     }
     this.focusedText = window.getSelection().focusNode.parentNode;
     this.focusedText.classList.add('selected');
@@ -224,6 +270,7 @@ export class TextEditorComponent implements OnInit {
   refreshText(){
     this.cutFinalBreakline();
     this.setFinalSeparator();
+    $('.ngx-editor-textarea>.selected').removeClass('selected');
     this.htmlContent = this.textEditor.textArea.nativeElement.innerHTML;
   }
   
@@ -233,8 +280,57 @@ export class TextEditorComponent implements OnInit {
     this.setFinalSeparator();
   }
   
+  cleanText(){
+    $("[class^='contribution-mark-']").each(function(){
+      let markToEval:any = $(this);
+      if(markToEval.parent('.ngx-editor-textarea').length == 0){
+          markToEval = markToEval.parent(); 
+      }
+      if(markToEval[0].nextSibling && !(_.includes(markToEval[0].nextSibling.nodeValue, "\u00A0") || _.includes(markToEval[0].nextSibling.nodeValue, " "))){
+        markToEval.first().after('&nbsp;');
+      }
+    });
+  }
+  
+  toggleTextOrder(){
+    this.textSortEnabled = !this.textSortEnabled;
+    if(this.textSortEnabled){
+      // adds class .sortable to top level marks
+      $(".ngx-editor-textarea>[class^='contribution-mark-']").addClass('sortable');
+      // adds class .sortable to styled marks
+      $("[class^='contribution-mark-']").parents().filter(function() {
+        return $(this).parent().is('.ngx-editor-textarea');
+      }).addClass('sortable');
+      
+      this.configureSortable();
+    } else {
+      $('.sortable').removeClass('sortable')
+      this.sortable.destroy();
+    }
+    $('#order-text-mark-button').toggleClass('active');
+    $('.ngx-editor-textarea').attr('contenteditable', !JSON.parse($('.ngx-editor-textarea').attr('contenteditable')) + '');
+  }
+  
+  private configureSortable(){
+    this.sortable = new Sortable($('.ngx-editor-textarea')[0], {
+      draggable: '.sortable'
+    });
+    
+    this.sortable.on('drag:stop', (event) => {
+      this.cleanText();
+    });
+    
+    this.sortable.on('sortable:sorted', (sortableEvent) => {
+      const {source, over} = sortableEvent.dragEvent;
+    
+      // Can be done in a separate frame
+      requestAnimationFrame(() => {
+      });
+    });
+  }
+  
   private setFinalSeparator(){
-    if(_.endsWith($('.ngx-editor-textarea').html(),'</span>')){
+    if(TextUtils.endsWith($('.ngx-editor-textarea').html(),['</span>','</b>','</i>','</u>'])){
       $('.ngx-editor-textarea').append('&nbsp;');
     }
   }
@@ -294,5 +390,19 @@ export class TextEditorComponent implements OnInit {
   disableEditor(){
     this.editorConfig.editable = false;
     $('.ngx-editor-button').prop('disabled', true);
+  }
+  
+  // Method called from transcription component when focus a mark
+  focusMark(markId) {
+    $('.ngx-editor-textarea .selected').removeClass('selected');
+    $('.contribution-mark-'+markId).addClass('selected');
+  }
+  
+  blurMark() {
+    $('.ngx-editor-textarea .selected').removeClass('selected');
+  }
+  
+  update() {
+    this.save();
   }
 }

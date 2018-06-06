@@ -11,7 +11,7 @@ export class MarkService {
   private createPath = '/api/mark';
   private editPath = '/api/mark/';
   private deletePath = '/api/mark/';
-  //dynamic uri build
+  private getPath = '/api/mark/{markId}';
   private listByPagePath = '/api/page/';
 
   constructor(private httpService: HttpService) { }
@@ -26,6 +26,10 @@ export class MarkService {
 
   delete(mark: Mark): Observable<Mark> {
     return this.httpService.delete(this.deletePath + mark.id) as Observable<Mark>;
+  }
+  
+  get(markId, options = {}): Observable<Mark> {
+    return this.httpService.lget([this.getPath,{markId:markId}], options) as Observable<Mark>;
   }
 
   listByPage(pageId): Observable<Mark[]> {

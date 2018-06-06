@@ -56,7 +56,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   shapeOptions = {
     color: '#e65100',
     weight: 6,
-    opacity: 0.7
+    opacity: 0.5
   }
 
   drawnLayers = new L.FeatureGroup();
@@ -212,6 +212,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
               component.openMarkModalByRole(renderedMark);
+              component.textEditor.focusMark(mark.id);
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
@@ -355,6 +356,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             component.editing = true;
             component.fitToLayer(renderedMark.layer);
             component.openMarkModalByRole(renderedMark)
+            component.textEditor.focusMark(mark.id);
           });
           this.renderedMarks.push(this.renderedMark);
           this.textEditor.addMarkText(this.renderedMark.mark);
@@ -394,6 +396,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.editing = false;
     this.renderedMark = null;
     this.transcribeStrategy = ModalTranscriptionStrategy;
+    this.textEditor.blurMark();
     this.textEditor.enableEditor();
     this.resetView();
   }
@@ -438,6 +441,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   saveTranscribeOptions(){
     localStorage.setItem('transcribeOptions', JSON.stringify(this.transcribeOptions));
   }
-
+  
+  updateTextEditor(){
+    if(!environment.usePusher){
+      this.textEditor.update();
+    }
+  }
 
 }

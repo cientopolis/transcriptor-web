@@ -56,11 +56,13 @@ leafletDraw
   #markDetailsModal
   *ngIf="renderedMark != null"
   [mark]="renderedMark.mark"
+  [obtainMark]="true"
   [votable]="vote.vote"
   [modalOptions]="modalOptions"
   (close)="cancelModal()"
   (successButton)="openMarkTranscriptionsList()"
-  (addButton)="openTranscriptionsForm()">
+  (addButton)="openTranscriptionsForm()"
+  (changedTranscription)="updateTextEditor()">
 </app-mark-details>
 
 <app-mark-transcriptions-list
