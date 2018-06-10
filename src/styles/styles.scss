@@ -28,12 +28,26 @@ main {
 }
 
 nav .brand-logo img {
-    height: 64px;
-    opacity: 0.95;
+  height: 64px;
+  opacity: 0.95;
+}
+
+nav .back-button {
+  margin-left: 10px;
+}
+
+nav .back-button i{
+  margin-right: 0px;
 }
 
 #dropdown-user {
   z-index: 9999;
+}
+
+#btn-dropdown-demo .user-rank{
+  position: absolute;
+  top: 16px;
+  font-size: small;
 }
 
 .page-footer{
