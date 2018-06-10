@@ -17,7 +17,6 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     let storedUser=localStorage.getItem('currentUser');
     if(storedUser!=null){
-      console.log(storedUser);
       this.user=JSON.parse(storedUser);
     }
   }
@@ -32,9 +31,7 @@ export class UserComponent implements OnInit {
   }
   private handleResponse(user) {
     this.user=user;
-    console.log(this.user);
     this.global['currentUser'] = this.user;
-
     localStorage.setItem('currentUser', JSON.stringify(this.user));
   }
 
