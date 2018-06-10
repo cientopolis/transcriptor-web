@@ -25,7 +25,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     //usar interceptor
-    this.global['routeBack']=null;
     let storedUser=localStorage.getItem('currentUser');
     if(storedUser != null){
       this.setUser(JSON.parse(storedUser));

@@ -14,12 +14,13 @@ export class CollectionsComponent implements OnInit {
   collection = {};
 
 
-  constructor(private collectionService: CollectionService,private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) { }
+  constructor(private collectionService: CollectionService,private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) {
+    this.global['routeBack'] = "home";
+  }
 
   ngOnInit() {
-        this.listCollections();
-        this.global['routeBack'] = "home";
-        this.changeDetector.detectChanges();
+    this.listCollections();
+    this.changeDetector.detectChanges();
   }
 
   listCollections() {
