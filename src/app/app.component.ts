@@ -41,6 +41,10 @@ export class AppComponent implements OnInit{
     this.global['currentUser'] = user;
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
+  
+  getAvatarUrl(username) {
+    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
+  }
 
   getAnimationData(routerOutlet: any) {
     return routerOutlet.activatedRouteData['animation'] || 'login';

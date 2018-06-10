@@ -13,8 +13,11 @@
         <mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
         <mz-navbar-item *ngIf="global.currentUser">
           <a id="btn-dropdown-demo">
-            <b>{{global.currentUser.display_name}}</b>
-            <span class="user-rank" *ngIf="global.currentUser.rank">{{global.currentUser.rank}}</span>
+            <img class="user-photo" [src]="getAvatarUrl(global.currentUser.display_name)">
+            <div class="user-info">
+              <b>{{global.currentUser.display_name}}</b>
+              <span class="user-rank" *ngIf="global.currentUser.rank">{{global.currentUser.rank}}</span>
+            </div>
           </a>
         </mz-navbar-item>
     </mz-navbar-item-container>

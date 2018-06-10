@@ -44,9 +44,20 @@ nav .back-button i{
   z-index: 9999;
 }
 
+#btn-dropdown-demo .user-photo{
+  height: 40px;
+  margin-top: 14px;
+  margin-right: 6px;
+  margin-bottom: -17px;
+}
+
+#btn-dropdown-demo .user-info{
+  float: right;
+}
+
 #btn-dropdown-demo .user-rank{
   position: absolute;
-  top: 42px;
+  top: 40px;
   font-size: small;
   line-height: 14px;
 }
