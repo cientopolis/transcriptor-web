@@ -46,7 +46,7 @@
           class="right primary-color-text m-t-15"
           style="color:#FFFFFF"
           mz-button [flat]="false"
-          (click)="likeTranscription(transcription,false)">
+          (click)="likeTranscription(false)">
           <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.like' | translate}}
          </button>
          <button
@@ -54,7 +54,7 @@
            class="right primary-color-text m-t-15 btn-flat"
            mz-tooltip [tooltip]="score"
            mz-button [flat]="true"
-           (click)="likeTranscription(transcription,true)">
+           (click)="likeTranscription(true)">
            <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'transcribe.container.button.dislike' | translate}}
           </button>
       </div>

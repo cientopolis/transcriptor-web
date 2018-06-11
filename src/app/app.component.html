@@ -2,9 +2,8 @@
   <ng-progress [min]="0" [spinner]="false" [thick]="true" [color]="'#ffd54f'" [ease]="'ease-in'"></ng-progress>
 
   <mz-navbar navbarClass="main-navbar">
-    <a routerLink="{{global.routeBack}}" *ngIf="global.routeBack"><i mz-icon-mdi [icon]="'arrow-left'" [align]="'left'" style="
-    margin-right: 0px;"></i></a>
 
+    <a routerLink="{{global.routeBack}}" *ngIf="global.routeBack"><div class="back-button"><i mz-icon-mdi [icon]="'arrow-left'" [align]="'left'"></i></div></a>
   	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
 
 
@@ -14,10 +13,11 @@
         <mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
         <mz-navbar-item *ngIf="global.currentUser">
           <a id="btn-dropdown-demo">
-            <b><p style="
-              line-height: 32px;
-              margin-bottom:  0px;
-              margin-top: 10px;">{{global.currentUser.display_name}}</p></b><p *ngIf="global.currentUser.rank" style="font-size:15px;line-height: 15px;margin: 0px;text-align: center;" >({{global.currentUser.rank}})</p>
+            <img class="user-photo" [src]="getAvatarUrl(global.currentUser.display_name)">
+            <div class="user-info">
+              <b>{{global.currentUser.display_name}}</b>
+              <span class="user-rank" *ngIf="global.currentUser.rank">{{global.currentUser.rank}}</span>
+            </div>
           </a>
         </mz-navbar-item>
     </mz-navbar-item-container>

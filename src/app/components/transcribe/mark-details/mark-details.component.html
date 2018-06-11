@@ -9,7 +9,8 @@
     <app-transcription-container
       #transcriptionContainer
       [transcription]="mark.transcription"
-      [obtainVote]="true">
+      [obtainVote]="true"
+      (registerVote)="refresh()">
     </app-transcription-container>
   </mz-modal-content>
   <mz-modal-footer>

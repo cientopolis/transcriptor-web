@@ -25,7 +25,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     //usar interceptor
-    this.global['routeBack']=null;
     let storedUser=localStorage.getItem('currentUser');
     if(storedUser != null){
       this.setUser(JSON.parse(storedUser));
@@ -41,6 +40,10 @@ export class AppComponent implements OnInit{
   private setUser(user){
     this.global['currentUser'] = user;
     localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+  
+  getAvatarUrl(username) {
+    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
   }
 
   getAnimationData(routerOutlet: any) {
