@@ -271,5 +271,10 @@
     "transcription":{
       "label":"Transcripción"
     }
-  }
+  },
+  "metagame":{
+    "rank":{
+          "sync":"Actualizar rango"
+      }
+    }
 }

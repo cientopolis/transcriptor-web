@@ -1,6 +1,10 @@
 <mz-card>
   <mz-card-title>
-    <h4 class="m-b-56">{{'myProfile.badges' | translate}}</h4>
+    <h4 class="m-b-56">{{'myProfile.badges' | translate}}
+    <button mz-button class="right m-t-10" (click)="loadRankUser()">
+      <i mz-avatar mz-icon-mdi [icon]="'sync'" [align]="'left'"></i>{{'metagame.rank.sync' | translate}}
+    </button>
+    </h4>
   </mz-card-title>
   <mz-card-content>
     <br>
