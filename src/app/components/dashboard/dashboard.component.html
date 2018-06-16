@@ -18,21 +18,16 @@
               <mz-tab-item
                 [class]="'col s12'"
                 [label]="'dashboard.tab.yourWorks.title' | translate">
+                
                 <div class="row">
                   <div class="col s12">
-                
-                    <div class="row" *ngFor="let collection of collectionsOwner.collections">
-                      <div class="col m12">
-                        <mz-collection>
-                          <mz-collection-header><h5>{{collection.collection.title}}</h5></mz-collection-header>
-                          <div class="container center-align" *ngIf="collection.works.length == 0">
-                            <p>{{'dashboard.tab.yourWorks.noWorksMessage'| translate}}</p>
-                          </div>
-                          <a mz-collection-link href="#!" *ngFor="let work of collection.works" routerLink="/work/{{work.id}}">{{work.title}}</a>
-                        </mz-collection>
+                    <mz-collection class="collection-works-list" *ngFor="let collection of collectionsOwner.collections">
+                      <mz-collection-header><h5>{{collection.collection.title}}</h5></mz-collection-header>
+                      <div class="container center-align" *ngIf="collection.works.length == 0">
+                        <p class="empty-data-message">{{'dashboard.tab.yourWorks.noWorksMessage'| translate}}</p>
                       </div>
-                    </div>
-                
+                      <a mz-collection-link href="#!" *ngFor="let work of collection.works" routerLink="/work/{{work.id}}">{{work.title}}</a>
+                    </mz-collection>
                   </div>
                 </div>
               </mz-tab-item>
@@ -59,34 +54,33 @@
   <div class="col m3" *ngIf="collectionsOwner">
     <div class='row' *ngIf="global.currentUser">
       <div class="col m12">
-        <div class="collection z-depth-1">
-          <p class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>{{'dashboard.counter.collections' | translate}}</p>
-          <p class="collection-item"><span class="badge">{{collectionsOwner.works}}</span>{{'dashboard.counter.works' | translate}}</p>
-          <p class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>{{'dashboard.counter.notes' | translate}}</p>
-        </div>
+        <ul class="collection with-header z-depth-1">
+          <li class="collection-header"><i mz-icon-mdi [icon]="'counter'"></i><span>Estado del Sitio</span></li>
+          <li class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>{{'dashboard.counter.collections' | translate}}</li>
+          <li class="collection-item"><span class="badge">{{collectionsOwner.works}}</span>{{'dashboard.counter.works' | translate}}</li>
+          <li class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>{{'dashboard.counter.notes' | translate}}</li>
+        </ul>
       </div>
     </div>
-  
-    <div class="row">
+    
+    <div class='row'>
       <div class="col m12">
-        <mz-card>
-          <mz-card-title>
-            <h5 class="m-b-20">{{'dashboard.yourActivity.title' | translate}}</h5>
-          </mz-card-title>
-          <mz-card-content>
-            <div class="collection" *ngFor="let collectionDeed of collectionsDeeds">
-              <p class="collection-item" translate
-                [translateParams]="{
-                  user: collectionDeed.user, 
-                  deedType:getDeedMessage(collectionDeed.deed_type),
-                  collection: collectionDeed.collection}">
-                dashboard.yourActivity.collectionDeed
-              </p>
-            </div>
-          </mz-card-content>
-        </mz-card>
+        <ul class="collection with-header z-depth-1">
+          <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.yourActivity.title' | translate}}</span></li>
+          <li 
+            *ngFor="let collectionDeed of collectionsDeeds" 
+            class="collection-item" 
+            translate
+            [translateParams]="{
+              user: collectionDeed.user, 
+              deedType:getDeedMessage(collectionDeed.deed_type),
+              collection: collectionDeed.collection}">
+            dashboard.yourActivity.collectionDeed
+          </li>
+        </ul>
       </div>
     </div>
+
   </div>
   
 </div>

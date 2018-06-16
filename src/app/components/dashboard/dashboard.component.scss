@@ -7,3 +7,27 @@ a.collection-item {
 a.btn {
   color: white;
 }
+
+:host ::ng-deep .collection.with-header .collection-header {
+  color: white;
+  background-color: $hoverColor;
+}
+
+:host ::ng-deep .empty-data-message {
+  margin: 10px !important;
+}
+
+:host ::ng-deep .collection.with-header .collection-header .mdi {
+  display: block;
+  position:  absolute;
+  top: 3px;
+}
+
+:host ::ng-deep .collection.with-header .collection-header .mdi + span {
+  margin-left: 30px; 
+}
+
+:host ::ng-deep .collection-works-list .collection.with-header .collection-header h5 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
