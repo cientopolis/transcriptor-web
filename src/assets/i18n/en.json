@@ -254,8 +254,8 @@
     "button":{
         "addForum":"Forum"
         }
-},
-"publication":{
+  },
+  "publication":{
     "title":"Publication",
     "user":{
       "from":"From"
@@ -272,11 +272,10 @@
       "label":"Transcriptcion"
     }
   },
-  ,
   "metagame":{
     "rank":{
-          "sync":"Update rank"
-      }
+      "sync":"Update rank"
     }
+  }
 
 }
