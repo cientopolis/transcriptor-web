@@ -1,0 +1,280 @@
+{
+  "app":{
+    "button":{
+      "close":"Chiudere",
+      "cancel":"Annulla",
+      "save":"Salvare",
+      "saveChanges":"Salva I Cambiamenti",
+      "delete":"Elimina",
+      "show":"Mostrare"
+    }
+  },
+  "home":{
+    "banner":"\"Trascrivi e traduci i manoscritti comodamente e online collaborando con molti altri utenti\"",
+    "image":{
+      "left":{
+        "title":"Trascrivere",
+        "text":"Poiché Transcriptor funziona nel tuo browser, puoi leggere e trascrivere materiali da qualsiasi luogo."
+      },
+      "middle":{
+        "title":"Condividi la tua opinione",
+        "text":"Gli utenti possono discutere la scrittura difficile o le parole oscure all'interno di una pagina per perfezionare la loro trascrizione."
+      },
+      "right":{
+        "title":"Esplorare",
+        "text":"Il testo risultante è ospitato sul web, rendendo i documenti facili da leggere e cercare."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Trascrivi e traduci i manoscritti comodamente e online collaborando con molti altri utenti \"",
+    "linksTitle":"Links",
+    "moreLinks":"Altri collegamenti"
+  },
+  "signIn":{
+    "title":"Registrati",
+    "loginMessage":"Per favore, accedi al tuo account",
+    "label":{
+      "username":"Inserisci il tuo indirizzo email",
+      "password":"Inserisci la tua password"
+    },
+    "button":{
+      "forgotPassword":"Ha dimenticato la password?",
+      "login":"Accesso",
+      "register":"Creare un profilo"
+    }
+  },
+  "signOut":{
+    "title":"Disconnessione"
+  },
+  "registration":{
+    "title":"Creare un profilo",
+    "label":{
+      "username":"Nome utente",
+      "email":"E-mail",
+      "password":"Parola d'ordine",
+      "passwordConfirmation":"Conferma password",
+      "displayName":"Nome da mostrare"
+    }
+  },
+  "passwordRecover":{
+    "title":"Recupera il tuo account",
+    "label":{
+      "email":"Inserisci il tuo indirizzo email",
+      "instructions":"Utilizzeremo l'indirizzo email per inviarti una conferma della richiesta di modifica della password"
+    },
+    "button":{
+      "request":"Richiesta di modifica della password",
+      "back":"Usa un altro account"
+    }
+  },
+  "changePassword":{
+    "title":"Cambia la tua password",
+    "label":{
+      "password":"Inserisci la tua nuova password",
+      "passwordConfirmation":"Conferma la tua nuova password"
+    },
+    "button":{
+      "changePassword":"Cambia la password"
+    }
+  },
+  "myProfile":{
+    "title":"Il mio profilo",
+    "edit":"Modifica Profilo",
+    "badges":"I miei badge",
+    "label":{
+      "name":"Nome",
+      "email":"E-mail",
+      "website":"Sito web",
+      "username":"Nome utente",
+      "location":"Posizione",
+      "about":"A proposito di me"
+    }
+  },
+  "editCollection": {
+    "label":{
+      "title":"Titolo della collezione",
+      "url":"URL",
+      "description":"Descrizione"
+    },
+    "button":{
+      "delete":"Elimina raccolta"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Pagine",
+      "settings":"Impostazioni"
+    }
+  },
+  "collections":{
+    "title":"Collezioni",
+    "button":{
+      "create":"Crea raccolta",
+      "show":"Mostra dettagli"
+    },
+    "modal":{
+      "create":{
+        "title":"Crea una nuova collezione",
+        "label":{
+          "title":"Titolo della collezione",
+          "description":"Descrizione"
+        },
+        "button":{
+          "cancel":"Annulla",
+          "save":"Salvare"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Pagine",
+      "settings":"Impostazioni"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Titolo di lavoro",
+        "author":"Autore",
+        "location":"Posizione",
+        "url":"URL",
+        "description":"Descrizione",
+        "physicalDescription":"Descrizione fisica",
+        "documentHistory":"Storia del documento"
+    },
+    "button":{
+      "delete":"Elimina pagina"
+    }
+  },
+  "dashboard":{
+    "title":"Cruscotto",
+    "tab":{
+      "yourWorks":{
+        "title":"I tuoi lavori",
+        "noWorksMessage":"Non ci sono ancora opere in questa collezione!"
+      },
+      "startAProject":{
+        "title":"Inizia un progetto"
+      }
+    },
+    "counter":{
+      "collections":"Collezioni",
+      "works":"Lavori",
+      "notes":"Gli appunti"
+    },
+    "yourActivity":{
+      "title":"La tua attività",
+      "collectionDeed":"{{user}} {{deedType}} nella collezione {{collection}}",
+      "workDeed":"{{user}} {{deedType}} nel lavoro {{work}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"pagina trascritta",
+    "page_edit":"pagina modificata",
+    "page_index":"pagina indicizzata",
+    "art_edit":"articolo {{article}} modificato",
+    "note_add":"aggiunta una nota alla pagina",
+    "pg_xlat":"pagina tradotta",
+    "pg_xlat_ed":"modificato la traduzione della pagina",
+    "ocr_corr":"pagina corretta",
+    "review":"pagina contrassegnata come necessaria per la revisione",
+    "xlat_index":"indicizzato la traduzione della pagina",
+    "xlat_rev":"pagina di traduzione contrassegnata come bisognosa di revisione",
+    "work_add":"aggiunto {{work}}"
+  },
+  "upload":{
+    "title":"Carica file PDF o ZIP",
+    "label":{
+      "collection":"Collezione"
+    },
+    "placeholder":{
+      "collection":"- Seleziona una collezione -"
+    },
+    "button":{
+      "browse":"Sfoglia file",
+      "submit":"Caricare un file",
+      "addCollection":"Aggiungi nuova collezione"
+    },
+    "tips":{
+      "title":"Suggerimenti",
+      "lines":[
+          "I file ZIP possono contenere cartelle contenenti immagini, PDF o cartelle contenenti file PDF.",
+          "Ogni cartella verrà trattata come un documento diverso, quindi non mischiare pagine di documenti diversi nella stessa cartella.",
+          "Ogni PDF verrà trattato come un proprio documento, quindi non dividere le pagine dello stesso documento in più di un PDF.",
+          "Ad esempio un file ZIP con 3 immagini, 2 PDF e 1 cartella contenente altre 5 immagini creerebbe 4 opere: le immagini di livello superiore in una, ogni PDF nel proprio lavoro e un'ultima opera contenente le 5 immagini dalla cartella . ",
+          "Per specificare i metadati insieme alle immagini, includi un file <a href='/static/metadata'> metadata.yml </a> in ogni cartella che specifica i campi per il lavoro."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"Devi selezionare una raccolta e selezionare un file da caricare!"
+    }
+  },
+  "startAProject":{
+    "title":"Inizia un progetto"
+  },
+  "transcribe":{
+    "title":"Trascrivere",
+    "modal":{
+      "mark":{
+        "title":"Che cosa dice qui?",
+        "label":{
+          "transcriptionText":"Trascrivi il testo della linea segnata"
+        }
+      }
+    },
+    "textEditor":{
+      "label":"Contenuto della pagina",
+      "placeholder":"Inserisci il testo qui ...",
+      "message":{
+        "markLineInPage":"Segna la riga corrispondente al testo evidenziato",
+        "noTextSelected":"Devi selezionare il testo per aggiungere un segno!"
+      }
+    },
+    "container":{
+      "edited":"Modificato",
+      "likes":"Piace",
+      "button":{
+        "like":"Piace",
+        "dislike":"Dislike"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Altre trascrizioni"
+    },
+    "markDetails":{
+      "title":"Dettagli di trascrizione",
+      "button":{
+        "addAnotherTranscription":"Aggiungi un'altra trascrizione"
+      }
+    }
+  },
+  "forum":{
+    "title":"Forum",
+    "button":{
+        "addForum":"Forum"
+        }
+  },
+  "publication":{
+    "title":"Pubblicazione",
+    "user":{
+      "from":"A partire dal"
+    },
+    "button":{
+      "response":"Risposta",
+      "delete":"Elimina"
+    },
+    "list":{
+      "title":"Pubblicazioni",
+      "addPublication":"Aggiungi un commento"
+    },
+    "transcription":{
+      "label":"Trascrizione"
+    }
+  },
+  "metagame":{
+    "rank":{
+      "sync":"Rango di aggiornamento"
+    }
+  }
+}
