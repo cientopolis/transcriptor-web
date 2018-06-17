@@ -13,6 +13,10 @@ a.btn {
   background-color: $hoverColor;
 }
 
+:host ::ng-deep .collection.no-border {
+  border: none;
+}
+
 :host ::ng-deep .empty-data-message {
   margin: 10px !important;
 }
