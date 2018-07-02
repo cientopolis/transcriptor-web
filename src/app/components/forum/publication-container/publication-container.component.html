@@ -1,65 +1,63 @@
-<mz-collapsible  *ngIf="publication != null" [mode]="'accordion'" [popout]="false">
-    <mz-collapsible-item  [active]="PIActive">
-        <mz-collapsible-item-header>
-          <h5>{{publication.text}}</h5>
-          <hr>
-          <div class="row">
-            <div class="col s12">
-              <div class="user-info user-hover" *ngIf="publication.user">
-                <div>
-                  <p>{{'publication.user.from' | translate}}: <a href="#">{{publication.user.display_name}}</a></p>
-                </div>
-                <!--
-                <app-publication-container
-                  [publication]="publicationChild"
-                  (publicationEventParent)="deletePublicationChild($event)"
-                  *ngFor="let publicationChild of publicationsChilds">
-                </app-publication-container>
-              -->
+<div class="row">
+    <div class="col s1 image-column">
+      <div class="comment-image">
+        <img src="https://ui-avatars.com/api/?name=John Doe&background=f61&color=fff&rounded=true">
+      </div>
+    </div>
+    <div class="col s11 p-l-0">
+      <div class="comment-container">
+        <span><a>{{publication.user.display_name}}</a> {{publication.text}}</span>
+      </div>
+      <div class="comment-actions">
+        <a>Me Gusta</a>
+        <span aria-hidden="true" role="presentation"> · </span>
+        <a [routerLink]="" (click)="showResponses = !showResponses" *ngIf="publicationsChilds.length == 0">Responder</a>
+        <a [routerLink]="" (click)="showResponses = !showResponses" *ngIf="publicationsChilds.length == 1">{{publicationsChilds.length}} Comentario</a>
+        <a [routerLink]="" (click)="showResponses = !showResponses" *ngIf="publicationsChilds.length > 1">{{publicationsChilds.length}} Comentarios</a>
+      </div>
+    </div>
+</div>
+
+<div class="row m-b-0" *ngIf="showResponses">
+  <div class="col s11 response-list-margin">
+    <div class="row" *ngFor="let publicationChild of publicationsChilds">
+        <div class="col s1 image-column">
+          <div class="comment-image response">
+            <img src="https://ui-avatars.com/api/?name=John Doe&background=f61&color=fff&rounded=true">
+          </div>
+        </div>
+        <div class="col s11 p-l-0">
+          <div class="comment-container">
+            <span><a>{{publicationChild.user.display_name}}</a> {{publicationChild.text}}</span>
+          </div>
+          <div class="comment-actions">
+            <a>Me Gusta</a>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col s1 image-column">
+        <div class="comment-image response">
+          <img src="https://ui-avatars.com/api/?name=John Doe&background=f61&color=fff&rounded=true">
+        </div>
+      </div>
+      <div class="col s11 p-l-0">
+        <div class="card-panel reply-box">
+          <div class="row m-b-0">
+            <div class="col s11 text-field">
+              <div class="input-field">
+                <textarea class="materialize-textarea" placeholder="Escribe un comentario..."></textarea>
               </div>
             </div>
-          </div>
-        </mz-collapsible-item-header>
-
-        <mz-collapsible-item-body class="collectionCollapse">
-          <div class="row">
-              <ul class="collection" >
-                <li class="collection-item avatar" *ngFor="let publicationChild of publicationsChilds">
-                  <i mz-avatar mz-icon-mdi [icon]="'account_circle'" [align]="'left'"></i>
-                  <span class="title">{{publicationChild.text}}</span>
-                  <p>{{'publication.user.from' | translate}}: <a href="#">{{publicationChild.user.display_name}}</a></p>
-                  <br>
-
-                  <p><a *ngIf="publicationChild!=null && publicationChild.user.id == currentUser.id" (click)="deleteComment(publicationChild)" ><i class="material-icons"> {{'publication.button.delete' | translate}}</i></a></p>
-
-                </li>
-              </ul>
-            <div class="col s12">
-              <hr>
-              <br>
-              <mz-textarea-container>
-                <textarea mz-textarea
-                  *ngIf="publication!=null && publication.parent_id==null"
-                  [(ngModel)]="publicationNew.text"
-                  [label]="'publication.list.addPublication' | translate">
-                </textarea>
-              </mz-textarea-container>
-              <button
-                *ngIf="publication!=null && publication.parent_id==null"
-                class="right primary-color-text m-t-15 btn-flat"
-                mz-button [flat]="true"
-                (click)="addComment()">
-                <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i>{{'publication.button.response' | translate}}
-               </button>
-               <button
-                 *ngIf="publication!=null && publication.user.id == currentUser.id"
-                 class="right primary-color-text m-t-15 btn-flat"
-                 mz-button [flat]="true"
-                 (click)="deleteComment(publication)">
-                 <i mz-icon-mdi [icon]="'thumb-up'" [align]="'left'" ></i> {{'publication.button.delete' | translate}}
-                </button>
+            <div class="col s1 send-button">
+              <button mz-button
+                [float]="true">
+                <i mz-icon-mdi [icon]="'send'"></i>
+              </button>
             </div>
           </div>
-        </mz-collapsible-item-body>
-      </mz-collapsible-item>
-    </mz-collapsible>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

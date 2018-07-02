@@ -17,6 +17,7 @@ export class PublicationContainerComponent implements OnInit {
   @Input() publications;
   @Input() forum;
   publicationsChilds = [];
+  showResponses:boolean = false;
 
   publicationNew = {text:"",foro: null,parent: null};
   deleteAction: boolean = false;

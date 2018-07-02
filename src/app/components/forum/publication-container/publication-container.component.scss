@@ -3,3 +3,67 @@
 :host ::ng-deep .collapsible-body {
       padding:0;
   }
+
+a {
+  color: $primaryColor !important;
+  text-transform: none !important;
+  margin-right: auto !important;
+}
+
+.comment-container {
+  background-color: $lightboxColor;
+  padding: 10px 15px;
+  border-radius: 25px;
+  display: inline-block;
+}
+.comment-container span {
+  display: block;
+}
+.comment-container a {
+  font-weight: bold !important;
+}
+
+.comment-actions {
+  padding: 2px 15px;
+}
+
+.image-column {
+  width: auto !important;
+}
+
+.comment-image img {
+  height: 40px;
+}
+.comment-image.response img {
+  padding-top: 5px;
+  height: 35px;
+}
+
+.response-list-margin {
+  margin-left: 4% !important;
+}
+
+.reply-box {
+  background-color: white;
+  border-radius: 25px;
+  padding: 15px 20px 10px 20px;
+  margin-top: 0;
+}
+.reply-box .input-field {
+  margin: 0;
+}
+.reply-box textarea.materialize-textarea {
+  padding: 0;
+  margin: 0;
+  min-height: 2em;
+  height: 2em;
+}
+.reply-box .text-field{
+  width: 93%;
+  padding:0;
+}
+.reply-box .send-button {
+  width: 7%;
+  padding:0;
+  text-align: right;
+}

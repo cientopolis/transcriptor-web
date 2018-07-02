@@ -1,17 +1,16 @@
 <mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
-  <mz-modal-header>
+  <mz-modal-content>
+    <h5>{{'publication.list.title' | translate}}</h5>
     <mz-card>
       <mz-card-title>
-        {{'publication.list.title' | translate}}
 
       </mz-card-title>
       <mz-card-content>
-        {{'publication.transcription.label' | translate}}: {{text}}
+        <p>{{'publication.transcription.label' | translate}}</p>
+        <h5>{{text}}</h5> 
       </mz-card-content>
 
     </mz-card>
-  </mz-modal-header>
-  <mz-modal-content>
     <div class="center-align">
       <mz-spinner
         *ngIf="!publicationsResult"
@@ -19,6 +18,7 @@
         [size]="'big'">
       </mz-spinner>
     </div>
+    <p>Comentarios</p>
     <app-publication-container
       [forum]="forum"
       [publication]="publication"
