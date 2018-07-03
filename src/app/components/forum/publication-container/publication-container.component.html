@@ -47,12 +47,15 @@
           <div class="row m-b-0">
             <div class="col s11 text-field">
               <div class="input-field">
-                <textarea class="materialize-textarea" placeholder="Escribe un comentario..." (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false"></textarea>
+                <textarea class="materialize-textarea" placeholder="Escribe un comentario..." (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false" *ngIf="publication!=null && publication.parent_id==null"
+                [(ngModel)]="publicationNew.text"></textarea>
               </div>
             </div>
             <div class="col s1 send-button">
               <button mz-button
-                [float]="true">
+                [float]="true"
+                *ngIf="publication!=null && publication.parent_id==null"
+                (click)="addComment()">
                 <i mz-icon-mdi [icon]="'send'"></i>
               </button>
             </div>
