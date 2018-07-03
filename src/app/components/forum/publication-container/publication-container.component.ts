@@ -25,6 +25,8 @@ export class PublicationContainerComponent implements OnInit {
 
   @Output() publicationEvent = new EventEmitter();
   @Output() publicationEventParent = new EventEmitter();
+  
+  replyBoxFocused:boolean = false;
 
   constructor(private publicationService:PublicationService,
     private changeDetector: ChangeDetectorRef,
@@ -95,7 +97,6 @@ export class PublicationContainerComponent implements OnInit {
         this.changeDetector.detectChanges();
       });
   }
-
 
 
 }

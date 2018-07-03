@@ -43,6 +43,14 @@ a {
   margin-left: 4% !important;
 }
 
+.reply-container {
+  transition: opacity 0.2s;
+  transition-timing-function: $transitionTimingFunction;
+  opacity: 0.5;
+}
+.reply-container:hover, .reply-container.focused {
+  opacity: 1;
+}
 .reply-box {
   background-color: white;
   border-radius: 25px;
