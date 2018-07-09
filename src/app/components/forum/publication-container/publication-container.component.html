@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col s1 image-column">
       <div class="comment-image">
-        <img src="https://ui-avatars.com/api/?name=John Doe&background=f61&color=fff&rounded=true">
+        <img [src]="getAvatarUrl(publication.user.display_name)">
       </div>
     </div>
     <div class="col s11 p-l-0">
@@ -23,7 +23,7 @@
     <div class="row" *ngFor="let publicationChild of publicationsChilds">
         <div class="col s1 image-column">
           <div class="comment-image response">
-            <img src="https://ui-avatars.com/api/?name=John Doe&background=f61&color=fff&rounded=true">
+            <img [src]="getAvatarUrl(publicationChild.user.display_name)">
           </div>
         </div>
         <div class="col s11 p-l-0">
@@ -39,7 +39,7 @@
     <div class="row reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
       <div class="col s1 image-column">
         <div class="comment-image response">
-          <img src="https://ui-avatars.com/api/?name=John Doe&background=f61&color=fff&rounded=true">
+          <img [src]="getAvatarUrl(global.currentUser.display_name)">
         </div>
       </div>
       <div class="col s11 p-l-0">

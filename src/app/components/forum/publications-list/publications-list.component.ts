@@ -1,4 +1,5 @@
 import { Component, OnInit,Input,Output,ViewChild,EventEmitter,ChangeDetectorRef } from '@angular/core';
+import { SimpleGlobal } from 'ng2-simple-global';
 
 import { PublicationService } from '../../../services/forum/publication.service';
 
@@ -20,7 +21,7 @@ export class PublicationsListComponent implements OnInit {
   @ViewChild('modal') modal;
   @Output() close = new EventEmitter();
 
-  constructor(private publicationService:PublicationService,private changeDetector: ChangeDetectorRef) { }
+  constructor(private publicationService:PublicationService, private global: SimpleGlobal,private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -65,6 +66,10 @@ export class PublicationsListComponent implements OnInit {
           this.publications.push(publication);
           this.publication={text:"",foro:this.forum};
           this.changeDetector.detectChanges();
-  });
+    });
+  }
+  
+  getAvatarUrl(username) {
+    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
   }
 }

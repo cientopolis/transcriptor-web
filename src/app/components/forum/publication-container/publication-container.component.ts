@@ -21,7 +21,6 @@ export class PublicationContainerComponent implements OnInit {
 
   publicationNew = {text:"",foro: null,parent: null};
   deleteAction: boolean = false;
-  currentUser = {};
 
   @Output() publicationEvent = new EventEmitter();
   @Output() publicationEventParent = new EventEmitter();
@@ -34,10 +33,10 @@ export class PublicationContainerComponent implements OnInit {
 
   ngOnInit() {
     this.loadPublications();
-    this.currentUser=  this.global['currentUser'];
   }
+  
   getAvatarUrl(username) {
-    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff';
+    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
   }
 
   deleteComment(publicationP) {
@@ -97,6 +96,4 @@ export class PublicationContainerComponent implements OnInit {
         this.changeDetector.detectChanges();
       });
   }
-
-
 }
