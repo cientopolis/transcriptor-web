@@ -15,6 +15,7 @@ export class TranscriptionContainerComponent implements OnInit {
   @Input() vote = null;
   @Input() userVoted;
   @Input() obtainVote;
+  @Input() showForums;
   @Output() registerVote = new EventEmitter();;
   forum = {};
   score:string;
@@ -109,7 +110,7 @@ export class TranscriptionContainerComponent implements OnInit {
 
   createForum() {
     this.forum={element:{id: this.transcription.id,className:"Contribution"}};
-    this.forumService.create(this.forum)
+    this.forumService.create(this.forum, {fields:["element"]})
       .subscribe(response =>this.setForum(response));
     }
 
