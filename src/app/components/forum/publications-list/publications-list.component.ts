@@ -51,7 +51,7 @@ export class PublicationsListComponent implements OnInit {
 
   loadPublications() {
     this.text=this.forum.element.text;
-    this.publicationService.list(this.forum.id, { fields: ['user']})
+    this.publicationService.list(this.forum.id, {})
       .subscribe(publications => {
         this.publications = publications;
         this.publicationsResult=true;
@@ -68,7 +68,7 @@ export class PublicationsListComponent implements OnInit {
           this.changeDetector.detectChanges();
     });
   }
-  
+
   getAvatarUrl(username) {
     return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
   }

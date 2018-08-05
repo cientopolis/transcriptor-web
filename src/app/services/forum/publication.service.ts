@@ -12,6 +12,8 @@ export class PublicationService {
   private deletePath = '/api/publication';
   private createPath = '/api/publication';
   private listPathChild = '/api/publication/lists';
+  private likePath = '/api/publication/like';
+  private dislikePath = '/api/publication/dislike';
 
   constructor(private httpService: HttpService) { }
 
@@ -39,5 +41,11 @@ export class PublicationService {
 
   create(publication, options = {}) {
     return this.httpService.post(this.createPath,publication,options);
+  }
+  like(publicationId, options = {}) {
+    return this.httpService.get(this.likePath+"?publication_id="+publicationId, options);
+  }
+  dislike(publicationId, options = {}) {
+    return this.httpService.get(this.dislikePath+"?publication_id="+publicationId, options);
   }
 }

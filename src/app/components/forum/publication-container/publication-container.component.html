@@ -9,7 +9,8 @@
         <span><a>{{publication.user.display_name}}</a> {{publication.text}}</span>
       </div>
       <div class="comment-actions">
-        <a>Me Gusta</a>
+        <a  [routerLink]="" (click)="like(publication)" *ngIf="publication.voted == null || !publication.voted">({{publication.cached_weighted_score}}) Me Gusta </a>
+        <a  [routerLink]="" (click)="dislike(publication)" *ngIf="publication.voted != null && publication.voted">({{(publication.cached_weighted_score)}}) Ya no me Gusta</a>
         <span aria-hidden="true" role="presentation"> · </span>
         <a [routerLink]="" (click)="showResponses = !showResponses" *ngIf="publicationsChilds.length == 0">Responder</a>
         <a [routerLink]="" (click)="showResponses = !showResponses" *ngIf="publicationsChilds.length == 1">{{publicationsChilds.length}} Comentario</a>
@@ -31,11 +32,12 @@
             <span><a>{{publicationChild.user.display_name}}</a> {{publicationChild.text}}</span>
           </div>
           <div class="comment-actions">
-            <a>Me Gusta</a>
+            <a  [routerLink]="" (click)="like(publicationChild)" *ngIf="publicationChild.voted == null || !publicationChild.voted">({{publicationChild.cached_weighted_score}}) Me Gusta</a>
+            <a  [routerLink]="" (click)="dislike(publicationChild)" *ngIf="publicationChild.voted != null && publicationChild.voted">({{(publicationChild.cached_weighted_score)}}) Ya no me Gusta</a>
           </div>
         </div>
     </div>
-    
+
     <div class="row reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
       <div class="col s1 image-column">
         <div class="comment-image response">
@@ -63,6 +65,6 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>

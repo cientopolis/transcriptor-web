@@ -24,7 +24,7 @@ export class PublicationContainerComponent implements OnInit {
 
   @Output() publicationEvent = new EventEmitter();
   @Output() publicationEventParent = new EventEmitter();
-  
+
   replyBoxFocused:boolean = false;
 
   constructor(private publicationService:PublicationService,
@@ -34,7 +34,7 @@ export class PublicationContainerComponent implements OnInit {
   ngOnInit() {
     this.loadPublications();
   }
-  
+
   getAvatarUrl(username) {
     return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
   }
@@ -50,7 +50,7 @@ export class PublicationContainerComponent implements OnInit {
           }else{
             for (let publicationF of this.publicationsChilds) {
                 if(publication.id == publicationF.id ){
-              
+
                   var index = this.publicationsChilds.indexOf(publicationF);
                   this.publicationsChilds.splice(index,1);
                 }
@@ -90,10 +90,30 @@ export class PublicationContainerComponent implements OnInit {
     });
   }
   loadPublications() {
-    this.publicationService.listChild(this.publication.id, { fields: ['user']})
+    this.publicationService.listChild(this.publication.id, {})
       .subscribe(publications => {
         this.publicationsChilds = publications;
         this.changeDetector.detectChanges();
       });
   }
+
+
+  like(publication) {
+    this.publicationService.like(publication.id, {})
+      .subscribe(publications => {
+        publication.voted=true;
+        publication.cached_weighted_score++;
+        this.changeDetector.detectChanges();
+      });
+
+  }
+  dislike(publication) {
+    this.publicationService.dislike(publication.id, {})
+      .subscribe(publications => {
+        publication.voted=false;
+        publication.cached_weighted_score--;
+        this.changeDetector.detectChanges();
+      });
+  }
+
 }
