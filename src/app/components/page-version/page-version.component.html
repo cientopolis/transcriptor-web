@@ -1,8 +1,9 @@
-<div class="row m-t-15">
+<div class="row m-t-15" *ngIf="page != null">
   <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-20">{{'page-versions.title' | translate}}</h4>
+        <h4 class="m-b-0">{{'page-versions.title' | translate}}</h4>
+        <p>{{ page.title }}</p>
       </mz-card-title>
       <mz-card-content>
         <div class="row m-b-0">

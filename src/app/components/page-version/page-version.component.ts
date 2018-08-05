@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SimpleGlobal } from 'ng2-simple-global';
 
 import * as _ from "lodash";
 import * as jsDiff from 'diff';
@@ -15,6 +16,7 @@ import { PageVersionService } from '../../services/page-version/page-version.ser
 })
 export class PageVersionComponent implements OnInit {
 
+  pageId:any;
   page:any = null;
   pageVersion:any = null;
   pageVersions:any = [];
@@ -22,21 +24,30 @@ export class PageVersionComponent implements OnInit {
   outputHtml: string;
 
   constructor( 
-    private route: ActivatedRoute,
+    private route:ActivatedRoute,
+    private global:SimpleGlobal, 
     private pageService:PageService,
-    private pageVersionService:PageVersionService) {}
+    private pageVersionService:PageVersionService) {
+      this.pageId = +this.route.snapshot.paramMap.get('pageId');
+      this.global['routeBack'] = "transcribe/"+this.pageId;
+    }
 
   ngOnInit() {
-    const pageId = +this.route.snapshot.paramMap.get('pageId');
-    this.loadPage(pageId);
+    this.loadPage(this.pageId);
+  }
+  
+  ngOnDestroy() {
+    this.global['routeBack'] = null;
   }
   
   loadPage(pageId) {
     this.pageService.get(pageId)
         .subscribe(page => {
           this.page = page;
-          this.page.source_text = this.processHTML(this.page.source_text); 
-          this.loadPageVersions(pageId);
+          if(this.page.source_text != null){
+            this.page.source_text = this.processHTML(this.page.source_text); 
+            this.loadPageVersions(pageId);
+          }
         });
   }
   

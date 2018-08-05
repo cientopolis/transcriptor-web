@@ -280,6 +280,7 @@
     "page-versions":{
       "title": "Versiones",
       "comparedWith": "Comparando con",
-      "noVersionsMessage": "Aún no existen versiones de esta página."
+      "noVersionsMessage": "Aún no existen versiones de esta página.",
+      "actionText": "ver cambios"
     }
 }
