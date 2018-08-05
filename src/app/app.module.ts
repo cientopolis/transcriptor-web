@@ -89,6 +89,8 @@ import { ForumComponent } from './components/forum/forum.component';
 import { ForumService } from './services/forum/forum.service';
 import { PublicationsListComponent } from './components/forum/publications-list/publications-list.component';
 import { BasicTextEditorComponent } from './components/transcribe/basic-text-editor/basic-text-editor.component';
+import { PageVersionComponent } from './components/page-version/page-version.component';
+import { PageVersionService } from './services/page-version/page-version.service';
 
 @NgModule({
   declarations: [
@@ -119,7 +121,8 @@ import { BasicTextEditorComponent } from './components/transcribe/basic-text-edi
     PublicationContainerComponent,
     ForumComponent,
     PublicationsListComponent,
-    BasicTextEditorComponent
+    BasicTextEditorComponent,
+    PageVersionComponent
   ],
   imports: [
     BrowserModule,
@@ -178,7 +181,8 @@ import { BasicTextEditorComponent } from './components/transcribe/basic-text-edi
     AlertMessagesService,
     BadgeService,
     PublicationService,
-    ForumService
+    ForumService,
+    PageVersionService
   ],
   bootstrap: [AppComponent]
 })

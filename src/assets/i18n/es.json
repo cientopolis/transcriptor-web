@@ -276,5 +276,10 @@
     "rank":{
           "sync":"Actualizar rango"
       }
+    },
+    "page-versions":{
+      "title": "Versiones",
+      "comparedWith": "Comparando con",
+      "noVersionsMessage": "Aún no existen versiones de esta página."
     }
 }
