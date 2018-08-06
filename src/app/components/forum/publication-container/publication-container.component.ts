@@ -17,13 +17,15 @@ export class PublicationContainerComponent implements OnInit {
   @Input() publications;
   @Input() forum;
   publicationsChilds = [];
+  showResponses:boolean = false;
 
   publicationNew = {text:"",foro: null,parent: null};
   deleteAction: boolean = false;
-  currentUser = {};
 
   @Output() publicationEvent = new EventEmitter();
   @Output() publicationEventParent = new EventEmitter();
+
+  replyBoxFocused:boolean = false;
 
   constructor(private publicationService:PublicationService,
     private changeDetector: ChangeDetectorRef,
@@ -31,10 +33,10 @@ export class PublicationContainerComponent implements OnInit {
 
   ngOnInit() {
     this.loadPublications();
-    this.currentUser=  this.global['currentUser'];
   }
+
   getAvatarUrl(username) {
-    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff';
+    return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
   }
 
   deleteComment(publicationP) {
@@ -48,7 +50,7 @@ export class PublicationContainerComponent implements OnInit {
           }else{
             for (let publicationF of this.publicationsChilds) {
                 if(publication.id == publicationF.id ){
-              
+
                   var index = this.publicationsChilds.indexOf(publicationF);
                   this.publicationsChilds.splice(index,1);
                 }
@@ -88,7 +90,7 @@ export class PublicationContainerComponent implements OnInit {
     });
   }
   loadPublications() {
-    this.publicationService.listChild(this.publication.id, { fields: ['user']})
+    this.publicationService.listChild(this.publication.id, {})
       .subscribe(publications => {
         this.publicationsChilds = publications;
         this.changeDetector.detectChanges();
@@ -96,5 +98,22 @@ export class PublicationContainerComponent implements OnInit {
   }
 
 
+  like(publication) {
+    this.publicationService.like(publication.id, {})
+      .subscribe(publications => {
+        publication.voted=true;
+        publication.cached_weighted_score++;
+        this.changeDetector.detectChanges();
+      });
+
+  }
+  dislike(publication) {
+    this.publicationService.dislike(publication.id, {})
+      .subscribe(publications => {
+        publication.voted=false;
+        publication.cached_weighted_score--;
+        this.changeDetector.detectChanges();
+      });
+  }
 
 }

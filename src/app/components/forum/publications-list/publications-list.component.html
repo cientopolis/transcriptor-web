@@ -1,17 +1,16 @@
-<mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
-  <mz-modal-header>
+<mz-modal class="publications-modal" #modal [fixedFooter]="true" [options]="modalOptions">
+  <mz-modal-content>
+    <h5>{{'publication.list.title' | translate}}</h5>
     <mz-card>
       <mz-card-title>
-        {{'publication.list.title' | translate}}
 
       </mz-card-title>
       <mz-card-content>
-        {{'publication.transcription.label' | translate}}: {{text}}
+        <p>{{'publication.transcription.label' | translate}}</p>
+        <h5>{{text}}</h5> 
       </mz-card-content>
 
     </mz-card>
-  </mz-modal-header>
-  <mz-modal-content>
     <div class="center-align">
       <mz-spinner
         *ngIf="!publicationsResult"
@@ -19,6 +18,7 @@
         [size]="'big'">
       </mz-spinner>
     </div>
+    <p>Comentarios</p>
     <app-publication-container
       [forum]="forum"
       [publication]="publication"
@@ -28,15 +28,37 @@
     </app-publication-container>
   </mz-modal-content>
   <mz-modal-footer>
-    <mz-textarea-container>
+    <!-- <mz-textarea-container>
       <textarea mz-textarea
         [(ngModel)]="publication.text"
         [label]="'publication.list.addPublication' | translate">
       </textarea>
-    </mz-textarea-container>
-    <button class="primary-color" mz-button *ngIf="!editing" (click)="addComment()">{{'app.button.save' | translate}}</button>
-    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
-      {{'app.button.close' | translate}}
-    </button>
+    </mz-textarea-container> -->
+    
+    <div class="row reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
+      <div class="col s1 image-column">
+        <div class="comment-image">
+          <img [src]="getAvatarUrl(global.currentUser.display_name)">
+        </div>
+      </div>
+      <div class="col s11 p-l-0">
+        <div class="card-panel reply-box">
+          <div class="row m-b-0">
+            <div class="col s11 text-field">
+              <div class="input-field">
+                <textarea class="materialize-textarea" placeholder="Escribe un comentario..." [(ngModel)]="publication.text" (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false"></textarea>
+              </div>
+            </div>
+            <div class="col s1 send-button">
+              <button mz-button
+                [float]="true"
+                (click)="addComment()">
+                <i mz-icon-mdi [icon]="'send'"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </mz-modal-footer>
 </mz-modal>

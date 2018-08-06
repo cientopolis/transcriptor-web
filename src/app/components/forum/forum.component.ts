@@ -33,7 +33,7 @@ export class ForumComponent implements OnInit {
 
   get(id) {
     console.log("lalalala");
-    this.forumService.get(18,{ fields: ['user']})
+    this.forumService.get(18,{})
         .subscribe(response => this.handleResponse(response));
 
   }
