@@ -1,0 +1,33 @@
+<div class="row m-t-15" *ngIf="page != null">
+  <div class="col m10 offset-m1">
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-0">{{'page-versions.title' | translate}}</h4>
+        <p>{{ page.title }}</p>
+      </mz-card-title>
+      <mz-card-content>
+        <div class="row m-b-0">
+          <div class="col m6">
+            <br>
+            <p *ngIf="pageVersions != null && pageVersions.length > 0">
+              <a class="username">{{ pageVersions[0].username }}</a> - {{pageVersions[0].created_on | date:'dd/MM/yyyy hh:mm'}}
+            </p>
+            <p *ngIf="!pageVersions || pageVersions.length == 0">{{ 'page-versions.noVersionsMessage' | translate }}</p>
+          </div>
+          <div class="col m6">
+            <mz-select-container>
+              <select mz-select
+                [label]="'page-versions.comparedWith' | translate"
+                [placeholder]="'page-versions.comparedWith' | translate"
+                [(ngModel)]= "pageVersion"
+                (change)="diffVersion()">
+                <option *ngFor="let pv of pageVersions" [ngValue]="pv">{{ pv.created_on | date:'dd/MM/yyyy hh:mm' }} - {{ pv.username }}</option>
+              </select>
+            </mz-select-container>
+          </div>
+        </div>
+        <div [innerHtml]="outputHtml"></div>
+      </mz-card-content>
+    </mz-card>
+  </div>
+</div>
