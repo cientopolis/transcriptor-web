@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import * as $ from 'jquery';
 
@@ -17,6 +17,7 @@ export class UploadComponent implements OnInit {
   collections = [];
   collectionId:any;
   tips:string[];
+  @Output() newCollectionSelected = new EventEmitter();
   
   constructor(
     private uploadService: UploadService, 
@@ -25,7 +26,7 @@ export class UploadComponent implements OnInit {
     private translate:TranslateService) {}
   
   ngOnInit() {
-    this.collectionService.listOwn().subscribe(collections => this.collections = collections);
+    this.update();
     this.loadTips();
   }
   
@@ -56,5 +57,16 @@ export class UploadComponent implements OnInit {
     this.translate.get('upload.tips.lines').subscribe((tips: string[]) => {
       this.tips=tips;
     });
+  }
+  
+  update(){
+    this.collectionService.listOwn().subscribe(collections => this.collections = collections);
+    this.collectionId = null;
+  }
+  
+  checkSelectedCollection(){
+    if(this.collectionId == 'new'){
+      this.newCollectionSelected.emit();
+    }
   }
 }

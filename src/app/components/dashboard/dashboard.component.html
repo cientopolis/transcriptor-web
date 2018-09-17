@@ -37,7 +37,10 @@
                 [label]="'dashboard.tab.startAProject.title' | translate">
                 <div class="row">
                   <div class="col s12">
-                    <app-upload></app-upload>
+                    <app-upload
+                      #uploadComponent
+                      (newCollectionSelected)="openNewCollectionModal()">
+                    </app-upload>
                   </div>
                 </div>
               </mz-tab-item>
@@ -131,3 +134,8 @@
     </mz-card>
   </div>
 </div>
+
+<app-create-collection-modal 
+  #collectionCreationModal
+  (successCreate)="onCreateCollection()">
+</app-create-collection-modal>

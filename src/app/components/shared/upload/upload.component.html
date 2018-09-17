@@ -10,7 +10,8 @@
           name="document_upload[collection_id]"
           [label]="'upload.label.collection' | translate"
           [placeholder]="'upload.placeholder.collection' | translate"
-          [(ngModel)]= "collectionId">
+          [(ngModel)]= "collectionId"
+          (change)="checkSelectedCollection()">
           <option *ngFor="let col of collections" [value]="col.id">{{ col.title }}</option>
           <option value="new"><i mz-icon-mdi [icon]="'plus'" [align]="'left'"></i> <b>{{'upload.button.addCollection' | translate}}</b></option>
         </select>

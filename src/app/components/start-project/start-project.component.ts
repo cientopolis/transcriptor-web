@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-start-project',
@@ -7,8 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartProjectComponent implements OnInit {
 
+  @ViewChild('collectionCreationModal') collectionCreationModal: any;
+  @ViewChild('uploadComponent') uploadComponent: any;
+
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  openNewCollectionModal(){
+    this.collectionCreationModal.open();
+  }
+  
+  onCreateCollection(){
+    this.uploadComponent.update();
   }
 }

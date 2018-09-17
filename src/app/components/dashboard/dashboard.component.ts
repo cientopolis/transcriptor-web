@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {SimpleGlobal} from 'ng2-simple-global';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { Observable } from 'rxjs/Observable';
@@ -15,6 +15,10 @@ import {TranslateService} from '@ngx-translate/core';
 export class DashboardComponent implements OnInit {
   collectionsDeeds: DashboardResponse;
   collectionsOwner:DashboardResponse;
+  @ViewChild('collectionCreationModal') collectionCreationModal: any;
+  @ViewChild('uploadComponent') uploadComponent: any;  
+  
+  
   constructor(private dashboardService: DashboardService,private global: SimpleGlobal, private translate:TranslateService) { }
 
   ngOnInit() {
@@ -64,5 +68,13 @@ export class DashboardComponent implements OnInit {
         message=res;
       });
       return message;
+    }
+    
+    openNewCollectionModal(){
+      this.collectionCreationModal.open();
+    }
+    
+    onCreateCollection(){
+      this.uploadComponent.update();
     }
 }

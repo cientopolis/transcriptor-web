@@ -91,6 +91,7 @@ import { PublicationsListComponent } from './components/forum/publications-list/
 import { BasicTextEditorComponent } from './components/transcribe/basic-text-editor/basic-text-editor.component';
 import { PageVersionComponent } from './components/page-version/page-version.component';
 import { PageVersionService } from './services/page-version/page-version.service';
+import { CreateCollectionModalComponent } from './components/shared/create-collection-modal/create-collection-modal.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { PageVersionService } from './services/page-version/page-version.service
     ForumComponent,
     PublicationsListComponent,
     BasicTextEditorComponent,
-    PageVersionComponent
+    PageVersionComponent,
+    CreateCollectionModalComponent
   ],
   imports: [
     BrowserModule,

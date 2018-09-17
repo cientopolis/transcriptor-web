@@ -21,38 +21,39 @@
       </mz-card-content>
     </mz-card>
   </div>
+
+  <mz-modal #modalCollection [fixedFooter]="true">
+    <mz-modal-header>
+      {{'collections.modal.create.title' | translate}}
+    </mz-modal-header>
+    <mz-modal-content>
+      <div class="row">
+        <div class="col m12">
+          <mz-input-container>
+            <input mz-input
+              class="input-field-primary-color"
+              [label]="'collections.modal.create.label.title' | translate"
+              [(ngModel)]="collection.title"
+              type="text">
+          </mz-input-container>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <mz-textarea-container>
+            <textarea mz-textarea
+              [(ngModel)]="collection.description"
+              [label]="'collections.modal.create.label.description' | translate">
+            </textarea>
+          </mz-textarea-container>
+        </div>
+      </div>
+    </mz-modal-content>
+    <mz-modal-footer>
+      <button mz-button [flat]="true" mz-modal-close>{{'collections.modal.create.button.cancel' | translate}}</button>
+      <button mz-button [flat]="true" mz-modal-close (click)="createCollection()">{{'collections.modal.create.button.save' | translate}}</button>
+    </mz-modal-footer>
+  </mz-modal>
+
 </div>
-
-<mz-modal #modalCollection [fixedFooter]="true">
-  <mz-modal-header>
-    {{'collections.modal.create.title' | translate}}
-  </mz-modal-header>
-  <mz-modal-content>
-    <div class="row">
-      <div class="col m12">
-        <mz-input-container>
-          <input mz-input
-            class="input-field-primary-color"
-            [label]="'collections.modal.create.label.title' | translate"
-            [(ngModel)]="collection.title"
-            type="text">
-        </mz-input-container>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12">
-        <mz-textarea-container>
-          <textarea mz-textarea
-            [(ngModel)]="collection.description"
-            [label]="'collections.modal.create.label.description' | translate">
-          </textarea>
-        </mz-textarea-container>
-      </div>
-    </div>
-  </mz-modal-content>
-  <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>{{'collections.modal.create.button.cancel' | translate}}</button>
-    <button mz-button [flat]="true" mz-modal-close (click)="createCollection()">{{'collections.modal.create.button.save' | translate}}</button>
-  </mz-modal-footer>
-</mz-modal>

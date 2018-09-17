@@ -5,8 +5,16 @@
         <h4>{{'startAProject.title' | translate}}</h4>
       </mz-card-title>
       <mz-card-content>
-        <app-upload></app-upload>
+        <app-upload
+          #uploadComponent
+          (newCollectionSelected)="openNewCollectionModal()">
+        </app-upload>
       </mz-card-content>
     </mz-card>
   </div>
 </div>
+
+<app-create-collection-modal 
+  #collectionCreationModal
+  (successCreate)="onCreateCollection()">
+</app-create-collection-modal>
