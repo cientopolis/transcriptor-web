@@ -181,7 +181,8 @@
     "review":"marked page as needing review",
     "xlat_index":"indexed the translation of page",
     "xlat_rev":"marked translation page as needing review",
-    "work_add":"added {{work}}"
+    "work_add":"added {{work}}",
+    "trans_like":"liked {{work}}"
   },
   "upload":{
     "title":"Upload PDF or ZIP File",

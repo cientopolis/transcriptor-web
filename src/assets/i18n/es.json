@@ -181,7 +181,8 @@
     "review":"Marcó que una Página Necesita Revisión",
     "xlat_index":"Indexó la Traducción de una Página",
     "xlat_rev":"Marcó que la Traducción de una Página Necesita Revisión",
-    "work_add":"Agregó el Trabajo {{work}}"
+    "work_add":"Agregó un Trabajo",
+    "trans_like":"Le gustó una traduccion"
   },
   "upload":{
     "title":"Cargar un Archivo PDF o ZIP",

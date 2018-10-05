@@ -29,4 +29,8 @@ export class DashboardService {
     let path = this.dashboardPath + "/owner/collections";
     return this.httpService.lget(path) as Observable<DashboardResponse[]>;
   }
+  listRecentWorkActivity(workid): Observable<DashboardResponse[]> {
+    let path = this.dashboardPath + "/work/"+workid;
+    return this.httpService.lget(path) as Observable<DashboardResponse[]>;
+  }
 }

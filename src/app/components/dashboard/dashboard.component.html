@@ -1,15 +1,15 @@
 <div class="row m-t-15" *ngIf="global.currentUser">
-  
+
   <div class="col m9">
     <div class="row">
       <div class="col s12">
-        
+
         <mz-card *ngIf="collectionsOwner">
           <mz-card-title>
             <h4 class="m-b-20">{{'dashboard.title' | translate}}</h4>
           </mz-card-title>
           <mz-card-content>
-            
+
             <mz-tab
               [responsiveThreshold]="'true'"
               [fixedTabWidth]="'true'"
@@ -18,7 +18,7 @@
               <mz-tab-item
                 [class]="'col s12'"
                 [label]="'dashboard.tab.yourWorks.title' | translate">
-                
+
                 <div class="row">
                   <div class="col s12">
                     <mz-collection class="collection-works-list" *ngFor="let collection of collectionsOwner.collections">
@@ -31,7 +31,7 @@
                   </div>
                 </div>
               </mz-tab-item>
-              
+
               <mz-tab-item
                 [class]="'col s12'"
                 [label]="'dashboard.tab.startAProject.title' | translate">
@@ -45,11 +45,11 @@
                 </div>
               </mz-tab-item>
             </mz-tab>
-        
+
           </mz-card-content>
         </mz-card>
-        
-        
+
+
       </div>
     </div>
   </div>
@@ -65,17 +65,17 @@
         </ul>
       </div>
     </div>
-    
+
     <div class='row'>
       <div class="col m12">
         <ul class="collection with-header no-border z-depth-1">
           <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.yourActivity.title' | translate}}</span></li>
-          <li 
-            *ngFor="let collectionDeed of collectionsDeeds" 
-            class="collection-item" 
+          <li
+            *ngFor="let collectionDeed of collectionsDeeds"
+            class="collection-item"
             translate
             [translateParams]="{
-              user: collectionDeed.user, 
+              user: collectionDeed.user,
               deedType:getDeedMessage(collectionDeed.deed_type),
               collection: collectionDeed.collection}">
             dashboard.yourActivity.collectionDeed
@@ -85,19 +85,19 @@
     </div>
 
   </div>
-  
+
 </div>
 
 
 <div class="row m-t-15" *ngIf="!global.currentUser">
   <div class="col m10 offset-m1">
-    
+
     <mz-card>
       <mz-card-title>
         <h4 class="m-b-20">{{'dashboard.title' | translate}}</h4>
       </mz-card-title>
       <mz-card-content>
-        
+
         <div class="row" *ngFor="let collection of collectionsDeeds">
           <div class="row">
             <div class="col s12">
@@ -114,7 +114,7 @@
                   <a class="title" routerLink="/collection/{{dd.deed.collection_id}}">
                     <div class="title" translate
                       [translateParams]="{
-                        user: dd.user, 
+                        user: dd.user,
                         deedType:getDeedMessage(dd.deed_type),
                         work: dd.work}">
                       dashboard.yourActivity.workDeed
@@ -135,7 +135,7 @@
   </div>
 </div>
 
-<app-create-collection-modal 
+<app-create-collection-modal
   #collectionCreationModal
   (successCreate)="onCreateCollection()">
 </app-create-collection-modal>
