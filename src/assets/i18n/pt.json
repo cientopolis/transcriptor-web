@@ -167,6 +167,12 @@
       "title":"Sua atividade",
       "collectionDeed":"{{user}} {{deedType}} em la Coleções {{collection}}",
       "workDeed":"{{user}} {{deedType}} em el trabalho {{work}}"
+    },
+    "activity":{
+      "title":"Actividades",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
+      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
     }
   },
   "deed_type":{
@@ -181,7 +187,8 @@
     "review":"página marcada como precisando de revisão",
     "xlat_index":"indexou a tradução da página",
     "xlat_rev":"página de tradução marcada como precisando de revisão",
-    "work_add":"adicionado trabalho {{work}}"
+    "work_add":"adicionado trabalho {{work}}",
+    "trans_like":"liked an transcription"
   },
   "upload":{
     "title":"Carregar arquivo PDF or ZIP File",

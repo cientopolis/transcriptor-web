@@ -1,38 +1,57 @@
 <div class="row m-t-15">
-  <div class="col m10 offset-m1" *ngIf="work">
-    <mz-card>
-      <mz-card-title>
-        <h4 class="m-b-0">{{ work.title}}</h4>
-        <p>{{ work.collection.title }}</p>
-      </mz-card-title>
-      <mz-card-content>
-        
-        <mz-tab
-          [responsiveThreshold]="'true'"
-          [fixedTabWidth]="'true'"
-          [onShow]="onShow()"
-          [swipeable]="'true'">
-          <mz-tab-item
-            [class]="'col s12'"
-            [label]="'showWork.tab.pages' | translate">
-            <div class="row">
-              <div class="col s12">
-                <app-list-work-pages [work]="work"></app-list-work-pages>
-              </div>
-            </div>
-          </mz-tab-item>
-          <mz-tab-item 
-            [class]="'col s12'" 
-            [label]="'showWork.tab.settings' | translate">
-            <div class="row">
-              <div class="col s12">
-                <app-edit-work [work]="work"></app-edit-work>
-              </div>
-            </div>
-          </mz-tab-item>
-        </mz-tab>
 
-      </mz-card-content>
-    </mz-card>
-  </div>
+      <div class="col m8 offset-m1" *ngIf="work">
+        <mz-card>
+          <mz-card-title>
+            <h4 class="m-b-0">{{ work.title}}</h4>
+            <p>{{ work.collection.title }}</p>
+          </mz-card-title>
+          <mz-card-content>
+
+            <mz-tab
+              [responsiveThreshold]="'true'"
+              [fixedTabWidth]="'true'"
+              [onShow]="onShow()"
+              [swipeable]="'true'">
+              <mz-tab-item
+                [class]="'col s12'"
+                [label]="'showWork.tab.pages' | translate">
+                <div class="row">
+                  <div class="col s12">
+                    <app-list-work-pages [work]="work"></app-list-work-pages>
+                  </div>
+                </div>
+              </mz-tab-item>
+              <mz-tab-item
+                [class]="'col s12'"
+                [label]="'showWork.tab.settings' | translate">
+                <div class="row">
+                  <div class="col s12">
+                    <app-edit-work [work]="work"></app-edit-work>
+                  </div>
+                </div>
+              </mz-tab-item>
+            </mz-tab>
+
+          </mz-card-content>
+        </mz-card>
+      </div>
+      
+      <div class="col m2" *ngIf="work">
+        <ul class="collection with-header no-border z-depth-1">
+          <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.activity.title' | translate}}</span></li>
+          <li
+          *ngFor="let collectionDeed of collectionsDeeds"
+          class="collection-item"
+          translate
+          [translateParams]="{
+            user: collectionDeed.user.login,
+            deedType:getDeedMessage(collectionDeed.deed_type),
+            work: collectionDeed.work.title}">
+          dashboard.yourActivity.workDeed
+          </li>
+        </ul>
+      </div>
+      
+
 </div>

@@ -167,6 +167,12 @@
       "title":"Tu Actividad",
       "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
       "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}"
+    },
+    "activity":{
+      "title":"Actividades",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
+      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
     }
   },
   "deed_type":{
@@ -181,7 +187,8 @@
     "review":"Marcó que una Página Necesita Revisión",
     "xlat_index":"Indexó la Traducción de una Página",
     "xlat_rev":"Marcó que la Traducción de una Página Necesita Revisión",
-    "work_add":"Agregó el Trabajo {{work}}"
+    "work_add":"Agregó un Trabajo",
+    "trans_like":"Le gustó una transcripción"
   },
   "upload":{
     "title":"Cargar un Archivo PDF o ZIP",
