@@ -182,7 +182,7 @@ export class TextEditorComponent implements OnInit {
       page:{
         source_text: this.htmlContent,
         needs_review: this.needs_review ? '1' : '0',
-        mark_blank: this.mark_blank ? '1' : '0';
+        mark_blank: this.mark_blank ? '1' : '0'
       },
       save: true
     };
