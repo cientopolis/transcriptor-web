@@ -14,6 +14,28 @@
         </h4>
       </mz-card-title>
       <mz-card-content>
+        
+        <div class="row" *ngIf="page != null">
+          <div class="offset-s6 col s3">
+            <mz-checkbox-container>
+              <input mz-checkbox
+              [label]="'Marcar como vacía'"
+              id="markAsBlankCheckbox"
+              [(ngModel)]="mark_blank"
+              type="checkbox">
+            </mz-checkbox-container>
+          </div>
+          <div class="col s3">
+            <mz-checkbox-container>
+              <input mz-checkbox
+              [label]="'Necesita Revisión'"
+              id="needsReviewCheckbox"
+              [(ngModel)]="needs_review"
+              type="checkbox">
+            </mz-checkbox-container>
+          </div>
+        </div>
+        
         <app-ngx-editor 
         #textEditor
         [placeholder]="'transcribe.textEditor.placeholder' | translate" 

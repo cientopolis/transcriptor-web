@@ -55,6 +55,9 @@ export class TextEditorComponent implements OnInit {
   sortable = null;
   textSortEnabled = false;
   
+  mark_blank:boolean = false;
+  needs_review:boolean = false;
+  
   constructor(
     private markService: MarkService, 
     private transcribeService:TranscribeService,
@@ -119,6 +122,8 @@ export class TextEditorComponent implements OnInit {
         if(this.page.source_text != null && this.page.source_text != ''){
           // this.htmlContent = this.page.source_text;
           this.compileText();
+          this.needs_review = this.page.status == 'review';
+          this.mark_blank = this.page.status == 'blank';
         }
       }
     }
@@ -175,7 +180,9 @@ export class TextEditorComponent implements OnInit {
     }
     var pageTranscriptionData = {
       page:{
-        source_text: this.htmlContent
+        source_text: this.htmlContent,
+        needs_review: this.needs_review ? '1' : '0',
+        mark_blank: this.mark_blank ? '1' : '0';
       },
       save: true
     };
