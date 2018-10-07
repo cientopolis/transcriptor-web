@@ -45,7 +45,7 @@
     <div class='row'>
       <div class="col m12">
         <ul class="collection with-header no-border z-depth-1">
-          <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.yourActivity.title' | translate}}</span></li>
+          <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.activity.title' | translate}}</span></li>
           <li
           *ngFor="let collectionDeed of collectionsDeeds"
           class="collection-item"
@@ -53,7 +53,6 @@
           [translateParams]="{
             user: collectionDeed.user.login,
             deedType:getDeedMessage(collectionDeed.deed_type),
-
             work: collectionDeed.work.title}">
           dashboard.yourActivity.workDeed
           </li>
