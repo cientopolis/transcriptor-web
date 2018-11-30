@@ -9,9 +9,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - Install npm and Angular CLI
 
-Clone transcriptor-web
+- Clone transcriptor-web
 
-    git clone https://github.com/cientopolis/transcriptor-web.git
+      git clone https://github.com/cientopolis/transcriptor-web.git
 
 
 - In the root folder of project run `npm install` to install all dependencies.
