@@ -1,6 +1,12 @@
-# TranscriptorWeb
+# Transcriptor-web
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
+
+## Installation
+
+- Intall npm and Angular CLI
+- Clone this repo
+- In the root folder of project run `npm install` to install all dependencies.
 
 ## Development server
 
