@@ -5,14 +5,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ### Installation
 
-Install npm and Angular CLI
+- Install [transcriptor-backend](https://github.com/cientopolis/transcriptor-backend)
 
-Install the Transcriptor Backend
+- Install npm and Angular CLI
 
-    git clone https://github.com/cientopolis/transcriptor-backend.git
-
-
-and clone the transcriptor web
+- Clone transcriptor-web
 
     git clone https://github.com/cientopolis/transcriptor-web.git
 
