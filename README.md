@@ -1,12 +1,24 @@
 # Transcriptor-web
+Transcriptor web is an web application that is conected with Transcriptor backend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.6.
 
-## Installation
+### Installation
 
-- Intall npm and Angular CLI
-- Clone this repo
+Install npm and Angular CLI
+
+Install the Transcriptor Backend
+
+    git clone https://github.com/cientopolis/transcriptor-backend.git
+
+
+and clone the transcriptor web
+
+    git clone https://github.com/cientopolis/transcriptor-web.git
+
+
 - In the root folder of project run `npm install` to install all dependencies.
+
 
 ## Development server
 
