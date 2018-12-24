@@ -114,7 +114,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
     private applicationRef: ApplicationRef,
-    private global: SimpleGlobal) {
+    public global: SimpleGlobal) {
     this.global['hideFooter']=true;
     this.transcribeOptions=this.getTranscribeOptions();
     if(this.classicMode){

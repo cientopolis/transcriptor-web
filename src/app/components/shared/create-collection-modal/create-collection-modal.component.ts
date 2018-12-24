@@ -8,7 +8,7 @@ import { CollectionService } from '../../../services/collection/collection.servi
 })
 export class CreateCollectionModalComponent implements OnInit {
 
-  collection = {};
+  collection:any = {};
   @ViewChild('modalCollection') modalCollection;
   @Output() successCreate = new EventEmitter();
 

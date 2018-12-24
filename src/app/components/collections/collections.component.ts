@@ -11,10 +11,10 @@ import {SimpleGlobal} from 'ng2-simple-global';
 export class CollectionsComponent implements OnInit {
   collections=[];
   @ViewChild('modalCollection') modalCollection;
-  collection = {};
+  collection:any = {};
 
 
-  constructor(private collectionService: CollectionService,private changeDetector: ChangeDetectorRef, private global: SimpleGlobal) {
+  constructor(private collectionService: CollectionService,private changeDetector: ChangeDetectorRef, public global: SimpleGlobal) {
     this.global['routeBack'] = "home";
   }
 

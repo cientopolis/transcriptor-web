@@ -20,8 +20,9 @@ export class PublicationsListComponent implements OnInit {
   @Input() modalOptions: Materialize.ModalOptions = {};
   @ViewChild('modal') modal;
   @Output() close = new EventEmitter();
+  replyBoxFocused:boolean = false;
 
-  constructor(private publicationService:PublicationService, private global: SimpleGlobal,private changeDetector: ChangeDetectorRef) { }
+  constructor(private publicationService:PublicationService, public global: SimpleGlobal,private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
 

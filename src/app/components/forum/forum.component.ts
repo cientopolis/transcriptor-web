@@ -13,7 +13,7 @@ import { ForumService } from '../../services/forum/forum.service';
 export class ForumComponent implements OnInit {
 
   @Input() element;
-  forum = {};
+  forum:any = {};
   newForum = {element:{id: null,className:null}};
 
   constructor(private forumService: ForumService,private activatedRoute: ActivatedRoute) { }

@@ -12,7 +12,7 @@ export class BadgesComponent implements OnInit {
 
   badges:any[] = [];
   user = {};
-  constructor(private badgeService:BadgeService,private userService: UserService, private global: SimpleGlobal,private changeDetector: ChangeDetectorRef) {
+  constructor(private badgeService:BadgeService,private userService: UserService, public global: SimpleGlobal,private changeDetector: ChangeDetectorRef) {
     this.badges = badgeService.list().subscribe(badges => {this.badges=badges;console.log(this.badges);});
 
   }

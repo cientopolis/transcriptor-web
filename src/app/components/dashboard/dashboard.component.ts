@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('uploadComponent') uploadComponent: any;  
   
   
-  constructor(private dashboardService: DashboardService,private global: SimpleGlobal, private translate:TranslateService) { }
+  constructor(private dashboardService: DashboardService,public global: SimpleGlobal, private translate:TranslateService) { }
 
   ngOnInit() {
 

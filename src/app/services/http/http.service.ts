@@ -38,7 +38,7 @@ export class HttpService {
 
   constructor(
     private http: HttpClient,
-    private global: SimpleGlobal,
+    public global: SimpleGlobal,
     private flashMessagesService: FlashMessagesService,
     private alertMessagesService: AlertMessagesService) { }
 

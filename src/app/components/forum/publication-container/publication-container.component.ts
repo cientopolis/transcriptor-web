@@ -29,7 +29,7 @@ export class PublicationContainerComponent implements OnInit {
 
   constructor(private publicationService:PublicationService,
     private changeDetector: ChangeDetectorRef,
-    private global: SimpleGlobal) { }
+    public global: SimpleGlobal) { }
 
   ngOnInit() {
     this.loadPublications();

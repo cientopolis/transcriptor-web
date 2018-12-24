@@ -3,20 +3,20 @@
 
   <mz-navbar navbarClass="main-navbar">
 
-    <a routerLink="{{global.routeBack}}" *ngIf="global.routeBack"><div class="back-button"><i mz-icon-mdi [icon]="'arrow-left'" [align]="'left'"></i></div></a>
+    <a routerLink="{{global['routeBack']}}" *ngIf="global['routeBack']"><div class="back-button"><i mz-icon-mdi [icon]="'arrow-left'" [align]="'left'"></i></div></a>
   	<a routerLink="home" class="brand-logo"><img src="assets/img/logo.png" alt=""></a>
 
 
     <mz-navbar-item-container [align]="'right'">
       <mz-navbar-item><a routerLink="/collections/list">{{'collections.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item><a routerLink="dashboard">{{'dashboard.title' | translate}}</a></mz-navbar-item>
-        <mz-navbar-item *ngIf="!global.currentUser"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
-        <mz-navbar-item *ngIf="global.currentUser">
+        <mz-navbar-item *ngIf="!global['currentUser']"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
+        <mz-navbar-item *ngIf="global['currentUser']">
           <a id="btn-dropdown-demo">
-            <img class="user-photo" [src]="getAvatarUrl(global.currentUser.display_name)">
+            <img class="user-photo" [src]="getAvatarUrl(global['currentUser'].display_name)">
             <div class="user-info">
-              <b>{{global.currentUser.display_name}}</b>
-              <span class="user-rank" *ngIf="global.currentUser.rank">{{global.currentUser.rank}}</span>
+              <b>{{global['currentUser'].display_name}}</b>
+              <span class="user-rank" *ngIf="global['currentUser'].rank">{{global['currentUser'].rank}}</span>
             </div>
           </a>
         </mz-navbar-item>
@@ -25,7 +25,7 @@
   </mz-navbar>
 
   <mz-dropdown
-  *ngIf="global.currentUser"
+  *ngIf="global['currentUser']"
   [id]="'dropdown-user'"
   [align]="'right'"
   [belowOrigin]="true"
@@ -60,7 +60,7 @@
   <router-outlet #routerOutlet="outlet"></router-outlet>
 </main>
 
-<footer class="page-footer" *ngIf="!global.hideFooter">
+<footer class="page-footer" *ngIf="!global['hideFooter']">
 	<div class="container">
 		<div class="row">
 			<div class="col l6 s12">

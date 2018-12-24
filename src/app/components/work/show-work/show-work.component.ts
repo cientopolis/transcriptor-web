@@ -16,7 +16,7 @@ export class ShowWorkComponent implements OnInit {
 
   work = null;
   collectionsDeeds :any;
-  constructor(private dashboardService: DashboardService,private workService: WorkService, private route: ActivatedRoute,private global: SimpleGlobal,private changeDetector: ChangeDetectorRef, private translate:TranslateService) { }
+  constructor(private dashboardService: DashboardService,private workService: WorkService, private route: ActivatedRoute,public global: SimpleGlobal,private changeDetector: ChangeDetectorRef, private translate:TranslateService) { }
 
   ngOnInit() {
 

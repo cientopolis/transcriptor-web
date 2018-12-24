@@ -15,7 +15,7 @@ import { routeAnimation } from './utils/animations';
 export class AppComponent implements OnInit{
   title = 'Transcriptor';
 
-  constructor(private loginService: LoginService, private global: SimpleGlobal, private router: Router, public translate: TranslateService) {
+  constructor(private loginService: LoginService, public global: SimpleGlobal, private router: Router, public translate: TranslateService) {
     translate.addLangs(['en', 'es']);
     translate.setDefaultLang('en');
 

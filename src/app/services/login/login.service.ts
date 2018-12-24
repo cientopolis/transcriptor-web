@@ -11,7 +11,7 @@ export class LoginService {
 
   private loginPath = '/api/login';
 
-  constructor(private httpService: HttpService, private global: SimpleGlobal, private router: Router) { }
+  constructor(private httpService: HttpService, public global: SimpleGlobal, private router: Router) { }
   
   login(loginCredentials: LoginCredentials) {
     return this.httpService.post(this.loginPath, loginCredentials);

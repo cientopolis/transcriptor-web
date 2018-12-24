@@ -25,7 +25,7 @@ export class PageVersionComponent implements OnInit {
 
   constructor( 
     private route:ActivatedRoute,
-    private global:SimpleGlobal, 
+    public global:SimpleGlobal, 
     private pageService:PageService,
     private pageVersionService:PageVersionService) {
       this.pageId = +this.route.snapshot.paramMap.get('pageId');

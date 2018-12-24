@@ -12,7 +12,7 @@ export class ShowCollectionComponent implements OnInit {
 
   collection = null;
 
-  constructor(private collectionService: CollectionService, private route: ActivatedRoute, private global: SimpleGlobal,private changeDetector: ChangeDetectorRef) {
+  constructor(private collectionService: CollectionService, private route: ActivatedRoute, public global: SimpleGlobal,private changeDetector: ChangeDetectorRef) {
     this.global['routeBack'] = "collections/list";
   }
 

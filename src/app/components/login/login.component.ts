@@ -14,11 +14,11 @@ import { UserService } from '../../services/user/user.service';
 export class LoginComponent implements OnInit {
 
   @ViewChild('modalCreateUser') modalCreateUser;
-  user = {};
+  user:any = {};
 
   loginCredentials:LoginCredentials = new LoginCredentials();
 
-  constructor(private userService: UserService,private loginService: LoginService, private global: SimpleGlobal, private router: Router) { }
+  constructor(private userService: UserService,private loginService: LoginService, public global: SimpleGlobal, private router: Router) { }
 
   ngOnInit() {
   }
@@ -54,10 +54,11 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
-  private openCreateAccount() {
+  public openCreateAccount() {
     this.modalCreateUser.open();
   }
-  private createUser() {
+  
+  public createUser() {
       this.userService.create(this.user)
         .subscribe(response => this.handleResponse(response));
   }

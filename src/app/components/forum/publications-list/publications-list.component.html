@@ -38,7 +38,7 @@
     <div class="row reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
       <div class="col s1 image-column">
         <div class="comment-image">
-          <img [src]="getAvatarUrl(global.currentUser.display_name)">
+          <img [src]="getAvatarUrl(global['currentUser'].display_name)">
         </div>
       </div>
       <div class="col s11 p-l-0">

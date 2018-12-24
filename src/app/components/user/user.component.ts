@@ -10,9 +10,9 @@ import {SimpleGlobal} from 'ng2-simple-global';
 export class UserComponent implements OnInit {
 
   @ViewChild('modalEditProfile') modalEditProfile;
-  user = {};
+  user:any = {};
 
-  constructor(private userService: UserService, private global: SimpleGlobal) { }
+  constructor(private userService: UserService, public global: SimpleGlobal) { }
 
   ngOnInit() {
     let storedUser=localStorage.getItem('currentUser');
