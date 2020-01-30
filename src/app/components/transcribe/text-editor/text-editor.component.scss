@@ -84,3 +84,7 @@
 .text-editor-panel {
   height: 100%;
 }
+
+:host ::ng-deep .card-content {
+  padding-top: 10px;
+}

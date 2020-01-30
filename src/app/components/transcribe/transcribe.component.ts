@@ -141,9 +141,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     $('a[href="#"]').removeAttr("href").css( 'cursor', 'pointer' );
 
     if(!this.classicMode){
-      let toolbar = LeafletUtils.addToolbar();
+      let leftToolbar = LeafletUtils.addLeftToolbar();
+      // add autoZoom button
       let buttonStatusClass = this.transcribeOptions.autoZoom?'primary-color-text':'icon-color';
-      let autoZoomButton = LeafletUtils.addToolbarAction(toolbar, '', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
+      let autoZoomButton = LeafletUtils.addToolbarAction(leftToolbar, 'Auto-Zoom', 'fa fa-crosshairs fa-lg toggleIcon ' + buttonStatusClass);
       autoZoomButton.click(function(){
         var toggleIcon = $(this).find('.toggleIcon');
         toggleIcon.toggleClass('icon-color');
@@ -151,6 +152,9 @@ export class TranscribeComponent implements OnInit, OnDestroy {
         component.transcribeOptions.autoZoom = !component.transcribeOptions.autoZoom;
         component.saveTranscribeOptions();
       })
+      // add layersList button
+      let rightToolbar = LeafletUtils.addRightToolbar();
+      let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-layers');
     }
   }
 

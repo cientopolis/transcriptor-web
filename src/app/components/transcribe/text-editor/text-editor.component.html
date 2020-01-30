@@ -1,22 +1,22 @@
 <div class="text-editor-panel z-depth-1">
   <mz-card class="text-editor m-t-0 z-depth-0">
       <mz-card-title>
-        <h4>
+        <h5>
           {{'transcribe.title' | translate}}
-          <button class="btn right" mz-button (click)="save()">
+          <button class="btn btn-small right" mz-button (click)="save()">
             <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}
           </button>
           <a *ngIf="page != null" routerLink="/page-version/{{page.id}}">
-            <button class="btn right" [flat]="true" mz-button>
+            <button class="btn btn-small right" [flat]="true" mz-button>
               {{'page-versions.actionText' | translate}}
             </button>
           </a>
-        </h4>
+        </h5>
       </mz-card-title>
       <mz-card-content>
         
-        <div class="row" *ngIf="page != null">
-          <div class="offset-s6 col s3">
+        <div class="row m-b-5" *ngIf="page != null">
+          <div class="col s4">
             <mz-checkbox-container>
               <input mz-checkbox
               [label]="'Marcar como vacía'"
@@ -25,7 +25,7 @@
               type="checkbox">
             </mz-checkbox-container>
           </div>
-          <div class="col s3">
+          <div class="col s4">
             <mz-checkbox-container>
               <input mz-checkbox
               [label]="'Necesita Revisión'"

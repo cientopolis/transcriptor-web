@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'http://himalia.ddns.net:3000',
   transcribe: {
     classicMode: false
   },
