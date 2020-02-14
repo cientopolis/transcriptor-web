@@ -14,10 +14,12 @@ import { LeafletUtils } from '../../utils/leaflet-utils';
 import { ModalTranscriptionStrategy } from './transcription-strategies/modal-transcription-strategy';
 import { TextEditorTranscriptionStrategy } from './transcription-strategies/text-editor-transcription-strategy';
 
+import { TranscriptorLayer } from '../../models/transcriptorLayer';
 import { Mark } from '../../models/mark';
 import { RenderedMark } from '../../models/renderedMark';
 
 import { MarkService } from '../../services/mark/mark.service';
+import { LayerService } from '../../services/layer/layer.service';
 import { PageService } from '../../services/page/page.service';
 import { TranscriptionService } from '../../services/transcription/transcription.service';
 import { FlashMessagesService } from '../../services/util/flash-messages/flash-messages.service';
@@ -38,6 +40,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   renderedMark: RenderedMark = null;
   vote= [];
   renderedMarks: RenderedMark[] = [];
+
+  transcriptionLayers: TranscriptorLayer[];
 
   @ViewChild('markModal') markModal: any;
   @ViewChild('markDetailsModal') markDetailsModal: any;
@@ -110,6 +114,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private transcriptionService:TranscriptionService,
     private pageService: PageService,
     private markService: MarkService,
+    private layerService: LayerService,
     private flashMessagesService: FlashMessagesService,
     private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
@@ -153,8 +158,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
         component.saveTranscribeOptions();
       })
       // add layersList button
-      let rightToolbar = LeafletUtils.addRightToolbar();
-      let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-layers');
+      // let rightToolbar = LeafletUtils.addRightToolbar();
+      // let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-layers');
     }
   }
 
@@ -188,6 +193,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.changeDetector.detectChanges();
           this.addPageToMap();
           this.loadMarks();
+          this.loadLayers();
         });
   }
 
@@ -223,6 +229,14 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             console.log(this.page);
           });
         });
+  }
+
+  loadLayers() {
+    var component = this;
+    this.layerService.listByPage(this.page.id)
+      .subscribe(layers => {
+        this.transcriptionLayers = layers;
+      });
   }
 
   addWaterMark(){

@@ -93,6 +93,7 @@ import { BasicTextEditorComponent } from './components/transcribe/basic-text-edi
 import { PageVersionComponent } from './components/page-version/page-version.component';
 import { PageVersionService } from './services/page-version/page-version.service';
 import { CreateCollectionModalComponent } from './components/shared/create-collection-modal/create-collection-modal.component';
+import { LayerService } from './services/layer/layer.service';
 
 @NgModule({
   declarations: [
@@ -186,7 +187,8 @@ import { CreateCollectionModalComponent } from './components/shared/create-colle
     BadgeService,
     PublicationService,
     ForumService,
-    PageVersionService
+    PageVersionService,
+    LayerService
   ],
   bootstrap: [AppComponent]
 })

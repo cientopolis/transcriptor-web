@@ -7,6 +7,21 @@ leafletDraw
 (leafletMapReady)="onMapReady($event)">
 </div>
 
+<mz-dropdown [id]="'dropdown-layers'" [align]="'left'" [belowOrigin]="false" [constrainWidth]="true"
+  [dropdownButtonId]="'btn-dropdown-layers'" [gutter]="true" [hover]="false" [inDuration]="300" [outDuration]="300"
+  [stopPropagation]="true" *ngIf="transcriptionLayers">
+  <mz-dropdown-item><a>Texto</a></mz-dropdown-item>
+  <div *ngFor="let transcriptionLayer of transcriptionLayers">
+    <mz-dropdown-item><a>{{ transcriptionLayer.name }}</a></mz-dropdown-item>
+  </div>
+  <mz-dropdown-divider></mz-dropdown-divider>
+  <mz-dropdown-item><a><i mz-icon-mdi [icon]="'plus-circle'" [align]="'left'" [size]="'18px'"></i>Añadir Capa</a></mz-dropdown-item>
+</mz-dropdown>
+
+<a mz-button id="btn-dropdown-layers" class="btn btn-small layers-button" *ngIf="transcriptionLayers">
+  <i mz-icon-mdi [icon]="'layers'" [align]="'left'"></i>Texto
+</a>
+
 <div class="panel-show-button z-depth-1" (click)="toggleEditor()">
   <i mz-icon-mdi [icon]="'chevron-left'" [align]="'left'"></i> 
 </div>

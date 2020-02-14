@@ -92,3 +92,27 @@ html, body {
 .icon-color{
   color: #464646;
 }
+
+.layers-button {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 999;
+}
+
+#btn-dropdown-layers {
+  background-color: $defaultColor;
+  color: $primaryColor;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 15px;
+}
+#dropdown-layers li {
+  min-height: 0px;
+}
+#dropdown-layers li>a {
+  padding: 5px 16px;
+  font-size: 0.8rem;
+}
+#dropdown-layers li>a>i {
+  margin: 0;
+}
