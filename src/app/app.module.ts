@@ -94,6 +94,7 @@ import { PageVersionComponent } from './components/page-version/page-version.com
 import { PageVersionService } from './services/page-version/page-version.service';
 import { CreateCollectionModalComponent } from './components/shared/create-collection-modal/create-collection-modal.component';
 import { LayerService } from './services/layer/layer.service';
+import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { LayerService } from './services/layer/layer.service';
     PublicationsListComponent,
     BasicTextEditorComponent,
     PageVersionComponent,
-    CreateCollectionModalComponent
+    CreateCollectionModalComponent,
+    LayerModalComponent
   ],
   imports: [
     BrowserModule,

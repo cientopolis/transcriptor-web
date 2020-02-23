@@ -15,7 +15,7 @@ leafletDraw
     <mz-dropdown-item><a>{{ transcriptionLayer.name }}</a></mz-dropdown-item>
   </div>
   <mz-dropdown-divider></mz-dropdown-divider>
-  <mz-dropdown-item><a><i mz-icon-mdi [icon]="'plus-circle'" [align]="'left'" [size]="'18px'"></i>Añadir Capa</a></mz-dropdown-item>
+  <mz-dropdown-item><a (click)="openLayerModal()"><i mz-icon-mdi [icon]="'plus-circle'" [align]="'left'" [size]="'18px'"></i>Añadir Capa</a></mz-dropdown-item>
 </mz-dropdown>
 
 <a mz-button id="btn-dropdown-layers" class="btn btn-small layers-button" *ngIf="transcriptionLayers">
@@ -86,6 +86,12 @@ leafletDraw
   [mark]="renderedMark.mark"
   (close)="markDetailsModal.refresh()">
 </app-mark-transcriptions-list>
+
+<app-layer-modal 
+  #layerModal
+  *ngIf="page != null"
+  [page]="page">
+</app-layer-modal>
 
 <app-transcription-form 
   #transcriptionForm
