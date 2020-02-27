@@ -35,8 +35,8 @@ export class TextEditorComponent implements OnInit {
   
   editorConfig = {
     editable:true,
-    height:"73vh",
-    minHeight:"73vh",
+    height: false,
+    minHeight: false,
     toolbar: [
       ["bold", "italic", "underline", "strikeThrough"],
       ["fontSize", "color"],

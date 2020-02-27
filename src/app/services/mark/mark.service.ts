@@ -13,6 +13,7 @@ export class MarkService {
   private deletePath = '/api/mark/';
   private getPath = '/api/mark/{markId}';
   private listByPagePath = '/api/page/';
+  private listByLayerPath = '/api/layer/';
 
   constructor(private httpService: HttpService) { }
 
@@ -32,8 +33,8 @@ export class MarkService {
     return this.httpService.lget([this.getPath,{markId:markId}], options) as Observable<Mark>;
   }
 
-  listByPage(pageId): Observable<Mark[]> {
-    let path = this.listByPagePath + pageId + "/marks";
+  listByPage(pageId, layerId = null): Observable<Mark[]> {
+    let path = (layerId ? this.listByLayerPath + layerId : this.listByPagePath + pageId) + "/marks";
     return this.httpService.lget(path) as Observable<Mark[]>;
   }
 }

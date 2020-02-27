@@ -42,6 +42,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   renderedMarks: RenderedMark[] = [];
 
   transcriptionLayers: TranscriptorLayer[];
+  transcriptionLayer: TranscriptorLayer;
 
   @ViewChild('markModal') markModal: any;
   @ViewChild('markDetailsModal') markDetailsModal: any;
@@ -53,9 +54,11 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   options = {
     crs: L.CRS.Simple,
     maxZoom: 3,
-  	minZoom: -3,
+  	minZoom: -4,
     zoom: 0,
-  	center: latLng(0, 0),
+    zoomSnap: 0.25,
+    zoomDelta: 0.25,
+    center: latLng(0, 0)
   };
 
   shapeOptions = {
@@ -110,6 +113,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   classicMode:boolean = environment.transcribe.classicMode;
+  semanticMode: boolean = false;
 
   constructor(
     private transcriptionService:TranscriptionService,
@@ -214,7 +218,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   loadMarks() {
     var component = this;
-    this.markService.listByPage(this.page.id)
+    let layerId = this.transcriptionLayer ? this.transcriptionLayer.id : null;
+    this.markService.listByPage(this.page.id, layerId)
         .subscribe(marks => {
           marks.forEach(mark => {
             let renderedMark = new RenderedMark(mark);
@@ -230,14 +235,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             console.log(this.page);
           });
         });
-  }
-
-  loadLayers() {
-    var component = this;
-    this.layerService.listByPage(this.page.id)
-      .subscribe(layers => {
-        this.transcriptionLayers = layers;
-      });
   }
 
   addWaterMark(){
@@ -419,9 +416,16 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.editing = false;
     this.renderedMark = null;
     this.transcribeStrategy = ModalTranscriptionStrategy;
-    this.textEditor.blurMark();
-    this.textEditor.enableEditor();
+    this.textEditor ? this.textEditor.blurMark() : '';
+    this.textEditor ? this.textEditor.enableEditor() : '';
     this.resetView();
+  }
+
+  clearMarks() {
+    this.renderedMarks.forEach(renderedMark => {
+      renderedMark.layer.remove()
+    });
+    this.renderedMarks = []
   }
 
   fitToLayer(layer) {
@@ -471,4 +475,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  // layers logic
+  loadLayers() {
+    var component = this;
+    this.layerService.listByPage(this.page.id)
+      .subscribe(layers => {
+        this.transcriptionLayers = layers;
+      });
+  }
+
+  setTranscriptionLayer(transcriptionLayer: TranscriptorLayer) {
+    this.semanticMode = transcriptionLayer != null;
+    this.transcriptionLayer = transcriptionLayer;
+    this.reset()
+    this.clearMarks()
+    this.loadMarks()
+  }
 }

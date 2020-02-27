@@ -1,8 +1,15 @@
-<mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
+<mz-modal id="layout-modal" #modal [fixedFooter]="true" [options]="modalOptions">
   <mz-modal-header>
     {{'transcribe.layerModal.title' | translate}}
   </mz-modal-header>
   <mz-modal-content>
+    
+    <mz-input-container>
+      <input mz-input 
+        class="input-field-primary-color" 
+        [label]="'transcribe.layerModal.label.name' | translate"
+        [(ngModel)]="name" type="text">
+    </mz-input-container>
 
     <!-- <div class="center-align">
       <mz-spinner *ngIf="transcriptions.length == 0" [color]="'yellow'" [size]="'big'">
@@ -15,8 +22,11 @@
 
   </mz-modal-content>
   <mz-modal-footer>
-    <!-- <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close (click)="closeModal()">
       {{'app.button.close' | translate}}
-    </button> -->
+    </button>
+    <button class="primary-color btn waves-effect waves-light" mz-button mz-modal-close (click)="save()">
+      {{'app.button.save' | translate}}
+    </button>
   </mz-modal-footer>
 </mz-modal>

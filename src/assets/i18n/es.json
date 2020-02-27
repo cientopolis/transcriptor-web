@@ -256,7 +256,10 @@
       }
     },
     "layerModal":{
-      "title":"Nueva Capa"
+      "title":"Nueva Capa",
+      "label":{
+        "name":"Nombre"
+      }
     }
   },
   "forum":{

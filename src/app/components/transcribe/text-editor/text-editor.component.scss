@@ -29,6 +29,21 @@
   display: none;
 }
 
+:host ::ng-deep .ngx-editor {
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep .ngx-wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+:host ::ng-deep .ngx-editor-textarea {
+  width: 100%;
+}
+
 :host ::ng-deep .ngx-toolbar .ngx-toolbar-set .ngx-editor-button:first-child {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -81,10 +96,15 @@
   background-color: $primaryColor;
 }
 
+:host ::ng-deep .ngx-editor-grippie {
+  display: none;
+}
+
 .text-editor-panel {
   height: 100%;
 }
 
 :host ::ng-deep .card-content {
   padding-top: 10px;
+  height: 100%;
 }
