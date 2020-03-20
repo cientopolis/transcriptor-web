@@ -13,11 +13,14 @@ import { LeafletUtils } from '../../utils/leaflet-utils';
 
 import { ModalTranscriptionStrategy } from './transcription-strategies/modal-transcription-strategy';
 import { TextEditorTranscriptionStrategy } from './transcription-strategies/text-editor-transcription-strategy';
+import { SemanticTranscriptionStrategy } from './transcription-strategies/semantic-transcription-strategy';
 
+import { TranscriptorLayer } from '../../models/transcriptorLayer';
 import { Mark } from '../../models/mark';
 import { RenderedMark } from '../../models/renderedMark';
 
 import { MarkService } from '../../services/mark/mark.service';
+import { LayerService } from '../../services/layer/layer.service';
 import { PageService } from '../../services/page/page.service';
 import { TranscriptionService } from '../../services/transcription/transcription.service';
 import { FlashMessagesService } from '../../services/util/flash-messages/flash-messages.service';
@@ -39,18 +42,24 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   vote= [];
   renderedMarks: RenderedMark[] = [];
 
+  transcriptionLayers: TranscriptorLayer[];
+  transcriptionLayer: TranscriptorLayer;
+
   @ViewChild('markModal') markModal: any;
   @ViewChild('markDetailsModal') markDetailsModal: any;
   @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
+  @ViewChild('layerModal') layerModal: any;
   @ViewChild('transcriptionForm') transcriptionForm: any;
   @ViewChild('textEditor') textEditor: any;
 
   options = {
     crs: L.CRS.Simple,
     maxZoom: 3,
-  	minZoom: -3,
+  	minZoom: -4,
     zoom: 0,
-  	center: latLng(0, 0),
+    zoomSnap: 0.25,
+    zoomDelta: 0.25,
+    center: latLng(0, 0)
   };
 
   shapeOptions = {
@@ -105,11 +114,14 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   classicMode:boolean = environment.transcribe.classicMode;
+  semanticMode: boolean = false;
+  layersEnabled: boolean = environment.transcribe.layers;
 
   constructor(
     private transcriptionService:TranscriptionService,
     private pageService: PageService,
     private markService: MarkService,
+    private layerService: LayerService,
     private flashMessagesService: FlashMessagesService,
     private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
@@ -153,8 +165,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
         component.saveTranscribeOptions();
       })
       // add layersList button
-      let rightToolbar = LeafletUtils.addRightToolbar();
-      let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-layers');
+      // let rightToolbar = LeafletUtils.addRightToolbar();
+      // let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-layers');
     }
   }
 
@@ -188,6 +200,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.changeDetector.detectChanges();
           this.addPageToMap();
           this.loadMarks();
+          this.loadLayers();
         });
   }
 
@@ -207,7 +220,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   loadMarks() {
     var component = this;
-    this.markService.listByPage(this.page.id)
+    let layerId = this.transcriptionLayer ? this.transcriptionLayer.id : null;
+    this.markService.listByPage(this.page.id, layerId)
         .subscribe(marks => {
           marks.forEach(mark => {
             let renderedMark = new RenderedMark(mark);
@@ -215,8 +229,12 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             renderedMark.layer.on('click', function(){
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
-              component.openMarkModalByRole(renderedMark);
-              component.textEditor.focusMark(mark.id);
+              if (!component.semanticMode) {
+                component.openMarkModalByRole(renderedMark);
+                component.textEditor.focusMark(mark.id);
+              } else {
+                // do semantic things
+              }
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
@@ -259,7 +277,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       component.fitToLayer(layer);
 
       // Do whatever else you need to. (save to db; add to map etc)
-      var mark = new Mark(component.page, layer, type);
+      var mark = new Mark(component.page, layer, type, component.transcriptionLayer);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
       component.transcribeStrategy.execute(renderedMark,component);
@@ -342,6 +360,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     this.markDetailsModal.open();
   }
 
+  openLayerModal() {
+    this.layerModal.open();
+  }
+
   openMarkTranscriptionsList() {
     this.markTranscriptionsList.open();
   }
@@ -359,11 +381,17 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.renderedMark.layer.on('click', function(){
             component.editing = true;
             component.fitToLayer(renderedMark.layer);
-            component.openMarkModalByRole(renderedMark)
-            component.textEditor.focusMark(mark.id);
+            if(!component.semanticMode) {
+              component.openMarkModalByRole(renderedMark);
+              component.textEditor.focusMark(mark.id);
+            } else {
+              // do semantic things
+            }
           });
           this.renderedMarks.push(this.renderedMark);
-          this.textEditor.addMarkText(this.renderedMark.mark);
+          if (!component.semanticMode) {
+            this.textEditor.addMarkText(this.renderedMark.mark);
+          }
           this.reset();
         });
   }
@@ -399,10 +427,17 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   reset() {
     this.editing = false;
     this.renderedMark = null;
-    this.transcribeStrategy = ModalTranscriptionStrategy;
-    this.textEditor.blurMark();
-    this.textEditor.enableEditor();
+    this.transcribeStrategy = this.semanticMode ? SemanticTranscriptionStrategy : ModalTranscriptionStrategy;
+    this.textEditor ? this.textEditor.blurMark() : '';
+    this.textEditor ? this.textEditor.enableEditor() : '';
     this.resetView();
+  }
+
+  clearMarks() {
+    this.renderedMarks.forEach(renderedMark => {
+      renderedMark.layer.remove()
+    });
+    this.renderedMarks = []
   }
 
   fitToLayer(layer) {
@@ -452,4 +487,21 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  // layers logic
+  loadLayers() {
+    var component = this;
+    this.layerService.listByPage(this.page.id)
+      .subscribe(layers => {
+        this.transcriptionLayers = layers;
+      });
+  }
+
+  setTranscriptionLayer(transcriptionLayer: TranscriptorLayer) {
+    this.semanticMode = transcriptionLayer != null;
+    this.transcriptionLayer = transcriptionLayer;
+    this.reset()
+    this.clearMarks()
+    this.loadMarks()
+  }
 }

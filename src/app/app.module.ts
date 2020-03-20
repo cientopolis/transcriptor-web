@@ -93,6 +93,9 @@ import { BasicTextEditorComponent } from './components/transcribe/basic-text-edi
 import { PageVersionComponent } from './components/page-version/page-version.component';
 import { PageVersionService } from './services/page-version/page-version.service';
 import { CreateCollectionModalComponent } from './components/shared/create-collection-modal/create-collection-modal.component';
+import { LayerService } from './services/layer/layer.service';
+import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
+import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +128,9 @@ import { CreateCollectionModalComponent } from './components/shared/create-colle
     PublicationsListComponent,
     BasicTextEditorComponent,
     PageVersionComponent,
-    CreateCollectionModalComponent
+    CreateCollectionModalComponent,
+    LayerModalComponent,
+    SemanticTextEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -186,7 +191,8 @@ import { CreateCollectionModalComponent } from './components/shared/create-colle
     BadgeService,
     PublicationService,
     ForumService,
-    PageVersionService
+    PageVersionService,
+    LayerService
   ],
   bootstrap: [AppComponent]
 })

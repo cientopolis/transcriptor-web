@@ -1,0 +1,6 @@
+@import '~styles/styles';
+
+:host ::ng-deep .modal.modal-fixed-footer {
+    max-height: 30%;
+    height: 30%;
+}

@@ -1,0 +1,24 @@
+<div class="text-editor-panel z-depth-1">
+  <mz-card class="text-editor m-t-0 m-b-0 z-depth-0">
+    <mz-card-title>
+      <h5>
+        {{'transcribe.title' | translate}}
+        <button class="btn btn-small right" mz-button (click)="save()">
+          <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}
+        </button>
+        <a *ngIf="page != null" (click)="cancel()">
+          <button class="btn btn-small right" [flat]="true" mz-button>
+            {{'app.button.cancel' | translate}}
+          </button>
+        </a>
+      </h5>
+    </mz-card-title>
+    <mz-card-content *ngIf="page">
+      <label class="primary-color-text" for="basic-text-editor">{{'transcribe.textEditor.label' | translate}}</label>
+      <textarea id="basic-text-editor" class="form-control"
+        *ngIf="renderedMark && renderedMark.mark"
+        placeholder="{{'transcribe.textEditor.placeholder' | translate}}" [(ngModel)]="renderedMark.mark.semantic_text">
+      </textarea>
+    </mz-card-content>
+  </mz-card>
+</div>

@@ -254,6 +254,12 @@
       "button":{
         "addAnotherTranscription":"Agregar Otra Transcripción"
       }
+    },
+    "layerModal":{
+      "title":"Nueva Capa",
+      "label":{
+        "name":"Nombre"
+      }
     }
   },
   "forum":{
