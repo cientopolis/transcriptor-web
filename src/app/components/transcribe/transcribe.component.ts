@@ -115,6 +115,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   classicMode:boolean = environment.transcribe.classicMode;
   semanticMode: boolean = false;
+  layersEnabled: boolean = environment.transcribe.layers;
 
   constructor(
     private transcriptionService:TranscriptionService,
