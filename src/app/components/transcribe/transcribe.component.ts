@@ -13,6 +13,7 @@ import { LeafletUtils } from '../../utils/leaflet-utils';
 
 import { ModalTranscriptionStrategy } from './transcription-strategies/modal-transcription-strategy';
 import { TextEditorTranscriptionStrategy } from './transcription-strategies/text-editor-transcription-strategy';
+import { SemanticTranscriptionStrategy } from './transcription-strategies/semantic-transcription-strategy';
 
 import { TranscriptorLayer } from '../../models/transcriptorLayer';
 import { Mark } from '../../models/mark';
@@ -227,8 +228,12 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             renderedMark.layer.on('click', function(){
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
-              component.openMarkModalByRole(renderedMark);
-              component.textEditor.focusMark(mark.id);
+              if (!component.semanticMode) {
+                component.openMarkModalByRole(renderedMark);
+                component.textEditor.focusMark(mark.id);
+              } else {
+                // do semantic things
+              }
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
@@ -271,7 +276,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
       component.fitToLayer(layer);
 
       // Do whatever else you need to. (save to db; add to map etc)
-      var mark = new Mark(component.page, layer, type);
+      var mark = new Mark(component.page, layer, type, component.transcriptionLayer);
       var renderedMark=new RenderedMark(mark,layer);
       component.drawnLayers.addLayer(layer);
       component.transcribeStrategy.execute(renderedMark,component);
@@ -375,11 +380,17 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.renderedMark.layer.on('click', function(){
             component.editing = true;
             component.fitToLayer(renderedMark.layer);
-            component.openMarkModalByRole(renderedMark)
-            component.textEditor.focusMark(mark.id);
+            if(!component.semanticMode) {
+              component.openMarkModalByRole(renderedMark);
+              component.textEditor.focusMark(mark.id);
+            } else {
+              // do semantic things
+            }
           });
           this.renderedMarks.push(this.renderedMark);
-          this.textEditor.addMarkText(this.renderedMark.mark);
+          if (!component.semanticMode) {
+            this.textEditor.addMarkText(this.renderedMark.mark);
+          }
           this.reset();
         });
   }
@@ -415,7 +426,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   reset() {
     this.editing = false;
     this.renderedMark = null;
-    this.transcribeStrategy = ModalTranscriptionStrategy;
+    this.transcribeStrategy = this.semanticMode ? SemanticTranscriptionStrategy : ModalTranscriptionStrategy;
     this.textEditor ? this.textEditor.blurMark() : '';
     this.textEditor ? this.textEditor.enableEditor() : '';
     this.resetView();

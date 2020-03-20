@@ -12,8 +12,10 @@ export class LayerModalComponent implements OnInit {
 
   @Input() page;
   @Input() modalOptions: Materialize.ModalOptions = {};
+  @Input() onSaveFunction;
   @ViewChild('modal') modal;
   @Output() close = new EventEmitter();
+  @Output() saveLayer = new EventEmitter();
   
   name:String
 
@@ -28,7 +30,9 @@ export class LayerModalComponent implements OnInit {
   
   save() {
     this.layerService.create(new TranscriptorLayer(this.page, this.name))
-      .subscribe(layer => { });
+      .subscribe(layer => { 
+        this.saveLayer.emit();
+      });
   }
 
   closeModal() {

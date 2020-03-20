@@ -39,7 +39,10 @@ leafletDraw
     *ngIf="!classicMode  && !semanticMode">
   </app-text-editor>
   <app-semantic-text-editor 
-    [page]="page" 
+    [page]="page"
+    [layer]="transcriptionLayer"
+    [delegate]="this"
+    [renderedMark]="renderedMark"
     *ngIf="!classicMode && semanticMode">
   </app-semantic-text-editor>
   <app-basic-text-editor
@@ -94,7 +97,8 @@ leafletDraw
 <app-layer-modal 
   #layerModal
   *ngIf="page != null"
-  [page]="page">
+  [page]="page"
+  (saveLayer)="loadLayers()">
 </app-layer-modal>
 
 <app-transcription-form 

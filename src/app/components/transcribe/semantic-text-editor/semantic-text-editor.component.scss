@@ -61,3 +61,8 @@ textarea.form-control {
   resize: none;
   height: 95%;
 }
+
+:host ::ng-deep .card-content {
+  padding-top: 10px;
+  height: 100%;
+}
