@@ -43,7 +43,7 @@ import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { NgxEditorModule } from 'ngx-editor';
 
-import { Ng2IziToastModule } from 'ng2-izitoast';
+import { NgxIziToastModule } from 'ngx-izitoast';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -159,7 +159,7 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     NgxEditorModule,
-    Ng2IziToastModule,
+    NgxIziToastModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

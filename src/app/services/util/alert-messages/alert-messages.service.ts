@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Ng2IzitoastService } from 'ng2-izitoast';
+import { NgxIzitoastService } from 'ngx-izitoast';
 
 @Injectable()
 export class AlertMessagesService {
@@ -21,7 +21,7 @@ export class AlertMessagesService {
       iconColor: '#ffb300'
   }
 
-  constructor(private iziToast: Ng2IzitoastService, private translate:TranslateService) { }
+  constructor(private iziToast: NgxIzitoastService, private translate:TranslateService) { }
 
   add(title: string, message: string, options:any = {}) {
     this.iziToast.show(
