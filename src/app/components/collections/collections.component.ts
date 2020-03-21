@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { CollectionService } from '../../services/collection/collection.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {SimpleGlobal} from 'ng2-simple-global';
 
 @Component({
