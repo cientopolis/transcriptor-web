@@ -36,7 +36,7 @@ export class AlertMessagesService {
   addI18n(titleKey: string, messageKey: string, options:any = {}) {
     this.translate.get([titleKey, messageKey]).subscribe((translations:any) => {
       let values = Object.values(translations);
-      this.add(values[0],values[1],options);
+      this.add(values[0] + "", values[1] + "",options);
     });
   }
   
