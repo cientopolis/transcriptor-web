@@ -27,6 +27,14 @@ main {
 	background-color: $primaryColor;
 }
 
+@media only screen and (max-width: 992px) {
+    nav .brand-logo {
+        left: initial;
+        -webkit-transform: initial;
+        transform: initial;
+    }
+}
+
 nav .brand-logo img {
   height: 64px;
   opacity: 0.95;
