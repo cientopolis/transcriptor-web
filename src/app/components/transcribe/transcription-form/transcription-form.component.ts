@@ -27,7 +27,7 @@ export class TranscriptionFormComponent implements OnInit {
   }
   
   open() {
-    this.modal.open();
+    this.modal.openModal();
   }
   
   add() {

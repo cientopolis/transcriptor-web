@@ -22,7 +22,7 @@ export class MarkTranscriptionsListComponent implements OnInit {
   }
 
   open() {
-    this.modal.open();
+    this.modal.openModal();
     this.loadTranscriptions();
   }
 

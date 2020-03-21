@@ -353,7 +353,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   openMarkModal() {
-    this.markModal.open();
+    this.markModal.openModal();
   }
 
   openMarkDetailsModal() {

@@ -25,6 +25,6 @@ export class CreateCollectionModalComponent implements OnInit {
   }
   
   open(){
-    this.modalCollection.open();
+    this.modalCollection.openModal();
   }
 }

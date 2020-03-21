@@ -25,7 +25,7 @@ export class LayerModalComponent implements OnInit {
   }
 
   open() {
-    this.modal.open();
+    this.modal.openModal();
   }
   
   save() {

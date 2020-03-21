@@ -30,7 +30,7 @@ export class MarkDetailsComponent implements OnInit {
   }
 
   open() {
-    this.modal.open()
+    this.modal.openModal()
   }
 
   closeModal() {
