@@ -51,6 +51,7 @@ html, body {
 
 .modal.bottom-sheet {
   max-height: 25%;
+  transition: all 0.35s $transitionTimingFunction;
 }
 
 #markModal mz-modal-header{
@@ -80,10 +81,14 @@ html, body {
 
 .panel-hide-button{
   @extend %panel-button;
-  margin-top: 50%;
+  margin-top: 40vh;
+  z-index: 420;
 }
 .editor-wrapper:hover > .panel-hide-button{
   transform: translateX(-50%);
+}
+.editor-wrapper .transcribe-editor mz-card {
+  z-index: 450;
 }
 .panel-show-button{
   @extend %panel-button;

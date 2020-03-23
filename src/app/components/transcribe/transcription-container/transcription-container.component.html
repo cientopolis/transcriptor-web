@@ -14,28 +14,30 @@
         </mz-spinner>
 
         <div class="user-info user-hover" *ngIf="transcription.user">
-          <div class="user-action-time">
-            <p class="m-b-0 m-t-0">{{'transcribe.container.edited' | translate}} <span title="2017-05-10 18:26:34Z" class="relativetime">May 10 '17 at 18:26</span></p>
-          </div>
+          <!-- <div class="user-action-time">
+            <p class="m-b-0 m-t-0">{{'transcribe.container.edited' | translate}} <span class="relativetime">May 10 '17 at 18:26</span></p>
+          </div> -->
           <div class="user-gravatar32 z-depth-1" *ngIf="transcription">
               <div class="gravatar-wrapper-32"><img [src]="getAvatarUrl(transcription.user.display_name)" alt="" width="32" height="32"></div>
           </div>
           <div class="user-details">
               <a href="#">{{transcription.user.display_name}}</a>
+              <p class="m-b-0 m-t-0 user-action-time">{{'transcribe.container.edited' | translate}} <span class="relativetime">May 10 '17 at 18:26</span></p>
           </div>
         </div>
       </div>
 
-      <app-publications-list
-        #publicationsList
-        [forum]="forum"
-        [element]="transcription"
-        (close)="cancelModal()"
-        (successButton)="openPublicationsList()"
-        [modalOptions]="modalOptions">
-      </app-publications-list>
+      <div class="col s4 center-align" style="border-right: 1px solid #efefef; border-left: 1px solid #efefef;">
+        <button 
+          class="btn-small btn-rounded m-t-10 btn-flat grey lighten-4 primary-color-text"
+          mz-button [flat]="false"
+          (click)="viewPublications()" 
+          *ngIf="showForums == true">
+          <i mz-icon-mdi [icon]="'comment'" [align]="'left'"></i>{{'forum.button.addForum' | translate}}
+        </button>
+      </div>
 
-      <div class="col s4 offset-s4 right-align">
+      <div class="col s4 right-align">
         <mz-spinner
           *ngIf="vote == null"
           [color]="'yellow'"
@@ -43,7 +45,7 @@
         </mz-spinner>
         <button
           *ngIf="vote == false"
-          class="right primary-color-text m-t-15"
+          class="btn-small btn-rounded right m-t-10"
           style="color:#FFFFFF"
           mz-button [flat]="false"
           (click)="likeTranscription(false)">
@@ -51,7 +53,7 @@
          </button>
          <button
            *ngIf="vote == true"
-           class="right primary-color-text m-t-15 btn-flat"
+           class="btn-small btn-rounded right primary-color-text m-t-10 btn-flat"
            mz-tooltip [tooltip]="score"
            mz-button [flat]="true"
            (click)="likeTranscription(true)">
@@ -59,16 +61,9 @@
           </button>
       </div>
     </div>
-    <div class="row m-b-0" *ngIf="showForums == true">
-      <div class="col s12">
-        <button
-          class="right primary-color-text m-t-15 btn-flat"
-          style="width: 100%;"
-          mz-button [flat]="true"
-          (click)="viewPublications()">
-          <i mz-icon-mdi [icon]="'comment-multiple-outline'" [align]="'left'" ></i>{{'forum.button.addForum' | translate}}
-         </button>
-      </div>
-    </div>
   </mz-card-action>
 </mz-card>
+
+<app-publications-list #publicationsList [forum]="forum" [element]="transcription" (close)="cancelModal()"
+  (successButton)="openPublicationsList()" [modalOptions]="modalOptions">
+</app-publications-list>
