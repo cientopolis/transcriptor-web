@@ -64,6 +64,5 @@
   </mz-card-action>
 </mz-card>
 
-<app-publications-list #publicationsList [forum]="forum" [element]="transcription" (close)="cancelModal()"
-  (successButton)="openPublicationsList()" [modalOptions]="modalOptions">
+<app-publications-list #publicationsList [forum]="forum" [element]="transcription" (successButton)="openPublicationsList()">
 </app-publications-list>
