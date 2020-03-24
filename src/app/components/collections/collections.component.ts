@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { CollectionService } from '../../services/collection/collection.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {SimpleGlobal} from 'ng2-simple-global';
 
 @Component({
@@ -35,7 +35,7 @@ export class CollectionsComponent implements OnInit {
   }
 
   openModalCollection() {
-    this.modalCollection.open();
+    this.modalCollection.openModal();
   }
 
   createCollection() {

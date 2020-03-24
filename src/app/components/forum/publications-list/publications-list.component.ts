@@ -28,7 +28,7 @@ export class PublicationsListComponent implements OnInit {
 
   }
   open() {
-    this.modal.open();
+    this.modal.openModal();
     this.loadPublications();
   }
 

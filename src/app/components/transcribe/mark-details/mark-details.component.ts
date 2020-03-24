@@ -23,14 +23,20 @@ export class MarkDetailsComponent implements OnInit {
 
   constructor(private transcriptionService:TranscriptionService, private markService: MarkService, private changeDetector: ChangeDetectorRef) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    $(window).on('resize', this.resizeToFit);
+  }
+
+  ngOnDestroy() {
+    $(window).off("resize", this.resizeToFit);
+  }
   
   ngOnChanges(changes: SimpleChanges) {
     this.tryFetchMark();
   }
 
   open() {
-    this.modal.open()
+    this.modal.openModal()
   }
 
   closeModal() {
@@ -54,6 +60,7 @@ export class MarkDetailsComponent implements OnInit {
   refresh(){
     this.tryFetchMark();
     this.transcriptionContainer.update();
+    this.resizeToFit();
   }
   
   tryFetchMark(){
@@ -64,7 +71,16 @@ export class MarkDetailsComponent implements OnInit {
             this.changedTranscription.emit();
           }
           this.mark.transcription = mark.transcription;
+          this.resizeToFit();
         });
     }
+  }
+  
+  resizeToFit() {
+    var contentHeight = 140; 
+    $('app-mark-details .modal.modal-fixed-footer.bottom-sheet .modal-content:first').children().each(function () {
+      contentHeight += $(this).height()
+    })
+    $('app-mark-details .modal.modal-fixed-footer.bottom-sheet').css('max-height', contentHeight + 'px');
   }
 }

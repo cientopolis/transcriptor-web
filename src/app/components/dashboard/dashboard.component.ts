@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {SimpleGlobal} from 'ng2-simple-global';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Collection } from '../../models/Collection';
 import { DashboardResponse } from '../../models/dashboardResponse';
 

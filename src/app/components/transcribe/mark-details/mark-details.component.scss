@@ -1,1 +1,10 @@
 @import '~styles/styles';
+
+:host ::ng-deep .modal-content {
+    padding-bottom: 0;
+}
+
+:host ::ng-deep .modal {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}

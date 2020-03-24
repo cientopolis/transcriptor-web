@@ -10,8 +10,7 @@ import { AlertMessagesService } from '../util/alert-messages/alert-messages.serv
 
 import { WebserviceResponse } from '../../models/webserviceResponse';
 
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable ,  of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()

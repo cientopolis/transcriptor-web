@@ -137,13 +137,13 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.scrollTo(0,0);
-    $("body").css("overflow", "hidden");
+    // $("body").css("overflow", "hidden");
   }
 
   ngOnDestroy() {
     this.global['hideFooter']=false;
     this.global['routeBack'] = null;
-    $("body").css("overflow", "auto");
+    // $("body").css("overflow", "auto");
   }
 
   ngAfterViewInit() {
@@ -334,7 +334,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   resetView() {
     // prevents overflow-y when reset view
-    $("body").css("overflow", "hidden");
+    // $("body").css("overflow", "hidden");
 
     // initial view configuration(you can change between modes)
     this.map.fitBounds(this.bounds); //fits all page
@@ -353,7 +353,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   openMarkModal() {
-    this.markModal.open();
+    this.markModal.openModal();
   }
 
   openMarkDetailsModal() {

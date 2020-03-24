@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
     }
   }
   openModalEditProfile() {
-    this.modalEditProfile.open();
+    this.modalEditProfile.openModal();
   }
 
   updateUser() {

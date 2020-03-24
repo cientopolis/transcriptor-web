@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpService } from '../../services/http/http.service';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Collection } from '../../models/Collection';
 

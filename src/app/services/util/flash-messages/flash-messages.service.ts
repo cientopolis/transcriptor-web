@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { MzToastService } from 'ng2-materialize';
+import { MzToastService } from 'ngx-materialize';
 
 @Injectable()
 export class FlashMessagesService {

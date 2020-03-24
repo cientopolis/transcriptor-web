@@ -13,25 +13,25 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
-import { MzNavbarModule } from 'ng2-materialize';
-import { MzParallaxModule } from 'ng2-materialize';
-import { MzCardModule } from 'ng2-materialize';
-import { MzInputModule } from 'ng2-materialize';
-import { MzDropdownModule } from 'ng2-materialize';
-import { MzModalModule } from 'ng2-materialize';
-import { MzInjectionService } from 'ng2-materialize';
-import { MzButtonModule } from 'ng2-materialize';
-import { MzTextareaModule } from 'ng2-materialize';
-import { MzIconModule, MzIconMdiModule } from 'ng2-materialize';
-import { MzToastModule } from 'ng2-materialize';
-import { MzToastService } from 'ng2-materialize';
-import { MzSelectModule } from 'ng2-materialize';
-import { MzTabModule } from 'ng2-materialize';
-import { MzCollectionModule } from 'ng2-materialize';
-import { MzSpinnerModule } from 'ng2-materialize';
-import { MzTooltipModule } from 'ng2-materialize';
-import { MzCollapsibleModule } from 'ng2-materialize';
-import { MzCheckboxModule } from 'ng2-materialize';
+import { MzNavbarModule } from 'ngx-materialize';
+import { MzParallaxModule } from 'ngx-materialize';
+import { MzCardModule } from 'ngx-materialize';
+import { MzInputModule } from 'ngx-materialize';
+import { MzDropdownModule } from 'ngx-materialize';
+import { MzModalModule } from 'ngx-materialize';
+import { MzInjectionService } from 'ngx-materialize';
+import { MzButtonModule } from 'ngx-materialize';
+import { MzTextareaModule } from 'ngx-materialize';
+import { MzIconModule, MzIconMdiModule } from 'ngx-materialize';
+import { MzToastModule } from 'ngx-materialize';
+import { MzToastService } from 'ngx-materialize';
+import { MzSelectModule } from 'ngx-materialize';
+import { MzTabModule } from 'ngx-materialize';
+import { MzCollectionModule } from 'ngx-materialize';
+import { MzSpinnerModule } from 'ngx-materialize';
+import { MzTooltipModule } from 'ngx-materialize';
+import { MzCollapsibleModule } from 'ngx-materialize';
+import { MzCheckboxModule } from 'ngx-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -43,7 +43,7 @@ import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 
 import { NgxEditorModule } from 'ngx-editor';
 
-import { Ng2IziToastModule } from 'ng2-izitoast';
+import { NgxIziToastModule } from 'ngx-izitoast';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -153,13 +153,13 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
     MzSpinnerModule,
     MzTooltipModule,
     MzCollapsibleModule,
-    NgProgressModule.forRoot(),
+    NgProgressModule,
     NgProgressHttpModule,
     NgProgressRouterModule,
     LeafletModule.forRoot(),
     LeafletDrawModule.forRoot(),
     NgxEditorModule,
-    Ng2IziToastModule,
+    NgxIziToastModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

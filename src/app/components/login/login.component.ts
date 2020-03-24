@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   public openCreateAccount() {
-    this.modalCreateUser.open();
+    this.modalCreateUser.openModal();
   }
   
   public createUser() {
