@@ -1,3 +1,4 @@
+import { SemanticModelService } from './services/semantic-model/semantic-model.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule }    from '@angular/common/http';
@@ -5,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppComponent } from './app.component';
 
 // AoT requires an exported function for factories
@@ -61,6 +62,7 @@ import { StartProjectComponent } from './components/start-project/start-project.
 import { CollectionService } from './services/collection/collection.service';
 import { UploadService } from './services/upload/upload.service';
 
+
 import { ShowWorkComponent } from './components/work/show-work/show-work.component';
 import { WorkService } from './services/work/work.service';
 import { UserService } from './services/user/user.service';
@@ -96,6 +98,7 @@ import { CreateCollectionModalComponent } from './components/shared/create-colle
 import { LayerService } from './services/layer/layer.service';
 import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
+import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +133,8 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
     PageVersionComponent,
     CreateCollectionModalComponent,
     LayerModalComponent,
-    SemanticTextEditorComponent
+    SemanticTextEditorComponent,
+    SemanticFormComponent
   ],
   imports: [
     BrowserModule,
@@ -162,6 +166,7 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
     NgxIziToastModule,
     AppRoutingModule,
     HttpClientModule,
+    Ng2SearchPipeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -192,7 +197,8 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
     PublicationService,
     ForumService,
     PageVersionService,
-    LayerService
+    LayerService,
+    SemanticModelService
   ],
   bootstrap: [AppComponent]
 })

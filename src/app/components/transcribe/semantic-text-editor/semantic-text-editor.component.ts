@@ -15,6 +15,9 @@ export class SemanticTextEditorComponent implements OnInit {
   @Input() renderedMark = null;
   @Input() delegate = null;
 
+  semantic_text:String=null;
+  schema_type:String=null;
+
   constructor(private transcribeService: TranscribeService, private markService: MarkService) { }
 
   ngOnInit() {
@@ -22,10 +25,17 @@ export class SemanticTextEditorComponent implements OnInit {
 
   save() {
     // uncomment this to personalize the save behavior
-    /*
+    
     var component = this.delegate;
     var renderedMark = this.renderedMark;
-    this.markService.create(this.renderedMark.mark)
+    var mark = this.renderedMark.mark;
+    console.log("Marca que voy a persistir");
+    console.log(this.semantic_text);
+    console.log(this.schema_type);
+    mark.semantic_text = this.semantic_text;
+    mark.schema_type = this.schema_type;
+    console.log(mark);
+    /*this.markService.create(mark)
       .subscribe(mark => {
         this.renderedMark.mark = mark;
         this.renderedMark.layer.on('click', function () {
@@ -34,10 +44,17 @@ export class SemanticTextEditorComponent implements OnInit {
         });
         component.renderedMarks.push(this.renderedMark);
         component.reset();
-      });
-    */
+      });*/
+    this.renderedMark.mark=mark;
+    console.log(this.renderedMark);
     this.delegate.addModalMark();
   }
+  proccessScheme(event){
+    console.log("el evento recibido es");
+    console.log(event);
+    this.semantic_text = JSON.stringify(event.semantic_text);
+    this.schema_type = JSON.stringify(event.schema_type);
+   }
 
   cancel() {
     this.delegate.cancelModal();

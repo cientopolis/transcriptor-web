@@ -7,6 +7,7 @@
           <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}
         </button>
         <a *ngIf="page != null" (click)="cancel()">
+          
           <button class="btn btn-small right" [flat]="true" mz-button>
             {{'app.button.cancel' | translate}}
           </button>
@@ -14,11 +15,14 @@
       </h5>
     </mz-card-title>
     <mz-card-content *ngIf="page">
+      <app-semantic-form (schemeComplete)="proccessScheme($event)"></app-semantic-form>
+      <!--
       <label class="primary-color-text" for="basic-text-editor">{{'transcribe.textEditor.label' | translate}}</label>
       <textarea id="basic-text-editor" class="form-control"
-        *ngIf="renderedMark && renderedMark.mark"
+        *ngIf="renderedMark && renderedMark.mark && false"
         placeholder="{{'transcribe.textEditor.placeholder' | translate}}" [(ngModel)]="renderedMark.mark.semantic_text">
       </textarea>
+      -->
     </mz-card-content>
   </mz-card>
 </div>

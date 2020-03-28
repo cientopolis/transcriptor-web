@@ -1,0 +1,60 @@
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner *ngIf="loader" [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+<div class="row" *ngIf="showSelectSchema">
+  <div class="col s12">
+      <mz-select-container *ngIf="!loader">
+        <select mz-select 
+          [label]="'semanticForm.label.scheme' | translate" [placeholder]="'semanticForm.placeholder.scheme' | translate"
+          [(ngModel)]="scheme">
+          <option *ngFor="let schema of schemas" [value]="schema.name">{{ schema.name }}</option>
+        </select>
+      </mz-select-container>
+  </div>
+  <div class="col s6 offset-s6">
+      <button class="btn btn-small right" mz-button (click)="selectSchema()">
+        <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i> {{'app.button.save' | translate}}
+      </button>
+  </div>
+</div>
+<div class="row" *ngIf="showPropertiesSelection">
+  <div class="col s12">
+  <div>
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" placeholder="Enter a type name">
+    <a class="waves-effect waves-light btn" (click)="generateScheme()">Generar schema</a>
+  </div>
+    <table class="bordered striped centered">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prop of properties | filter:searchText">
+          <td>
+            <label>
+                <input mz-checkbox value="{{prop.selected}}" [(ngModel)]="prop.selected"
+                (change)="selectPropertie(prop,$event)"id="{{prop.name}}" type="checkbox">
+            </label>
+          </td>
+          <td>{{prop.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col s12" *ngIf="showCompleteForm">
+      <div class="row" *ngFor="let prop of  propertiesSelected">
+        <label> {{prop.name}}
+          <input type="text" [(ngModel)]="prop.model" />
+        </label>
+      </div>
+      <a class="waves-effect waves-light btn" (click)="saveScheme()">Generar schema</a>
+    </div>
+  </div>
+

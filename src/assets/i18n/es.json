@@ -285,6 +285,14 @@
       "label":"Transcripción"
     }
   },
+  "semanticForm": {
+    "label": {
+      "scheme": "Schemas"
+    },
+    "placeholder": {
+      "scheme": "- Seleccione un schema -"
+    }
+  },
   "metagame":{
     "rank":{
           "sync":"Actualizar rango"
