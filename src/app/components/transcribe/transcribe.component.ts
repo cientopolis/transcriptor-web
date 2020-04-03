@@ -117,6 +117,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   semanticMode: boolean = false;
   layersEnabled: boolean = environment.transcribe.layers;
 
+  showImageAdjusts: boolean = false;
+
   constructor(
     private transcriptionService:TranscriptionService,
     private pageService: PageService,
@@ -164,9 +166,15 @@ export class TranscribeComponent implements OnInit, OnDestroy {
         component.transcribeOptions.autoZoom = !component.transcribeOptions.autoZoom;
         component.saveTranscribeOptions();
       })
-      // add layersList button
-      // let rightToolbar = LeafletUtils.addRightToolbar();
-      // let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-layers');
+      // add image settings button
+      let rightToolbar = LeafletUtils.addRightToolbar();
+      let layersListButton = LeafletUtils.addToolbarAction(rightToolbar, 'Layers', 'mdi mdi-18px mdi-tune toggleIcon icon-color');
+      layersListButton.click(function () {
+        var toggleIcon = $(this).find('.toggleIcon');
+        toggleIcon.toggleClass('icon-color');
+        toggleIcon.toggleClass('primary-color-text');
+        component.showImageAdjusts = !component.showImageAdjusts; 
+      })
     }
   }
 
