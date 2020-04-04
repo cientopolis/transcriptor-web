@@ -96,6 +96,7 @@ import { CreateCollectionModalComponent } from './components/shared/create-colle
 import { LayerService } from './services/layer/layer.service';
 import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
+import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
     PageVersionComponent,
     CreateCollectionModalComponent,
     LayerModalComponent,
-    SemanticTextEditorComponent
+    SemanticTextEditorComponent,
+    ImageSettingsComponent
   ],
   imports: [
     BrowserModule,
