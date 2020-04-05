@@ -1,6 +1,6 @@
 tbody {
     display:block;
-    height:200px;
+    height:300px;
     overflow:auto;
 }
 thead, tbody tr {
@@ -13,4 +13,13 @@ thead {
 }
 table {
     width:100%;
+}
+
+.clean{
+    background: none;
+    box-shadow: none;
+      
+    .breadcrumb{
+      color: rgba(0,0,0,1)
+    }
 }

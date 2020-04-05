@@ -286,11 +286,27 @@
     }
   },
   "semanticForm": {
+    "emptyMarker":"Selecciona un area para transcribir.",
     "label": {
       "scheme": "Schemas"
     },
     "placeholder": {
-      "scheme": "- Seleccione un schema -"
+      "scheme": "- Seleccione un schema -",
+      "search": "Ingresa un nombre de una propiedad"
+    },
+    "button":{
+      "confirmType":"Confirmar tipo",
+      "confirmProperties":"Confirmar propiedades",
+      "generateScheme":"Generar esquema",
+      "back":"Volver"
+
+    },
+    "table":{
+      "header":{
+        "select":"Seleccionar",
+        "name":"Nombre de la propiedad",
+        "value":"Valor asignado"
+      }
     }
   },
   "metagame":{

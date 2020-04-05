@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 import { MarkService } from '../../../services/mark/mark.service';
@@ -8,7 +8,7 @@ import { MarkService } from '../../../services/mark/mark.service';
   templateUrl: './semantic-text-editor.component.html',
   styleUrls: ['./semantic-text-editor.component.scss']
 })
-export class SemanticTextEditorComponent implements OnInit {
+export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
   @Input() page = null;
   @Input() layer = null;
@@ -17,11 +17,44 @@ export class SemanticTextEditorComponent implements OnInit {
 
   semantic_text:String=null;
   schema_type:String=null;
+  showSaveButton:Boolean = false;
+
+  semanticContribution = null;
 
   constructor(private transcribeService: TranscribeService, private markService: MarkService) { }
 
-  ngOnInit() {
+  ngOnChanges(changes) {
+    console.log("OnChanges");
+    console.log(changes); 
+    console.log(this.layer);
+    if(changes.layer){
+        console.log(this.layer);
+        if(this.layer!=null){
+          if (changes.layer.previousValue == null || changes.layer.previousValue.id != changes.layer.currentValue.id){
+            this.getContribution();
+          }
+        }else{
+          console.log("la capa es nula");
+        }
+      }
   }
+  ngOnInit() {
+    console.log(this.renderedMark);
+   
+  }
+
+
+  getContribution(){
+    this.markService.listByPage(this.layer.page_id, this.layer.id)
+      .subscribe(marks => {
+        marks.forEach(mark => {
+          console.log(mark);
+          this.renderedMark=mark;
+          this.renderedMark.mark = mark;
+          this.semanticContribution=mark;
+        });
+      }); 
+   }
 
   save() {
     // uncomment this to personalize the save behavior
@@ -52,6 +85,7 @@ export class SemanticTextEditorComponent implements OnInit {
   proccessScheme(event){
     console.log("el evento recibido es");
     console.log(event);
+    this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = JSON.stringify(event.schema_type);
    }

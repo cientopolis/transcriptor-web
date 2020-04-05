@@ -4,48 +4,79 @@
     </mz-spinner>
   </div>
 </div>
+
 <div class="row" *ngIf="showSelectSchema">
+  <div class="col-12">
+    <nav class="clean">
+    <div class="nav-wrapper">
+      <div class="col s12">
+        <a href="#!" class="breadcrumb" *ngFor="let parent of  parents">{{parent.name}}</a>
+      </div>
+    </div>
+    </nav>
+  </div>
   <div class="col s12">
       <mz-select-container *ngIf="!loader">
         <select mz-select 
           [label]="'semanticForm.label.scheme' | translate" [placeholder]="'semanticForm.placeholder.scheme' | translate"
-          [(ngModel)]="scheme">
-          <option *ngFor="let schema of schemas" [value]="schema.name">{{ schema.name }}</option>
+          [(ngModel)]="scheme" (change)="selectType($event)" [disabled]="!schemas">
+          <option *ngFor="let schema of schemas" [ngValue]="schema">{{ schema.name }}</option>
         </select>
       </mz-select-container>
   </div>
-  <div class="col s6 offset-s6">
-      <button class="btn btn-small right" mz-button (click)="selectSchema()">
-        <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i> {{'app.button.save' | translate}}
-      </button>
+  <div class="col s5 offset-s7">
+    <button class="btn btn-small left" mz-button (click)="selectSchema()">
+      <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
+        {{'semanticForm.button.confirmType' | translate}}
+    </button>
   </div>
+
 </div>
 <div class="row" *ngIf="showPropertiesSelection">
-  <div class="col s12">
-  <div>
-    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" placeholder="Enter a type name">
-    <a class="waves-effect waves-light btn" (click)="generateScheme()">Generar schema</a>
-  </div>
-    <table class="bordered striped centered">
-      <thead>
-        <tr>
-          <th>Select</th>
-          <th>Nombre</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let prop of properties | filter:searchText">
-          <td>
-            <label>
-                <input mz-checkbox value="{{prop.selected}}" [(ngModel)]="prop.selected"
-                (change)="selectPropertie(prop,$event)"id="{{prop.name}}" type="checkbox">
-            </label>
-          </td>
-          <td>{{prop.name}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="col s12">
+      <div class="row">
+        <div  class="col s12">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchText" [placeholder]="'semanticForm.placeholder.search' | translate">
+        </div>
+        <div class="col s12">
+          <table class="bordered striped centered">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.select' | translate}}</th>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let prop of properties | filter:searchText">
+                <td>
+                  <label>
+                    <input mz-checkbox value="{{prop.selected}}" [(ngModel)]="prop.selected"
+                    (change)="selectPropertie(prop,$event)"id="{{prop.name}}" type="checkbox">
+                  </label>
+                </td>
+                <td>{{prop.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col s12">
+          <div class="row">
+            <div class="col s6">
+              <button class="btn btn-small rigth" mz-button (click)="back('showPropertiesSelection')">
+                <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'rigth'"></i>
+                  {{'semanticForm.button.back' | translate}}
+              </button>
+            </div>
+            <div class="col s6">
+              <button class="btn btn-small left" mz-button (click)="generateScheme()">
+                <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
+                  {{'semanticForm.button.confirmProperties' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col s12" *ngIf="showCompleteForm">
@@ -54,7 +85,56 @@
           <input type="text" [(ngModel)]="prop.model" />
         </label>
       </div>
-      <a class="waves-effect waves-light btn" (click)="saveScheme()">Generar schema</a>
+      <div class="row">
+        <div class="col s6">
+          <button class="btn btn-small rigth" mz-button (click)="back('showCompleteForm')">
+            <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
+               {{'semanticForm.button.back' | translate}}
+          </button>
+        </div>
+        <div class="col s6">
+          <button class="btn btn-small rigth" mz-button (click)="saveScheme()">
+            <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
+            {{'semanticForm.button.generateScheme' | translate}}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
+
+    <div class="row">
+      <div class="col s12" *ngIf="showGeneratedScheme">
+        <div class="center-align">
+          <h4>{{schema_type}}</h4>
+        </div>  
+        <div class="row">
+          <div class="col s12">
+            <table class="bordered striped centered">
+                <thead>
+                  <tr>
+                    <th>{{'semanticForm.table.header.name' | translate}}</th>
+                    <th>{{'semanticForm.table.header.value' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let prop of propertiesSelected">
+                  <td>{{prop.name}}</td>
+                  <td>{{prop.model}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="col s6">
+                <button class="btn btn-small rigth" *ngIf="!semanticContribution" mz-button (click)="back('showGeneratedScheme')">
+                  <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'rigth'"></i>
+                    {{'semanticForm.button.back' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
