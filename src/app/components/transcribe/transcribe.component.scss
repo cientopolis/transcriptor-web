@@ -123,3 +123,10 @@ html, body {
 #dropdown-layers li>a>i {
   margin: 0;
 }
+
+.transcribe-screen .image-settings {
+  width: 56%
+}
+.transcribe-screen.collapsed .image-settings {
+  width: 100%
+}

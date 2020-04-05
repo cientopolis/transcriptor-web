@@ -1,0 +1,46 @@
+@import '~styles/styles';
+
+.image-settings {
+    position: fixed;
+    bottom: 10px;
+    z-index: 999;
+    animation: slide-up 0.4s ease;
+    // display: none;
+}
+.image-settings-menu {
+    background-color: white;
+    border-radius: 25px;
+    display: inline-block;
+    padding: 0px 15px;
+}
+.image-settings-menu > span {
+    float: left;
+    display: block;
+    padding: 0px 10px;
+    cursor: pointer;
+    color: rgb(70,70,70);
+}
+.image-settings-menu > span:not(:first-child) {
+    border-left: 1px solid #efefef;
+}
+.image-settings-menu > span:not(.separator):hover {
+    background-color: #f4f4f4;
+}
+.image-settings-menu > span.active {
+    background-color: #e5e5e5;
+    color: $primaryColor;
+}
+
+$itemWidth: calc(1.3em + 30px);
+.image-settings-menu .slider{
+    width: calc(100% - calc(#{$itemWidth} * 1));
+    min-width: calc(#{$itemWidth} * 5);
+    margin-top: 18px;
+}
+
+:host ::ng-deep .noUi-connect,
+:host ::ng-deep .noUi-target.noUi-horizontal .noUi-tooltip,
+:host ::ng-deep .noUi-horizontal .noUi-handle, 
+:host ::ng-deep .noUi-vertical .noUi-handle {
+    background-color: $primaryColor;
+}

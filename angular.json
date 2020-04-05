@@ -22,6 +22,7 @@
             ],
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.min.css",
+              "node_modules/materialize-css/extras/noUiSlider/nouislider.css",
               "node_modules/@mdi/font/css/materialdesignicons.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/animate.css/animate.min.css",
@@ -35,6 +36,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/materialize-css/dist/js/materialize.min.js",
+              "node_modules/materialize-css/extras/noUiSlider/nouislider.js",
               "node_modules/izitoast/dist/js/iziToast.min.js"
             ]
           },
@@ -85,10 +87,12 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/materialize-css/dist/js/materialize.min.js",
+              "node_modules/materialize-css/extras/noUiSlider/nouislider.js",
               "node_modules/izitoast/dist/js/iziToast.min.js"
             ],
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.min.css",
+              "node_modules/materialize-css/extras/noUiSlider/nouislider.css",
               "node_modules/mdi/css/materialdesignicons.min.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/animate.css/animate.min.css",

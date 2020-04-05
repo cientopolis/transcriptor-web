@@ -254,6 +254,15 @@
       "button":{
         "addAnotherTranscription":"Add Another Transcription"
       }
+    },
+    "imageAdjusts": {
+      "button": {
+        "invert": "invert",
+        "saturation": "saturation",
+        "brightness": "brightness",
+        "contrast": "contrast",
+        "reset": "reset"
+      }
     }
   },
   "forum":{

@@ -1,0 +1,46 @@
+<div class="image-settings center-align" [ngClass]="{'hide': !isActive}">
+    <div class="image-settings-menu z-depth-2">
+      <span 
+        [ngClass]="{'active': propertyValues.isInverted}"
+        (click)="toggleInvert()"
+        *ngIf="!editingProperty"
+        mz-tooltip
+        [position]="'top'"
+        [tooltip]="'transcribe.imageAdjusts.button.invert' | translate">
+        <i mz-icon-mdi [icon]="'invert-colors'"></i>
+      </span>
+      <span 
+        (click)="editProperty('saturation')" 
+        *ngIf="!editingProperty  || editingProperty == 'saturation'"
+        mz-tooltip
+        [position]="'top'"
+        [tooltip]="'transcribe.imageAdjusts.button.saturation' | translate">
+        <i mz-icon-mdi [icon]="'image-filter-black-white'"></i>
+      </span>
+      <span 
+        (click)="editProperty('brightness')" 
+        *ngIf="!editingProperty  || editingProperty == 'brightness'"
+        mz-tooltip
+        [position]="'top'"
+        [tooltip]="'transcribe.imageAdjusts.button.brightness' | translate">
+        <i mz-icon-mdi [icon]="'brightness-6'"></i>
+      </span>
+      <span 
+        (click)="editProperty('contrast')" 
+        *ngIf="!editingProperty  || editingProperty == 'contrast'"
+        mz-tooltip
+        [position]="'top'"
+        [tooltip]="'transcribe.imageAdjusts.button.contrast' | translate">
+        <i mz-icon-mdi [icon]="'contrast-circle'"></i>
+      </span>
+      <span 
+        (click)="editProperty('reset')" 
+        *ngIf="!editingProperty" 
+        mz-tooltip
+        [position]="'top'"
+        [tooltip]="'transcribe.imageAdjusts.button.reset' | translate">
+        <i mz-icon-mdi [icon]="'restore'"></i>
+      </span>
+      <span class="slider" [ngClass]="{'hide': !editRangeAttribute}"></span>
+    </div>
+</div>
