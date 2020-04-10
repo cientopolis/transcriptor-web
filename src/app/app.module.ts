@@ -1,3 +1,4 @@
+import { ListSemanticMarksComponent } from './components/transcribe/semantic-form/list/list.component';
 import { SemanticModelService } from './services/semantic-model/semantic-model.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -99,6 +100,7 @@ import { LayerService } from './services/layer/layer.service';
 import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
+import { SchemePipe } from './pipes/scheme.pipe';
 
 @NgModule({
   declarations: [
@@ -134,7 +136,9 @@ import { SemanticFormComponent } from './components/transcribe/semantic-form/sem
     CreateCollectionModalComponent,
     LayerModalComponent,
     SemanticTextEditorComponent,
-    SemanticFormComponent
+    SemanticFormComponent,
+    ListSemanticMarksComponent,
+    SchemePipe
   ],
   imports: [
     BrowserModule,

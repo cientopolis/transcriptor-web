@@ -15,12 +15,15 @@
       </h5>
     </mz-card-title>
     <mz-card-content >
-      <div class="row" *ngIf="!renderedMark">
+      <div class="row" *ngIf="!renderedMark && renderedMarks.length==0">
         <div class="center-align">
           <h5 class="primary-color-text" >{{'semanticForm.emptyMarker' | translate}}</h5>
         </div>
       </div>
-      <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark" [mark]="renderedMark.mark" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
+      <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
+      
+      <app-list-semantic-marks *ngIf="page && (renderedMark==null || renderedMark.mark==null)"
+        [renderedMarks]="renderedMarks"></app-list-semantic-marks>
       <!--
       <label class="primary-color-text" for="basic-text-editor">{{'transcribe.textEditor.label' | translate}}</label>
       <textarea id="basic-text-editor" class="form-control"

@@ -43,7 +43,8 @@ leafletDraw
     [layer]="transcriptionLayer"
     [delegate]="this"
     [renderedMark]="renderedMark"
-    *ngIf="!classicMode && semanticMode">
+    [renderedMarks]="renderedMarks"
+    *ngIf="!classicMode && semanticMode && componentSemanticMode">
   </app-semantic-text-editor>
   <app-basic-text-editor
     [page]="page"

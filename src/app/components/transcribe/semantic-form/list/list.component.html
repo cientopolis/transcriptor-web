@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col s12">
+    <mz-collapsible [mode]="'accordein'" >
+      <mz-collapsible-item [active]="false" *ngFor="let mark of  semanticContributions">
+        <mz-collapsible-item-header>
+          <span class="center-align"><b>{{mark.schema_type | scheme_type | uppercase}}</b></span>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          <table class="bordered striped centered">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.value' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prop of mark.semanticContribution">
+                <td>{{prop.name}}</td>
+                <td>{{prop.model}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+  </div>
+</div>

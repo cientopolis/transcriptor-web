@@ -41,6 +41,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   renderedMark: RenderedMark = null;
   vote= [];
   renderedMarks: RenderedMark[] = [];
+  renderedMarksForLayer: RenderedMark[] = [];
 
   transcriptionLayers: TranscriptorLayer[];
   transcriptionLayer: TranscriptorLayer;
@@ -115,6 +116,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   classicMode:boolean = environment.transcribe.classicMode;
   semanticMode: boolean = false;
+  componentSemanticMode: boolean = false;
   layersEnabled: boolean = environment.transcribe.layers;
 
   constructor(
@@ -223,10 +225,13 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     let layerId = this.transcriptionLayer ? this.transcriptionLayer.id : null;
     this.markService.listByPage(this.page.id, layerId)
         .subscribe(marks => {
+          console.log("marks");
+          console.log(marks);
           marks.forEach(mark => {
             let renderedMark = new RenderedMark(mark);
             renderedMark.render(this.map, this.shapeOptions);
             renderedMark.layer.on('click', function(){
+              console.log("click mark?");
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
               if (!component.semanticMode) {
@@ -238,8 +243,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
             });
             this.drawnLayers.addLayer(renderedMark.layer);
             this.renderedMarks.push(renderedMark);
-            console.log(this.page);
           });
+          if(this.semanticMode){
+            this.componentSemanticMode=true;
+          }
         });
   }
 
@@ -434,7 +441,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   clearMarks() {
+    console.log("clear");
     this.renderedMarks.forEach(renderedMark => {
+      console.log("clearmark");
+
       renderedMark.layer.remove()
     });
     this.renderedMarks = []
@@ -498,6 +508,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   setTranscriptionLayer(transcriptionLayer: TranscriptorLayer) {
+    this.componentSemanticMode=false;
     this.semanticMode = transcriptionLayer != null;
     this.transcriptionLayer = transcriptionLayer;
     this.reset()

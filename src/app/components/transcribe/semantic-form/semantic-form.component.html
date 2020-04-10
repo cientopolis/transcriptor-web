@@ -10,7 +10,7 @@
     <nav class="clean">
     <div class="nav-wrapper">
       <div class="col s12">
-        <a href="#!" class="breadcrumb" *ngFor="let parent of  parents">{{parent.name}}</a>
+        <a  class="breadcrumb" *ngFor="let parent of  parents" (click)="setParent(parent)">{{parent.name}}</a>
       </div>
     </div>
     </nav>
@@ -105,18 +105,18 @@
     <div class="row">
       <div class="col s12" *ngIf="showGeneratedScheme">
         <div class="center-align">
-          <h4>{{schema_type}}</h4>
-        </div>  
+          <h4>{{schema_type | scheme_type | uppercase}}</h4>
+        </div>
         <div class="row">
           <div class="col s12">
             <table class="bordered striped centered">
-                <thead>
-                  <tr>
-                    <th>{{'semanticForm.table.header.name' | translate}}</th>
-                    <th>{{'semanticForm.table.header.value' | translate}}</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <thead>
+                <tr>
+                  <th>{{'semanticForm.table.header.name' | translate}}</th>
+                  <th>{{'semanticForm.table.header.value' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
                 <tr *ngFor="let prop of propertiesSelected">
                   <td>{{prop.name}}</td>
                   <td>{{prop.model}}</td>
@@ -127,9 +127,10 @@
           <div class="col s12">
             <div class="row">
               <div class="col s6">
-                <button class="btn btn-small rigth" *ngIf="!semanticContribution" mz-button (click)="back('showGeneratedScheme')">
+                <button class="btn btn-small rigth" *ngIf="!semanticContribution" mz-button
+                  (click)="back('showGeneratedScheme')">
                   <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'rigth'"></i>
-                    {{'semanticForm.button.back' | translate}}
+                  {{'semanticForm.button.back' | translate}}
                 </button>
               </div>
             </div>
@@ -137,4 +138,5 @@
         </div>
       </div>
     </div>
+
 
