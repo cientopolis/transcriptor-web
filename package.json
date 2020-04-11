@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod && cp CNAME dist/CNAME && npx surge dist",
-    "deploy:only": "cp CNAME dist/CNAME && npx surge dist"
+    "surge:deploy": "ng build --prod && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist",
+    "surge:upload": "cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist"
   },
   "private": true,
   "dependencies": {
