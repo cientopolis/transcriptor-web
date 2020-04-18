@@ -305,7 +305,8 @@
       "header":{
         "select":"Seleccionar",
         "name":"Nombre de la propiedad",
-        "value":"Valor asignado"
+        "value":"Valor asignado",
+        "type":"tipos"
       }
     }
   },

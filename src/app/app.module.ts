@@ -101,7 +101,10 @@ import { LayerModalComponent } from './components/transcribe/layer/layer-modal/l
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
 import { SchemePipe } from './pipes/scheme.pipe';
-
+import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
+import { SchemeInputsComponent } from './components/transcribe/semantic-form/scheme-inputs/scheme-inputs.component';
+import { MzDatepickerModule } from 'ngx-materialize'
+import { MzTimepickerModule } from 'ngx-materialize'
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,7 +141,9 @@ import { SchemePipe } from './pipes/scheme.pipe';
     SemanticTextEditorComponent,
     SemanticFormComponent,
     ListSemanticMarksComponent,
-    SchemePipe
+    SchemePipe,
+    SchemeBuilderComponent,
+    SchemeInputsComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +176,8 @@ import { SchemePipe } from './pipes/scheme.pipe';
     AppRoutingModule,
     HttpClientModule,
     Ng2SearchPipeModule,
+    MzDatepickerModule,
+    MzTimepickerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

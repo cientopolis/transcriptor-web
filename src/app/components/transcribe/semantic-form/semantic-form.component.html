@@ -1,6 +1,6 @@
 <div class="row" *ngIf="loader">
   <div class="col s6 offset-s6">
-    <mz-spinner *ngIf="loader" [color]="'yellow'" [size]="'small'">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
     </mz-spinner>
   </div>
 </div>
@@ -16,7 +16,7 @@
     </nav>
   </div>
   <div class="col s12">
-      <mz-select-container *ngIf="!loader">
+      <mz-select-container *ngIf="!loader" (click)="$event.stopPropagation()">
         <select mz-select 
           [label]="'semanticForm.label.scheme' | translate" [placeholder]="'semanticForm.placeholder.scheme' | translate"
           [(ngModel)]="scheme" (change)="selectType($event)" [disabled]="!schemas">
@@ -24,6 +24,9 @@
         </select>
       </mz-select-container>
   </div>
+
+
+  
   <div class="col s5 offset-s7">
     <button class="btn btn-small left" mz-button (click)="selectSchema()">
       <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
@@ -35,30 +38,7 @@
 <div class="row" *ngIf="showPropertiesSelection">
     <div class="col s12">
       <div class="row">
-        <div  class="col s12">
-          <input class="form-control" type="text" name="search" [(ngModel)]="searchText" [placeholder]="'semanticForm.placeholder.search' | translate">
-        </div>
-        <div class="col s12">
-          <table class="bordered striped centered">
-            <thead>
-              <tr>
-                <th>{{'semanticForm.table.header.select' | translate}}</th>
-                <th>{{'semanticForm.table.header.name' | translate}}</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let prop of properties | filter:searchText">
-                <td>
-                  <label>
-                    <input mz-checkbox value="{{prop.selected}}" [(ngModel)]="prop.selected"
-                    (change)="selectPropertie(prop,$event)"id="{{prop.name}}" type="checkbox">
-                  </label>
-                </td>
-                <td>{{prop.name}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <app-scheme-builder (schemeGenerated)="handleScheme($event)" [level] = "level" [schemeName]="schemeName"></app-scheme-builder>
         <div class="col s12">
           <div class="row">
             <div class="col s6">
@@ -67,7 +47,7 @@
                   {{'semanticForm.button.back' | translate}}
               </button>
             </div>
-            <div class="col s6">
+            <div *ngIf="false" class="col s6">
               <button class="btn btn-small left" mz-button (click)="generateScheme()">
                 <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
                   {{'semanticForm.button.confirmProperties' | translate}}
@@ -81,10 +61,21 @@
   <div class="row">
     <div class="col s12" *ngIf="showCompleteForm">
       <div class="row" *ngFor="let prop of  propertiesSelected">
-        <label> {{prop.name}}
-          <input type="text" [(ngModel)]="prop.model" />
-        </label>
+        
+        <app-scheme-inputs *ngIf="!prop.scheme" [model] = prop></app-scheme-inputs>
+        <div *ngIf="prop.scheme">
+          <label> {{prop.name}}</label>
+          <div class="row" *ngFor="let sc of  prop.scheme.properties">
+            <app-scheme-inputs [model]=sc></app-scheme-inputs>
+          </div>
+        </div>
       </div>
+      <div class="row" *ngIf="propertiesSelected.length==0">
+        <div class="center-align">
+          <h5 class="primary-color-text">No ha seleccionado ningun atributo del esquema</h5>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col s6">
           <button class="btn btn-small rigth" mz-button (click)="back('showCompleteForm')">
@@ -93,7 +84,7 @@
           </button>
         </div>
         <div class="col s6">
-          <button class="btn btn-small rigth" mz-button (click)="saveScheme()">
+          <button  *ngIf="propertiesSelected.length>0" class="btn btn-small rigth" mz-button (click)="saveScheme()">
             <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
             {{'semanticForm.button.generateScheme' | translate}}
           </button>
@@ -119,7 +110,24 @@
               <tbody>
                 <tr *ngFor="let prop of propertiesSelected">
                   <td>{{prop.name}}</td>
-                  <td>{{prop.model}}</td>
+                  <td  *ngIf="prop.model">{{prop.model}}</td>
+                  <td *ngIf="!prop.model">
+                      <table class="bordered striped centered">
+                        <thead>
+                          <tr>
+                            <th>{{'semanticForm.table.header.name' | translate}}</th>
+                            <th>{{'semanticForm.table.header.value' | translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let p of prop.scheme.properties">
+                            <td>{{p.name}}</td>
+                            <td>{{p.model}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </td>
+
                 </tr>
               </tbody>
             </table>

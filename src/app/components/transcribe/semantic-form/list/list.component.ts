@@ -1,7 +1,6 @@
 import { Mark } from './../../../../models/mark';
 import { Component, OnInit, Input } from '@angular/core';
 
-
 @Component({
   selector: 'app-list-semantic-marks',
   templateUrl: './list.component.html',
@@ -13,41 +12,40 @@ export class ListSemanticMarksComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("OnInit");
-    console.log(this.renderedMarks);
     this.extractContributions(this.renderedMarks);
   }
 
   extractContributions(renderedMarks) {
     renderedMarks.forEach(renderedMark => {
-      console.log(renderedMark.mark);
       this.getMarks(renderedMark.mark);
     });
-    console.log(this.renderedMarks);
   }
 
   getMarks(markParam) {
     let mark = JSON.parse(JSON.stringify(markParam));
     if (mark && mark.semanticContribution) {
-      console.log(mark.semanticContribution);
       mark.schema_type = mark.semanticContribution.schema_type;
       let propertiesSelected = new Array<any>();
       let sContribution = JSON.parse(mark.semanticContribution.text);
       for (let key in sContribution) {
         if (key != "@context") {
           const item = sContribution[key];
-          console.log(key); console.log(item);
-          propertiesSelected.push({ name: key, value: item, model: item });
-          
+
+          if(key.includes("schema")){
+            let propOfScheme = new Array<any>();
+            for (let i in item) {
+              propOfScheme.push({ name: i, value: item[i], model: item[i] });
+            }
+            propertiesSelected.push({ name: key, value: propOfScheme, model: propOfScheme, isArray: true });
+
+          }else{
+            propertiesSelected.push({ name: key, value: item, model: item,isArray:false });
+          }
         }
       }
       mark.semanticContribution=propertiesSelected;
       this.semanticContributions.push(mark);
-      console.log(mark);
-    } else {
-      console.log("la marca es nula");
-    }
-
+    } 
   }
 
 }

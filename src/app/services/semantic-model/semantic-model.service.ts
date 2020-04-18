@@ -38,30 +38,47 @@ export class SemanticModelService {
 
   
   generateCompacted(properties){
-    var contextMap = new Map();
-    var docMap = new Map();
     var doc = {};
     var context = {};
+    doc = this.processProperties(properties,context);
 
-    for (var p in properties) {
-      contextMap.set(properties[p].name, "http://schema.org/" + properties[p].name);
-      docMap.set("http://schema.org/" + properties[p].name, properties[p].model)
-    }
-    contextMap.forEach((value, key) => {
-      context[key] = value;
-    });
-    docMap.forEach((value, key) => {
-      doc[key] = value;
-    });
     let response ;
+    console.log("------------------");
+    console.log(doc);
+    console.log(context);
+    console.log("------------------");
     response = this.compacted(doc, context);
 
     
     return response;
   }
 
+  processProperties(properties,context) {
+    console.log("processProperties");
+    console.log(properties);
+    console.log(context);
+    var contextMap = new Map();
+    var docMap = new Map();
+    var doc = {};
+    for (var p in properties) {
+     if (properties[p].scheme) {
+        docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].scheme.properties,context));
+       contextMap.set(properties[p].name, "http://schema.org/" + properties[p].type);
+      }else{
+          docMap.set("http://schema.org/" + properties[p].name, properties[p].model)
+          contextMap.set(properties[p].name, "http://schema.org/" + properties[p].name);
+        }
+      }
+      contextMap.forEach((value, key) => {
+        context[key] = value;
+      });
+      docMap.forEach((value, key) => {
+        doc[key] = value;
+      });
 
 
+      return doc;
+    }
 
 
 

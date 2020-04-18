@@ -1,0 +1,59 @@
+<div class="center-align" *ngIf="propertieNameTitle">
+  <h5 class="primary-color-text">{{propertieNameTitle}}</h5>
+</div>
+<div class="row" *ngIf="!sublevel">
+  <div class="col s12">
+    <div class="row">
+      <div class="col s12">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText"
+          [placeholder]="'semanticForm.placeholder.search' | translate">
+      </div>
+      <div class="col s12">
+        <table class="bordered striped centered">
+          <thead>
+            <tr>
+              <th>{{'semanticForm.table.header.select' | translate}}</th>
+              <th>{{'semanticForm.table.header.name' | translate}}</th>
+              <th>{{'semanticForm.table.header.type' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prop of properties | filter:searchText">
+              <td>
+                <mz-checkbox-container>
+                  <input mz-checkbox id="{{prop.name}}" type="checkbox" value="{{prop.selected}}"
+                    [(ngModel)]="prop.selected"  (change)="selectPropertie(prop,$event)">
+                </mz-checkbox-container>
+              </td>
+              <td>{{prop.name}}</td>
+              <td>
+                <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
+                  <select mz-select (change)="selectType(prop,$event)">
+                    <option *ngFor="let type of prop.types" [ngValue]="type">{{ type }}</option>
+                  </select>
+                </mz-select-container>
+                <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <div class="col s6">
+            <button class="btn btn-small left" mz-button (click)="generateScheme()">
+              <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
+              {{'semanticForm.button.confirmProperties' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="sublevel">
+  <app-scheme-builder (schemeGenerated)="handleScheme($event)" [level] = "level" [schemeName]="schemeName" [propertieName]="propertieName" [properties]="properties"></app-scheme-builder>
+</div>
