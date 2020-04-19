@@ -226,7 +226,7 @@ a {
   margin-top: 10px;
 }
 
-.card .card-action {
+.card:not(.card-collection) .card-action {
   padding: 0;
   padding-bottom: 5px;
 }

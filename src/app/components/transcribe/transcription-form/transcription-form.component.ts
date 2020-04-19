@@ -14,6 +14,7 @@ export class TranscriptionFormComponent implements OnInit {
   @ViewChild('modal') modal;
   transcription:any;
   @Output() success = new EventEmitter();
+  @Output() close = new EventEmitter();
 
   constructor(private transcriptionService:TranscriptionService) { }
 
@@ -44,6 +45,10 @@ export class TranscriptionFormComponent implements OnInit {
     }
   }
   
+  closeModal() {
+    this.close.emit();
+  }
+
   edit() {}
   
   delete() {}

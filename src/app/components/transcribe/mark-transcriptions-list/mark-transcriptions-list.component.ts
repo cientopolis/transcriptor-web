@@ -15,6 +15,7 @@ export class MarkTranscriptionsListComponent implements OnInit {
   transcriptions = [];
   votes = [];
   @Output() close = new EventEmitter();
+  @Output() addButton = new EventEmitter();
 
   constructor(private transcriptionService:TranscriptionService, private changeDetector:ChangeDetectorRef) { }
 
@@ -60,5 +61,9 @@ export class MarkTranscriptionsListComponent implements OnInit {
         }
     }
     this.changeDetector.detectChanges();
+  }
+
+  onAddButton() {
+    this.addButton.emit();
   }
 }

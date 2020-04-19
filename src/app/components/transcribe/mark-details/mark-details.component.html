@@ -1,7 +1,7 @@
 <mz-modal #modal [fixedFooter]="true" [bottomSheet]="true" [options]="modalOptions">
   <mz-modal-header>
     <p class="m-t-0">{{'transcribe.markDetails.title' | translate}}
-      <button class="btn-small right" mz-button mz-modal-close (click)="onAddButton()">
+      <button class="btn-small right hide" mz-button mz-modal-close (click)="onAddButton()">
         <i mz-icon-mdi [icon]="'note-text'" [align]="'left'"></i> {{'transcribe.markDetails.button.addAnotherTranscription' | translate}}
       </button>
       <button class="btn-small right primary-color-text" mz-button (click)="onSuccessButton()" [flat]="true">

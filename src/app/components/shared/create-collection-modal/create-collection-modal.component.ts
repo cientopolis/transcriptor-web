@@ -11,6 +11,13 @@ export class CreateCollectionModalComponent implements OnInit {
   collection:any = {};
   @ViewChild('modalCollection') modalCollection;
   @Output() successCreate = new EventEmitter();
+  @Output() close = new EventEmitter();
+
+  modalOptions: Materialize.ModalOptions = {
+    complete: () => {
+      this.close.emit();
+    }
+  };
 
   constructor(private collectionService: CollectionService,) { }
 

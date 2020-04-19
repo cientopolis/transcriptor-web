@@ -45,6 +45,8 @@ import { NgxEditorModule } from 'ngx-editor';
 
 import { NgxIziToastModule } from 'ngx-izitoast';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
 import { LoginComponent } from './components/login/login.component';
@@ -162,6 +164,7 @@ import { ImageSettingsComponent } from './components/transcribe/image-settings/i
     LeafletDrawModule.forRoot(),
     NgxEditorModule,
     NgxIziToastModule,
+    NgCircleProgressModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -4,7 +4,7 @@
     <!-- <form ngNoForm enctype="multipart/form-data" action="http://localhost:3000/api/upload" accept-charset="UTF-8" method="post"> -->
       <input name="utf8" type="hidden" value="✓">
         
-      <mz-select-container>
+      <mz-select-container (click)="$event.stopPropagation()">
         <select mz-select 
           id="document_upload_collection_id"
           name="document_upload[collection_id]"

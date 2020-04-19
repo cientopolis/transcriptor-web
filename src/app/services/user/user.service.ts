@@ -20,7 +20,7 @@ export class UserService {
   }
 
   userInfoMetagame(user, options = {}) {
-    return this.httpService.post([this.getMetagameInfoPath,{user_id:user.id}], {user:user}, options);
+    return this.httpService.lpost([this.getMetagameInfoPath,{user_id:user.id}], {user:user}, options);
   }
 
 }

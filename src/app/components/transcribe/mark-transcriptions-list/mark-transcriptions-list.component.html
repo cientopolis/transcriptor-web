@@ -1,6 +1,12 @@
 <mz-modal #modal [fixedFooter]="true" [options]="modalOptions">
   <mz-modal-header>
-    {{'transcribe.markTranscriptionsList.title' | translate}}
+    <p class="m-t-0">
+      <span class="m-t-5" style="display: inline-block;">{{'transcribe.markTranscriptionsList.title' | translate}}</span>
+      <button class="btn-small right" mz-button mz-modal-close (click)="onAddButton()">
+        <i mz-icon-mdi [icon]="'note-text'" [align]="'left'"></i>
+        {{'transcribe.markDetails.button.addAnotherTranscription' | translate}}
+      </button>
+    </p>
   </mz-modal-header>
   <mz-modal-content>
 
