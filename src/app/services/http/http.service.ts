@@ -18,7 +18,32 @@ export class HttpService {
 
   baseUrl = environment.apiUrl;
 
-  private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
+  private static methods = { 
+    get: {
+      name: 'GET', 
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.get(uri, httpOptions);
+      }
+    },
+    post: {
+      name: 'POST', 
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.post(uri, data, httpOptions);
+      }
+    },
+    put: {
+      name: 'PUT', 
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.put(uri, data, httpOptions);
+      }
+    },
+    delete: {
+      name: 'DELETE',
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.delete(uri, httpOptions);
+      }
+    }
+  };
 
   public static defaultOptions:any = {
     headers: { 'Content-Type': 'application/json' },
@@ -84,20 +109,7 @@ export class HttpService {
     let uri = this.processUri(path);
 
     let observable = null;
-    switch (requestMethod) {
-      case HttpService.methods.get:
-        observable = this.http.get(uri, httpOptions);
-        break;
-      case HttpService.methods.post:
-        observable = this.http.post(uri, data, httpOptions);
-        break;
-      case HttpService.methods.put:
-        observable = this.http.put(uri, data, httpOptions);
-        break;
-      case HttpService.methods.delete:
-        observable = this.http.delete(uri, httpOptions);
-        break;
-    }
+    observable = requestMethod.execute(this.http, uri, data, httpOptions);
     return this.handleResponse(observable, path, requestMethod, requestOptions);
   }
 
@@ -122,7 +134,7 @@ export class HttpService {
   private handleResponse(observable, path, requestMethod, requestOptions) {
     return observable.pipe(
       tap((response: WebserviceResponse) => this.generateMessages(response, requestOptions)),
-      catchError(this.handleError<any>(path + ' ' + requestMethod)),
+      catchError(this.handleError<any>(path + ' ' + requestMethod.name)),
       map((response: WebserviceResponse) => response.data)
     );
   }
