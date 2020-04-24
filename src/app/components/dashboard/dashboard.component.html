@@ -139,8 +139,9 @@
             <span class="card-title">{{collection.collection.title}}</span>
             <!-- <p *ngIf="collection.works && collection.works.length >= 1">{{collection.works[0].description}}</p> -->
           </div>
-          <div class="card-action right-align">
-            <a class="m-r-0" href="#!" routerLink="/collection/{{collection.collection.id}}">Ver más</a>
+          <div class="card-action">
+            <span>{{collection.works.length == 1 ? collection.works.length + ' proyecto' : collection.works.length + ' proyectos'}}</span>
+            <a class="m-r-0" href="#!" class="right m-r-0" routerLink="/collection/{{collection.collection.id}}">Ver más</a>
           </div>
         </div>
       </div>
@@ -148,9 +149,9 @@
     
   </div>
 
-  <div class="col l3" *ngIf="collectionsOwner">
+  <div class="col s12 l3" *ngIf="collectionsOwner">
     <div class='row' *ngIf="global['currentUser']">
-      <div class="col m12">
+      <div class="col s12">
         <ul class="collection with-header no-border z-depth-1 m-t-0">
           <li class="collection-header"><i mz-icon-mdi [icon]="'counter'"></i><span>Estado del Sitio</span></li>
           <li class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>{{'dashboard.counter.collections' | translate}}</li>
@@ -161,7 +162,7 @@
     </div>
 
     <div class='row'>
-      <div class="col m12">
+      <div class="col s12">
         <ul class="collection with-header no-border z-depth-1">
           <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.yourActivity.title' | translate}}</span></li>
           <li
