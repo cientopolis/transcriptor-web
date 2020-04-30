@@ -140,6 +140,13 @@ nav .back-button i{
   color: $primaryColor;
 }
 
+.switch label input[type="checkbox"]:checked + .lever {
+  background-color: $darkColor;
+}
+.switch label input[type="checkbox"]:checked + .lever::after {
+  background-color: $hoverColor;
+}
+
 // buttons
 .btn, .btn:focus, .btn:active {
   background-color: $primaryColor;

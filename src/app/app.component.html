@@ -36,6 +36,12 @@
   [inDuration]="300"
   [outDuration]="300"
   [stopPropagation]="true">
+  <mz-dropdown-item (click)="$event.stopPropagation()">
+    <mz-switch-container>
+      <label class="primary-color-text">Modo Oscuro</label>
+      <input mz-switch type="checkbox" [(ngModel)]="darkModeEnabled" (click)="toggleDarkMode()">
+    </mz-switch-container>
+  </mz-dropdown-item>
     <mz-dropdown-item><a routerLink="user/profile">{{'myProfile.title' | translate}}</a></mz-dropdown-item>
     <mz-dropdown-divider></mz-dropdown-divider>
     <mz-dropdown-item><a (click)="logout()">{{'signOut.title' | translate}}</a></mz-dropdown-item>

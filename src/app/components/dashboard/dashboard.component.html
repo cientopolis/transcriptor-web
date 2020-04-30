@@ -1,4 +1,4 @@
-<div class="row" class="row m-t-15 m-b-0" *ngIf="global['currentUser']">
+<div class="row" class="row m-t-25 m-b-0" *ngIf="global['currentUser']">
   <div class="col s12 m7 l9">
     <div class="row">
       <div class="col s12">
@@ -6,22 +6,14 @@
           <!-- <div class="carousel-fixed-item center">
                 <a class="btn waves-effect white grey-text darken-text-2">button</a>
               </div> -->
-          <div class="carousel-item white-text" href="#one!" style="background-image: url('http://127.0.0.1:8887/books.jpg');">
-            <h2>First Panel</h2>
-            <p class="white-text">This is your first panel</p>
+          <div class="carousel-item white-text" href="#one!" style="background-image: url('assets/img/dashboard/carousel/library.jpg');">
+            <h2>¡Bienvenido a Transcriptor!</h2>
+            <p class="white-text">Aqui encontrarás la información de las colecciones en las que participas.</p>
           </div>
-          <div class="carousel-item amber white-text" href="#two!">
+          <!-- <div class="carousel-item amber white-text" href="#two!">
             <h2>Second Panel</h2>
             <p class="white-text">This is your second panel</p>
-          </div>
-          <div class="carousel-item green white-text" href="#three!">
-            <h2>Third Panel</h2>
-            <p class="white-text">This is your third panel</p>
-          </div>
-          <div class="carousel-item blue white-text" href="#four!">
-            <h2>Fourth Panel</h2>
-            <p class="white-text">This is your fourth panel</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -29,40 +21,14 @@
   <div class="col s12 m5 l3" *ngIf="collectionsOwner">
     <div class="row m-b-0">
       <div class="col s12">
-        <div class="card card-range m-t-0">
-          <div class="card-content center-align white-text">
-            <!-- <p *ngIf="collection.works && collection.works.length >= 1">{{collection.works[0].description}}</p> -->
-            <h6 class="m-t-0">Rango de Usuario</h6>
-            <div class="circle-progress-container">
-              <circle-progress 
-                [percent]="85"
-                [radius]="60"
-                [space]="-5"
-                [outerStrokeWidth]="5"
-                [innerStrokeWidth]="0"
-                [outerStrokeColor]="'#F9F9F9'"
-                [innerStrokeColor]="'#C9c9c9'"
-                [responsive]="true" 
-                [animation]="true"
-                [animationDuration]="300"
-                [showImage]="true"
-                [imageSrc]="'http://127.0.0.1:8887/pluma.png'"
-                [imageHeight]="105"
-                [imageWidth]="105">
-              </circle-progress>
-            </div>
-            <h6 class="m-b-0">Visitor</h6>
-            <small class="m-t-0">25% para próximo Rango</small>
-            <!-- <small>25/40 acciones realizadas</small> -->
-          </div>
-        </div>
+        <app-player-profile></app-player-profile>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="row m-t-15" *ngIf="global['currentUser']">
+<div class="row m-t-25" *ngIf="global['currentUser']">
 
   <div class="col l9">
     <!--

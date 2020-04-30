@@ -1,0 +1,51 @@
+@import '~styles/styles';
+
+:host ::ng-deep .card.card-range {
+  border-radius: 8px;
+  // background-color: #FFB627;
+  background-color: #2E282A;
+  border: 3px solid $hoverColor;
+  box-sizing: border-box;
+  height: 250px;
+  display: flex;
+}
+
+:host ::ng-deep .card.card-range .card-content {
+  height: 250px;
+  padding-top: 12px;
+  width: 100%;
+}
+
+.card.card-range .card-content .circle-progress-container {
+  width: 100%;
+  height: 75%;
+}
+
+.card.card-range .show-details {
+    width: 100%;
+    height: 100%;
+    flex: none;
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    opacity: 0;
+    cursor: pointer;
+    transition: all .2s $transitionTimingFunction;
+}
+.card.card-range .show-details:hover {
+    opacity: 1;
+}
+
+.collection {
+    border-color: #464545;
+    font-size: small;
+    border-radius: 5px;
+}
+.collection .collection-item {
+    border-color: #464545;
+    background-color: #2e2e2e;
+    padding: 8px 5px;
+}
+.collection .collection-item.obtained {
+    text-decoration: line-through;
+    color: #adadad;
+}

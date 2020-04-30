@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { LoginCredentials } from '../../models/loginCredentials';
 import { LoginService } from '../../services/login/login.service';
 import { UserService } from '../../services/user/user.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  login(formValue: NgForm) {
+    console.log(formValue)
     this.loginService.login(this.loginCredentials)
         .subscribe(response => this.handleResponse(response));
   }

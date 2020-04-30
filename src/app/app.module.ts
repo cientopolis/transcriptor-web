@@ -32,6 +32,7 @@ import { MzSpinnerModule } from 'ngx-materialize';
 import { MzTooltipModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
 import { MzCheckboxModule } from 'ngx-materialize';
+import { MzSwitchModule } from 'ngx-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -99,6 +100,7 @@ import { LayerService } from './services/layer/layer.service';
 import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
+import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +136,8 @@ import { ImageSettingsComponent } from './components/transcribe/image-settings/i
     CreateCollectionModalComponent,
     LayerModalComponent,
     SemanticTextEditorComponent,
-    ImageSettingsComponent
+    ImageSettingsComponent,
+    PlayerProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -157,6 +160,7 @@ import { ImageSettingsComponent } from './components/transcribe/image-settings/i
     MzSpinnerModule,
     MzTooltipModule,
     MzCollapsibleModule,
+    MzSwitchModule,
     NgProgressModule,
     NgProgressHttpModule,
     NgProgressRouterModule,

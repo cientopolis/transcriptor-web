@@ -74,24 +74,3 @@ a.btn {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-:host ::ng-deep .card.card-range {
-  border-radius: 8px;
-  // background-color: #FFB627;
-  background-color: #2E282A;
-  border: 3px solid $hoverColor;
-  box-sizing: border-box;
-  height: 250px;
-  display: flex;
-}
-
-:host ::ng-deep .card.card-range .card-content {
-  height: 250px;
-  padding-top: 12px;
-  width: 100%;
-}
-
-.card.card-range .card-content .circle-progress-container {
-  width: 100%;
-  height: 75%;
-}

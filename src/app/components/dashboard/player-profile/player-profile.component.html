@@ -1,0 +1,39 @@
+<div class="card card-range m-t-0">
+  <div class="card-content center-align white-text" *ngIf="!showInfo">
+    <h6 class="m-t-0">Rango de Usuario</h6>
+    <div class="circle-progress-container">
+      <circle-progress 
+        [percent]="85" 
+        [radius]="60" 
+        [space]="-5" 
+        [outerStrokeWidth]="5" 
+        [innerStrokeWidth]="0"
+        [outerStrokeColor]="'#F9F9F9'" 
+        [innerStrokeColor]="'#C9c9c9'" 
+        [responsive]="true" 
+        [animation]="true"
+        [animationDuration]="300" 
+        [showImage]="true" 
+        [imageSrc]="'assets/img/dashboard/ranks/visitor.png'"
+        [imageHeight]="105" 
+        [imageWidth]="105">
+      </circle-progress>
+    </div>
+    <h6 class="m-b-0">{{global['currentUser'].rank}}</h6>
+    <small class="m-t-0">25% para próximo Rango</small>
+    <!-- <small>25/40 acciones realizadas</small> -->
+  </div>
+
+  <div class="card-content white-text" *ngIf="showInfo">
+    <h6 class="m-t-0 center-align">Rango de Usuario</h6>
+    <h6 class="m-b-0 center-align">{{global['currentUser'].rank}}</h6>
+    <ul class="collection m-t-15">
+      <li class="collection-item obtained">Insignia i-was-Here</li>
+      <li class="collection-item">Insignia welcome-back</li>
+    </ul>
+  </div>
+
+  <div class="show-details white-text valign-wrapper" (click)="toggleInfo()">
+    <p class="center-align w-100"><i mz-icon-mdi [icon]="'information'" [align]="'center'" [size]="'36px'"></i><br>+info</p>
+  </div>
+</div>
