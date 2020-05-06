@@ -1,3 +1,4 @@
+import { HeaderService } from './../../../services/sharedData/header.service';
 import { RenderedMark } from './../../../models/renderedMark';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
@@ -23,7 +24,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
   semanticContribution = null;
 
-  constructor(private transcribeService: TranscribeService, private markService: MarkService) { }
+  constructor(private transcribeService: TranscribeService, private markService: MarkService, private headerService: HeaderService) { }
 
   ngOnChanges(changes) {
     console.log("OnChanges");
@@ -65,9 +66,11 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = JSON.stringify(event.schema_type);
+    this.save();
    }
 
   cancel() {
+
     this.delegate.cancelModal();
   }
 

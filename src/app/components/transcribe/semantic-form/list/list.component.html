@@ -1,43 +1,29 @@
-<div class="row">
+<div class="row" *ngIf="!semanticContributionsSelected && semanticContributions.length>0">
   <div class="col s12">
-    <mz-collapsible [mode]="'accordein'" >
-      <mz-collapsible-item [active]="false" *ngFor="let mark of  semanticContributions">
-        <mz-collapsible-item-header>
-          <span class="center-align"><b>{{mark.schema_type | scheme_type | uppercase}}</b></span>
-        </mz-collapsible-item-header>
-        <mz-collapsible-item-body>
-          <table class="bordered striped centered">
-            <thead>
-              <tr>
-                <th>{{'semanticForm.table.header.name' | translate}}</th>
-                <th>{{'semanticForm.table.header.value' | translate}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let prop of mark.semanticContribution">
-                <td>{{prop.name | scheme_type}}</td>
-                <td *ngIf="!prop.isArray">{{prop.model}}</td>
-                <td *ngIf="prop.isArray">
-                  <table class="bordered striped centered">
-                    <thead>
-                      <tr>
-                        <th>{{'semanticForm.table.header.name' | translate}}</th>
-                        <th>{{'semanticForm.table.header.value' | translate}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let p of prop.model">
-                        <td>{{p.name}}</td>
-                        <td>{{p.model}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </mz-collapsible-item-body>
-      </mz-collapsible-item>
-    </mz-collapsible>
+    <h5 style="
+    font-size: 1.40rem;
+    margin-bottom: 0px;
+    margin-top: 7px;
+">Marcas</h5>
+    <div class="row p-l-10 p-r-10">
+      <mz-collection>
+        <mz-collection-item (click)="showDetail(mark)" [avatar]="true" *ngFor="let mark of  semanticContributions"
+          class="collection-item">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <h6 class="title" style="font-size: 14px;">{{mark.name | scheme_type}}</h6>
+          <p class="descriptiom-item">{{mark.schema_type | scheme_type}}</p>
+          <span mz-secondary-content><i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"  style="color:black"></i></span>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+    <div class="row"  *ngIf="semanticContributions.length==0">
+      <div class="center-align">
+        <h5 class="primary-color-text">No se encontraron marcas cargadas</h5>
+      </div>
+    </div>
+
   </div>
+</div>
+<div class="row p-l-10 p-r-10" *ngIf="semanticContributionsSelected">
+  <app-semantic-transcription-details (cancelEvent)="cancelShowDetail($event)" [markSelected]="semanticContributionsSelected"></app-semantic-transcription-details>
 </div>

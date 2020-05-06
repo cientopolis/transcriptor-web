@@ -12,7 +12,7 @@ export class SchemePipe implements PipeTransform {
       let type = res[res.length - 1].replace('"','');
       return type;
     }else{
-      return value;
+      return "-";
     }
   }
 

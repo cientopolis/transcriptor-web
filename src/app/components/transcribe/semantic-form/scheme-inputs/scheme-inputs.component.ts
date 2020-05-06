@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-scheme-inputs',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SchemeInputsComponent implements OnInit {
   @Input() model:any;
+  @Output() public modelDeleted = new EventEmitter<any>();
 
   public options: Pickadate.DateOptions = {
     /* monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -28,7 +29,14 @@ export class SchemeInputsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+    console.log(this.model);
+  }
+
+  deleteModel(model){
+    console.log("delete");
+    console.log(this.model);
+    console.log(model);
+    this.modelDeleted.emit({model:this.model})
   }
 
 }

@@ -1,0 +1,22 @@
+.header-box {
+   width:100%;
+   border-width: thin;
+   border-style: solid;
+   border-color: #e0e0e0;
+}
+.header-box h5{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color:#e65100;
+    font-size: 1.10rem;
+   }
+.header-box  p{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 11px;
+   }
+
+:host ::ng-deep  [type="checkbox"].filled-in:checked + label:after{
+     border: 2px solid #e65100;
+     background-color: #e65100;
+}

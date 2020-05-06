@@ -1,10 +1,10 @@
+import { MzToastService } from 'ngx-materialize';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { HttpService } from '../http/http.service';
 import { FlashMessagesService } from '../util/flash-messages/flash-messages.service';
 import { SimpleGlobal } from 'ng2-simple-global';
-import { MzToastService } from 'ng2-materialize';
 
 import { WorkService } from './work.service';
 import { WorkMockResponse } from './mock/work-mock-response'

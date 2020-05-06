@@ -1,0 +1,122 @@
+<div class="row" *ngIf="!showPreviousSave && !relation">
+  <div class="col s1 offset-s11" style="margin-top: -70px;">
+    <a  (click)="cancel()" >
+      <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
+        &times;
+      </button>
+    </a>
+  </div>
+</div>
+<div class="row row p-l-10 p-r-10">
+  <div class="row"  style="margin-top: 0px;margin-bottom: 0px;"> 
+    <div class="col s12 z-depth-1 header-box">
+      <h5 class="primary-color-text">{{markSelected.name | scheme_type}}</h5>
+      <p>{{markSelected.schema_type | scheme_type}}</p>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
+    <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback">
+      <mz-collapsible-item [active]="true" style="margin-top: 0px;margin-bottom: 0px;">
+        <mz-collapsible-item-header  style="margin-top: 0px;margin-bottom: 0px;">
+          <div class="primary-color-text">
+            <p class="properties">Propiedades</p>
+          </div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          <table  class="bordered striped" style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.value' | translate}}</th>
+                <th>Descripcion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let propertie of properties" class="p-t-0">
+                <td class="p-t-5 p-b-5">{{propertie.name | scheme_type}}</td>
+                <td class="p-t-5 p-b-5">{{propertie.model}}</td>
+                <td class="p-t-5 p-b-5">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+
+
+
+    <mz-collapsible *ngIf="relationship.length>0" [mode]="'expandable'" [onClose]="closeFunctionCallback"
+      [onOpen]="openFunctionCallback" style="margin-top: 0px;margin-bottom: 0px;">
+      <mz-collapsible-item [active]="true">
+        <mz-collapsible-item-header>
+          <div class="primary-color-text">
+            <p class="properties">Relaciones</p>
+          </div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          <app-semantic-transcription-details *ngFor="let relation of  relationship" [markSelected]="relation" [relation]="true">
+          </app-semantic-transcription-details>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="false">
+  <div class="row">
+    <div class="col 12">
+      <div class="primary-color-text">
+        <h6 class="headerColapse">Relaciones</h6>
+      </div>
+    </div>
+    <div class="row">
+      <mz-collapsible-item-body>
+        <app-semantic-transcription-details *ngFor="let relation of  relationship" [markSelected]="relation">
+        </app-semantic-transcription-details>
+      </mz-collapsible-item-body>
+    </div>
+  </div>
+</div>
+
+
+
+<mz-collapsible [mode]="'accordein'" *ngIf="false">
+  <mz-collapsible-item [active]="false" *ngFor="let mark of  semanticContributions">
+    <mz-collapsible-item-header>
+      <span class="center-align"><b>{{mark.schema_type | scheme_type | uppercase}}</b></span>
+    </mz-collapsible-item-header>
+    <mz-collapsible-item-body style="padding: 5px;">
+      <table class="bordered striped" style="font-size: 12px;">
+        <thead>
+          <tr>
+            <th>{{'semanticForm.table.header.name' | translate}}</th>
+            <th>{{'semanticForm.table.header.value' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prop of mark.semanticContribution">
+            <td>{{prop.name | scheme_type}}</td>
+            <td *ngIf="!prop.isArray">{{prop.model}}</td>
+            <td *ngIf="prop.isArray">
+              <table class="bordered striped centered">
+                <thead>
+                  <tr>
+                    <th>{{'semanticForm.table.header.name' | translate}}</th>
+                    <th>{{'semanticForm.table.header.value' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of prop.model">
+                    <td>{{p.name}}</td>
+                    <td>{{p.model}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mz-collapsible-item-body>
+  </mz-collapsible-item>
+</mz-collapsible>

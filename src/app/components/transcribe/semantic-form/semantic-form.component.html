@@ -1,150 +1,96 @@
-<div class="row" *ngIf="loader">
-  <div class="col s6 offset-s6">
-    <mz-spinner [color]="'yellow'" [size]="'small'">
-    </mz-spinner>
-  </div>
-</div>
-
-<div class="row" *ngIf="showSelectSchema">
-  <div class="col-12">
-    <nav class="clean">
-    <div class="nav-wrapper">
-      <div class="col s12">
-        <a  class="breadcrumb" *ngFor="let parent of  parents" (click)="setParent(parent)">{{parent.name}}</a>
+<ul class="stepper parallel horizontal" style="margin: 0px;padding-left: 0px;">
+  <li class="step active"   >
+    <div data-step-label="Elegí el tipo de dato" class="step-title waves-effect waves-dark" style="pointer-events: none;">
+      Paso 1
+    </div>
+    <div class="step-content p-t-0" >
+      <div class="row">
+        <h5 style="margin-bottom: 0px;margin-top: 0px;">Elegí el tipo de dato</h5>
+        <p style="font-size: 13px;">Los tipos de datos te ayudarán a definir mejor lo que querés representar dentro del manuscrito, usa el buscador para
+        encontrar el que necesitas ¡Hay un montón!</p>
+      </div>
+      <div class="row" >
+        <app-select-schema [mark]="mark" (schemeSelected)="selectSchema($event)"></app-select-schema>
+      </div>
+      <div class="step-actions">
+          <div class="fixed-action-btn previous-step" style="position: left;margin-right: 5%;">
+            <a class="btn-floating btn-large" style="background-color: #808080;" (click)="back(actualStep)"   *ngIf="!showActionStep1">
+              <i mz-icon-mdi [icon]="'chevron-left'" [align]="'rigth'"></i>
+            </a>
+          </div>
+          <div class="fixed-action-btn next-step" >
+            <a class="btn-floating btn-large" style="background-color: #e65100;" (click)="next(actualStep)" *ngIf="!showActionStep4">
+              <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i>
+            </a>
+          </div>
+          <div class="fixed-action-btn next-step" >
+            <a class="btn-floating btn-large" style="background-color: #e65100;" (click)="finish()"
+              *ngIf="showActionStep4">
+              <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i>
+            </a>
+          </div>
       </div>
     </div>
-    </nav>
-  </div>
-  <div class="col s12">
-      <mz-select-container *ngIf="!loader" (click)="$event.stopPropagation()">
-        <select mz-select 
-          [label]="'semanticForm.label.scheme' | translate" [placeholder]="'semanticForm.placeholder.scheme' | translate"
-          [(ngModel)]="scheme" (change)="selectType($event)" [disabled]="!schemas">
-          <option *ngFor="let schema of schemas" [ngValue]="schema">{{ schema.name }}</option>
-        </select>
-      </mz-select-container>
-  </div>
-
-
-  
-  <div class="col s5 offset-s7">
-    <button class="btn btn-small left" mz-button (click)="selectSchema()">
-      <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
-        {{'semanticForm.button.confirmType' | translate}}
-    </button>
-  </div>
-
-</div>
-<div class="row" *ngIf="showPropertiesSelection">
-    <div class="col s12">
+  </li>
+    
+  <li class="step">
+    <div class="step-title waves-effect waves-dark" data-step-label="Cargá las Propiedades" style="pointer-events: none;"  (click)="next('step2')" >
+      Paso 2
+    </div>
+    <div class="step-content p-t-0">
+      <div class="row step-header">
+        <h5>Cargá las Propiedades</h5>
+        <p>Ya seleccionaste el tipo de dato, cada uno de estos tiene asociados varias propiedades que te van a servir para
+        describir cuales son las características especificas de tu elemento. A partir de ahora podés agregar y cargar las
+        propiedades que consideres mas adecuadas.</p>
+      </div>
       <div class="row">
-        <app-scheme-builder (schemeGenerated)="handleScheme($event)" [level] = "level" [schemeName]="schemeName"></app-scheme-builder>
         <div class="col s12">
           <div class="row">
-            <div class="col s6">
-              <button class="btn btn-small rigth" mz-button (click)="back('showPropertiesSelection')">
-                <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'rigth'"></i>
-                  {{'semanticForm.button.back' | translate}}
-              </button>
-            </div>
-            <div *ngIf="false" class="col s6">
-              <button class="btn btn-small left" mz-button (click)="generateScheme()">
-                <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
-                  {{'semanticForm.button.confirmProperties' | translate}}
-              </button>
-            </div>
+            <app-select-basic-properties (schemeGenerated)="handleScheme($event)" [notifyNextStep]="notifyNextStep2" [propertiesSelected]="basicProperties" [schemeName]="schemeName">
+            </app-select-basic-properties>
           </div>
         </div>
+      </div>
+
+      <div class="step-actions" *ngIf="showActionStep2">
+       </div>
+    </div>
+  </li>
+  <li class="step">
+    <div class="step-title waves-effect waves-dark" data-step-label="Cargá las Relaciones" style="pointer-events: none;"  (click)="next('step3')">Paso 3</div>
+    <div class="step-content p-t-0">
+      <div class="row step-header">
+        <h5>Cargá las Relaciones</h5>
+        <p>Ya seleccionaste el tipo de dato, cada uno de estos tiene asociados varias propiedades que te van a servir para
+        describir cuales son las características especificas de tu elemento. A partir de ahora podés agregar y cargar las
+        propiedades que consideres mas adecuadas. </p>
+      </div>
+      <!--*ngIf="showCompleteForm"-->
+      <div class="row" style="padding-left: 2px;padding-right: 2px;">
+        <app-select-relationships (relationshipGenerated)="handleSchemeRelationships($event)" [notifyNextStep]="notifyNextStep3" [properties]="properties" [schemeName]="schemeName"></app-select-relationships>
+      </div>
+        <div class="step-actions" *ngIf="showActionStep3">
+ 
+        </div>
+    </div>
+  </li>
+  <li class="step">
+    <div class="step-title waves-effect waves-dark" data-step-label="Revisá y Guardá" style="pointer-events: none;"  (click)="next('step4')">Paso 4</div>
+    <div class="step-content p-t-0">
+      <div class="row step-header">
+        <h5>Reservá y Guardá</h5>
+        <p>Ahora revisá que los datos sean correctos. Si todo esta bien ya podes continuar con el guardado.</p>
+      </div>
+      <!--*ngIf="showGeneratedScheme"-->
+      <div class="row" *ngIf="showActionStep4" style="padding-left: 2px;padding-right: 2px;">
+        <app-semantic-transcription-details [showPreviousSave]='true' [markSelected]="markView"></app-semantic-transcription-details>
+      </div>
+
+      <div class="step-actions">
+       
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col s12" *ngIf="showCompleteForm">
-      <div class="row" *ngFor="let prop of  propertiesSelected">
-        
-        <app-scheme-inputs *ngIf="!prop.scheme" [model] = prop></app-scheme-inputs>
-        <div *ngIf="prop.scheme">
-          <label> {{prop.name}}</label>
-          <div class="row" *ngFor="let sc of  prop.scheme.properties">
-            <app-scheme-inputs [model]=sc></app-scheme-inputs>
-          </div>
-        </div>
-      </div>
-      <div class="row" *ngIf="propertiesSelected.length==0">
-        <div class="center-align">
-          <h5 class="primary-color-text">No ha seleccionado ningun atributo del esquema</h5>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <button class="btn btn-small rigth" mz-button (click)="back('showCompleteForm')">
-            <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
-               {{'semanticForm.button.back' | translate}}
-          </button>
-        </div>
-        <div class="col s6">
-          <button  *ngIf="propertiesSelected.length>0" class="btn btn-small rigth" mz-button (click)="saveScheme()">
-            <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
-            {{'semanticForm.button.generateScheme' | translate}}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <div class="row">
-      <div class="col s12" *ngIf="showGeneratedScheme">
-        <div class="center-align">
-          <h4>{{schema_type | scheme_type | uppercase}}</h4>
-        </div>
-        <div class="row">
-          <div class="col s12">
-            <table class="bordered striped centered">
-              <thead>
-                <tr>
-                  <th>{{'semanticForm.table.header.name' | translate}}</th>
-                  <th>{{'semanticForm.table.header.value' | translate}}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let prop of propertiesSelected">
-                  <td>{{prop.name}}</td>
-                  <td  *ngIf="prop.model">{{prop.model}}</td>
-                  <td *ngIf="!prop.model">
-                      <table class="bordered striped centered">
-                        <thead>
-                          <tr>
-                            <th>{{'semanticForm.table.header.name' | translate}}</th>
-                            <th>{{'semanticForm.table.header.value' | translate}}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let p of prop.scheme.properties">
-                            <td>{{p.name}}</td>
-                            <td>{{p.model}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                  </td>
-
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="col s12">
-            <div class="row">
-              <div class="col s6">
-                <button class="btn btn-small rigth" *ngIf="!semanticContribution" mz-button
-                  (click)="back('showGeneratedScheme')">
-                  <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'rigth'"></i>
-                  {{'semanticForm.button.back' | translate}}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  </li>
+</ul>
 

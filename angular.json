@@ -30,12 +30,14 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "node_modules/izitoast/dist/css/iziToast.min.css",
               "node_modules/diff2html/dist/diff2html.min.css",
-              "src/styles/styles.scss"
+              "src/styles/styles.scss",
+              "node_modules/materialize-stepper/dist/css/mstepper.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/materialize-css/dist/js/materialize.min.js",
-              "node_modules/izitoast/dist/js/iziToast.min.js"
+              "node_modules/izitoast/dist/js/iziToast.min.js",
+              "node_modules/materialize-stepper/dist/js/mstepper.min.js"
             ]
           },
           "configurations": {
@@ -85,7 +87,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/materialize-css/dist/js/materialize.min.js",
-              "node_modules/izitoast/dist/js/iziToast.min.js"
+              "node_modules/izitoast/dist/js/iziToast.min.js",
+              "node_modules/materialize-stepper/dist/js/mstepper.min.js"
             ],
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.min.css",
@@ -97,6 +100,7 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "node_modules/izitoast/dist/css/iziToast.min.css",
               "node_modules/diff2html/dist/diff2html.min.css",
+              "node_modules/materialize-stepper/dist/css/mstepper.min.css",
               "src/styles/styles.scss"
             ],
             "assets": [

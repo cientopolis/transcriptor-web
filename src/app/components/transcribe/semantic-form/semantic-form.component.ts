@@ -1,5 +1,9 @@
+import { HeaderService } from './../../../services/sharedData/header.service';
 import { SemanticModelService } from './../../../services/semantic-model/semantic-model.service';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
+import * as $ from 'jquery';
+declare const MStepper: any;
+
 
 @Component({
   selector: 'app-semantic-form',
@@ -9,67 +13,50 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetect
 export class SemanticFormComponent implements OnInit,OnChanges {
   loader:Boolean=true;
   showSelectSchema:Boolean=false;
-  showPropertiesSelection=false;
   showCompleteForm=false;
   schemas:Array<any>;
   scheme: any;
   properties:Array<any>;
-  propertiesSelected: Array<any>;
+  propertiesSelected= new Array<any>();
+  //
+  basicProperties = new Array<any>();
+  relationProperties = new Array<any>();
+
   searchText:any;
   schema_type: String = null;
   showGeneratedScheme:Boolean = false;
   @Output() public schemeComplete = new EventEmitter<any>();
+  
   @Input() public mark = null;
   semanticContribution:any;
   parents= new Array<any>();
   renderedMarksFormatted = [];
   @Input() renderedMarks = null;
   typesSupported = new Map();
-  level = 2;
-  schemeName:String;
+  level = 0;
+  relationships = new Array<any>();
+  markView=null;
 
-  public options: Pickadate.DateOptions = {
-   /* monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-   */
-    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Augosto', 'Septembre', 'Octubre', 'Noviembre', 'Deciembre'],
-    monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-    weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-    weekdaysShort: ['Domingo', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-    format: 'dddd, dd mmm, yyyy',
-    formatSubmit: 'yyyy-mm-dd',
-    //color: '#e65100',
-    clear: 'Limpiar', // Clear button text
-    close: 'Ok',    // Ok button text
-    today: 'Hoy' // Today button text
-  };
+  notifyNextStep2 = false;
+  notifyNextStep3 = false;
+  // deberia ser false y nulo
+  //showPropertiesSelection=true;
+  //schemeName:String='Person';
 
-  public timepickerOptions: Pickadate.TimeOptions = {
-    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
-    donetext: 'OK', // text for done-button
-    cleartext: 'Clear', // text for clear-button
-    canceltext: 'Cancel', // Text for cancel-button
-    autoclose: true, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: () => alert('AfterShow has been invoked.'), // function for after opening timepicker
-  };
+  showPropertiesSelection = false;
+  schemeName: String;
+  showActionStep1=true;
+  showActionStep2 = false;
+  showActionStep3 = false;
+  showActionStep4 = false;
+  actualStep ='step1';
+  constructor(
+            private semanticService: SemanticModelService,
+            private changeDetector: ChangeDetectorRef,
+            private headerService: HeaderService) {
+    }
 
-  public dateOfBirth = '2017-08-12';
-
-  constructor(private semanticService: SemanticModelService,
-             private changeDetector: ChangeDetectorRef) {
-    document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.datepicker');
-      let options = {}
-      //var instances = M.Datepicker.init(elems, options);
-    });
-
-             }
-
+/*
   selectPropertie(propertie ,$event) {
     if (propertie.selected) {
       this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: this.typesSupported.get(propertie.name) });
@@ -80,11 +67,13 @@ export class SemanticFormComponent implements OnInit,OnChanges {
     }
 
   }
+*/
   
   ngOnChanges(changes){
+    
     if (changes.mark.currentValue){
       if (changes.mark.currentValue.semanticContribution == null) {
-        this.semanticService.getAllTypes().then(result => {
+       /* this.semanticService.getAllTypes().then(result => {
           this.schemas = result.children;
           console.log("loader is true");
           console.log(this.loader);
@@ -92,28 +81,53 @@ export class SemanticFormComponent implements OnInit,OnChanges {
           this.parents.push(result);
           this.schemas = result.children;
           this.loader = false;
-          this.showSelectSchema = true;
+          
           this.changeDetector.detectChanges();
+        });*/
+        var stepper = document.querySelector('.stepper');
+        console.log("onchanges");
+        console.log(stepper);
+
+        var stepperInstace = new MStepper(stepper, {
+          // options
+          firstActive: 0, // this is the default
+          linearStepsNavigation: true,
+          // Auto focus on first input of each step.
+          autoFocusInput: false,
+          // Set if a loading screen will appear while feedbacks functions are running.
+          showFeedbackPreloader: true,
+          // Auto generation of a form around the stepper.
+          autoFormCreation: true,
+          // Function to be called everytime a nextstep occurs. It receives 2 arguments, in this sequece: stepperForm, activeStepContent.
+         // more about this default functions below
+          // Enable or disable navigation by clicking on step-titles
+          stepTitleNavigation: true,
+          // Preloader used when step is waiting for feedback function. If not defined, Materializecss spinner-blue-only will be used.
+          feedbackPreloader: '<div class="spinner-layer spinner-blue-only">...</div>'
+
         });
+        this.showSelectSchema = true;
       } else {
+        // es pobible que no se llame mas revisar
         this.getSemanticContribution();
-        this.loader = false;
         this.showSelectSchema = false;
-        this.showGeneratedScheme = true;
+        //this.showGeneratedScheme = true;
       }
     }
   }
 
-  setParent(parent){
-    let index = this.parents.indexOf(parent);
-    if(index<this.parents.length){
-      index++;
-    }
-    this.scheme = parent;
-    this.parents.splice(index);
-    this.schemas = this.scheme.children;
+  setHeader(){
+    this.headerService.headerParagraph = 'Hechos Históricos';
+    this.headerService.headerSubparagraph = null;
+    this.headerService.header = "Nueva Marca";
+    this.headerService.showDetails = false;
+    this.headerService.headerStep = true;
+    this.headerService.stepNumber = 1;
   }
+
+
   ngOnInit() {
+    this.setHeader();
     /*
     if (this.mark.semanticContribution==null){
       this.semanticService.getAllTypes().then(result => {
@@ -134,42 +148,71 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   getSemanticContribution() {
     if (this.mark.semanticContribution) {
       this.schema_type = this.mark.semanticContribution.schema_type;
-      this.propertiesSelected = new Array<any>();
+//      this.propertiesSelected = new Array<any>();
+      let properties = new Array<any>();
       let sContribution = JSON.parse(this.mark.semanticContribution.text);
       for (let key in sContribution) {
         if(key!="@context"){
           const item = sContribution[key];
-          this.propertiesSelected.push({ name: key, value: item, model: item });
+          properties.push({ name: key, value: item, model: item });
         }
       }
+      this.propertiesSelected=properties;
       this.semanticContribution = this.mark.semanticContribution;
     } 
   }
 
-  selectType(event){
-    this.parents.push(this.scheme);
-    this.schemas = this.scheme.children;
-  }
-  selectSchema(){
-    this.schemeName = this.scheme.name;
-    this.showSelectSchema=false;
-    this.showPropertiesSelection=true;
- 
-  }
+validateStepOne() {
+   console.log("validate");
+   return this.schemeName!=null;
+}
+selectSchema(scheme){
+  this.schemeName = scheme.name;
+  this.propertiesSelected = new Array<any>(); 
+  this.basicProperties = new Array<any>();
+  this.relationProperties = new Array<any>();
+  this.properties = new Array<any>();
+  this.stepTwo();
+}
+stepTwo(){
+  this.showPropertiesSelection = true;
+  this.showCompleteForm=true;
+}
 
-  handleScheme(event){
-    this.propertiesSelected = event.properties;
-    this.generateScheme();
-  }
-
-  generateScheme() {
-    console.log("generate scheme");
-    console.log(this.propertiesSelected);
-    this.showPropertiesSelection=false;
-    this.showCompleteForm=true;
-  }
+handleScheme(event){
   
-  saveScheme(){
+  console.log("nueva confirmacion ")
+  console.log(event);
+  this.addProperties(event.propertiesSelected);
+  if (this.properties==null || this.properties.length==0){
+    this.properties = event.properties;
+  }
+
+  //this.basicProperties = event.propertiesSelected;
+  
+  
+  //this.notifyNextStep2 = false;
+}
+addProperties(properties){
+  properties.forEach(propertie => {
+    this.propertiesSelected.push(propertie);
+  });
+}
+
+handleSchemeRelationships(event){
+  console.log("event ")
+  console.log(event.relationshipsSelected);
+  /* event.relationshipsSelected.forEach(relationship => {
+    this.propertiesSelected.push(relationship);
+  });*/
+  this.addProperties(event.relationshipsSelected);
+  console.log(this.propertiesSelected);
+  this.showGeneratedScheme = true;
+  this.saveScheme(false);
+}
+
+  
+  saveScheme(confirm){
     let e = this.semanticService.generateCompacted(this.propertiesSelected).then(
       function (success) {
         //console.log(component);
@@ -179,36 +222,136 @@ export class SemanticFormComponent implements OnInit,OnChanges {
     e.then(
       result => {
         this.schema_type="http://schema.org/" +this.schemeName
-        console.log(this.schema_type);
-        this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text:result} );
+      
+        this.markView = { semanticContribution: { text: result, schema_type: this.schema_type} };
+        if(confirm){
+          this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text:result} );
+        }else{
+
+        }
         this.showCompleteForm=false;
         this.showGeneratedScheme=true;
         return result;
-
       }
     );
     console.log(e);
   }
-  back(step){
-    switch (step) {
-      case "showPropertiesSelection": {
-        this.showPropertiesSelection=false;
-        this.showSelectSchema=true;
-        this.propertiesSelected = new Array();
-        break;
-      }
-      case "showCompleteForm": {
-        this.showCompleteForm=false;
-        this.showPropertiesSelection=true;
-        break;
-      }
-      case "showGeneratedScheme": {
-        this.showGeneratedScheme = false;
-        this.showCompleteForm = true;
-        break;
-      }
+  finish(){
+    this.saveScheme(true);
+  }
 
-    } 
+  saveProperties(){
+    console.log("notify");
+    this.notifyNextStep2=true;
+    
+  }
+  next(step){
+    console.log("siguiente paso");
+    console.log(step);
+    console.log(this.actualStep);
+    this.actualStep=step;
+    if (this.actualStep == step){
+      switch (step) {
+        case "step1": {
+          this.actualStep = "step2";
+          break;
+        }
+        case "step2": {
+          this.actualStep = "step3";
+          break;
+        }
+        case "step3": {
+          this.actualStep = "step4";
+          break;
+        }
+      
+        }
+        step=this.actualStep;
+    }
+    switch (step) {
+      case "step2": {
+
+        this.showActionStep1=false;
+        this.showActionStep2=true;
+        this.showActionStep3=false;
+        this.showActionStep4 = false;
+        break;
+      }
+      case "step3": {
+        this.saveProperties();
+        this.showActionStep1 = false;
+        this.showActionStep2 = false;
+        this.showActionStep3 = true;
+
+        this.showActionStep4 = false;
+        break;
+      }
+      case "step4": {
+        this.notifyNextStep3=true;
+        this.showActionStep1 = false;
+        this.showActionStep2 = false;
+        this.showActionStep3 = false;
+        this.showActionStep4 = true;
+        break;
+      }
+  }
+}
+  back(step){
+    console.log("anterior paso");
+    console.log(step);
+    console.log(this.actualStep);
+    this.actualStep = step;
+    if (this.actualStep == step) {
+      switch (step) {
+        case "step2": {
+          this.actualStep = "step1";
+          break;
+        }
+        case "step3": {
+          this.actualStep = "step2";
+          break;
+        }
+        case "step4": {
+          this.actualStep = "step3";
+          break;
+        }
+
+      }
+      step = this.actualStep;
+    }
+    console.log(step);
+    switch (step) {
+      case "step1": {
+        this.showActionStep1 = true;
+        this.showActionStep2 = false;
+        this.showActionStep3 = false;
+        this.showActionStep4 = false;
+        break;
+      }
+      case "step2": {
+        this.notifyNextStep2 = false;
+        this.showActionStep1 = false;
+        this.showActionStep2 = true;
+        this.showActionStep3 = false;
+        this.showActionStep4 = false;
+        break;
+      }
+      case "step3": {
+        this.notifyNextStep3 = false;
+        this.showActionStep1 = false;
+        this.showActionStep2 = false;
+        this.showActionStep3 = true;
+        this.showActionStep4 = false;
+        break;
+      }
+      case "step4": {
+        this.showActionStep1 = false;
+        this.showActionStep2 = false;
+        this.showActionStep3 = false;
+        this.showActionStep4 = true;
+        break;
+      }
+    }
   }
 
 

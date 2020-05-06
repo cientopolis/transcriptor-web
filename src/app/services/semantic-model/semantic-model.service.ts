@@ -62,7 +62,8 @@ export class SemanticModelService {
     var doc = {};
     for (var p in properties) {
      if (properties[p].scheme) {
-        docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].scheme.properties,context));
+      //docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].scheme.properties, context));
+      docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].scheme,context));
        contextMap.set(properties[p].name, "http://schema.org/" + properties[p].type);
       }else{
           docMap.set("http://schema.org/" + properties[p].name, properties[p].model)

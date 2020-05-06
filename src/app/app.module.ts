@@ -104,7 +104,13 @@ import { SchemePipe } from './pipes/scheme.pipe';
 import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
 import { SchemeInputsComponent } from './components/transcribe/semantic-form/scheme-inputs/scheme-inputs.component';
 import { MzDatepickerModule } from 'ngx-materialize'
-import { MzTimepickerModule } from 'ngx-materialize'
+import { MzTimepickerModule } from 'ngx-materialize';
+import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
+import { HeaderComponentComponent } from './components/transcribe/semantic-form/header-component/header-component.component';
+import { SelectSchemaComponent } from './components/transcribe/semantic-form/steps/select-schema/select-schema.component';
+import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
+import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
+import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,7 +149,13 @@ import { MzTimepickerModule } from 'ngx-materialize'
     ListSemanticMarksComponent,
     SchemePipe,
     SchemeBuilderComponent,
-    SchemeInputsComponent
+    SchemeInputsComponent,
+    SemanticTranscriptionDetailsComponent,
+    HeaderComponentComponent,
+    SelectSchemaComponent,
+    SelectPropertiesComponent,
+    SelectRelationshipsComponent,
+    SelectBasicPropertiesComponent
   ],
   imports: [
     BrowserModule,
