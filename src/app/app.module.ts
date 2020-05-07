@@ -99,6 +99,7 @@ import { CreateCollectionModalComponent } from './components/shared/create-colle
 import { LayerService } from './services/layer/layer.service';
 import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
+import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
 import { SchemePipe } from './pipes/scheme.pipe';
 import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
@@ -110,7 +111,9 @@ import { HeaderComponentComponent } from './components/transcribe/semantic-form/
 import { SelectSchemaComponent } from './components/transcribe/semantic-form/steps/select-schema/select-schema.component';
 import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
 import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
-import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component'
+import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -155,7 +158,8 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     SelectSchemaComponent,
     SelectPropertiesComponent,
     SelectRelationshipsComponent,
-    SelectBasicPropertiesComponent
+    SelectBasicPropertiesComponent,
+    ImageSettingsComponent
   ],
   imports: [
     BrowserModule,

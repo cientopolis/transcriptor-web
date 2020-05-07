@@ -8,7 +8,9 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "surge:deploy": "ng build --prod && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist",
+    "surge:upload": "cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist"
   },
   "private": true,
   "dependencies": {
@@ -77,6 +79,7 @@
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
+    "surge": "^0.21.3",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.9.2"

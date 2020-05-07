@@ -5,6 +5,11 @@ leafletDraw
 [leafletOptions]="options"
 [leafletDrawOptions]="drawOptions"
 (leafletMapReady)="onMapReady($event)">
+  <app-image-settings 
+    [isActive]="showImageAdjusts"
+    [delegate]="this"
+    [imageSelector]="'.leaflet-image-layer'">
+  </app-image-settings>
 </div>
 
 <mz-dropdown [id]="'dropdown-layers'" [align]="'left'" [belowOrigin]="false" [constrainWidth]="true"

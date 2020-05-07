@@ -260,6 +260,15 @@
       "label":{
         "name":"Nombre"
       }
+    },
+    "imageAdjusts": {
+      "button": {
+        "invert":"Invertir",
+        "saturation":"Saturación",
+        "brightness":"Brillo",
+        "contrast":"Contraste",
+        "reset":"Restablecer"
+      }
     }
   },
   "forum":{
