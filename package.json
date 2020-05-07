@@ -44,6 +44,8 @@
     "leaflet-draw": "^1.0.4",
     "lodash": "^4.17.15",
     "materialize-css": "^0.100.2",
+    "materialize-stepper": "^3.1.0",
+    "ng2-search-filter": "^0.5.1",
     "ng2-simple-global": "^1.2.5",
     "ngx-bootstrap": "^3.3.0",
     "ngx-editor": "^4.1.0",

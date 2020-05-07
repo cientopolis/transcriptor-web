@@ -1,0 +1,28 @@
+.header-box {
+   width:100%;
+}
+.header-box h5{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color:#e65100;
+    font-size: 1.10rem;
+   }
+.header-box  p{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 11px;
+   }
+
+.small-icon {
+    font-size: 12px;
+}
+
+
+
+:host ::ng-deep  [type="checkbox"].filled-in:checked + label:after{
+     border: 2px solid #e65100;
+     background-color: #e65100;
+}
+:host ::ng-deep .collapsible-body{
+    padding:5px;
+}

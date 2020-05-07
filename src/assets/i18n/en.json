@@ -288,6 +288,14 @@
       "label":"Transcriptcion"
     }
   },
+  "semanticForm":{
+    "label":{
+      "scheme":"Scheme"
+    },
+    "placeholder": {
+      "scheme": "- Select an scheme -"
+    }
+  },
   "metagame":{
     "rank":{
       "sync":"Update rank"

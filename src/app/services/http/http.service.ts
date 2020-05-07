@@ -41,6 +41,14 @@ export class HttpService {
     private flashMessagesService: FlashMessagesService,
     private alertMessagesService: AlertMessagesService) { }
 
+
+  bget(path, requestOptions = this.getDefaultOptions()) {
+    
+    console.log();
+    return this.doRequest(HttpService.methods.get, path,null, requestOptions,true);
+  }
+
+
   // loading methods(shortcut without feedback) are represented with initial l
   lget(path, requestOptions = this.getDefaultOptions()) {
     requestOptions.feedback = HttpService.noFeedbackOptions;
@@ -78,11 +86,18 @@ export class HttpService {
     return this.doRequest(HttpService.methods.delete, path, null, requestOptions);
   }
 
-  private doRequest(requestMethod, path, data = {}, requestOptions) {
+  private doRequest(requestMethod, path, data = {}, requestOptions,basicRequest = false) {
     requestOptions = Object.assign({},this.getDefaultOptions(),requestOptions);
     let httpOptions = this.getHttpOptions(requestOptions);
-    let uri = this.processUri(path);
-
+    let uri = path;
+    if(!basicRequest){
+      uri = this.processUri(path);
+    }else{
+   
+      requestOptions['headers']['Access-Control-Allow-Origin'] = "*";
+    }
+    console.log(requestOptions);
+    console.log(uri);
     let observable = null;
     switch (requestMethod) {
       case HttpService.methods.get:

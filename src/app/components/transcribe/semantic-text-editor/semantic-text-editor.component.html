@@ -1,24 +1,37 @@
-<div class="text-editor-panel z-depth-1">
-  <mz-card class="text-editor m-t-0 m-b-0 z-depth-0">
-    <mz-card-title>
-      <h5>
-        {{'transcribe.title' | translate}}
-        <button class="btn btn-small right" mz-button (click)="save()">
-          <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}
-        </button>
-        <a *ngIf="page != null" (click)="cancel()">
-          <button class="btn btn-small right" [flat]="true" mz-button>
-            {{'app.button.cancel' | translate}}
-          </button>
-        </a>
-      </h5>
+<div class="text-editor-panel z-depth-1" >
+  <mz-card class="text-editor m-t-0 m-b-0 z-depth-0" style="max-height: 100%;
+  overflow: auto;">
+    <mz-card-title >
+      <div class="row" style="margin-bottom: 2px;">
+        <div class="col s11">
+          <app-header-component [stepNumber]=headerService.stepNumber></app-header-component>
+        </div>
+        <div class="col s1">
+          <a *ngIf="page && renderedMark && renderedMark.mark" (click)="cancel()">
+            <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
+              &times;
+            </button>
+          </a>
+        </div>
+      </div>
     </mz-card-title>
-    <mz-card-content *ngIf="page">
+    <mz-card-content class="p-l-0 p-r-0">
+      <div class="row" *ngIf="!renderedMark && renderedMarks.length==0">
+        <div class="center-align">
+          <h5 class="primary-color-text" >{{'semanticForm.emptyMarker' | translate}}</h5>
+        </div>
+      </div>
+      <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
+      
+      <app-list-semantic-marks *ngIf="page && (renderedMark==null || renderedMark.mark==null)"
+        [renderedMarks]="renderedMarks"></app-list-semantic-marks>
+      <!--
       <label class="primary-color-text" for="basic-text-editor">{{'transcribe.textEditor.label' | translate}}</label>
       <textarea id="basic-text-editor" class="form-control"
         *ngIf="renderedMark && renderedMark.mark"
         placeholder="{{'transcribe.textEditor.placeholder' | translate}}" [(ngModel)]="renderedMark.mark.semantic_text">
       </textarea>
+      -->
     </mz-card-content>
   </mz-card>
 </div>
