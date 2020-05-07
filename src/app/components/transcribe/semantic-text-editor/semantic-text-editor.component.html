@@ -4,7 +4,7 @@
     <mz-card-title >
       <div class="row" style="margin-bottom: 2px;">
         <div class="col s11">
-          <app-header-component [stepNumber]=headerService.stepNumber></app-header-component>
+          <app-header-component></app-header-component>
         </div>
         <div class="col s1">
           <a *ngIf="page && renderedMark && renderedMark.mark" (click)="cancel()">

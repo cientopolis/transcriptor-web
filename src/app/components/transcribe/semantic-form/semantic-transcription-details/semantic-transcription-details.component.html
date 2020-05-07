@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
-    <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback">
+    <mz-collapsible [mode]="'expandable'">
       <mz-collapsible-item [active]="true" style="margin-top: 0px;margin-bottom: 0px;">
         <mz-collapsible-item-header  style="margin-top: 0px;margin-bottom: 0px;">
           <div class="primary-color-text">
@@ -45,8 +45,8 @@
 
 
 
-    <mz-collapsible *ngIf="relationship.length>0" [mode]="'expandable'" [onClose]="closeFunctionCallback"
-      [onOpen]="openFunctionCallback" style="margin-top: 0px;margin-bottom: 0px;">
+    <mz-collapsible *ngIf="relationship.length>0" [mode]="'expandable'"
+       style="margin-top: 0px;margin-bottom: 0px;">
       <mz-collapsible-item [active]="true">
         <mz-collapsible-item-header>
           <div class="primary-color-text">

@@ -14,6 +14,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   @Output() public relationshipGenerated = new EventEmitter<any>();
   @Input() notifyNextStep = false;
   level = 0;
+  searchText:String;
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
   constructor() { }
 

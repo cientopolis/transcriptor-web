@@ -1,6 +1,6 @@
 import { SemanticModelService } from './../../../../../services/semantic-model/semantic-model.service';
 
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges, ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } 
 })
 export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
 
-  @ViewChild('modalAddPropertie') modalAddPropertie;
+  @ViewChild('modalAddPropertieBasic') modalAddPropertieBasic;
   @Input() properties: Array<any>;
   @Input() schemeName: String;
   @Input() propertieName: String;
@@ -21,10 +21,11 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   propertieNameTitle: String;
   sublevel = false;
   searchText: any;
+  searchTextFilter:any;
   public relationships = new Array<any>();
 
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
-  constructor(private semanticService: SemanticModelService) { }
+  constructor(private changeDetector: ChangeDetectorRef,private semanticService: SemanticModelService) { }
 
 
   ngOnChanges(changes) {
@@ -99,7 +100,12 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
  
   public openModalSelectPropertie(){
-    this.modalAddPropertie.openModal();
+    this.modalAddPropertieBasic.openModal();
+  }
+  refresh(){
+    console.log(this.searchText);
+    this.searchTextFilter=this.searchText;
+    this.changeDetector.detectChanges();
   }
 
   getSchema(name) {

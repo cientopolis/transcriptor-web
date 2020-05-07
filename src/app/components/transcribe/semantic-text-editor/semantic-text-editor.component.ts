@@ -24,7 +24,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
   semanticContribution = null;
 
-  constructor(private transcribeService: TranscribeService, private markService: MarkService, private headerService: HeaderService) { }
+  constructor(private transcribeService: TranscribeService, private markService: MarkService, headerService: HeaderService) { }
 
   ngOnChanges(changes) {
     console.log("OnChanges");
