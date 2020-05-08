@@ -6,6 +6,7 @@ export class Mark {
   transcription_text:string;
   translation_text:string;
   semantic_text: string;
+  schema_type:string;
   shape_type:string;
   text_type:string;
   coordinates:LatLng[];

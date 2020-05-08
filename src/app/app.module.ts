@@ -1,3 +1,5 @@
+import { ListSemanticMarksComponent } from './components/transcribe/semantic-form/list/list.component';
+import { SemanticModelService } from './services/semantic-model/semantic-model.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule }    from '@angular/common/http';
@@ -5,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppComponent } from './app.component';
 
 // AoT requires an exported function for factories
@@ -64,6 +66,7 @@ import { StartProjectComponent } from './components/start-project/start-project.
 import { CollectionService } from './services/collection/collection.service';
 import { UploadService } from './services/upload/upload.service';
 
+
 import { ShowWorkComponent } from './components/work/show-work/show-work.component';
 import { WorkService } from './services/work/work.service';
 import { UserService } from './services/user/user.service';
@@ -101,6 +104,18 @@ import { LayerModalComponent } from './components/transcribe/layer/layer-modal/l
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
+import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
+import { SchemePipe } from './pipes/scheme.pipe';
+import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
+import { SchemeInputsComponent } from './components/transcribe/semantic-form/scheme-inputs/scheme-inputs.component';
+import { MzDatepickerModule } from 'ngx-materialize'
+import { MzTimepickerModule } from 'ngx-materialize';
+import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
+import { HeaderComponentComponent } from './components/transcribe/semantic-form/header-component/header-component.component';
+import { SelectSchemaComponent } from './components/transcribe/semantic-form/steps/select-schema/select-schema.component';
+import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
+import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
+import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
 
 @NgModule({
   declarations: [
@@ -136,8 +151,19 @@ import { PlayerProfileComponent } from './components/dashboard/player-profile/pl
     CreateCollectionModalComponent,
     LayerModalComponent,
     SemanticTextEditorComponent,
-    ImageSettingsComponent,
     PlayerProfileComponent
+    SemanticFormComponent,
+    ListSemanticMarksComponent,
+    SchemePipe,
+    SchemeBuilderComponent,
+    SchemeInputsComponent,
+    SemanticTranscriptionDetailsComponent,
+    HeaderComponentComponent,
+    SelectSchemaComponent,
+    SelectPropertiesComponent,
+    SelectRelationshipsComponent,
+    SelectBasicPropertiesComponent,
+    ImageSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -171,6 +197,9 @@ import { PlayerProfileComponent } from './components/dashboard/player-profile/pl
     NgCircleProgressModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    Ng2SearchPipeModule,
+    MzDatepickerModule,
+    MzTimepickerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -201,7 +230,8 @@ import { PlayerProfileComponent } from './components/dashboard/player-profile/pl
     PublicationService,
     ForumService,
     PageVersionService,
-    LayerService
+    LayerService,
+    SemanticModelService
   ],
   bootstrap: [AppComponent]
 })

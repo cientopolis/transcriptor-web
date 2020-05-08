@@ -1,11 +1,10 @@
 @import '~styles/styles';
 
-.text-editor-panel {
-  height: 100%;
-}
+
 
 :host ::ng-deep .text-editor .card-content {
   height: 85vh;
+
 }
 
 // bootstrap style theme
@@ -65,4 +64,29 @@ textarea.form-control {
 :host ::ng-deep .card-content {
   padding-top: 10px;
   height: 100%;
+
 }
+
+h4{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.header-paragraph{
+  font-size: .60em;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+.header-subparagraph{
+  font-size: .78em;
+  font-weight: 320;
+}
+:host ::ng-deep .text-editor-panel {
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+:host ::ng-deep .card-content {
+    padding-right: 5px;
+    padding-left: 5px;}
