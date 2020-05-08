@@ -151,7 +151,7 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     CreateCollectionModalComponent,
     LayerModalComponent,
     SemanticTextEditorComponent,
-    PlayerProfileComponent
+    PlayerProfileComponent,
     SemanticFormComponent,
     ListSemanticMarksComponent,
     SchemePipe,
