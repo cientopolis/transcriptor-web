@@ -27,15 +27,15 @@ export class BadgesComponent implements OnInit {
   loadRankUser() {
     if(this.user){
       this.setUser(this.user);
-      this.userService.userInfoMetagame(this.user)
+      this.userService.userInfoMetagame()
           .subscribe(response => this.handleResponseMG(this.user,response));
     }
 
   }
 
   private handleResponseMG(user,response) {
-    if(response){
-      user.rank=response;
+    if(response && response.player){
+      user.rank=response.player.rank;
       this.setUser(user);
     }
 

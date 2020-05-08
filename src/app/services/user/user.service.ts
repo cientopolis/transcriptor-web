@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../../services/http/http.service';
+import { Observable } from 'rxjs';
+import { PlayerInfo } from 'app/models/playerInfo';
 
 
 @Injectable()
@@ -14,13 +16,11 @@ export class UserService {
   }
 
   create(user, options = {}) {
-    console.log("create");
-    console.log(user);
     return this.httpService.post([this.createPath,{user_id:user.id}], {user:user}, options);
   }
 
-  userInfoMetagame(user, options = {}) {
-    return this.httpService.post([this.getMetagameInfoPath,{user_id:user.id}], {user:user}, options);
+  userInfoMetagame(options = {}): Observable<PlayerInfo> {
+    return this.httpService.lpost(this.getMetagameInfoPath, null, { mapper: PlayerInfo.mapToClass }) as Observable<PlayerInfo>;
   }
 
 }

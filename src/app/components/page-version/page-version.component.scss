@@ -4,3 +4,7 @@
   color: $primaryColor;
   font-weight: bold;
 }
+
+:host ::ng-deep .d2h-code-line-ctn {
+  white-space: break-spaces;
+}

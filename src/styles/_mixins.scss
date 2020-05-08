@@ -24,6 +24,12 @@ $sides: (top, bottom, left, right); // Leave this variable alone
       padding-#{$side}: #{$space}px !important;
     }
   }
+  .w-#{$space} {
+    width: #{$space}% !important;
+  }
+  .h-#{$space} {
+    width: #{$space}% !important;
+  }
 }
 
 $transitionTimingFunction: cubic-bezier(0.4, 0.0, 0.2, 1);

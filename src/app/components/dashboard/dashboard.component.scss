@@ -35,3 +35,53 @@ a.btn {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+:host ::ng-deep .card.card-collection {
+  cursor: pointer;
+  border-radius: 8px;
+}
+:host ::ng-deep .card.card-collection .card-content {
+  height: 0;
+  padding-bottom: 30%;
+}
+:host ::ng-deep .card.card-collection .card-action {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+:host ::ng-deep .card.card-collection.add-collection-card .card-content .add-label {
+  position: absolute;
+  top: 41%;
+  width: 100%;
+  left: 0;
+}
+:host ::ng-deep .card.card-collection.add-collection-card .card-content {
+  position: relative;
+}
+:host ::ng-deep .card.card-collection.add-collection-card .card-action {
+  position: relative;
+  opacity: 0;
+}
+:host ::ng-deep .card.card-collection.add-collection-card:hover {
+  color: $primaryColor;
+}
+
+.carousel.carousel-slider.welcome-carousel {
+  height: 250px !important;
+}
+.carousel.carousel-slider .carousel-item {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.carousel.carousel-slider .carousel-item.carousel-item-1::before {
+  height: 125px;
+  width: 100%;
+  content: "";
+  display: block;
+  z-index: -1;
+  position: absolute;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0.47692580450148814) 0%, rgba(255,255,255,0) 100%);
+}

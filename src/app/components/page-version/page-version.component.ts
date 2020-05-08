@@ -68,7 +68,8 @@ export class PageVersionComponent implements OnInit {
   }
   
   diffVersion() {
-    this.diffString = jsDiff.createPatch(this.page.title, this.page.source_text, this.processHTML(this.pageVersion.transcription));
+    this.diffString = jsDiff.createPatch(this.page.title, this.processHTML(this.pageVersion.transcription), this.page.source_text);
+
     let outputHtml = Diff2Html.getPrettyHtml(this.diffString, {inputFormat: 'diff', showFiles: false, matching: 'words', outputFormat: 'side-by-side'});
     this.outputHtml = outputHtml;
   }

@@ -24,3 +24,10 @@
   bottom: unset;
   margin-top: 130px;
 }
+
+mz-parallax.dark .parallax-container .parallax {
+  position: initial;
+}
+mz-parallax.dark .parallax-container .parallax>img {
+  filter: brightness(0.75);
+}

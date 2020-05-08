@@ -1,0 +1,47 @@
+<div class="card card-range m-t-0">
+  <div class="card-content center-align white-text" *ngIf="!showInfo && playerInfo" [@inOutAnimation]>
+    <h6 class="m-t-0">Rango de Usuario</h6>
+    <div class="circle-progress-container">
+      <circle-progress 
+        [percent]="rangeProgress" 
+        [radius]="60" 
+        [space]="-5" 
+        [outerStrokeWidth]="5" 
+        [innerStrokeWidth]="0"
+        [outerStrokeColor]="'#F9F9F9'" 
+        [innerStrokeColor]="'#C9c9c9'" 
+        [responsive]="true" 
+        [animation]="true"
+        [animationDuration]="300" 
+        [showImage]="true" 
+        [imageSrc]="rankStatus.imageSrc"
+        [imageHeight]="105" 
+        [imageWidth]="105">
+      </circle-progress>
+    </div>
+    <h6 class="m-b-0">{{global['currentUser'].rank}}</h6>
+    <!-- <small class="m-t-0">25% para próximo Rango</small> -->
+    <small class="m-t-0">{{rankStatus.progressDescription}}</small>
+  </div>
+
+  <div class="card-content white-text" *ngIf="showInfo" [@inOutAnimation]>
+    <h6 class="m-t-0 center-align">Rango de Usuario</h6>
+    <h6 class="m-b-0 center-align">{{global['currentUser'].rank}}</h6>
+    <ul class="collection m-t-15">
+      <li class="collection-item" [ngClass]="{'obtained': challengeStatus.obtained}" *ngFor="let challengeStatus of challengeStatuses">{{ challengeStatus.challenge.name }}</li>
+    </ul>
+  </div>
+
+  <!-- <div class="show-details white-text valign-wrapper" (click)="toggleInfo()">
+    <p class="center-align w-100"><i mz-icon-mdi [icon]="'information'" [align]="'center'" [size]="'36px'"></i><br>+info</p>
+  </div> -->
+
+  <div class="toggle-details white-text right-align">
+    <i mz-icon-mdi [icon]="'information'" [align]="'center'" [size]="'24px'" (click)="toggleInfo()"></i>
+  </div>
+
+  <div class="details-loader white-text valign-wrapper" *ngIf="!playerInfo">
+    <p class="center-align w-100"><mz-spinner [color]="'yellow'" [size]="'small'"></mz-spinner></p>
+  </div>
+
+</div>

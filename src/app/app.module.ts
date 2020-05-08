@@ -34,6 +34,7 @@ import { MzSpinnerModule } from 'ngx-materialize';
 import { MzTooltipModule } from 'ngx-materialize';
 import { MzCollapsibleModule } from 'ngx-materialize';
 import { MzCheckboxModule } from 'ngx-materialize';
+import { MzSwitchModule } from 'ngx-materialize';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
@@ -46,6 +47,8 @@ import { LeafletDrawModule } from '@asymmetrik/ngx-leaflet-draw';
 import { NgxEditorModule } from 'ngx-editor';
 
 import { NgxIziToastModule } from 'ngx-izitoast';
+
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './modules/router/app-routing.module';
@@ -100,6 +103,7 @@ import { LayerService } from './services/layer/layer.service';
 import { LayerModalComponent } from './components/transcribe/layer/layer-modal/layer-modal.component';
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
+import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
 import { SchemePipe } from './pipes/scheme.pipe';
 import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
@@ -112,7 +116,6 @@ import { SelectSchemaComponent } from './components/transcribe/semantic-form/ste
 import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
 import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
 import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
-
 
 @NgModule({
   declarations: [
@@ -148,6 +151,7 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     CreateCollectionModalComponent,
     LayerModalComponent,
     SemanticTextEditorComponent,
+    PlayerProfileComponent
     SemanticFormComponent,
     ListSemanticMarksComponent,
     SchemePipe,
@@ -182,6 +186,7 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     MzSpinnerModule,
     MzTooltipModule,
     MzCollapsibleModule,
+    MzSwitchModule,
     NgProgressModule,
     NgProgressHttpModule,
     NgProgressRouterModule,
@@ -189,6 +194,7 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     LeafletDrawModule.forRoot(),
     NgxEditorModule,
     NgxIziToastModule,
+    NgCircleProgressModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     Ng2SearchPipeModule,

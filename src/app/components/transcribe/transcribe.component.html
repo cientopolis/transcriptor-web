@@ -97,7 +97,8 @@ leafletDraw
   #markTranscriptionsList
   *ngIf="renderedMark != null"
   [mark]="renderedMark.mark"
-  (close)="markDetailsModal.refresh()">
+  (close)="markDetailsModal.refresh()"
+  (addButton)="markDetailsModal.modal.closeModal(); openTranscriptionsForm()">
 </app-mark-transcriptions-list>
 
 <app-layer-modal 
@@ -111,5 +112,6 @@ leafletDraw
   #transcriptionForm
   *ngIf="renderedMark != null"
   [mark]="renderedMark.mark"
-  [modalOptions]="modalOptions">
+  [modalOptions]="modalOptions"
+  (close)="cancelModal()">
 </app-transcription-form>

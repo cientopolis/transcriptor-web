@@ -15,8 +15,11 @@
           <a id="btn-dropdown-demo">
             <img class="user-photo" [src]="getAvatarUrl(global['currentUser'].display_name)">
             <div class="user-info">
-              <b>{{global['currentUser'].display_name}}</b>
-              <span class="user-rank" *ngIf="global['currentUser'].rank">{{global['currentUser'].rank}}</span>
+              <p class="m-t-0 m-b-0">
+                <b>{{global['currentUser'].display_name}}</b>
+                <br>
+                <small *ngIf="global['currentUser'].rank">{{global['currentUser'].rank}}</small>
+              </p>
             </div>
           </a>
         </mz-navbar-item>
@@ -29,13 +32,20 @@
   [id]="'dropdown-user'"
   [align]="'right'"
   [belowOrigin]="true"
-  [constrainWidth]="false"
+  [constrainWidth]="true"
   [dropdownButtonId]="'btn-dropdown-demo'"
   [hover]="false"
   [gutter]="false"
   [inDuration]="300"
   [outDuration]="300"
   [stopPropagation]="true">
+  <mz-dropdown-item class="theme-selector" (click)="$event.stopPropagation()">
+    <p class="m-t-0 m-b-0 p-t-5 p-l-15 p-r-15"><label class="primary-color-text">Tema</label></p>
+    <mz-switch-container class="center-align p-t-0 p-b-0">
+      <input mz-switch type="checkbox" [(ngModel)]="darkModeEnabled" (click)="toggleDarkMode()" [off]="'Claro'" [on]="'Oscuro'">
+      <!-- <span class="primary-color-text">Modo Oscuro</span> -->
+    </mz-switch-container>
+  </mz-dropdown-item>
     <mz-dropdown-item><a routerLink="user/profile">{{'myProfile.title' | translate}}</a></mz-dropdown-item>
     <mz-dropdown-divider></mz-dropdown-divider>
     <mz-dropdown-item><a (click)="logout()">{{'signOut.title' | translate}}</a></mz-dropdown-item>
@@ -78,7 +88,7 @@
 	</div>
 	<div class="footer-copyright">
 		<div class="container">
-			© 2018 Cientopolis
+			© 2020 Cientopolis
       <a class="grey-text text-lighten-4 right" href="#!">{{'footer.moreLinks' | translate}}</a>
 		</div>
 	</div>

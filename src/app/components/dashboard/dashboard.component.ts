@@ -16,13 +16,12 @@ export class DashboardComponent implements OnInit {
   collectionsDeeds: DashboardResponse;
   collectionsOwner:DashboardResponse;
   @ViewChild('collectionCreationModal') collectionCreationModal: any;
-  @ViewChild('uploadComponent') uploadComponent: any;  
-  
+  @ViewChild('uploadComponent') uploadComponent: any;
+  @ViewChild('uploadModal') uploadModal: any;
   
   constructor(private dashboardService: DashboardService,public global: SimpleGlobal, private translate:TranslateService) { }
 
   ngOnInit() {
-
     let storedUser=localStorage.getItem('currentUser');
     if(storedUser==null){
       this.recentActivity();
@@ -33,6 +32,12 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    $('.carousel.carousel-slider').carousel({ fullWidth: true, duration: 200 });
+    setInterval(function() {
+      // $('.carousel').carousel('next');
+    }, 5000)
+  }
 
     recentActivity() {
       this.dashboardService.listRecentActivity()
@@ -71,6 +76,7 @@ export class DashboardComponent implements OnInit {
     }
     
     openNewCollectionModal(){
+      this.uploadModal.closeModal()
       this.collectionCreationModal.open();
     }
     

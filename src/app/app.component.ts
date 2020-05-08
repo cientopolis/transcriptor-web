@@ -6,21 +6,22 @@ import {TranslateService} from '@ngx-translate/core';
 import { LoginService } from './services/login/login.service';
 import { routeAnimation } from './utils/animations';
 
+import { enable as enableDarkMode, disable as disableDarkMode } from 'darkreader'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   animations: [ routeAnimation ]
 })
 export class AppComponent implements OnInit{
   title = 'Transcriptor';
+  darkModeEnabled = false;
 
   constructor(private loginService: LoginService, public global: SimpleGlobal, private router: Router, public translate: TranslateService) {
-    translate.addLangs(['en', 'es']);
     translate.setDefaultLang('en');
-
     const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|es/) ? browserLang : 'en');
+    translate.use(browserLang);
   }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit{
     if(storedUser != null){
       this.setUser(JSON.parse(storedUser));
     }
+    this.loadDarkMode();
   }
 
   logout() : void {
@@ -52,5 +54,29 @@ export class AppComponent implements OnInit{
 
   useLanguage(lang){
     this.translate.use(lang)
+  }
+
+  loadDarkMode() {
+    this.darkModeEnabled = localStorage.getItem('darkModeEnabled') == 'true'; 
+    this.setDarkMode()
+  }
+
+  toggleDarkMode() {
+    this.darkModeEnabled = !this.darkModeEnabled;
+    this.setDarkMode()
+  }
+
+  setDarkMode() {
+    this.global['darkModeEnabled'] = this.darkModeEnabled;
+    localStorage.setItem('darkModeEnabled', this.darkModeEnabled + "");
+    if (this.darkModeEnabled) {
+      enableDarkMode({
+        brightness: 100,
+        contrast: 90,
+        sepia: 10
+      })
+    } else {
+      disableDarkMode();
+    }
   }
 }

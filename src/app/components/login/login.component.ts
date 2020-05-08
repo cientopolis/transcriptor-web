@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { LoginCredentials } from '../../models/loginCredentials';
 import { LoginService } from '../../services/login/login.service';
 import { UserService } from '../../services/user/user.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  login(formValue: NgForm) {
+    console.log(formValue)
     this.loginService.login(this.loginCredentials)
         .subscribe(response => this.handleResponse(response));
   }
@@ -32,18 +34,14 @@ export class LoginComponent implements OnInit {
     if(user){
       this.setUser(user);
       console.log(user);
-      this.userService.userInfoMetagame(user)
+      this.userService.userInfoMetagame()
           .subscribe(response => this.handleResponseMG(user,response));
-
-
     }
   }
 
   private handleResponseMG(user,response) {
-    console.log("hmH");
-    if(response){
-      console.log(response);
-      user.rank=response;
+    if(response && response.player){
+      user.rank=response.player.rank;
       this.setUser(user);
     }
       this.router.navigate(['/dashboard']);

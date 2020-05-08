@@ -15,7 +15,7 @@
             <p *ngIf="!pageVersions || pageVersions.length == 0">{{ 'page-versions.noVersionsMessage' | translate }}</p>
           </div>
           <div class="col m6">
-            <mz-select-container>
+            <mz-select-container (click)="$event.stopPropagation()">
               <select mz-select
                 [label]="'page-versions.comparedWith' | translate"
                 [placeholder]="'page-versions.comparedWith' | translate"

@@ -1,6 +1,37 @@
-<div class="row m-t-15" *ngIf="global['currentUser']">
+<div class="row" class="row m-t-25 m-b-0" *ngIf="global['currentUser']">
+  <div class="col s12 m7 l9">
+    <div class="row">
+      <div class="col s12">
+        <div class="carousel carousel-slider welcome-carousel center" data-indicators="true">
+          <!-- <div class="carousel-fixed-item center">
+                <a class="btn waves-effect white grey-text darken-text-2">button</a>
+              </div> -->
+          <div class="carousel-item carousel-item-1 white-text" style="background-image: url('assets/img/dashboard/carousel/library.jpg');">
+              <h2>¡Bienvenido a Transcriptor!</h2>
+              <p>Aqui encontrarás la información de las colecciones en las que participas.</p>
+          </div>
+          <!-- <div class="carousel-item amber white-text" href="#two!">
+            <h2>Second Panel</h2>
+            <p class="white-text">This is your second panel</p>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m5 l3" *ngIf="collectionsOwner">
+    <div class="row m-b-0">
+      <div class="col s12">
+        <app-player-profile></app-player-profile>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="col m9">
+
+<div class="row m-t-25" *ngIf="global['currentUser']">
+
+  <div class="col l9">
+    <!--
     <div class="row">
       <div class="col s12">
 
@@ -48,26 +79,56 @@
 
           </mz-card-content>
         </mz-card>
+      </div>
+    </div> -->
 
-
+    <div class="row" *ngIf="collectionsOwner">
+      <div class="col s12">
+        <h5 class="m-t-0">Mis Colecciones</h5>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card card-collection add-collection-card hoverable" (click)="uploadModal.openModal()">
+          <div class="card-content">
+            <div class="add-label">
+              <p class="center-align"><i mz-icon-mdi [icon]="'plus'" [align]="'center'" [size]="'36px'"></i></p>
+              <p class="center-align">Agregar Colección</p>
+            </div>
+          </div>
+          <div class="card-action right-align">
+            <span>&zwnj;</span>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l4" *ngFor="let collection of collectionsOwner.collections">
+        <div class="card card-collection hoverable" routerLink="/collection/{{collection.collection.id}}">
+          <div class="card-content">
+            <span class="card-title">{{collection.collection.title}}</span>
+            <!-- <p *ngIf="collection.works && collection.works.length >= 1">{{collection.works[0].description}}</p> -->
+          </div>
+          <div class="card-action">
+            <span>{{collection.works.length == 1 ? collection.works.length + ' proyecto' : collection.works.length + ' proyectos'}}</span>
+            <a class="m-r-0" href="#!" class="right m-r-0" routerLink="/collection/{{collection.collection.id}}">Ver más</a>
+          </div>
+        </div>
       </div>
     </div>
+    
   </div>
 
-  <div class="col m3" *ngIf="collectionsOwner">
+  <div class="col s12 l3" *ngIf="collectionsOwner">
     <div class='row' *ngIf="global['currentUser']">
-      <div class="col m12">
-        <ul class="collection with-header no-border z-depth-1">
+      <div class="col s12">
+        <ul class="collection with-header no-border z-depth-1 m-t-0">
           <li class="collection-header"><i mz-icon-mdi [icon]="'counter'"></i><span>Estado del Sitio</span></li>
           <li class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>{{'dashboard.counter.collections' | translate}}</li>
           <li class="collection-item"><span class="badge">{{collectionsOwner.works}}</span>{{'dashboard.counter.works' | translate}}</li>
-          <li class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>{{'dashboard.counter.notes' | translate}}</li>
+          <!-- <li class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>{{'dashboard.counter.notes' | translate}}</li> -->
         </ul>
       </div>
     </div>
 
     <div class='row'>
-      <div class="col m12">
+      <div class="col s12">
         <ul class="collection with-header no-border z-depth-1">
           <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.yourActivity.title' | translate}}</span></li>
           <li
@@ -137,5 +198,15 @@
 
 <app-create-collection-modal
   #collectionCreationModal
+  (close)="uploadModal.openModal()"
   (successCreate)="onCreateCollection()">
 </app-create-collection-modal>
+
+<mz-modal #uploadModal>
+  <mz-modal-content>
+    <app-upload 
+      #uploadComponent
+      (newCollectionSelected)="openNewCollectionModal()">
+    </app-upload>
+  </mz-modal-content>
+</mz-modal>

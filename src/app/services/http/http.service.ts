@@ -18,7 +18,32 @@ export class HttpService {
 
   baseUrl = environment.apiUrl;
 
-  private static methods = { get:'GET', post:'POST', put:'PUT', delete:'DELETE'};
+  private static methods = { 
+    get: {
+      name: 'GET', 
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.get(uri, httpOptions);
+      }
+    },
+    post: {
+      name: 'POST', 
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.post(uri, data, httpOptions);
+      }
+    },
+    put: {
+      name: 'PUT', 
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.put(uri, data, httpOptions);
+      }
+    },
+    delete: {
+      name: 'DELETE',
+      execute: function(http: HttpClient, uri, data, httpOptions) {
+        return http.delete(uri, httpOptions);
+      }
+    }
+  };
 
   public static defaultOptions:any = {
     headers: { 'Content-Type': 'application/json' },
@@ -27,7 +52,8 @@ export class HttpService {
       flashNotifications: true,
       flashMessages: true,
       alertMessages: true
-    }
+    },
+    mapper: function(any:any){ return any }
   };
 
   public static noFeedbackOptions:any = {
@@ -88,6 +114,7 @@ export class HttpService {
 
   private doRequest(requestMethod, path, data = {}, requestOptions,basicRequest = false) {
     requestOptions = Object.assign({},this.getDefaultOptions(),requestOptions);
+    if (!requestOptions.mapper) { requestOptions.mapper = function (any: any) { return any } } 
     let httpOptions = this.getHttpOptions(requestOptions);
     let uri = path;
     if(!basicRequest){
@@ -99,20 +126,7 @@ export class HttpService {
     console.log(requestOptions);
     console.log(uri);
     let observable = null;
-    switch (requestMethod) {
-      case HttpService.methods.get:
-        observable = this.http.get(uri, httpOptions);
-        break;
-      case HttpService.methods.post:
-        observable = this.http.post(uri, data, httpOptions);
-        break;
-      case HttpService.methods.put:
-        observable = this.http.put(uri, data, httpOptions);
-        break;
-      case HttpService.methods.delete:
-        observable = this.http.delete(uri, httpOptions);
-        break;
-    }
+    observable = requestMethod.execute(this.http, uri, data, httpOptions);
     return this.handleResponse(observable, path, requestMethod, requestOptions);
   }
 
@@ -137,8 +151,8 @@ export class HttpService {
   private handleResponse(observable, path, requestMethod, requestOptions) {
     return observable.pipe(
       tap((response: WebserviceResponse) => this.generateMessages(response, requestOptions)),
-      catchError(this.handleError<any>(path + ' ' + requestMethod)),
-      map((response: WebserviceResponse) => response.data)
+      catchError(this.handleError<any>(path + ' ' + requestMethod.name)),
+      map((response: WebserviceResponse) => requestOptions.mapper(response.data))
     );
   }
 
