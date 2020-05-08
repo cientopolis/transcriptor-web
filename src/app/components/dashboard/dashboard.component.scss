@@ -37,6 +37,7 @@ a.btn {
 }
 
 :host ::ng-deep .card.card-collection {
+  cursor: pointer;
   border-radius: 8px;
 }
 :host ::ng-deep .card.card-collection .card-content {
@@ -68,9 +69,19 @@ a.btn {
 .carousel.carousel-slider.welcome-carousel {
   height: 250px !important;
 }
-
 .carousel.carousel-slider .carousel-item {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.carousel.carousel-slider .carousel-item.carousel-item-1::before {
+  height: 125px;
+  width: 100%;
+  content: "";
+  display: block;
+  z-index: -1;
+  position: absolute;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0.47692580450148814) 0%, rgba(255,255,255,0) 100%);
 }

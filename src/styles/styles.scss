@@ -52,6 +52,11 @@ nav .back-button i{
   z-index: 9999;
 }
 
+#dropdown-user .theme-selector .switch {
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
 #btn-dropdown-demo .user-photo{
   height: 40px;
   margin-top: 14px;
@@ -61,6 +66,8 @@ nav .back-button i{
 
 #btn-dropdown-demo .user-info{
   float: right;
+  line-height: 16px;
+  margin-top: 16px;
 }
 
 #btn-dropdown-demo .user-rank{

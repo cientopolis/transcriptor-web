@@ -34,18 +34,14 @@ export class LoginComponent implements OnInit {
     if(user){
       this.setUser(user);
       console.log(user);
-      this.userService.userInfoMetagame(user)
+      this.userService.userInfoMetagame()
           .subscribe(response => this.handleResponseMG(user,response));
-
-
     }
   }
 
   private handleResponseMG(user,response) {
-    console.log("hmH");
-    if(response){
-      console.log(response);
-      user.rank=response;
+    if(response && response.player){
+      user.rank=response.player.rank;
       this.setUser(user);
     }
       this.router.navigate(['/dashboard']);

@@ -21,18 +21,35 @@
   height: 75%;
 }
 
+.card.card-range .details-loader,
 .card.card-range .show-details {
+  width: 100%;
+  height: 100%;
+  flex: none;
+  position: absolute;
+  background-color: rgba($color: #000000, $alpha: 0.8);
+  opacity: 0;
+  cursor: pointer;
+  transition: all .2s $transitionTimingFunction;
+}
+.card.card-range .show-details:hover {
+  opacity: 1;
+}
+.card.card-range .details-loader {
+  opacity: 1;
+}
+
+.card.card-range .toggle-details {
     width: 100%;
     height: 100%;
     flex: none;
     position: absolute;
-    background-color: rgba($color: #000000, $alpha: 0.8);
-    opacity: 0;
-    cursor: pointer;
-    transition: all .2s $transitionTimingFunction;
-}
-.card.card-range .show-details:hover {
     opacity: 1;
+    transition: all .2s $transitionTimingFunction;
+    padding: 1px 8px;
+}
+.card.card-range .toggle-details i {
+    cursor: pointer;
 }
 
 .collection {

@@ -52,7 +52,8 @@ export class HttpService {
       flashNotifications: true,
       flashMessages: true,
       alertMessages: true
-    }
+    },
+    mapper: function(any:any){ return any }
   };
 
   public static noFeedbackOptions:any = {
@@ -105,6 +106,7 @@ export class HttpService {
 
   private doRequest(requestMethod, path, data = {}, requestOptions) {
     requestOptions = Object.assign({},this.getDefaultOptions(),requestOptions);
+    if (!requestOptions.mapper) { requestOptions.mapper = function (any: any) { return any } } 
     let httpOptions = this.getHttpOptions(requestOptions);
     let uri = this.processUri(path);
 
@@ -135,7 +137,7 @@ export class HttpService {
     return observable.pipe(
       tap((response: WebserviceResponse) => this.generateMessages(response, requestOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod.name)),
-      map((response: WebserviceResponse) => response.data)
+      map((response: WebserviceResponse) => requestOptions.mapper(response.data))
     );
   }
 

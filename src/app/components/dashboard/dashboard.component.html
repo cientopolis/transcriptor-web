@@ -6,9 +6,9 @@
           <!-- <div class="carousel-fixed-item center">
                 <a class="btn waves-effect white grey-text darken-text-2">button</a>
               </div> -->
-          <div class="carousel-item white-text" href="#one!" style="background-image: url('assets/img/dashboard/carousel/library.jpg');">
-            <h2>¡Bienvenido a Transcriptor!</h2>
-            <p class="white-text">Aqui encontrarás la información de las colecciones en las que participas.</p>
+          <div class="carousel-item carousel-item-1 white-text" style="background-image: url('assets/img/dashboard/carousel/library.jpg');">
+              <h2>¡Bienvenido a Transcriptor!</h2>
+              <p>Aqui encontrarás la información de las colecciones en las que participas.</p>
           </div>
           <!-- <div class="carousel-item amber white-text" href="#two!">
             <h2>Second Panel</h2>
@@ -100,7 +100,7 @@
         </div>
       </div>
       <div class="col s12 m6 l4" *ngFor="let collection of collectionsOwner.collections">
-        <div class="card card-collection hoverable">
+        <div class="card card-collection hoverable" routerLink="/collection/{{collection.collection.id}}">
           <div class="card-content">
             <span class="card-title">{{collection.collection.title}}</span>
             <!-- <p *ngIf="collection.works && collection.works.length >= 1">{{collection.works[0].description}}</p> -->
