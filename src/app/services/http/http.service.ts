@@ -12,6 +12,7 @@ import { WebserviceResponse } from '../../models/webserviceResponse';
 
 import { Observable ,  of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { MappingUtils } from 'app/utils/mapping-utils';
 
 @Injectable()
 export class HttpService {
@@ -52,8 +53,7 @@ export class HttpService {
       flashNotifications: true,
       flashMessages: true,
       alertMessages: true
-    },
-    mapper: function(any:any){ return any }
+    }
   };
 
   public static noFeedbackOptions:any = {
@@ -114,7 +114,7 @@ export class HttpService {
 
   private doRequest(requestMethod, path, data = {}, requestOptions,basicRequest = false) {
     requestOptions = Object.assign({},this.getDefaultOptions(),requestOptions);
-    if (!requestOptions.mapper) { requestOptions.mapper = function (any: any) { return any } } 
+    // if (!requestOptions.mapper) { requestOptions.mapper = function (any: any) { return any } } 
     let httpOptions = this.getHttpOptions(requestOptions);
     let uri = path;
     if(!basicRequest){
@@ -152,8 +152,27 @@ export class HttpService {
     return observable.pipe(
       tap((response: WebserviceResponse) => this.generateMessages(response, requestOptions)),
       catchError(this.handleError<any>(path + ' ' + requestMethod.name)),
-      map((response: WebserviceResponse) => requestOptions.mapper(response.data))
+      map((response: WebserviceResponse) => this.mapData(response.data, requestOptions.responseDataType, requestOptions.mapper))
     );
+  }
+
+  private mapData(data, responseDataType, mapper) {
+    if (mapper) {
+      // about to use mapping function defined on class
+      if (Array.isArray(data)) {
+        return data.map(rawObject => { return mapper(rawObject) })
+      }
+      return mapper(data)
+    }
+    if (responseDataType) {
+      // about to use default mapping with MappingUtils
+      if (Array.isArray(data)) {
+        return data.map(rawObject => { return MappingUtils.mapToClass(responseDataType, rawObject) })
+      }
+      return MappingUtils.mapToClass(responseDataType, data)
+    }
+    // returns raw data
+    return data;
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

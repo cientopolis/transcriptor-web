@@ -15,6 +15,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import localeEn from '@angular/common/locales/en';
+import localeEs from '@angular/common/locales/es';
+import localeFr from '@angular/common/locales/fr';
+import localePt from '@angular/common/locales/pt';
+import localeIt from '@angular/common/locales/it';
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeEs, 'es');
+registerLocaleData(localeFr, 'fr');
+registerLocaleData(localePt, 'pt');
+registerLocaleData(localeIt, 'it');
+
 import { MzNavbarModule } from 'ngx-materialize';
 import { MzParallaxModule } from 'ngx-materialize';
 import { MzCardModule } from 'ngx-materialize';
@@ -105,7 +118,6 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
-import { SchemePipe } from './pipes/scheme.pipe';
 import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
 import { SchemeInputsComponent } from './components/transcribe/semantic-form/scheme-inputs/scheme-inputs.component';
 import { MzDatepickerModule } from 'ngx-materialize'
@@ -116,6 +128,9 @@ import { SelectSchemaComponent } from './components/transcribe/semantic-form/ste
 import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
 import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
 import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
+
+import { SchemePipe } from './pipes/scheme.pipe';
+import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 
 @NgModule({
   declarations: [
@@ -163,7 +178,8 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     SelectPropertiesComponent,
     SelectRelationshipsComponent,
     SelectBasicPropertiesComponent,
-    ImageSettingsComponent
+    ImageSettingsComponent,
+    LocalizedDatePipe
   ],
   imports: [
     BrowserModule,
@@ -209,6 +225,11 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
     })
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'en' },
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: LOCALE_ID, useValue: 'fr' },
+    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: LOCALE_ID, useValue: 'it' },
     SimpleGlobal,
     LoginService,
     HttpService,

@@ -39,7 +39,8 @@
               "node_modules/materialize-css/dist/js/materialize.min.js",
               "node_modules/materialize-stepper/dist/js/mstepper.min.js",
               "node_modules/materialize-css/extras/noUiSlider/nouislider.js",
-              "node_modules/izitoast/dist/js/iziToast.min.js"
+              "node_modules/izitoast/dist/js/iziToast.min.js",
+              "node_modules/reflect-metadata/Reflect.js"
             ]
           },
           "configurations": {
@@ -91,7 +92,8 @@
               "node_modules/materialize-css/dist/js/materialize.min.js",
               "node_modules/materialize-css/extras/noUiSlider/nouislider.js",
               "node_modules/izitoast/dist/js/iziToast.min.js",
-              "node_modules/materialize-stepper/dist/js/mstepper.min.js"
+              "node_modules/materialize-stepper/dist/js/mstepper.min.js",
+              "node_modules/reflect-metadata/Reflect.js"
             ],
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.min.css",

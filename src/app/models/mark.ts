@@ -1,4 +1,7 @@
 import { LatLng, Layer } from 'leaflet';
+import { MappingUtils } from 'app/utils/mapping-utils';
+import { Contribution } from './contribution';
+import { Type } from 'class-transformer';
 
 export class Mark {
   
@@ -12,14 +15,15 @@ export class Mark {
   coordinates:LatLng[];
   page_id:number;
   layer_id: number;
+  @Type(() => Contribution)
   transcription:any;
   translation:any;
   semanticContribution: any;
   
-  constructor(page,layer,layerType,transcriptorLayer = null){
-    this.page_id = page.id;
+  constructor(page = null, layer = null, layerType = null, transcriptorLayer = null){
+    this.page_id = page ? page.id : null;
     this.layer_id = transcriptorLayer ? transcriptorLayer.id : null;
-    this.coordinates = layer.getLatLngs();
+    this.coordinates = layer? layer.getLatLngs() : null;
     this.shape_type = layerType;
   }
   
