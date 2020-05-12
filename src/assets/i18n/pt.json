@@ -35,7 +35,7 @@
     "title":"Login",
     "loginMessage":"Por favor, faça login na sua conta.",
     "label":{
-      "username":"Insira seu email",
+      "username":"Digite seu email ou nome de usuário",
       "password":"Coloque sua senha"
     },
     "button":{

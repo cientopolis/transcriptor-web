@@ -35,7 +35,7 @@
     "title":"Se connecter",
     "loginMessage":"Connectez-vous à votre compte",
     "label":{
-      "username":"Entrez votre email",
+      "username":"Entrez votre email ou nom d'utilisateur",
       "password":"Tapez votre mot de passe"
     },
     "button":{

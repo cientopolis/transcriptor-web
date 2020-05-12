@@ -35,7 +35,7 @@
     "title":"Iniciar Sesión",
     "loginMessage":"Por favor, Inicia sesión con tu Cuenta",
     "label":{
-      "username":"Ingresa tu email",
+      "username":"Ingresa tu email o nombre de usuario",
       "password":"Ingresa tu contraseña"
     },
     "button":{
@@ -103,7 +103,7 @@
   },
   "showCollection":{
     "tab":{
-      "pages":"Trabajos",
+      "pages":"Proyectos",
       "settings":"Configuracion"
     }
   },
@@ -135,7 +135,7 @@
   },
   "editWork":{
     "label":{
-        "title":"Título del Trabajo",
+        "title":"Título del Proyecto",
         "author":"Autor",
         "location":"Lugar",
         "url":"URL",
@@ -151,8 +151,8 @@
     "title":"Inicio",
     "tab":{
       "yourWorks":{
-        "title":"Tus Trabajos",
-        "noWorksMessage":"¡Aún no existen Trabajos en esta Colección!"
+        "title":"Tus Proyectos",
+        "noWorksMessage":"¡Aún no existen Proyectos en esta Colección!"
       },
       "startAProject":{
         "title":"Iniciar un Proyecto"
@@ -160,18 +160,18 @@
     },
     "counter":{
       "collections":"Colecciones",
-      "works":"Trabajos",
+      "works":"Proyectos",
       "notes":"Notas"
     },
     "yourActivity":{
       "title":"Tu Actividad",
       "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
-      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}"
+      "workDeed":"{{user}} {{deedType}} en el Proyecto {{work}}"
     },
     "activity":{
       "title":"Actividades",
       "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
-      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
+      "workDeed":"{{user}} {{deedType}} en el Proyecto {{work}}",
       "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
     }
   },
@@ -187,7 +187,7 @@
     "review":"Marcó que una Página Necesita Revisión",
     "xlat_index":"Indexó la Traducción de una Página",
     "xlat_rev":"Marcó que la Traducción de una Página Necesita Revisión",
-    "work_add":"Agregó un Trabajo",
+    "work_add":"Agregó un Proyecto",
     "trans_like":"Le gustó una transcripción"
   },
   "upload":{
@@ -209,8 +209,8 @@
           "Los archivos ZIP pueden contener carpetas conteniendo imagenes, PDFs, o carpetas conteniendo PDFs",
           "Cada carpeta se tratará como un documento diferente, por lo tanto, no mezclar páginas de diferentes documentos en la misma carpeta.",
           "Cada PDF se tratará como un unico documento, por lo que no separe las páginas del mismo documento entre más de un PDF.",
-          "Por ejemplo, un archivo ZIP con 3 imagenes, 2 PDFs y una carpeta que contiene 5 imagenes más generaria 4 Trabajos: las imagenes en el nivel superior en uno, cada PDF su trabajo correspondiente y un ultimo conteniendo las 5 imagenes de la carpeta.",
-          "Para especificar metadatos junto con imágenes, incluir un archivo <a href='/static/metadata'>metadata.yml</a> en cada carpeta especificando cada campo del trabajo."
+          "Por ejemplo, un archivo ZIP con 3 imagenes, 2 PDFs y una carpeta que contiene 5 imagenes más generaria 4 Proyectos: las imagenes en el nivel superior en uno, cada PDF su proyecto correspondiente y un ultimo conteniendo las 5 imagenes de la carpeta.",
+          "Para especificar metadatos junto con imágenes, incluir un archivo <a href='/static/metadata'>metadata.yml</a> en cada carpeta especificando cada campo del proyecto."
       ]
     },
     "validationMessages":{

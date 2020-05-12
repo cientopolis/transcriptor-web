@@ -35,6 +35,6 @@ export class MarkService {
 
   listByPage(pageId, layerId = null): Observable<Mark[]> {
     let path = (layerId ? this.listByLayerPath + layerId : this.listByPagePath + pageId) + "/marks";
-    return this.httpService.lget(path) as Observable<Mark[]>;
+    return this.httpService.lget(path, { responseDataType: Mark }) as Observable<Mark[]>;
   }
 }
