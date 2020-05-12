@@ -35,7 +35,7 @@
     "title":"Iniciar Sesión",
     "loginMessage":"Por favor, Inicia sesión con tu Cuenta",
     "label":{
-      "username":"Ingresa tu email",
+      "username":"Ingresa tu email o nombre de usuario",
       "password":"Ingresa tu contraseña"
     },
     "button":{

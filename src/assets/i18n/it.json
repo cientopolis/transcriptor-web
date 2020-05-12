@@ -35,7 +35,7 @@
     "title":"Registrati",
     "loginMessage":"Per favore, accedi al tuo account",
     "label":{
-      "username":"Inserisci il tuo indirizzo email",
+      "username":"Inserisci la tua email o nome utente",
       "password":"Inserisci la tua password"
     },
     "button":{

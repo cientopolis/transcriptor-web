@@ -35,7 +35,7 @@
     "title":"Sign In",
     "loginMessage":"Please, login into your account",
     "label":{
-      "username":"Enter your email",
+      "username":"Enter your email or username",
       "password":"Enter your password"
     },
     "button":{
