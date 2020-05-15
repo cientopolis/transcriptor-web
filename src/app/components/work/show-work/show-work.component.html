@@ -1,10 +1,10 @@
 <div class="row m-t-15">
 
-      <div class="col m8 offset-m1" *ngIf="work">
+      <div class="col m7 offset-m1" *ngIf="work">
         <mz-card>
           <mz-card-title>
-            <h4 class="m-b-0">{{ work.title}}</h4>
-            <p>{{ work.collection.title }}</p>
+            <small class="m-b-0 m-t-0">{{ work.collection.title }}</small>
+            <h4 class="m-b-0 m-t-0">{{ work.title }}</h4>
           </mz-card-title>
           <mz-card-content>
 
@@ -37,7 +37,7 @@
         </mz-card>
       </div>
       
-      <div class="col m2" *ngIf="work">
+      <div class="col m3" *ngIf="work">
         <ul class="collection with-header no-border z-depth-1">
           <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.activity.title' | translate}}</span></li>
           <li

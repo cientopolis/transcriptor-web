@@ -1,11 +1,22 @@
 <div class="row m-t-15">
-  <div class="col m10 offset-m1" *ngIf="collection">
+  <div class="col s12 m10 offset-m1" *ngIf="collection">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-0">{{ collection.title }}</h4>
+        <div class="collection-image circle left z-depth-1" [style.background-image]="'url(' + collectionImageUrl + ')'">
+          <div class="upload-button valign-wrapper" (click)="openImageLoader()">
+            <p><i mz-icon-mdi [icon]="'image-plus'"></i></p>
+            <input #fileInput tabindex="-1" 
+              accept="image/*" type="file" 
+              name="collection[picture]" 
+              id="collection_picture" class="hide" (change)="upload()">
+          </div>  
+        </div>
+        <small class="m-b-0 m-t-0">{{ 'upload.label.collection' | translate }}</small>
+        <h4 class="m-b-0 m-t-0">{{ collection.title }}</h4>
+        <button mz-button class="btn-show-config z-depth-0" (click)="modalSettings.openModal()"><i mz-icon-mdi [icon]="'cog'"></i></button>
       </mz-card-title>
       <mz-card-content>
-        
+        <p class="m-t-15 m-b-15" [innerHTML]="collection.intro_block | safeHtml"></p>
         <mz-tab
           [responsiveThreshold]="'true'"
           [fixedTabWidth]="'true'"
@@ -20,7 +31,7 @@
               </div>
             </div>
           </mz-tab-item>
-          <mz-tab-item 
+          <!-- <mz-tab-item 
             [class]="'col s12'" 
             [label]="'showCollection.tab.settings' | translate">
             <div class="row">
@@ -28,10 +39,27 @@
                 <app-edit-collection [collection]="collection"></app-edit-collection>
               </div>
             </div>
-          </mz-tab-item>
+          </mz-tab-item> -->
         </mz-tab>
 
       </mz-card-content>
     </mz-card>
   </div>
 </div>
+
+<mz-modal #modalSettings [fixedFooter]="true">
+  <mz-modal-header>
+    <h4>{{ 'showCollection.tab.settings' | translate }}</h4>
+  </mz-modal-header>
+  <mz-modal-content>
+    <app-edit-collection
+      #collectionSettings 
+      [collection]="collection"
+      [showButtons]="false">
+    </app-edit-collection>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button class="primary-color-text" mz-button [flat]="true" mz-modal-close>{{'app.button.cancel' | translate}}</button>
+    <button class="primary-color" mz-button mz-modal-close (click)="collectionSettings.save()">{{'app.button.saveChanges' | translate}}</button>
+  </mz-modal-footer>
+</mz-modal>

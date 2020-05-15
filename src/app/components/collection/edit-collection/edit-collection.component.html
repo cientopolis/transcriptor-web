@@ -4,7 +4,7 @@
       <input mz-input
         class="input-field-primary-color"
         [label]="'editCollection.label.title' | translate"
-        [(ngModel)]="collection.title"
+        [(ngModel)]="collectionCopy.title"
         type="text">
     </mz-input-container>
   </div>
@@ -16,7 +16,7 @@
       <input mz-input
         class="input-field-primary-color"
         [label]="'editCollection.label.url' | translate"
-        [(ngModel)]="collection.slug"
+        [(ngModel)]="collectionCopy.slug"
         type="text">
     </mz-input-container>
   </div>
@@ -26,18 +26,29 @@
   <div class="col s12">
     <mz-textarea-container>
       <textarea mz-textarea
-        [(ngModel)]="collection.description"
+        [(ngModel)]="collectionCopy.intro_block"
         [label]="'editCollection.label.description' | translate">
       </textarea>
     </mz-textarea-container>
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="showButtons && lockDelete">
   <div class="col m6">
-    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editCollection.button.delete' | translate}}</button>
+    <button mz-button class="btn-delete" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editCollection.button.delete' | translate}}</button>
   </div>
   <div class="col m6 right-align">
     <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}</button>
   </div>
+</div>
+
+<div class="row center-align" *ngIf="!showButtons && lockDelete">
+  <button mz-button class="btn white btn-bordered" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i>{{'editCollection.button.delete' | translate}}</button>
+</div>
+
+<div class="row center-align" *ngIf="!lockDelete">
+  <p>{{ 'editCollection.label.deleteWarning' | translate }}</p>
+  <button mz-button class="m-r-5" [flat]="true" (click)="lockDelete = true">Cancelar</button>
+  <button mz-button class="btn-delete m-l-5" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'"
+      [align]="'left'"></i>{{'editCollection.button.delete' | translate}}</button>
 </div>

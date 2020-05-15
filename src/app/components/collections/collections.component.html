@@ -8,7 +8,8 @@
       <mz-card-content>
         <mz-collection>
           <mz-collection-item [avatar]="true" *ngFor="let collection of collections">
-            <i mz-avatar mz-icon-mdi [icon]="'library-books'" class="grey darken-1"></i>
+            <!-- <i mz-avatar mz-icon-mdi [icon]="'library-books'" class="grey darken-1"></i> -->
+            <div mz-avatar [style.background-image]="'url(' + collection.getThumbnailUrl() + ')'" class="collection-avatar"></div>
             <a class="title" routerLink="/collection/{{ collection.id }}">
               <div class="title">{{ collection.title }}</div>
               <p>{{collection.description}}</p>

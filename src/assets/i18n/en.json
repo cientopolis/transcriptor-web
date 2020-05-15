@@ -95,7 +95,8 @@
     "label":{
       "title":"Collection Title",
       "url":"URL",
-      "description":"Description"
+      "description":"Description",
+      "deleteWarning": "Are you sure to delete this collection?"
     },
     "button":{
       "delete":"Delete Collection"

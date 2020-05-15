@@ -1,0 +1,50 @@
+@import '~styles/styles';
+
+.btn-show-config {
+    position: absolute;
+    right: 24px;
+    top: 35px;
+    padding: 2.5px 10px;
+    border-radius: 5px;
+    background-color: $mediumGrey;
+}
+.btn-show-config:hover,
+.btn-show-config:focus {
+    background-color: $mediumGreyHover;
+}
+
+.collection-image {
+    height: 68px;
+    width: 68px;
+    margin: 2px 5px 0px 0px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.collection-image .upload-button {
+    background-color: #6c6c6ccc;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    transition: all .2s $transitionTimingFunction;
+    opacity: 0;
+}
+.collection-image:hover .upload-button {
+    opacity: 1;
+}
+.collection-image .upload-button p {
+    text-align: center;
+    width: 100%;
+    color: $defaultColor;
+}
+
+:host ::ng-deep .tabs {
+    background-color: $lightGrey;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+:host ::ng-deep .tabs .tab {
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: bold;
+}

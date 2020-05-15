@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { CollectionService } from '../../../services/collection/collection.service';
 
@@ -10,20 +10,32 @@ import { CollectionService } from '../../../services/collection/collection.servi
 export class EditCollectionComponent implements OnInit {
 
   @Input() collection;
+  @Input() showButtons = true;
+  lockDelete = true;
+  collectionCopy: any;
 
   constructor(private collectionService: CollectionService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.collection) {
+      this.collectionCopy = Object.assign({}, this.collection)
+    }
+  }
+
   save() {
-    this.collectionService.edit(this.collection)
+    this.collectionService.edit(this.collectionCopy)
       .subscribe(collection => this.collection = Object.assign(this.collection,collection));
   }
   
+  confirmDelete() {
+    this.lockDelete = false
+  }
+
   delete() {
-    this.collectionService.delete(this.collection.id)
-      .subscribe(collection => Object.assign(this.collection,collection))
+    this.collectionService.delete(this.collectionCopy.id)
+      .subscribe(collection => this.collection = Object.assign(this.collection,collection))
   }
 
 }

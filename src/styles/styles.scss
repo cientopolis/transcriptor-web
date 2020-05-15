@@ -3,7 +3,7 @@
 @import './mixins';
 
 header {
-  z-index: 9999;
+  z-index: 999;
 }
 
 body{
@@ -196,6 +196,10 @@ nav .back-button i{
 .btn-rounded {
   border-radius: 25px;
 }
+.btn-bordered {
+  border: 2px solid #e53935;
+  color: #e53935;
+}
 
 a {
   color: $primaryColor; 
@@ -245,6 +249,13 @@ a {
   padding-bottom: 5px;
 }
 
+// more fancy!
+.card, .collection, .modal {
+  border-radius: 8px;
+}
+.btn {
+  border-radius: 5px;
+}
 
 // Animations
 @keyframes slide-up {
