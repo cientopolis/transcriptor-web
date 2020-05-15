@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col s12">
-    <mz-collection>
+    <mz-collection *ngIf="works && works.length > 0">
       <mz-collection-item [avatar]="true" *ngFor="let work of works">
         <i mz-avatar mz-icon-mdi [icon]="'book-open-page-variant'" class="grey darken-1"></i>
         <a class="title" routerLink="/work/{{work.id}}">
@@ -12,5 +12,8 @@
         </div>
       </mz-collection-item>
     </mz-collection>
+    <div class="container center-align" *ngIf="!works || works.length == 0">
+      <p class="empty-data-message m-t-10">{{'dashboard.tab.yourWorks.noWorksMessage'| translate}}</p>
+    </div>
   </div>
 </div>

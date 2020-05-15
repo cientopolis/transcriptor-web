@@ -95,7 +95,8 @@
     "label":{
       "title":"Título de la Colección",
       "url":"URL",
-      "description":"Descripción"
+      "description":"Descripción",
+      "deleteWarning": "¿Estás seguro de eliminar esta Colección?"
     },
     "button":{
       "delete":"Eliminar Colección"

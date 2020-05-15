@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { HttpService } from '../../services/http/http.service';
+import { Collection } from 'app/models/Collection';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CollectionService {
@@ -12,6 +14,7 @@ export class CollectionService {
   private editPath = '/api/collection/{collectionId}';
   private deletePath = '/api/collection/{collectionId}';
   private createPath = '/api/collection';
+  private uploadCollectionPath = '/api/collection/update/{collectionId}'
 
   constructor(private httpService: HttpService) { }
 
@@ -19,21 +22,21 @@ export class CollectionService {
     return this.httpService.lget(this.listPath);
   }
 
-  listCollections(options = {}){
+  listCollections(options = {}): Observable <Collection>{
     let path = this.collectionsPath + "/list";
-    return this.httpService.lget(path,options);
+    return this.httpService.lget(path, { responseDataType: Collection }) as Observable<Collection>;
   }
   
   get(collectionId, options = {}) {
-    return this.httpService.lget([this.getPath,{collectionId:collectionId}], options);
+    return this.httpService.lget([this.getPath, { collectionId: collectionId }], { responseDataType: Collection });
   }
   
   listWorks(collectionId, options = {}) {
     return this.httpService.lget([this.listWorksPath,{collectionId:collectionId}], options);
   }
   
-  edit(collection, options = {}) {
-    return this.httpService.put([this.editPath,{collectionId:collection.id}], collection, options);
+  edit(collection, options = {}): Observable<Collection> {
+    return this.httpService.put([this.editPath, { collectionId: collection.id }], collection, { responseDataType: Collection }) as Observable<Collection>;
   }
   
   delete(collectionId, options = {}) {
@@ -42,5 +45,17 @@ export class CollectionService {
   
   create(collection, options = {}) {
     return this.httpService.post(this.createPath,collection,options);
+  }
+
+  getPictureUrl(collection) {
+    var defaultImageUrl = 'assets/img/icons/default_collections.jpg';
+    return collection.picture.thumb.url ? `${this.httpService.baseUrl}/${collection.picture.thumb.url}` : defaultImageUrl;
+  }
+
+  uploadCollection(collectionId, formData): Observable<Collection> {
+    return this.httpService
+      .post([this.uploadCollectionPath, { collectionId: collectionId }], 
+        formData, 
+        { headers: {}, responseDataType: Collection }) as Observable<Collection>;
   }
 }

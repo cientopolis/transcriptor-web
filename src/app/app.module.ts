@@ -131,6 +131,7 @@ import { SelectBasicPropertiesComponent } from './components/transcribe/semantic
 
 import { SchemePipe } from './pipes/scheme.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
+import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -179,7 +180,8 @@ import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
     SelectRelationshipsComponent,
     SelectBasicPropertiesComponent,
     ImageSettingsComponent,
-    LocalizedDatePipe
+    LocalizedDatePipe,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
