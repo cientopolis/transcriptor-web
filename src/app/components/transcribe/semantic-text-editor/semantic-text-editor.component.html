@@ -15,7 +15,7 @@
         </div>
       </div>
     </mz-card-title>
-    <mz-card-content class="p-l-0 p-r-0">
+    <mz-card-content class="p-l-0 p-r-0" *ngIf="showComponent">
       <div class="row" *ngIf="!renderedMark && renderedMarks.length==0">
         <div class="center-align">
           <h5 class="primary-color-text" >{{'semanticForm.emptyMarker' | translate}}</h5>

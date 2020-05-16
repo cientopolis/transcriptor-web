@@ -1,14 +1,15 @@
 <div class="row">
   <div class="col s12">
     <mz-collection>
-      <mz-collection-item [avatar]="true" *ngFor="let page of pages">
-        <i mz-avatar mz-icon-mdi [icon]="'file-document'" class="grey darken-1"></i>
+      <mz-collection-item class="page-item" [avatar]="true" *ngFor="let page of pages">
+        <!-- <i mz-avatar mz-icon-mdi [icon]="'file-document'" class="grey darken-1"></i> -->
+        <div mz-avatar [style.background-image]="'url(' + page.getThumbnailUrl() + ')'" class="page-avatar"></div>
         <a class="title" routerLink="/transcribe/{{page.id}}">
           <div class="title">{{ page.title }}</div>
         </a>
         <div *ngIf="page.status">{{ page.status }}</div>
         <div mz-secondary-content>
-          <a mz-button routerLink="/transcribe/{{page.id}}" class="btn-small z-depth-0"><i mz-icon-mdi [icon]="'transcribe'" [align]="'left'"></i> {{'transcribe.title' | translate}}</a>
+          <a mz-button routerLink="/transcribe/{{page.id}}" class="btn-small white-text z-depth-0"><i mz-icon-mdi [icon]="'transcribe'" [align]="'left'"></i> {{'transcribe.title' | translate}}</a>
         </div>
       </mz-collection-item>
     </mz-collection>

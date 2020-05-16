@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../../services/http/http.service';
 import { Work } from 'app/models/work';
 import { Observable } from 'rxjs';
+import { Page } from 'app/models/page';
 
 
 @Injectable()
@@ -21,9 +22,9 @@ export class WorkService {
     return this.httpService.lget([this.getPath, { workId: workId }], options) as Observable<Work>;
   }
   
-  listPages(workId, options = {}): Observable<Work[]> {
-    options['responseDataType'] = Work
-    return this.httpService.lget([this.listPagesPath, { workId: workId }], options) as Observable<Work[]>;
+  listPages(workId, options = {}): Observable<Page[]> {
+    options['responseDataType'] = Page
+    return this.httpService.lget([this.listPagesPath, { workId: workId }], options) as Observable<Page[]>;
   }
   
   edit(work, options = {}): Observable<Work> {

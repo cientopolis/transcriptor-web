@@ -13,8 +13,10 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  collectionsDeeds: DashboardResponse;
+  collectionsDeeds: any[];
   collectionsOwner:DashboardResponse;
+  initialCollectionsDeeds: any[];
+  showMoreDeeds = false
   @ViewChild('collectionCreationModal') collectionCreationModal: any;
   @ViewChild('uploadComponent') uploadComponent: any;
   @ViewChild('uploadModal') uploadModal: any;
@@ -63,8 +65,9 @@ export class DashboardComponent implements OnInit {
       this.collectionsOwner=collection;
     }
 
-    private handleResponse(collection) {
-      this.collectionsDeeds=collection;
+    private handleResponse(collection: any[]) {
+      this.initialCollectionsDeeds = collection ? collection.slice(0,3) : collection
+      this.collectionsDeeds = collection;
     }
     
     getDeedMessage(key){

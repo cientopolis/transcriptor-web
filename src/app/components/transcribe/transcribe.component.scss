@@ -87,7 +87,8 @@ html, body {
 .editor-wrapper:hover > .panel-hide-button{
   transform: translateX(-50%);
 }
-.editor-wrapper .transcribe-editor mz-card {
+.editor-wrapper .transcribe-editor mz-card,
+.editor-wrapper .text-editor {
   z-index: 450;
 }
 .panel-show-button{
