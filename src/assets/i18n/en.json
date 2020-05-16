@@ -153,6 +153,12 @@
   },
   "dashboard":{
     "title":"Dashboard",
+    "carousel": {
+      "slide-1": {
+        "line-1": "¡Welcome to Transcriptor!",
+        "line-2": "Here you will find the information of the collections in which you participate."
+      }
+    },
     "tab":{
       "yourWorks":{
         "title":"Your Projects",
@@ -160,6 +166,14 @@
       },
       "startAProject":{
         "title":"Start a Project"
+      }
+    },
+    "myCollections": {
+      "title": "My Collections",
+      "startAProject": "Start a Project",
+      "noCollectionsMessage": "You don't have any projects to work on yet!",
+      "card": {
+        "detail": "Show more"
       }
     },
     "counter":{
@@ -170,7 +184,9 @@
     "yourActivity":{
       "title":"Your Activity",
       "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
-      "workDeed":"{{user}} {{deedType}} in the project {{work}}"
+      "workDeed":"{{user}} {{deedType}} in the project {{work}}",
+      "showMore": "Show more...",
+      "showLess": "Show less..."
     },
     "activity":{
       "title":"Actividades",

@@ -17,6 +17,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   @Input() renderedMark = null;
   @Input() renderedMarks = null;
   @Input() delegate = null;
+  @Input() showComponent = false;
 
   semantic_text:String=null;
   schema_type:String=null;

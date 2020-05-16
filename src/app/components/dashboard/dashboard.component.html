@@ -7,8 +7,8 @@
                 <a class="btn waves-effect white grey-text darken-text-2">button</a>
               </div> -->
           <div class="carousel-item carousel-item-1 white-text" style="background-image: url('assets/img/dashboard/carousel/library.jpg');">
-              <h2>¡Bienvenido a Transcriptor!</h2>
-              <p>Aqui encontrarás la información de las colecciones en las que participas.</p>
+              <h2>{{ 'dashboard.carousel.slide-1.line-1' | translate }}</h2>
+              <p>{{ 'dashboard.carousel.slide-1.line-2' | translate }}</p>
           </div>
           <!-- <div class="carousel-item amber white-text" href="#two!">
             <h2>Second Panel</h2>
@@ -84,14 +84,14 @@
 
     <div class="row" *ngIf="collectionsOwner">
       <div class="col s12">
-        <h5 class="m-t-0">Mis Colecciones</h5>
+        <h5 class="m-t-0">{{ 'dashboard.myCollections.title' | translate }}</h5>
       </div>
       <div class="col s12 m6 l4">
         <div class="card card-collection add-collection-card hoverable" (click)="uploadModal.openModal()">
           <div class="card-content">
             <div class="add-label">
               <p class="center-align"><i mz-icon-mdi [icon]="'plus'" [align]="'center'" [size]="'36px'"></i></p>
-              <p class="center-align">Agregar Colección</p>
+              <p class="center-align">{{ 'dashboard.myCollections.startAProject' | translate }}</p>
             </div>
           </div>
           <div class="card-action right-align">
@@ -107,7 +107,7 @@
           </div>
           <div class="card-action">
             <span>{{collection.works.length == 1 ? collection.works.length + ' proyecto' : collection.works.length + ' proyectos'}}</span>
-            <a class="m-r-0" href="#!" class="right m-r-0" routerLink="/collection/{{collection.collection.id}}">Ver más</a>
+            <a class="m-r-0" href="#!" class="right m-r-0" routerLink="/collection/{{collection.collection.id}}">{{ 'dashboard.myCollections.card.detail' | translate }}</a>
           </div>
         </div>
       </div>
@@ -131,16 +131,41 @@
       <div class="col s12">
         <ul class="collection with-header no-border z-depth-1">
           <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.yourActivity.title' | translate}}</span></li>
+          <li 
+            *ngFor="let collectionDeed of initialCollectionsDeeds" 
+            [ngClass]="{'hide': showMoreDeeds}"
+            class="collection-item" 
+            translate [translateParams]="{
+              user: collectionDeed.user,
+              deedType:getDeedMessage(collectionDeed.deed_type),
+              collection: collectionDeed.collection
+            }">
+            dashboard.yourActivity.collectionDeed
+          </li>
           <li
             *ngFor="let collectionDeed of collectionsDeeds"
+            [ngClass]="{'hide': !showMoreDeeds}"
             class="collection-item"
             translate
             [translateParams]="{
               user: collectionDeed.user,
               deedType:getDeedMessage(collectionDeed.deed_type),
-              collection: collectionDeed.collection}">
+              collection: collectionDeed.collection
+            }">
             dashboard.yourActivity.collectionDeed
           </li>
+          <a mz-collection-link 
+            routerLink="/dashboard" 
+            *ngIf="collectionsDeeds && collectionsDeeds.length > 3" 
+            class="collection-item center-align"
+            (click)="showMoreDeeds = !showMoreDeeds">
+            <span *ngIf="showMoreDeeds">
+              {{ 'dashboard.yourActivity.showLess' | translate }}
+            </span>
+            <span *ngIf="!showMoreDeeds">
+              {{ 'dashboard.yourActivity.showMore'  | translate }}
+            </span>
+          </a>
         </ul>
       </div>
     </div>

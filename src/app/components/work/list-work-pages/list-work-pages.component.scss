@@ -1,3 +1,25 @@
+@import '~styles/styles';
+
 a .title {
   color: rgba(0,0,0,0.87);
+}
+
+.work-avatar {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-avatar {
+  border-radius: 2px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 65px !important;
+  width: 65px !important;
+  background-color: $hightlightGrey;
+}
+
+.page-item {
+  padding-left: 105px !important;
 }
