@@ -11,7 +11,7 @@
               id="collection_picture" class="hide" (change)="upload()">
           </div>  
         </div>
-        <small class="m-b-0 m-t-0">{{ 'upload.label.collection' | translate }}</small>
+        <a routerLink="/collections/list"><small class="m-b-0 m-t-0">{{ 'collections.title' | translate }}</small></a>
         <h4 class="m-b-0 m-t-0">{{ collection.title }}</h4>
         <button mz-button class="btn-show-config z-depth-0" (click)="modalSettings.openModal()"><i mz-icon-mdi [icon]="'cog'"></i></button>
       </mz-card-title>

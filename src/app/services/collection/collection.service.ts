@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../../services/http/http.service';
 import { Collection } from 'app/models/Collection';
 import { Observable } from 'rxjs';
+import { Work } from 'app/models/work';
 
 @Injectable()
 export class CollectionService {
@@ -31,8 +32,9 @@ export class CollectionService {
     return this.httpService.lget([this.getPath, { collectionId: collectionId }], { responseDataType: Collection });
   }
   
-  listWorks(collectionId, options = {}) {
-    return this.httpService.lget([this.listWorksPath,{collectionId:collectionId}], options);
+  listWorks(collectionId, options = {}): Observable<Work[]> {
+    options['responseDataType'] = Work
+    return this.httpService.lget([this.listWorksPath, { collectionId: collectionId }], options) as Observable<Work[]>;
   }
   
   edit(collection, options = {}): Observable<Collection> {
@@ -45,11 +47,6 @@ export class CollectionService {
   
   create(collection, options = {}) {
     return this.httpService.post(this.createPath,collection,options);
-  }
-
-  getPictureUrl(collection) {
-    var defaultImageUrl = 'assets/img/icons/default_collections.jpg';
-    return collection.picture.thumb.url ? `${this.httpService.baseUrl}/${collection.picture.thumb.url}` : defaultImageUrl;
   }
 
   uploadCollection(collectionId, formData): Observable<Collection> {

@@ -4,7 +4,7 @@
       <input mz-input
         class="input-field-primary-color"
         [label]="'editWork.label.title' | translate"
-        [(ngModel)]="work.title"
+        [(ngModel)]="workCopy.title"
         type="text">
     </mz-input-container>
   </div>
@@ -19,7 +19,7 @@
       <input mz-input
         class="input-field-primary-color"
         [label]="'editWork.label.author' | translate"
-        [(ngModel)]="work.author"
+        [(ngModel)]="workCopy.author"
         type="text">
     </mz-input-container>
   </div>
@@ -28,7 +28,7 @@
       <input mz-input
         class="input-field-primary-color"
         [label]="'editWork.label.location' | translate"
-        [(ngModel)]="work.location_of_composition"
+        [(ngModel)]="workCopy.location_of_composition"
         type="text">
     </mz-input-container>
   </div>
@@ -40,7 +40,7 @@
       <input mz-input
         class="input-field-primary-color"
         [label]="'editWork.label.url' | translate"
-        [(ngModel)]="work.slug"
+        [(ngModel)]="workCopy.slug"
         type="text">
     </mz-input-container>
   </div>
@@ -50,7 +50,7 @@
   <div class="col s12">
     <mz-textarea-container>
       <textarea mz-textarea
-        [(ngModel)]="work.description"
+        [(ngModel)]="workCopy.description"
         [label]="'editWork.label.description' | translate">
       </textarea>
     </mz-textarea-container>
@@ -61,7 +61,7 @@
   <div class="col s12">
     <mz-textarea-container>
       <textarea mz-textarea
-        [(ngModel)]="work.physical_description"
+        [(ngModel)]="workCopy.physical_description"
         [label]="'editWork.label.physicalDescription' | translate">
       </textarea>
     </mz-textarea-container>
@@ -72,18 +72,25 @@
   <div class="col s12">
     <mz-textarea-container>
       <textarea mz-textarea
-        [(ngModel)]="work.document_history"
+        [(ngModel)]="workCopy.document_history"
         [label]="'editWork.label.documentHistory' | translate">
       </textarea>
     </mz-textarea-container>
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="lockDelete">
   <div class="col m6">
-    <button mz-button class="btn-delete" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editWork.button.delete' | translate}}</button>
+    <button mz-button class="btn white btn-bordered" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editWork.button.delete' | translate}}</button>
   </div>
   <div class="col m6 right-align">
     <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.saveChanges' | translate}}</button>
   </div>
+</div>
+
+<div class="row center-align" *ngIf="!lockDelete">
+  <p>{{ 'editWork.label.deleteWarning' | translate }}</p>
+  <button mz-button class="m-r-5" [flat]="true" (click)="lockDelete = true">Cancelar</button>
+  <button mz-button class="btn-delete m-l-5" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'"
+      [align]="'left'"></i>{{'editWork.button.delete' | translate}}</button>
 </div>

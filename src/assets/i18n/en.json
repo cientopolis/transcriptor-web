@@ -132,6 +132,9 @@
     "tab":{
       "pages":"Pages",
       "settings":"Settings"
+    },
+    "button": {
+      "transcribe": "Transcribe"
     }
   },
   "editWork":{

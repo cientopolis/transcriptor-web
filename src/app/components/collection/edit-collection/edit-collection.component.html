@@ -35,7 +35,7 @@
 
 <div class="row" *ngIf="showButtons && lockDelete">
   <div class="col m6">
-    <button mz-button class="btn-delete" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editCollection.button.delete' | translate}}</button>
+    <button mz-button class="btn white btn-bordered" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editCollection.button.delete' | translate}}</button>
   </div>
   <div class="col m6 right-align">
     <button mz-button (click)="save()"><i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}</button>

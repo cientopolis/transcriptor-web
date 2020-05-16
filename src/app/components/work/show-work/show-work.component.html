@@ -3,11 +3,18 @@
       <div class="col m7 offset-m1" *ngIf="work">
         <mz-card>
           <mz-card-title>
-            <small class="m-b-0 m-t-0">{{ work.collection.title }}</small>
+            <div class="work-image circle left z-depth-1" [style.background-image]="'url(' + workImageUrl + ')'">
+              <div class="upload-button valign-wrapper" (click)="openImageLoader()">
+                <p><i mz-icon-mdi [icon]="'image-plus'"></i></p>
+                <input #fileInput tabindex="-1" accept="image/*" type="file" name="work[picture]" id="work_picture"
+                  class="hide" (change)="upload()">
+              </div>
+            </div>
+            <a routerLink="/collections/list"><small class="m-b-0 m-t-0">{{ 'collections.title' | translate }}</small></a><small> / </small><a routerLink="/collection/{{work.collection.id}}"><small class="m-b-0 m-t-0">{{ work.collection.title }}</small></a>
             <h4 class="m-b-0 m-t-0">{{ work.title }}</h4>
           </mz-card-title>
           <mz-card-content>
-
+            <p class="m-t-15 m-b-15" [innerHTML]="work.description | safeHtml"></p>
             <mz-tab
               [responsiveThreshold]="'true'"
               [fixedTabWidth]="'true'"

@@ -30,7 +30,7 @@ export class ShowCollectionComponent implements OnInit {
     const collectionId = +this.route.snapshot.paramMap.get('collectionId');
     this.collectionService.get(collectionId, { fields: ['owner']}).subscribe(collection => {
         this.collection = collection
-        this.collectionImageUrl = this.collectionService.getPictureUrl(collection)
+        this.collectionImageUrl = this.collection.getThumbnailUrl()
     });
     this.changeDetector.detectChanges();
   }
@@ -55,7 +55,7 @@ export class ShowCollectionComponent implements OnInit {
     formData.append('collection_id', this.collection.id + '');
 
     this.collectionService.uploadCollection(this.collection.id ,formData).subscribe(collection => {
-      this.collectionImageUrl = this.collectionService.getPictureUrl(collection)
+      this.collectionImageUrl = collection.getThumbnailUrl()
     });
   }
 

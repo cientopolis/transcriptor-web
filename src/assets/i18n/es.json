@@ -96,7 +96,7 @@
       "title":"Título de la Colección",
       "url":"URL",
       "description":"Descripción",
-      "deleteWarning": "¿Estás seguro de eliminar esta Colección?"
+      "deleteWarning": "¿Estás seguro de eliminar esta colección?"
     },
     "button":{
       "delete":"Eliminar Colección"
@@ -130,8 +130,11 @@
   },
   "showWork":{
     "tab":{
-      "pages":"Paginas",
-      "settings":"Configuracion"
+      "pages":"Páginas",
+      "settings":"Configuración"
+    },
+    "button": {
+      "transcribe": "Transcribir"
     }
   },
   "editWork":{
@@ -142,10 +145,11 @@
         "url":"URL",
         "description":"Descripción",
         "physicalDescription":"Descripción Física",
-        "documentHistory":"Historia del Documento"
+        "documentHistory":"Historia del Documento",
+        "deleteWarning": "¿Estás seguro de eliminar este proyecto?"
     },
     "button":{
-      "delete":"Eliminar Página"
+      "delete":"Eliminar Proyecto"
     }
   },
   "dashboard":{
