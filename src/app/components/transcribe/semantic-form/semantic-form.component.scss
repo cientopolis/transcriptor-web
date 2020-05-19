@@ -41,8 +41,8 @@ table {
 }
 
 :host ::ng-deep ul.stepper .step.active::before{
-    background-color:green !important;
-    padding-left: 50px !important; 
+    background-color:$primaryColor !important;
+  
 }
 
 :host ::ng-deep ul.stepper .step.active .step-title{
@@ -50,23 +50,29 @@ table {
     padding-left: 40px !important; 
 }
 :host ::ng-deep ul.stepper .step .step-title{
-    color:#e65100 !important;
+    color:$primaryColor !important;
     padding-left: 50px !important; 
 }
 
 @media only screen and (min-width: 993px) {
 
-ul.stepper.horizontal .step.active .step-title::before, ul.stepper.horizontal .step.done .step-title::before {
-    background-color: #e65100;
-    left:10px!important;
+    ul.stepper.horizontal .step.active .step-title::before, ul.stepper.horizontal .step.done .step-title::before {
+        background-color: $primaryColor;
+        left:10px!important;
+    }
+    ul.stepper.horizontal::before {
+        min-height: 70px !important;
+    }
+    ul.stepper .step .step-title:hover{
+        background-color: initial !important;
+    }
+    ul.stepper.horizontal {
+        min-height: 700px;
+    }
 }
-ul.stepper.horizontal::before {
-    min-height: 70px !important;
-}
-ul.stepper .step .step-title:hover{
-    background-color: initial !important;
-}
-}
+
+
+
 :host ::ng-deep ul.stepper .step .step-title::after {
     font-size: .5rem;
 }
