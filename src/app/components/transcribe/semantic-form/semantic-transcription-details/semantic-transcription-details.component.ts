@@ -1,3 +1,4 @@
+import { SchemeUtils } from './../../../../utils/schema-utils';
 import { HeaderService } from './../../../../services/sharedData/header.service';
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
@@ -21,23 +22,27 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(changes){
-    console.log(changes);
-    console.log(this.markSelected);
-    console.log(this.markSelected);
-    console.log(this.showPreviousSave);
     if (!this.showPreviousSave) {
       if (!this.headerService.showDetails) {
         this.headerService.headerParagraph = 'Hechos Históricos / Detalle de Marca';
         this.headerService.headerSubparagraph = null;
         this.headerService.header = this.markSelected.name;
-        console.log(this.headerService.header);
         this.headerService.showDetails = true;
       }
       this.semanticContributions = this.markSelected.semanticContribution;
     } else {
-      this.semanticContributions = this.getMarks(this.markSelected);
+      //this.semanticContributions = this.getMarks(this.markSelected);
+      let propertiesSelected = new Array<any>();
+      console.log(this.markSelected);
+      let sContribution = this.markSelected.semanticContribution.text;
+      this.semanticContributions = SchemeUtils.getMarksAsNoteDigitalDocument(this.markSelected, sContribution);
+      this.markSelected.schema_type = this.markSelected.semanticContribution.schema_type;
+      this.markSelected.semanticContribution = this.semanticContributions;
+      this.semanticContributions.push(this.markSelected);
     }
+    console.log(this.semanticContributions);
     this.semanticContributions.forEach(element => {
+      console.log(element);
       if (!element.isArray && !element.scheme) {
         this.properties.push(element);
       } else {
@@ -77,20 +82,21 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
     if (mark && mark.semanticContribution) {
       mark.schema_type = mark.semanticContribution.schema_type;
       let propertiesSelected = new Array<any>();
-      console.log(mark);
+      console.log("Mark-----");
+      console.log(mark.semanticContribution.text);
+      if (mark.semanticContribution.text['schema:mainEntity']){
+        console.log(mark.semanticContribution.text['schema:mainEntity']);
+        mark.semanticContribution.text = mark.semanticContribution.text['schema:mainEntity'];
+      }
       let sContribution = mark.semanticContribution.text;
       for (let key in sContribution) {
         if (key != "@context") {
           const item = sContribution[key];
-
           if (key.includes("schema")) {
-            console.log("key post if schema");
-            console.log(key);
             //necesitamos persistir el tipo de esquema de la relacion
             const context = sContribution['@context'];
             let s_type = null;
             for (let c in context) {
-              console.log(c);
               if ('http://schema.org/' + c == key) {
                 s_type = context[c];
               }
@@ -100,7 +106,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
               propOfScheme.push({ name: i, value: item[i], model: item[i] });
             }
             propertiesSelected.push({ name: key, value: propOfScheme, model: propOfScheme, isArray: true, schema_type: s_type });
-
           } else {
             if (key == "name") {
               mark.name = item
@@ -110,7 +115,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
         }
       }
       mark.semanticContribution = propertiesSelected;
-      console.log(mark);
       semanticContributions.push(mark);
     }
     return mark.semanticContribution;

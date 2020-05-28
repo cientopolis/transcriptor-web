@@ -32,7 +32,6 @@ export class SelectSchemaComponent implements OnInit {
       this.headerService.headerStep=true;
       this.headerService.stepNumber=1;
       this.semanticService.getAllTypes().then(result => {
-        this.schemas = result.children;
         this.scheme = result;
         this.parents.push(result);
         this.schemas = result.children;

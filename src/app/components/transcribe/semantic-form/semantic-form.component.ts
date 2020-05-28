@@ -1,3 +1,4 @@
+import { SchemeUtils } from './../../../utils/schema-utils';
 import { HeaderService } from './../../../services/sharedData/header.service';
 import { SemanticModelService } from './../../../services/semantic-model/semantic-model.service';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
@@ -28,6 +29,7 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   @Output() public schemeComplete = new EventEmitter<any>();
   
   @Input() public mark = null;
+  @Input() public layerName = null;
   semanticContribution:any;
   parents= new Array<any>();
   renderedMarksFormatted = [];
@@ -70,7 +72,6 @@ export class SemanticFormComponent implements OnInit,OnChanges {
 */
   
   ngOnChanges(changes){
-    
     if (changes.mark.currentValue){
       if (changes.mark.currentValue.semanticContribution == null) {
        /* this.semanticService.getAllTypes().then(result => {
@@ -85,9 +86,6 @@ export class SemanticFormComponent implements OnInit,OnChanges {
           this.changeDetector.detectChanges();
         });*/
         var stepper = document.querySelector('.stepper');
-        console.log("onchanges");
-        console.log(stepper);
-
         var stepperInstace = new MStepper(stepper, {
           // options
           firstActive: 0, // this is the default
@@ -117,7 +115,7 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   }
 
   setHeader(){
-    this.headerService.headerParagraph = 'Hechos Históricos';
+    this.headerService.headerParagraph = this.layerName;
     this.headerService.headerSubparagraph = null;
     this.headerService.header = "Nueva Marca";
     this.headerService.showDetails = false;
@@ -163,7 +161,6 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   }
 
 validateStepOne() {
-   console.log("validate");
    return this.schemeName!=null;
 }
 selectSchema(scheme){
@@ -180,9 +177,6 @@ stepTwo(){
 }
 
 handleScheme(event){
-  
-  console.log("nueva confirmacion ")
-  console.log(event);
   this.addProperties(event.propertiesSelected);
   if (this.properties==null || this.properties.length==0){
     this.properties = event.properties;
@@ -200,20 +194,17 @@ addProperties(properties){
 }
 
 handleSchemeRelationships(event){
-  console.log("event ")
-  console.log(event.relationshipsSelected);
   /* event.relationshipsSelected.forEach(relationship => {
     this.propertiesSelected.push(relationship);
   });*/
   this.addProperties(event.relationshipsSelected);
-  console.log(this.propertiesSelected);
   this.showGeneratedScheme = true;
   this.saveScheme(false);
 }
 
   
   saveScheme(confirm){
-    let e = this.semanticService.generateCompacted(this.propertiesSelected).then(
+    let e = this.semanticService.generateCompacted(this.schemeName,this.propertiesSelected).then(
       function (success) {
         //console.log(component);
         return success;
@@ -221,34 +212,29 @@ handleSchemeRelationships(event){
     );
     e.then(
       result => {
-        this.schema_type="http://schema.org/" +this.schemeName
-      
+        this.schema_type="http://schema.org/" + this.schemeName
         this.markView = { semanticContribution: { text: result, schema_type: this.schema_type} };
+        console.log("slug");
+        console.log(result['schema:mainEntity']);
+        console.log(SchemeUtils.getSlug(result['@id']));
         if(confirm){
-          this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text:result} );
-        }else{
-
+          this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
         }
         this.showCompleteForm=false;
         this.showGeneratedScheme=true;
         return result;
       }
     );
-    console.log(e);
   }
   finish(){
     this.saveScheme(true);
   }
 
   saveProperties(){
-    console.log("notify");
     this.notifyNextStep2=true;
     
   }
   next(step){
-    console.log("siguiente paso");
-    console.log(step);
-    console.log(this.actualStep);
     this.actualStep=step;
     if (this.actualStep == step){
       switch (step) {
@@ -297,9 +283,6 @@ handleSchemeRelationships(event){
   }
 }
   back(step){
-    console.log("anterior paso");
-    console.log(step);
-    console.log(this.actualStep);
     this.actualStep = step;
     if (this.actualStep == step) {
       switch (step) {
@@ -319,7 +302,6 @@ handleSchemeRelationships(event){
       }
       step = this.actualStep;
     }
-    console.log(step);
     switch (step) {
       case "step1": {
         this.showActionStep1 = true;

@@ -22,24 +22,13 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   semantic_text:String=null;
   schema_type:String=null;
   showSaveButton:Boolean = false;
-
+  contribution_slug:string;
   semanticContribution = null;
 
   constructor(private transcribeService: TranscribeService, private markService: MarkService, headerService: HeaderService) { }
 
-  ngOnChanges(changes) {
-    console.log("OnChanges");
-    console.log(changes); 
-    if (changes.renderedMark){
-      console.log("rendered mark s");
-      console.log(this.renderedMark);
-    }
-  
-  }
-  ngOnInit() {
-  
-   
-  }
+  ngOnChanges(changes) {}
+  ngOnInit() {}
 
   save() {
     // uncomment this to personalize the save behavior
@@ -50,6 +39,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
     mark.semantic_text = this.semantic_text;
     mark.schema_type = this.schema_type;
+    mark.contribution_slug = this.contribution_slug;
     /*this.markService.create(mark)
       .subscribe(mark => {
         this.renderedMark.mark = mark;
@@ -64,9 +54,12 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.delegate.addModalMark();
   }
   proccessScheme(event){
+    console.log(event);
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
-    this.schema_type = JSON.stringify(event.schema_type);
+    this.schema_type = event.schema_type;
+    this.contribution_slug = event.contribution_slug;
+
     this.save();
    }
 
