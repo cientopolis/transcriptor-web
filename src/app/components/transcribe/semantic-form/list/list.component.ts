@@ -38,7 +38,6 @@ export class ListSemanticMarksComponent implements OnInit {
   getMarks(markParam) {
     let mark = JSON.parse(JSON.stringify(markParam));
     if (mark && mark.semanticContribution) {
-      console.log(mark.semanticContribution);
       mark.schema_type = mark.semanticContribution.schema_type;
       let propertiesSelected = new Array<any>();
       let sContribution = JSON.parse(mark.semanticContribution.text);
@@ -76,7 +75,6 @@ export class ListSemanticMarksComponent implements OnInit {
   getMarksAsNoteDigitalDocument(markParam) {
     let mark = JSON.parse(JSON.stringify(markParam));
     if (mark && mark.semanticContribution) {
-      console.log(mark.semanticContribution);
       mark.schema_type = mark.semanticContribution.schema_type;
       let propertiesSelected = new Array<any>();
       let sContribution = JSON.parse(mark.semanticContribution.text);

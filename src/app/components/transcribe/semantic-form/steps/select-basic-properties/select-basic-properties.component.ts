@@ -1,3 +1,5 @@
+import { SchemaPropertie } from './../../../../../models/scheme/propertie';
+import { SchemeUtils } from './../../../../../utils/schema-utils';
 import { SemanticModelService } from './../../../../../services/semantic-model/semantic-model.service';
 
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges, ChangeDetectorRef } from '@angular/core';
@@ -13,6 +15,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   @ViewChild('modalAddPropertieBasic') modalAddPropertieBasic;
   @Input() properties: Array<any>;
   @Input() schemeName: String;
+  @Input() schemeParents: String;
   @Input() propertieName: String;
   @Input() notifyNextStep = false;
   @Input() propertiesSelected: Array<any>;
@@ -25,7 +28,9 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   public relationships = new Array<any>();
 
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
-  constructor(private changeDetector: ChangeDetectorRef,private semanticService: SemanticModelService) { }
+  constructor(private changeDetector: ChangeDetectorRef,private semanticService: SemanticModelService) { 
+    this.basicTypes= SchemeUtils.basicTypes;
+  }
 
 
   ngOnChanges(changes) {
@@ -77,7 +82,10 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
       if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.propertiesSelected.splice(index, 1);
     });
   }
+
   selectPropertie(propertie, $event) {
+    console.log(this.propertiesSelected);
+    console.log(propertie);
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
         this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, canDelete: true });
@@ -90,6 +98,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     } else {
       this.removePropertie(propertie);
     }
+    console.log(this.propertiesSelected);
   }
  
   public openModalSelectPropertie(){
@@ -101,15 +110,73 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
 
   getSchema(name) {
-    let schema_type = 'https://schema.org/' + name;
+  
+    let schema_type = 'http://schema.org/' + name;
     this.properties = new Array<any>();
     this.propertiesSelected = new Array<any>();
     this.semanticService.getType(name).then(result => {
       /* let properties = result['@graph']; */
       let properties = result;
+ //     properties = SchemeUtils.getPropertiesForType(result,schema_type);
       this.processPropertiesLastLevel(properties);
     });
   }
+
+  getRelationship(propertie, propertiesArray, relationship, propertiesSelected) {
+    var types = new Array();
+    var relationTypes = new Array();
+    var name = propertie.name;
+    propertie.types.forEach(type => {
+      var res = type;
+      if (this.basicTypes.includes(res)) {
+        types.push(res);
+      } else {
+        relationTypes.push(res);
+      }
+    });
+    if (types.length > 0) {
+      propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
+    }
+    if (relationTypes.length > 0) {
+      relationship.push({ name: name, description: propertie.comment, type: relationTypes });
+    }
+
+    if (name.toLowerCase() == 'name') {
+      propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
+    }
+
+  }
+
+  processPropertiesLastLevel(properties:Array<SchemaPropertie>) {
+    console.log(properties);
+    properties.forEach(propertie =>{
+      let ranges = propertie.types;
+      if (propertie.label != null) {
+        if (ranges != null && ranges.length) {
+          this.getRelationship(propertie, this.properties, this.relationships, this.propertiesSelected);
+        }
+      }
+    })
+    this.relationships = properties;
+    //this.generateScheme();
+  }
+  generateScheme() {
+    this.schemeGenerated.emit({
+      propertiesSelected: this.propertiesSelected,
+      properties: this.relationships
+    });
+  }
+
+  handleScheme(event) {
+    this.propertiesSelected.forEach(propertie => {
+      if (this.propertieName == propertie.name) {
+        propertie.scheme = event;
+      }
+    })
+    this.sublevel = false;
+  }
+
+/*  
   getRelationship(propertie, ranges, propertiesArray, relationship, propertiesSelected) {
     var types = new Array();
     var relationTypes = new Array();
@@ -127,7 +194,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
       propertiesArray.push({ name: name, types: types, selected: false, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'], id: name + Date.now() });
     }
     if (relationTypes.length > 0) {
-      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });      
+      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });
       relationship.push({ name: name, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'], type: relationTypes });
     }
 
@@ -136,7 +203,8 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     }
 
   }
-  processPropertiesLastLevel(properties) {
+
+processPropertiesLastLevel(properties) {
     let relationships = new Array<any>();
     for (var prop in properties) {
       let propertie = properties[prop];
@@ -153,7 +221,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     }
     this.relationships = properties;
     //this.generateScheme();
-  }
+  } */
 /*
   processProperties(properties) {
     for (var prop in properties) {
@@ -204,21 +272,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
  */
 
-  generateScheme() {
-    this.schemeGenerated.emit({
-      propertiesSelected: this.propertiesSelected,
-      properties: this.relationships
-    });
-  }
 
-  handleScheme(event) {
-    this.propertiesSelected.forEach(propertie => {
-      if (this.propertieName == propertie.name) {
-        propertie.scheme = event;
-      }
-    })
-    this.sublevel = false;
-  }
 
 }
 

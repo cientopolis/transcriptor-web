@@ -68,7 +68,15 @@ export class SelectSchemaComponent implements OnInit {
     this.selectSchema();
   }
   selectSchema() {
-    this.schemeSelected.emit(this.scheme);
+    let hierarchy = ""
+    this.parents.forEach(parent => {
+      if (hierarchy==""){
+        hierarchy= parent.name;
+      }else{
+        hierarchy = hierarchy + ">" + parent.name; 
+      }
+    });
+    this.schemeSelected.emit(hierarchy);
   }
 
 }

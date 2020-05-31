@@ -1,3 +1,4 @@
+import { SchemeUtils } from './../../../../../utils/schema-utils';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
@@ -16,7 +17,9 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   level = 0;
   searchText:String;
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
-  constructor() { }
+  constructor() { 
+    this.basicTypes = SchemeUtils.basicTypes;
+  }
 
   ngOnChanges(changes) {
     if (changes.notifyNextStep && changes.notifyNextStep.currentValue) {
@@ -51,6 +54,39 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   getRelationship(propertie, ranges, relationship) {
     var types = new Array();
     var relationTypes = new Array();
+    var name = propertie.name;
+    ranges.forEach(range => {
+      var res = range;
+      if (!this.basicTypes.includes(res)) {
+        relationTypes.push(res);
+      }
+    });
+
+    if (relationTypes.length > 0) {
+      relationship.push({ name: name, description: propertie.comment, types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
+    }
+  }
+
+  hasRanges(properties,prop){
+    return (properties[prop]['@type'] != "rdfs:Class" && properties[prop]['schema:rangeIncludes']);
+  }
+  processProperties(properties) {
+    properties.forEach(propertie => {
+      let label = propertie.label;
+      let propertieId = propertie.id;
+      let ranges = propertie.types;
+      if (label != null) {
+        if (ranges != null && ranges.length) {
+          this.getRelationship(propertie, ranges, this.relationships);
+        }
+      }  
+    });
+
+}
+/*
+  getRelationship(propertie, ranges, relationship) {
+    var types = new Array();
+    var relationTypes = new Array();
     var name = propertie['@id'].slice(18, propertie['@id'].length);
     ranges.forEach(element => {
       var res = element['@id'].slice(18, element['@id'].length);
@@ -60,16 +96,12 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     });
 
     if (relationTypes.length > 0) {
-      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });      
+      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });
       relationship.push({ name: name, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'], types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
-      
+
     }
 
 
-  }
-
-  hasRanges(properties,prop){
-    return (properties[prop]['@type'] != "rdfs:Class" && properties[prop]['schema:rangeIncludes']);
   }
   processProperties(properties) {
     for (var prop in properties) {
@@ -80,13 +112,14 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
       if (label != null) {
         label = propertie['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
         if (ranges != null && ranges.length) {
-          
+
           this.getRelationship(propertie, ranges, this.relationships);
         }
       }
     }
 }
-/*   processProperties(properties) {
+
+processProperties(properties) {
     for (var prop in properties) {
         if (this.hasRanges(properties,prop)) {
             let types = new Array<any>();

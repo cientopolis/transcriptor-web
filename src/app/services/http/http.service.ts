@@ -70,7 +70,6 @@ export class HttpService {
 
   bget(path, requestOptions = this.getDefaultOptions()) {
     
-    console.log();
     return this.doRequest(HttpService.methods.get, path,null, requestOptions,true);
   }
 
@@ -120,10 +119,9 @@ export class HttpService {
     if(!basicRequest){
       uri = this.processUri(path);
     }else{
-   
       requestOptions['headers']['Access-Control-Allow-Origin'] = "*";
     }
-    console.log(requestOptions);
+
     console.log(uri);
     let observable = null;
     observable = requestMethod.execute(this.http, uri, data, httpOptions);

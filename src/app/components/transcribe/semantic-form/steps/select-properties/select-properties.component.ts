@@ -1,3 +1,5 @@
+import { SchemaPropertie } from './../../../../../models/scheme/propertie';
+import { SchemeUtils } from './../../../../../utils/schema-utils';
 import { SemanticModelService } from './../../../../../services/semantic-model/semantic-model.service';
 
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges } from '@angular/core';
@@ -27,7 +29,9 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
   public relationships = new Array<any>();
 
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
-  constructor(private semanticService: SemanticModelService) { }
+  constructor(private semanticService: SemanticModelService) {
+    this.basicTypes=SchemeUtils.basicTypes;
+   }
 
 
   ngOnChanges(changes) {
@@ -101,7 +105,8 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
   }
 
   getSchema(name) {
-    let schema_type = 'https://schema.org/' + name;
+
+    let schema_type = 'http://schema.org/' + name;
     this.properties = new Array<any>();
     this.propertiesSelected = new Array<any>();
     this.semanticService.getType(name).then(result => {
@@ -131,7 +136,49 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     }
    
   }
-  getRelationship(propertie, ranges, propertiesArray, relationship, propertiesSelected) {
+  getRelationship(propertie, propertiesArray, relationship, propertiesSelected) {
+    var types = new Array();
+    var relationTypes = new Array();
+    var name = propertie.name;
+    propertie.types.forEach(type => {
+      var res = type;
+      if (this.basicTypes.includes(res)) {
+        types.push(res);
+      } else {
+        relationTypes.push(res);
+      }
+    });
+    if (types.length > 0) {
+      propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
+    }
+    if (relationTypes.length > 0) {
+      relationship.push({ name: name, description: propertie.comment, type: relationTypes });
+    }
+
+    if (name.toLowerCase() == 'name') {
+      propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
+    }
+
+  }
+
+  processPropertiesLastLevel(properties: Array<SchemaPropertie>) {
+    properties.forEach(propertie => {
+      let ranges = propertie.types;
+      if (propertie.label != null) {
+        if (ranges != null && ranges.length) {
+          this.getRelationship(propertie, this.properties, this.relationships, this.propertiesSelected);
+        }
+      }
+    })
+    this.relationships = properties;
+    //this.generateScheme();
+  }
+
+
+  
+  /*
+
+    getRelationship(propertie, ranges, propertiesArray, relationship, propertiesSelected) {
     var types = new Array();
     var relationTypes = new Array();
     var name = propertie['@id'].slice(18, propertie['@id'].length);
@@ -148,7 +195,7 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
       propertiesArray.push({ name: name, types: types, selected: false, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'] });
     }
     if (relationTypes.length > 0) {
-      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });      
+      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });
       relationship.push({ name: name, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'], type: relationTypes });
     }
 
@@ -157,25 +204,24 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     }
 
   }
-  processPropertiesLastLevel(properties) {
-    let relationships = new Array<any>();
-    for (var prop in properties) {
-      let propertie = properties[prop];
-      let label = propertie['http://www.w3.org/2000/01/rdf-schema#label'];
-      let propertieId = properties['@id'];
-      let ranges = propertie['http://schema.org/rangeIncludes'];
-      if (label != null) {
-        label = propertie['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
-        if (ranges != null && ranges.length) {
-          this.getRelationship(propertie, ranges, this.properties, this.relationships, this.propertiesSelected);
+    processPropertiesLastLevel(properties) {
+      let relationships = new Array<any>();
+      for (var prop in properties) {
+        let propertie = properties[prop];
+        let label = propertie['http://www.w3.org/2000/01/rdf-schema#label'];
+        let propertieId = properties['@id'];
+        let ranges = propertie['http://schema.org/rangeIncludes'];
+        if (label != null) {
+          label = propertie['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
+          if (ranges != null && ranges.length) {
+            this.getRelationship(propertie, ranges, this.properties, this.relationships, this.propertiesSelected);
+          }
         }
+        
       }
-      
+      this.relationships = properties;
+      //this.generateScheme();
     }
-    this.relationships = properties;
-    //this.generateScheme();
-  }
-
 
   processPropertiesLastLevelOld(properties) {
     let relationships = new Array<any>();
@@ -207,7 +253,7 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     this.relationships = properties;
     //this.generateScheme();
   }
-
+*/
 
   generateScheme() {
     this.schemeGenerated.emit({ 

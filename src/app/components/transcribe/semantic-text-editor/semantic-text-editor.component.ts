@@ -1,3 +1,4 @@
+import { SemanticModelService } from './../../../services/semantic-model/semantic-model.service';
 import { HeaderService } from './../../../services/sharedData/header.service';
 import { RenderedMark } from './../../../models/renderedMark';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
@@ -25,10 +26,16 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   contribution_slug:string;
   semanticContribution = null;
 
-  constructor(private transcribeService: TranscribeService, private markService: MarkService, headerService: HeaderService) { }
+  constructor(private transcribeService: TranscribeService,
+     private markService: MarkService,
+      headerService: HeaderService,
+      private  semanticModel:SemanticModelService) { }
 
   ngOnChanges(changes) {}
-  ngOnInit() {}
+  ngOnInit() {
+   /*  console.log("call types from backend")
+    this.semanticModel.getFullTree(); */
+  }
 
   save() {
     // uncomment this to personalize the save behavior

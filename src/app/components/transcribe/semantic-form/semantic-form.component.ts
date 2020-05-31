@@ -17,6 +17,7 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   showCompleteForm=false;
   schemas:Array<any>;
   scheme: any;
+  schemeParents:string;
   properties:Array<any>;
   propertiesSelected= new Array<any>();
   //
@@ -164,7 +165,11 @@ validateStepOne() {
    return this.schemeName!=null;
 }
 selectSchema(scheme){
-  this.schemeName = scheme.name;
+  console.log(scheme);
+  let hierarchy = scheme.split(">");
+
+  this.schemeName = hierarchy[hierarchy.length-1];
+  this.parents = scheme;
   this.propertiesSelected = new Array<any>(); 
   this.basicProperties = new Array<any>();
   this.relationProperties = new Array<any>();
@@ -177,6 +182,8 @@ stepTwo(){
 }
 
 handleScheme(event){
+  console.log("handle scheme");
+  console.log(event);
   this.addProperties(event.propertiesSelected);
   if (this.properties==null || this.properties.length==0){
     this.properties = event.properties;

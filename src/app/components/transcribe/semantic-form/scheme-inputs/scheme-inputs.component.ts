@@ -28,7 +28,9 @@ export class SchemeInputsComponent implements OnInit {
   };
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  
+  }
 
   deleteModel(model){
     this.modelDeleted.emit({model:this.model})
