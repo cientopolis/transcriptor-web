@@ -7,6 +7,9 @@
       "saveChanges":"Save Changes",
       "delete":"Delete",
       "show":"Show"
+    },
+    "placeholder": {
+      "search.empty.list": "There are no results matching your search yet."
     }
   },
   "home":{

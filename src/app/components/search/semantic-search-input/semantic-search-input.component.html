@@ -1,0 +1,9 @@
+<app-search-input
+    #searchInput
+    (onFetch)="searchEntities($event)"
+    (itemChange)="itemChange($event)"
+    [placeholder]="placeholder"
+    [itemIcon]="'semantic-web'">
+</app-search-input>
+
+<p>semanticModel: {{semanticModel | json}}</p>

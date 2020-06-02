@@ -1,0 +1,36 @@
+@import '~styles/styles';
+
+:host ::ng-deep .transcriptor-search-input .card-content {
+    padding-top: 5px;
+    padding-bottom: 13px;
+    padding-left: 5px;
+    padding-right: 15px;
+}
+:host ::ng-deep .transcriptor-search-input .card-content .input-field,
+:host ::ng-deep .transcriptor-search-input .card-content .input-field input {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+:host ::ng-deep .transcriptor-search-input .collection {
+    margin: 0;
+}
+:host ::ng-deep .transcriptor-search-input .collection .collection-item.avatar {
+    min-height: 64px;
+}
+:host ::ng-deep .transcriptor-search-input .collection .collection-item.avatar:hover {
+    background-color: #efefef;
+}
+:host ::ng-deep .transcriptor-search-input .collection .collection-item.avatar .secondary-content {
+    top: calc(50% - 12px)
+}
+
+:host ::ng-deep .dropdown-content {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+.search-dropdown-button {
+    width: 100%;
+}
