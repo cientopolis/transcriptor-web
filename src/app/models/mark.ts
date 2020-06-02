@@ -19,6 +19,7 @@ export class Mark {
   transcription:any;
   translation:any;
   semanticContribution: any;
+  contribution_slug:string;
   
   constructor(page = null, layer = null, layerType = null, transcriptorLayer = null){
     this.page_id = page ? page.id : null;

@@ -1,0 +1,20 @@
+@import '~styles/styles';
+
+
+:host ::ng-deep .picker__date-display {
+    background-color:$primaryColor !important;
+    color: white;
+}
+:host ::ng-deep .picker__header {
+  color:$primaryColor !important;
+}
+:host ::ng-deep  .picker__today {
+     color:$primaryColor !important;
+}
+:host ::ng-deep .picker__close, .picker__today, .picker__clear{
+    color:$primaryColor !important;
+}
+:host ::ng-deep  .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+    background-color:$primaryColor !important;
+    color: white;
+}

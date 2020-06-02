@@ -44,6 +44,7 @@
     </mz-collapsible-item-body>
   </mz-collapsible-item>
 </mz-collapsible>
+
 <div *ngIf="!colapsible">
   <div *ngIf="schemeName" class="row">
     <div class="col s12 header-box">
@@ -90,7 +91,7 @@
         <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
           <mz-input-container >
             <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
-            <input style="margin-bottom: 5px;"mz-input [label]="'Buscar un tipo de dato'" id="search-input" type="text"
+            <input style="margin-bottom: 5px;"mz-input [label]="'Buscar un tipo de dato'" id="search-input-propertie" type="text"
               [(ngModel)]="searchText">
           </mz-input-container>
         </div>
@@ -122,7 +123,7 @@
                 <td>{{prop.description}}</td>
                 <td>
                   <mz-checkbox-container>
-                    <input mz-checkbox id="{{prop.name}}" class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{prop.selected}}"
+                    <input mz-checkbox id="{{prop.id}}+'modalAddPropertie'" class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{prop.selected}}"
                       [(ngModel)]="prop.selected" (change)="selectPropertie(prop,$event)">
                   </mz-checkbox-container>
                 </td>
@@ -146,7 +147,7 @@
         <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
           <mz-input-container>
             <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
-            <input style="margin-bottom: 5px;" mz-input [label]="'Buscar un tipo de dato'" id="search-input" type="text"
+            <input style="margin-bottom: 5px;" mz-input [label]="'Buscar un tipo de dato'" id="search-input-propertie" type="text"
               [(ngModel)]="searchText">
           </mz-input-container>
         </div>
@@ -178,7 +179,7 @@
                 <td>{{prop.description}}</td>
                 <td>
                   <mz-checkbox-container>
-                    <input mz-checkbox id="{{prop.name}}" class="filled-in checkbox-orange" filledIn=true type="checkbox"
+                    <input mz-checkbox id="{{prop.id}}" class="filled-in checkbox-orange" filledIn=true type="checkbox"
                       value="{{prop.selected}}" [(ngModel)]="prop.selected" (change)="selectPropertie(prop,$event)">
                   </mz-checkbox-container>
                 </td>

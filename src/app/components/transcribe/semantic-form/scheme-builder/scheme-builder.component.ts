@@ -22,8 +22,6 @@ export class SchemeBuilderComponent implements OnInit {
 
   ngOnInit() {
 //    console.log(this.properties);
-    console.log(this.propertieName);
-    console.log(this.level);
     this.level=this.level-1;
     if(this.schemeName!=null){
       this.getSchema(this.schemeName);
@@ -33,8 +31,6 @@ export class SchemeBuilderComponent implements OnInit {
     }
   }
   selectType(prop,event){
-    console.log(prop);
-    console.log(event);
     prop.types.forEach((t, index) => {
       if (t.toLowerCase() === event.detail.toLowerCase()) 
         prop.types.splice(index, 1);
@@ -49,7 +45,6 @@ export class SchemeBuilderComponent implements OnInit {
 
   }
   prepareSchemeBuilder(scheme,name){
-    console.log(scheme);
     if(!this.basicTypes.includes(scheme)){
       this.schemeName=scheme;
       this.sublevel=true;
@@ -58,11 +53,8 @@ export class SchemeBuilderComponent implements OnInit {
   }
 
   selectPropertie(propertie ,$event) {
-    console.log(propertie);
-    console.log($event);
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])){
-        console.log(propertie.types[0]);
         this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null });
         this.prepareSchemeBuilder(propertie.types[0],propertie.name);
       }else{
@@ -75,7 +67,6 @@ export class SchemeBuilderComponent implements OnInit {
         if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.propertiesSelected.splice(index, 1);
       });
     }
-    console.log(this.propertiesSelected);
   }
 
 
@@ -133,23 +124,17 @@ export class SchemeBuilderComponent implements OnInit {
           this.properties.push({ name: properties[prop]['@id'].split(':')[1], types: types, selected: false });
         }
       }
-      
     }
   }
   generateScheme() {
     this.schemeGenerated.emit({properties:this.propertiesSelected});
   }
   handleScheme(event){
-    console.log(event);
-    console.log("propiedades recibidas en el nivel:!! " + this.level);
     this.propertiesSelected.forEach(propertie => {
       if(this.propertieName==propertie.name){
         propertie.scheme=event;
       }
     })
-    console.log(this.propertiesSelected);
     this.sublevel=false;
-   
   }
-
 }

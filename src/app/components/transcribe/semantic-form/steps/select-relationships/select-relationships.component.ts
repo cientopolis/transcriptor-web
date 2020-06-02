@@ -1,3 +1,4 @@
+import { SchemeUtils } from './../../../../../utils/schema-utils';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
@@ -16,47 +17,33 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   level = 0;
   searchText:String;
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
-  constructor() { }
+  constructor() { 
+    this.basicTypes = SchemeUtils.basicTypes;
+  }
 
   ngOnChanges(changes) {
     if (changes.notifyNextStep && changes.notifyNextStep.currentValue) {
-      
       this.generateSchemeRelationships();
     } 
     if (changes.properties && changes.properties.currentValue) {
-      console.log("changues relationship");
       this.relationships = new Array<any>();
       this.relationshipsSelected= new Array<any>();
-      console.log(changes.properties.currentValue);
       this.processProperties(changes.properties.currentValue);
     }
   }
   ngOnInit() {
-    console.log(this.properties);
-    console.log("on init");
     //this.processProperties(this.properties);
-
   }
   public openModalSelectRelarionship() {
-    console.log(this.relationshipsSelected);
-    console.log("open modal");
     this.modalAddRelationPropertie.openModal();
   }
 
   handleScheme(event){
-    console.log(event);
-    console.log(this.relationshipsSelected);
-
     this.relationshipsSelected.forEach(relationship => {
       if (event.propertieName == relationship.name) {
         relationship.scheme = event.propertiesSelected;
       }
     })
-
-    console.log(this.relationshipsSelected);
-
-
-
   }
   generateSchemeRelationships(){
     this.relationshipGenerated.emit({
@@ -64,11 +51,75 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     });
   }
   
+  getRelationship(propertie, ranges, relationship) {
+    var types = new Array();
+    var relationTypes = new Array();
+    var name = propertie.name;
+    ranges.forEach(range => {
+      var res = range;
+      if (!this.basicTypes.includes(res)) {
+        relationTypes.push(res);
+      }
+    });
+
+    if (relationTypes.length > 0) {
+      relationship.push({ name: name, description: propertie.comment, types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
+    }
+  }
 
   hasRanges(properties,prop){
     return (properties[prop]['@type'] != "rdfs:Class" && properties[prop]['schema:rangeIncludes']);
   }
   processProperties(properties) {
+    properties.forEach(propertie => {
+      let label = propertie.label;
+      let propertieId = propertie.id;
+      let ranges = propertie.types;
+      if (label != null) {
+        if (ranges != null && ranges.length) {
+          this.getRelationship(propertie, ranges, this.relationships);
+        }
+      }  
+    });
+
+}
+/*
+  getRelationship(propertie, ranges, relationship) {
+    var types = new Array();
+    var relationTypes = new Array();
+    var name = propertie['@id'].slice(18, propertie['@id'].length);
+    ranges.forEach(element => {
+      var res = element['@id'].slice(18, element['@id'].length);
+      if (!this.basicTypes.includes(res)) {
+        relationTypes.push(res);
+      }
+    });
+
+    if (relationTypes.length > 0) {
+      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });
+      relationship.push({ name: name, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'], types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
+
+    }
+
+
+  }
+  processProperties(properties) {
+    for (var prop in properties) {
+      let propertie = properties[prop];
+      let label = propertie['http://www.w3.org/2000/01/rdf-schema#label'];
+      let propertieId = properties['@id'];
+      let ranges = propertie['http://schema.org/rangeIncludes'];
+      if (label != null) {
+        label = propertie['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
+        if (ranges != null && ranges.length) {
+
+          this.getRelationship(propertie, ranges, this.relationships);
+        }
+      }
+    }
+}
+
+processProperties(properties) {
     for (var prop in properties) {
         if (this.hasRanges(properties,prop)) {
             let types = new Array<any>();
@@ -88,15 +139,11 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
             }
           }
         }
-        console.log(this.relationships);
-    }
+    } */
 
   selectPropertie(propertie, $event) {
-    console.log(propertie);
-    console.log($event);
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
-        console.log(propertie.types[0]);
         this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: new Array<any>(), properties: new Array<any>() });
        // this.prepareSchemeBuilder(propertie.types[0], propertie.name);
       } else {
@@ -109,12 +156,9 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
       });
     }
-    console.log(this.relationshipsSelected);
   }
 
   selectType(prop, event) {
-    console.log(prop);
-    console.log(event);
     prop.types.forEach((t, index) => {
       if (t.toLowerCase() === event.detail.toLowerCase())
         prop.types.splice(index, 1);

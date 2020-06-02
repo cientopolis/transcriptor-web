@@ -262,8 +262,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     L.Control['Watermark'] = L.Control.extend({
         onAdd: function(map) {
             var img = L.DomUtil.create('img');
-            img['src'] = 'assets/img/logo.png';
-            img['id'] = 'leaflet-watermark';
+           // img['src'] = 'assets/img/logo.png';
+          //img['id'] = 'leaflet-watermark';
             return img;
         },
         onRemove: function(map) {

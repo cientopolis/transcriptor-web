@@ -66,7 +66,7 @@
               <td>
                 <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
                   <select mz-select (change)="selectType(prop,$event)">
-                    <option *ngFor="let type of prop.types" [ngValue]="type">{{ type }}</option>
+                    <option *ngFor="let type of prop.types" [ngValue]="type">{{ type | scheme_type }}</option>
                   </select>
                 </mz-select-container>
                 <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
