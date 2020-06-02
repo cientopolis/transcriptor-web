@@ -1,8 +1,9 @@
 
+
 import { SchemaPropertie } from './../models/scheme/propertie';
 export class SchemeUtils {
     public static prefix = "http://transcriptor-dev.com/"
-    public static schema_prefix = "https://schema.org/"
+    public static schema_prefix = "http://schema.org/"
     public static schema_tree = "https://himalia.ddns.net:3030/files/tree.jsonld"
     public static schema_properties = "https://himalia.ddns.net:3030/api/schemaorg/"
     public static local_sources = false;
@@ -83,22 +84,23 @@ export class SchemeUtils {
         if (semanticContribution['schema:mainEntity']) {
             semanticContribution = semanticContribution['schema:mainEntity'];
             }
+
         for (let key in semanticContribution) {
             const item = semanticContribution[key];
                 if (item['@type']) {
                     let propOfScheme = new Array<any>();
                     for (let itemKey in item) {
-                        if (itemKey != '@type' && itemKey != '@id' && itemKey != 'rdfs:label') {
-                            propOfScheme.push({ name: itemKey, value: item[itemKey], model: item[itemKey] });
+                        if (itemKey != '@type' && itemKey != '@id' && itemKey != 'rdfs:label' && itemKey != 'http://www.w3.org/2000/01/rdf-schema#label') {
+                            propOfScheme.push({ name: SchemeUtils.extractPrefix(itemKey), value: item[itemKey], model: item[itemKey] });
                         }
                     }
-                    propertiesSelected.push({ name: key, value: propOfScheme, model: propOfScheme, isArray: true, schema_type: item['@type'] });
+                    propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: propOfScheme, model: propOfScheme, isArray: true, schema_type: item['@type'] });
                 } else {
                     if (key == "schema:name") {
                         mark.name = item
                     }
-                    if (key != '@type' && key != '@id' && key != 'rdfs:label') {
-                        propertiesSelected.push({ name: key, value: item, model: item, isArray: false, schema_type: null });
+                    if (key != '@type' && key != '@id' && key != 'rdfs:label' && key !='http://www.w3.org/2000/01/rdf-schema#label') {
+                        propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: item, model: item, isArray: false, schema_type: null });
                     }
                 }
             }

@@ -165,7 +165,7 @@ validateStepOne() {
    return this.schemeName!=null;
 }
 selectSchema(scheme){
-  console.log(scheme);
+/*   console.log(scheme); */
   let hierarchy = scheme.split(">");
 
   this.schemeName = hierarchy[hierarchy.length-1];
@@ -182,8 +182,6 @@ stepTwo(){
 }
 
 handleScheme(event){
-  console.log("handle scheme");
-  console.log(event);
   this.addProperties(event.propertiesSelected);
   if (this.properties==null || this.properties.length==0){
     this.properties = event.properties;
@@ -221,9 +219,9 @@ handleSchemeRelationships(event){
       result => {
         this.schema_type="http://schema.org/" + this.schemeName
         this.markView = { semanticContribution: { text: result, schema_type: this.schema_type} };
-        console.log("slug");
+/*         console.log("slug");
         console.log(result['schema:mainEntity']);
-        console.log(SchemeUtils.getSlug(result['@id']));
+        console.log(SchemeUtils.getSlug(result['@id'])); */
         if(confirm){
           this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
         }

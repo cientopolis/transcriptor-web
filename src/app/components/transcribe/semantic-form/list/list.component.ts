@@ -11,18 +11,22 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ListSemanticMarksComponent implements OnInit {
   @Input() renderedMarks = null;
   @Input() public layerName = null;
+  @Input() public layerDescription= null;
   semanticContributions:Mark[] = [];
   semanticContributionsSelected: Mark[]
   constructor(private headerService:HeaderService) { 
     this.headerService.header ='Hechos Historicos';
     this.headerService.headerParagraph ='Capa Semántica';
-    this.headerService.headerSubparagraph ='Esta capa agrupa los hechos históricos que se mencionan en esta pagina';
+/*     this.headerService.headerSubparagraph ='Esta capa agrupa los hechos históricos que se mencionan en esta pagina'; */
   }
 
   setHeaderTitle(){
     if (this.layerName) {
       this.headerService.header = this.layerName;
     } 
+    if(this.layerDescription){
+  this.headerService.headerParagraph=this.layerDescription;
+    }
   }
   ngOnInit() {
     this.setHeaderTitle();
@@ -55,9 +59,11 @@ export class ListSemanticMarksComponent implements OnInit {
             }
             let propOfScheme = new Array<any>();
             for (let i in item) {
-              propOfScheme.push({ name: i, value: item[i], model: item[i] });
+              if (i != 'http://www.w3.org/2000/01/rdf-schema#label'){
+                propOfScheme.push({ name: i, value: item[i], model: item[i] });
+              }
             }
-            propertiesSelected.push({ name: key, value: propOfScheme, model: propOfScheme, isArray: true, schema_type:s_type });
+            propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: propOfScheme, model: propOfScheme, isArray: true, schema_type:s_type });
 
           }else{
             if (key == "name") {
@@ -92,7 +98,7 @@ export class ListSemanticMarksComponent implements OnInit {
     this.setHeaderTitle();
 //    this.headerService.header = 'Hechos Historicos';
     this.headerService.headerParagraph = 'Capa Semántica';
-    this.headerService.headerSubparagraph = 'Esta capa agrupa los hechos históricos que se mencionan en esta pagina';
+    /* this.headerService.headerSubparagraph = 'Esta capa agrupa los hechos históricos que se mencionan en esta pagina'; */
     this.semanticContributionsSelected = null;
   }
 

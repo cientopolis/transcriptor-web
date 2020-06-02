@@ -84,8 +84,6 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
 
   selectPropertie(propertie, $event) {
-    console.log(this.propertiesSelected);
-    console.log(propertie);
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
         this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, canDelete: true });
@@ -98,7 +96,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     } else {
       this.removePropertie(propertie);
     }
-    console.log(this.propertiesSelected);
+   
   }
  
   public openModalSelectPropertie(){
@@ -135,20 +133,21 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
       }
     });
     if (types.length > 0) {
-      propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
+      if (name.toLowerCase() == 'name') {
+        propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
+      }else{
+        propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
+      }
     }
     if (relationTypes.length > 0) {
       relationship.push({ name: name, description: propertie.comment, type: relationTypes });
     }
 
-    if (name.toLowerCase() == 'name') {
-      propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
-    }
+
 
   }
 
   processPropertiesLastLevel(properties:Array<SchemaPropertie>) {
-    console.log(properties);
     properties.forEach(propertie =>{
       let ranges = propertie.types;
       if (propertie.label != null) {

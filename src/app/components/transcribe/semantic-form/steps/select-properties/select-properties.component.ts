@@ -149,16 +149,15 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
       }
     });
     if (types.length > 0) {
-      propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
+      if (name.toLowerCase() == 'name') {
+        propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
+      }else{
+        propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
+      }
     }
     if (relationTypes.length > 0) {
       relationship.push({ name: name, description: propertie.comment, type: relationTypes });
     }
-
-    if (name.toLowerCase() == 'name') {
-      propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
-    }
-
   }
 
   processPropertiesLastLevel(properties: Array<SchemaPropertie>) {

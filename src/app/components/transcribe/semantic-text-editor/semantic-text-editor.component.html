@@ -24,7 +24,7 @@
       <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark" [layerName]="layer.name" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
       
       <app-list-semantic-marks *ngIf="page && (renderedMark==null || renderedMark.mark==null)"
-        [renderedMarks]="renderedMarks" [layerName]="layer.name"></app-list-semantic-marks>
+        [renderedMarks]="renderedMarks" [layerDescription]="layer.description" [layerName]="layer.name"></app-list-semantic-marks>
       <!--
       <label class="primary-color-text" for="basic-text-editor">{{'transcribe.textEditor.label' | translate}}</label>
       <textarea id="basic-text-editor" class="form-control"

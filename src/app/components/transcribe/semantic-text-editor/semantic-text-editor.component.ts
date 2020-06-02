@@ -28,7 +28,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
   constructor(private transcribeService: TranscribeService,
      private markService: MarkService,
-      headerService: HeaderService,
+      private headerService: HeaderService,
       private  semanticModel:SemanticModelService) { }
 
   ngOnChanges(changes) {}
@@ -43,7 +43,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     var component = this.delegate;
     var renderedMark = this.renderedMark;
     var mark = this.renderedMark.mark;
-
+    this.headerService.showDetails = true;
     mark.semantic_text = this.semantic_text;
     mark.schema_type = this.schema_type;
     mark.contribution_slug = this.contribution_slug;

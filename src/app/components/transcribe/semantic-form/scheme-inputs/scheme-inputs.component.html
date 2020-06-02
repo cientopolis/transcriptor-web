@@ -22,7 +22,7 @@
 </div>
 <div *ngIf="model.type=='http://schema.org/Integer' || model.type=='http://schema.org/Number' || model.type=='Number' || model.type=='Integer'" class="row" >
   <div class="input-field  col s11">
-    <input id="model.name" [(ngModel)]="model.model" type="Number">
+    <input id="model.name" [(ngModel)]="model.model" type="number">
     <label for="model.name">{{model.name}}</label>
   </div>
   <div *ngIf="model.canDelete" class="input-field  col s1" (click)="deleteModel(model)">

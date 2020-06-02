@@ -25,12 +25,12 @@ export class SelectSchemaComponent implements OnInit {
 
   ngOnInit() {
     if (this.mark) {
-      this.headerService.headerParagraph = 'Hechos Históricos';
+/*       this.headerService.headerParagraph = 'Hechos Históricos';
       this.headerService.headerSubparagraph = null;
       this.headerService.header = "Nueva Marca";
       this.headerService.showDetails = false;
       this.headerService.headerStep=true;
-      this.headerService.stepNumber=1;
+      this.headerService.stepNumber=1; */
       this.semanticService.getAllTypes().then(result => {
         this.scheme = result;
         this.parents.push(result);

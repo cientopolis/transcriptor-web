@@ -32,17 +32,17 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
       this.semanticContributions = this.markSelected.semanticContribution;
     } else {
       //this.semanticContributions = this.getMarks(this.markSelected);
+      this.headerService.showDetails = true;
       let propertiesSelected = new Array<any>();
-      console.log(this.markSelected);
       let sContribution = this.markSelected.semanticContribution.text;
       this.semanticContributions = SchemeUtils.getMarksAsNoteDigitalDocument(this.markSelected, sContribution);
       this.markSelected.schema_type = this.markSelected.semanticContribution.schema_type;
       this.markSelected.semanticContribution = this.semanticContributions;
       this.semanticContributions.push(this.markSelected);
     }
-    console.log(this.semanticContributions);
+
     this.semanticContributions.forEach(element => {
-      console.log(element);
+
       if (!element.isArray && !element.scheme) {
         this.properties.push(element);
       } else {
@@ -82,10 +82,8 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
     if (mark && mark.semanticContribution) {
       mark.schema_type = mark.semanticContribution.schema_type;
       let propertiesSelected = new Array<any>();
-      console.log("Mark-----");
-      console.log(mark.semanticContribution.text);
+
       if (mark.semanticContribution.text['schema:mainEntity']){
-        console.log(mark.semanticContribution.text['schema:mainEntity']);
         mark.semanticContribution.text = mark.semanticContribution.text['schema:mainEntity'];
       }
       let sContribution = mark.semanticContribution.text;
