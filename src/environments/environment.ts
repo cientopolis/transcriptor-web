@@ -5,10 +5,13 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://himalia.ddns.net:3030',
+  apiUrl: 'localhost:3000',
   transcribe: {
     classicMode: false,
     layers: true
+  },
+  semantic_transcription: {
+    prefix: "http://transcriptor-dev.com/"
   },
   usePusher: false
 };

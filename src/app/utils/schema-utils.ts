@@ -1,13 +1,14 @@
-
-
 import { SchemaPropertie } from './../models/scheme/propertie';
+import { SchemaPrefixUtils } from './schema-prefix-utils';
+import { environment } from 'environments/environment';
+
 export class SchemeUtils {
-    public static prefix = "http://transcriptor-dev.com/"
-    public static schema_prefix = "http://schema.org/"
-    public static schema_tree = "https://himalia.ddns.net:3030/files/tree.jsonld"
-    public static schema_properties = "https://himalia.ddns.net:3030/api/schemaorg/"
+    public static prefix = SchemaPrefixUtils.prefix
+    public static schema_prefix = SchemaPrefixUtils.schema_prefix
+    public static prefix_schema = SchemaPrefixUtils.prefix_schema
+    public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
+    public static schema_properties = `${environment.apiUrl}/api/schemaorg/`
     public static local_sources = false;
-    public static prefix_schema = "schema:"
     public static basicTypes = [
         'http://schema.org/Integer',
         'http://schema.org/Time', 
@@ -35,10 +36,7 @@ export class SchemeUtils {
     }
 
     public static extractPrefix(str){
-        if(!str.includes(SchemeUtils.prefix_schema)){
-            return str;            
-        }
-        return str.substring(SchemeUtils.prefix_schema.length, str.length);
+        return SchemaPrefixUtils.extractPrefix(str)
     }
 
     public static buildProperties(graphjson){
