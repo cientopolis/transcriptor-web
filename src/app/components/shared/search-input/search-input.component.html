@@ -1,0 +1,27 @@
+<mz-card class="transcriptor-search-input">
+  <mz-card-content>
+    <mz-input-container>
+      <i mz-icon-mdi mz-input-prefix [icon]="'magnify'" [align]="'center'"></i>
+      <input mz-input [placeholder]="placeholder" type="text" [ngModel]="searchText" (ngModelChange)="changedSearchText($event)">
+      <div [id]="dropdownButtonId" class="search-dropdown-button"></div>
+    </mz-input-container>
+  </mz-card-content>
+</mz-card>
+
+<mz-dropdown #searchDropdown [id]="dropdownId" [dropdownButtonId]="dropdownButtonId" [belowOrigin]="true"
+  [constrainWidth]="true" [hover]="false" [stopPropagation]="true">
+  <mz-dropdown-item *ngIf="results.length > 0">
+    <mz-collection>
+      <mz-collection-item [avatar]="true" class="collection-item" *ngFor="let result of results" (click)="selectItem(result.item)">
+        <i mz-avatar mz-icon-mdi [icon]="itemIcon" class="grey lighten-1"></i>
+        <div class="title" innerHTML="{{ result.title | highlight : searchText }}"></div>
+        <p class="descriptiom-item">{{ result.description }}</p>
+        <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+            [icon]="'chevron-right'" [align]="'left'"></i></a>
+      </mz-collection-item>
+    </mz-collection>
+  </mz-dropdown-item>
+  <mz-dropdown-item *ngIf="results.length == 0">
+    <a href="#!" class="center-align">{{ 'app.placeholder.search.empty.list' | translate }}</a>
+  </mz-dropdown-item>
+</mz-dropdown>

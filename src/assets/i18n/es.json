@@ -7,6 +7,9 @@
       "saveChanges":"Guardar Cambios",
       "delete":"Eliminar",
       "show":"Ver"
+    },
+    "placeholder": {
+      "search.empty.list": "Aún no hay resultados que coincidan con tu búsqueda."
     }
   },
   "home":{
@@ -322,7 +325,8 @@
     },
     "placeholder": {
       "scheme": "- Seleccione un schema -",
-      "search": "Ingresa un nombre de una propiedad"
+      "search": "Ingresa un nombre de una propiedad",
+      "entitySearch": "Busca un elemento a asociar a tu marca, Ejemplo: \"San Martín\" o \"Edad Medieval\""
     },
     "button":{
       "confirmType":"Confirmar tipo",
@@ -342,13 +346,16 @@
   },
   "metagame":{
     "rank":{
-          "sync":"Actualizar rango"
-      }
-    },
-    "page-versions":{
-      "title": "Versiones",
-      "comparedWith": "Comparando con",
-      "noVersionsMessage": "Aún no existen versiones de esta página.",
-      "actionText": "ver cambios"
+        "sync":"Actualizar rango"
     }
+  },
+  "page-versions":{
+    "title": "Versiones",
+    "comparedWith": "Comparando con",
+    "noVersionsMessage": "Aún no existen versiones de esta página.",
+    "actionText": "ver cambios"
+  },
+  "search":{
+    "title":"Búsqueda"
+  }
 }

@@ -1,0 +1,24 @@
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
+    <!-- <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-20">{{'search.title' | translate}}</h4>
+      </mz-card-title>
+      <mz-card-content>
+        
+      </mz-card-content>
+    </mz-card> -->
+    
+
+    <app-semantic-search-input 
+      [(semanticModel)]="item" 
+      [(results)]="itemList"
+      [fetchSelectedEntity]="false"
+      [placeholder]="'semanticForm.placeholder.entitySearch' | translate"
+      [entityType]="'<https://schema.org/Person>'">
+    </app-semantic-search-input>
+    <p>item: {{item | json}}</p>
+    <p>itemList: {{itemList | json}}</p>
+  </div>
+</div>
+

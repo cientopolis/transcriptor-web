@@ -128,10 +128,14 @@ import { SelectSchemaComponent } from './components/transcribe/semantic-form/ste
 import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
 import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
 import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
+import { SearchComponent } from './components/search/search.component';
+import { SearchInputComponent } from './components/shared/search-input/search-input.component';
+import { SemanticSearchInputComponent } from './components/search/semantic-search-input/semantic-search-input.component';
 
 import { SchemePipe } from './pipes/scheme.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
+import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
 
 @NgModule({
   declarations: [
@@ -181,7 +185,11 @@ import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
     SelectBasicPropertiesComponent,
     ImageSettingsComponent,
     LocalizedDatePipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    SearchComponent,
+    SearchInputComponent,
+    SemanticSearchInputComponent,
+    HighlightSearchPipe
   ],
   imports: [
     BrowserModule,
@@ -254,7 +262,8 @@ import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
     ForumService,
     PageVersionService,
     LayerService,
-    SemanticModelService
+    SemanticModelService,
+    SchemePipe
   ],
   bootstrap: [AppComponent]
 })
