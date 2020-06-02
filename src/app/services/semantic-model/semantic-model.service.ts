@@ -15,6 +15,9 @@ export class SemanticModelService {
   private getTreejsonld = '/files/tree.jsonld';
   private getTreejson = '/files/tree.json';
   private fullProperties = '/files/fullproperties.json';
+
+  private listEntitiesPath = '/api/semantic_entity/list';
+  private getEntityPath = '/api/semantic_entity/describe';
   
   constructor(private httpService: HttpService) { }
 
@@ -142,8 +145,14 @@ export class SemanticModelService {
       return doc;
     }
 
+    listEntities(filter, options = {}) {
+      return this.httpService.lpost(this.listEntitiesPath, filter, options);
+    }
 
-
-
+    getEntity(entityId, useDefaultSchema, options = {}) {
+      var getEntityPathWithParams = `${this.getEntityPath}?entity_id=${entityId}`
+      getEntityPathWithParams = useDefaultSchema ? `${getEntityPathWithParams}&use_default_schema=${useDefaultSchema}` : getEntityPathWithParams
+      return this.httpService.lget(getEntityPathWithParams, options);
+    }
   
 }
