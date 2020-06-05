@@ -18,6 +18,7 @@ export class SemanticSearchInputComponent implements OnInit {
   @Input() entityType = null
   @Input() fetchSelectedEntity = true
   @Input() placeholder = ""
+  @Input() flatStyle = false
 
   @Output() semanticModelChange = new EventEmitter()
   @Output() resultsChange = new EventEmitter()

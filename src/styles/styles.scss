@@ -147,6 +147,13 @@ nav .back-button i{
   color: $primaryColor;
 }
 
+:host ::ng-deep .input-field .input-suffix {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
 .switch label input[type="checkbox"]:checked + .lever {
   background-color: $darkColor;
 }

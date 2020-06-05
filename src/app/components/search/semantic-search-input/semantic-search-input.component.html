@@ -1,7 +1,33 @@
-<app-search-input
-    #searchInput
-    (onFetch)="searchEntities($event)"
-    (itemChange)="itemChange($event)"
-    [placeholder]="placeholder"
-    [itemIcon]="'semantic-web'">
-</app-search-input>
+<div class="row">
+    <div class="p-l-0 p-r-0" [ngClass]="{ 'col s8': typeSelector, 'col s12': !typeSelector }">
+        <app-search-input
+            #searchInput
+            (onFetch)="searchEntities($event)"
+            (itemChange)="itemChange($event)"
+            [placeholder]="placeholder"
+            [itemIcon]="'semantic-web'"
+            [flatStyle]="flatStyle">
+        </app-search-input>
+    </div>
+    <div class="col s4 p-r-0" *ngIf="typeSelector">
+        <mz-card class="transcriptor-type-filter" [ngClass]="{ 'flat': flatStyle }">
+            <mz-card-content>
+                <mz-input-container>
+                    <mz-select-container (click)="$event.stopPropagation()">
+                        <select mz-select [(ngModel)]="entityType">
+                            <option [ngValue]="null" selected>Todos los tipos de entidad</option>
+                            <optgroup label="HTTP">
+                                <option value="schema:Person">Person</option>
+                                <option value="schema:Car">Car</option>
+                            </optgroup>
+                            <optgroup label="HTTPS">
+                                <option value="<https://schema.org/Person>">Person</option>
+                            </optgroup>
+                        </select>
+                    </mz-select-container>
+                </mz-input-container>
+            </mz-card-content>
+        </mz-card>
+    </div>
+</div>
+

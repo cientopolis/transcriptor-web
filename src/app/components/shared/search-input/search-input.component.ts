@@ -18,6 +18,8 @@ export class SearchInputComponent implements OnInit {
   @Input() minChars = 2
   @Input() fetchDelay = 500
   @Input() results = []
+  @Input() flatStyle = false
+  @Input() showClearButton = true
   
   @Output() onFetch = new EventEmitter();
   @Output() itemChange = new EventEmitter();
@@ -68,5 +70,9 @@ export class SearchInputComponent implements OnInit {
     if (searchText && searchText.length > this.minChars) { 
       this.searchTextChanged.next(searchText);
     }
+  }
+
+  clear() {
+    this.changedSearchText('')
   }
 }
