@@ -222,8 +222,6 @@ handleSchemeRelationships(event){
 /*         console.log("slug");
         console.log(result['schema:mainEntity']);
         console.log(SchemeUtils.getSlug(result['@id'])); */
-        console.log(result['@id']);
-        console.log(SchemeUtils.getSlug(result['@id']));
         if(confirm){
           this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
         }

@@ -21,7 +21,6 @@ export class ShowRelationshipItemComponent implements OnInit {
 
   ngOnInit() {
     let propertie = new Array<any>();
-    console.log(this.semanticItem);
     for (let key in this.semanticItem) {
       const item = this.semanticItem[key];
        //ignore la
@@ -76,10 +75,7 @@ export class ShowRelationshipItemComponent implements OnInit {
 
         }
         this.markView = { semanticContribution: { text: resultShow, schema_type: this.schemeName } };
-        console.log(result['schema:mainEntity']);
-        console.log(resultShow['schema:mainEntity']);
-                this.compacted=result;
-                console.log("slug");
+        this.compacted=result;
         this.loadedRelation=true;
         return result;
       }
@@ -87,7 +83,6 @@ export class ShowRelationshipItemComponent implements OnInit {
   }
   save(){
     let obj = { schema_type: this.schemeName, semantic_text: this.compacted, contribution_slug: SchemeUtils.getSlug(this.compacted['@id']) };
-    console.log(obj);
     this.finished.emit(obj);
 
   }

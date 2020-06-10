@@ -33,7 +33,6 @@ export class SearchSemanticRelationshipComponent implements OnInit {
     this.setHeader();
     if (this.relationship){
       this.schemeType = "schema:" + SchemeUtils.extractAllPrefix(this.relationship.type);
-      console.log(this.schemeType);
       if(this.relationship.model!=''){
         this.itemView.type = this.relationship.model['@type'];
         this.itemView.name = this.relationship.model['schema:name'];

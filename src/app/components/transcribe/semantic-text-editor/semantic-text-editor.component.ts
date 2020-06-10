@@ -37,7 +37,6 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
    /*  console.log("call types from backend")
     this.semanticModel.getFullTree(); */
     this.selectRelationship=true;
-    console.log('semantic editor');
   }
 
   save() {
@@ -68,7 +67,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.selectRelationship=false;
   }
   proccessScheme(event){
-    console.log(event);
+
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;

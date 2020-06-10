@@ -7,7 +7,6 @@ export class SchemePipe implements PipeTransform {
 
   transform(value: string): any {
     if(value!=null){
-      console.log(value);
       let res;
       if(value.includes(':')){
         if (value.includes('/')){

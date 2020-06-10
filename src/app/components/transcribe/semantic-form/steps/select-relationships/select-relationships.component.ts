@@ -85,8 +85,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
 }
 
   proccessScheme(event){
-    console.log('event received from select-relationship');
-    console.log(event);
+
   }
 /*
   getRelationship(propertie, ranges, relationship) {
@@ -174,18 +173,13 @@ processProperties(properties) {
 
 
   handleNewRelationship(event) {
-    console.log(event);
-    
     if (event && event.name != null) {
       this.relationshipsSelected.forEach((item, index) => {
         if (item.name.toLowerCase() === event.name.toLowerCase()) item = event.semanticRelationship;
       });
     }
-    console.log(this.relationshipsSelected);
-
   }
   assignRelationship(event){
-    console.log(event);
     if(event && event.name!=null){
       this.relationshipsSelected.forEach((item, index) => {
         if (item.name.toLowerCase() === event.name.toLowerCase()) item.searchRelationship=false;

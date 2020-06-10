@@ -32,7 +32,6 @@ export class SemanticModelService {
   }
 
   getLocalSchemaProperties(options = {}) {
-    console.log("get all");
       return $.getJSON("assets/tmp/fullproperties.jsonld", function (datos) {
     })
   }
@@ -103,8 +102,7 @@ export class SemanticModelService {
 
     }
     let response ;
-    console.log('noteEntityContext');
-    console.log(noteEntityContext);
+
 //    response = this.compacted(doc, context);
     //noteEntitydoc.set("https://schema.org/mainEntity", doc);
 
@@ -133,14 +131,8 @@ export class SemanticModelService {
         }
       });
     }
-    console.log(noteEntitydoc['http://schema.org/mainEntity']);
-    console.log('noteEntityContext');
-    console.log(noteEntityContext);
-    console.log(noteEntitydoc);
 
     response = this.compacted(noteEntitydoc, noteEntityContext);
-    //this.triplets(noteEntitydoc);
-    console.log('La respuesta es');
     return response;
   }
 
@@ -148,7 +140,6 @@ export class SemanticModelService {
     var contextMap = new Map();
     var docMap = new Map();
     var doc = {};
-    console.log(properties);
     for (var p in properties) {
       if (properties[p].searchRelationship){
         continue;

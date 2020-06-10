@@ -93,7 +93,6 @@ export class SchemeUtils {
         if (semanticContribution['schema:mainEntity']) {
             semanticContribution = semanticContribution['schema:mainEntity'];
             }
-            console.log(semanticContribution);
         for (let key in semanticContribution) {
             const item = semanticContribution[key];
                 if (item['@type']) {
