@@ -13,9 +13,9 @@
     <app-semantic-search-input 
       [(semanticModel)]="item" 
       [(results)]="itemList"
-      [fetchSelectedEntity]="false"
+      [fetchSelectedEntity]="true"
       [placeholder]="'semanticForm.placeholder.entitySearch' | translate"
-      [entityType]="'<https://schema.org/Person>'">
+      >
     </app-semantic-search-input>
     <p>item: {{item | json}}</p>
     <p>itemList: {{itemList | json}}</p>

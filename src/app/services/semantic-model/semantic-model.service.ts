@@ -84,23 +84,36 @@ export class SemanticModelService {
     }
 
   
-  generateCompacted(scheme,properties){
+  generateCompacted(scheme,properties,processProperties = true){
     var doc = {};
     var context = {};
     var noteEntityContext = {
       "@context": {
-        "schema": "http://schema.org/"
+        "schema": "http://schema.org/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "transcriptor": `${environment.semantic_transcription.prefix}`
       }
     }
-    doc = this.processProperties(scheme,properties,context);
-    let response ;
 
+    if (processProperties){
+      doc = this.processProperties(scheme,properties,context);
+    }else{
+      doc = properties;
+
+    }
+    let response ;
+    console.log('noteEntityContext');
+    console.log(noteEntityContext);
 //    response = this.compacted(doc, context);
     //noteEntitydoc.set("https://schema.org/mainEntity", doc);
+
     var noteEntitydoc = {
       "@context": {
         "schema": "http://schema.org/",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "transcriptor": `${environment.semantic_transcription.prefix}`
       },
 
       "@id": "http://test-lala.com/semantic-contribution-1",
@@ -113,8 +126,21 @@ export class SemanticModelService {
     noteEntitydoc['@id'] = SchemeUtils.prefix + "semantic-contribution-" + Date.now();
     noteEntitydoc['http://schema.org/mainEntity']=doc;
     noteEntitydoc['rdfs:label'] = noteEntitydoc['http://schema.org/mainEntity']['rdfs:label'];
+    if (properties && processProperties){
+      properties.forEach((prop,key) => {
+        if (prop.searchRelationship){
+          noteEntitydoc['http://schema.org/mainEntity'][`${environment.semantic_transcription.prefix}`+prop.name]=prop.model
+        }
+      });
+    }
+    console.log(noteEntitydoc['http://schema.org/mainEntity']);
+    console.log('noteEntityContext');
+    console.log(noteEntityContext);
+    console.log(noteEntitydoc);
+
     response = this.compacted(noteEntitydoc, noteEntityContext);
     //this.triplets(noteEntitydoc);
+    console.log('La respuesta es');
     return response;
   }
 
@@ -122,7 +148,11 @@ export class SemanticModelService {
     var contextMap = new Map();
     var docMap = new Map();
     var doc = {};
+    console.log(properties);
     for (var p in properties) {
+      if (properties[p].searchRelationship){
+        continue;
+      }
      if (properties[p].scheme) {
       //docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].scheme.properties, context));
        docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].type,properties[p].scheme,context));

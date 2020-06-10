@@ -1,6 +1,6 @@
 <div class="row">
   <div *ngFor="let relationship of  relationshipsSelected">
-    <app-select-properties 
+    <app-select-properties *ngIf="!relationship.searchRelationship"
       [colapsible]='true'
       [propertieName]="relationship.name"
       (relationshipGenerated)="handleScheme($event)" 
@@ -8,6 +8,11 @@
       [propertiesSelected]="relationship.properties" 
       [schemeName]="relationship.type">
     </app-select-properties>
+    <app-search-semantic-relationship *ngIf="relationship.searchRelationship" 
+      [relationship]="relationship"
+      (createRelation)="handleNewRelationship($event)"
+      (createRelationType)="assignRelationship($event)">
+    </app-search-semantic-relationship>
   </div>
 </div>
 
@@ -21,15 +26,7 @@
     border: 1px solid white ;font-size: 13px;">+ Agregar Relacion</a>
   </div>
 </div>
-<div class="row" *ngIf="false">
-  <div class="col s12" style="padding-right: 0px;padding-left: 0px;">
-    <a (click)="generateSchemeRelationships()" class="waves-effect waves-light btn-small" style="width: 100%;
-    background-color: #e65100;
-    text-align:center;
-    color:white;
-    border: 1px solid white ;font-size: 13px;">+ Continuar</a>
-  </div>
-</div>
+
 
 
 

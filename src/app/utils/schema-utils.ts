@@ -4,6 +4,7 @@ import { environment } from 'environments/environment';
 
 export class SchemeUtils {
     public static prefix = SchemaPrefixUtils.prefix
+    public static keyPrefix = SchemaPrefixUtils.keyPrefix;
     public static schema_prefix = SchemaPrefixUtils.schema_prefix
     public static prefix_schema = SchemaPrefixUtils.prefix_schema
     public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
@@ -28,15 +29,25 @@ export class SchemeUtils {
         'measuredValue'];
 
     public static getSlug(id){
-        var res = "";
-        if(id!=null){
+        var res = id;
+        if (id != null && id.includes(SchemeUtils.prefix)){
             res = id.substring(SchemeUtils.prefix.length, id.length);
+        }
+        if (id != null && id.includes(SchemeUtils.keyPrefix)) {
+            res = id.substring(SchemeUtils.keyPrefix.length, id.length);
         }
         return res;
     }
 
     public static extractPrefix(str){
         return SchemaPrefixUtils.extractPrefix(str)
+    }
+    public static getTypeFromPrefix(str){
+        return SchemaPrefixUtils.getTypeFromPrefix(str);
+    }
+    /** this method extract schema.org and schema: */
+    public static extractAllPrefix(str){
+        return SchemaPrefixUtils.extractAllPrefix(str);
     }
 
     public static buildProperties(graphjson){
@@ -82,7 +93,7 @@ export class SchemeUtils {
         if (semanticContribution['schema:mainEntity']) {
             semanticContribution = semanticContribution['schema:mainEntity'];
             }
-
+            console.log(semanticContribution);
         for (let key in semanticContribution) {
             const item = semanticContribution[key];
                 if (item['@type']) {

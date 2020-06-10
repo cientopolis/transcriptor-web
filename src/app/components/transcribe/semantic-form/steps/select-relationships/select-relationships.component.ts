@@ -83,6 +83,11 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     });
 
 }
+
+  proccessScheme(event){
+    console.log('event received from select-relationship');
+    console.log(event);
+  }
 /*
   getRelationship(propertie, ranges, relationship) {
     var types = new Array();
@@ -144,11 +149,11 @@ processProperties(properties) {
   selectPropertie(propertie, $event) {
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
-        this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: new Array<any>(), properties: new Array<any>() });
+        this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: new Array<any>(), properties: new Array<any>(), searchRelationship:true });
        // this.prepareSchemeBuilder(propertie.types[0], propertie.name);
       } else {
         if (propertie.types.length > 0) {
-          this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, properties:null});
+          this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, properties: null, searchRelationship: true});
         }
       }
     } else {
@@ -165,6 +170,28 @@ processProperties(properties) {
     });
     prop.types.unshift(event.detail);
     prop.type = event.detail;
+  }
+
+
+  handleNewRelationship(event) {
+    console.log(event);
+    
+    if (event && event.name != null) {
+      this.relationshipsSelected.forEach((item, index) => {
+        if (item.name.toLowerCase() === event.name.toLowerCase()) item = event.semanticRelationship;
+      });
+    }
+    console.log(this.relationshipsSelected);
+
+  }
+  assignRelationship(event){
+    console.log(event);
+    if(event && event.name!=null){
+      this.relationshipsSelected.forEach((item, index) => {
+        if (item.name.toLowerCase() === event.name.toLowerCase()) item.searchRelationship=false;
+      });
+    }
+
   }
 }
   
