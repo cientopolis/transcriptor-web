@@ -27,5 +27,18 @@ export class Mark {
     this.coordinates = layer? layer.getLatLngs() : null;
     this.shape_type = layerType;
   }
+
+  getSemanticLabel() {
+    try {
+      if (this.semanticContribution && this.semanticContribution.text && this.semanticContribution.text != null) {
+        let semanticContributionContent = JSON.parse(this.semanticContribution.text)
+        return semanticContributionContent['schema:mainEntity']['rdfs:label']
+      } else {
+        return ""
+      }
+    } catch (error) {
+      return ""
+    }
+  }
   
 }

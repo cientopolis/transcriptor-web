@@ -1,0 +1,13 @@
+.transcribe-screen {
+    height: 100px;
+    border-radius: 8px;
+}
+:host ::ng-deep .leaflet-control-attribution {
+  display: none;
+}
+
+:host ::ng-deep app-semantic-transcription-details > row,
+:host ::ng-deep app-semantic-transcription-details > .p-r-10,
+:host ::ng-deep app-semantic-transcription-details > .p-l-10 {
+    padding: 0 !important;
+}

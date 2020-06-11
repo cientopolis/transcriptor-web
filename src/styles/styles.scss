@@ -212,6 +212,9 @@ nav .back-button i{
 a {
   color: $primaryColor; 
 }
+.collection a.collection-item {
+    color: $primaryColor;
+}
 
 // toasts
 #toast-container {

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
+import { SearchService } from 'app/services/search/search.service';
+import { MarkService } from 'app/services/mark/mark.service';
 
 @Component({
   selector: 'app-search',
@@ -8,10 +9,24 @@ import { SemanticModelService } from 'app/services/semantic-model/semantic-model
 })
 export class SearchComponent implements OnInit {
 
-  constructor() {
+  @ViewChild('referenceDetailModal') referenceDetailModal;
+
+  semanticEntity: any
+  referencesGroups: any = []
+  referencedSlugs:String[] = []
+
+  constructor(private searchService: SearchService) {
   }
 
   ngOnInit() {
+  }
+
+  doSemanticSearch() {
+    let entityId = this.semanticEntity["entityId"]["value"]
+    this.searchService.listSemanticReferences({ entityId: entityId }).subscribe(res => {
+      this.referencedSlugs = res.referenced_slugs
+      this.referencesGroups = res.references
+    })
   }
 
 }

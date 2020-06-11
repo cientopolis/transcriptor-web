@@ -36,6 +36,7 @@ import { MzDropdownModule } from 'ngx-materialize';
 import { MzModalModule } from 'ngx-materialize';
 import { MzInjectionService } from 'ngx-materialize';
 import { MzButtonModule } from 'ngx-materialize';
+import { MzBadgeModule } from 'ngx-materialize';
 import { MzTextareaModule } from 'ngx-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ngx-materialize';
 import { MzToastModule } from 'ngx-materialize';
@@ -136,6 +137,8 @@ import { SchemePipe } from './pipes/scheme.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
+import { ReferenceContainerComponent } from './components/search/reference-container/reference-container.component';
+import { ReferenceDetailModalComponent } from './components/search/reference-detail-modal/reference-detail-modal.component';
 
 @NgModule({
   declarations: [
@@ -189,7 +192,9 @@ import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.p
     SearchComponent,
     SearchInputComponent,
     SemanticSearchInputComponent,
-    HighlightSearchPipe
+    HighlightSearchPipe,
+    ReferenceContainerComponent,
+    ReferenceDetailModalComponent
   ],
   imports: [
     BrowserModule,
@@ -206,6 +211,7 @@ import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.p
     MzCheckboxModule,
     MzIconModule,
     MzIconMdiModule,
+    MzBadgeModule,
     MzSelectModule,
     MzTabModule,
     MzCollectionModule,
