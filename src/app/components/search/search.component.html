@@ -10,12 +10,13 @@
           [fetchSelectedEntity]="false"
           [placeholder]="'semanticForm.placeholder.entitySearch' | translate" 
           [flatStyle]="true"
+          [typeSelector]="true"
           (semanticModelChange)="doSemanticSearch()">
         </app-semantic-search-input>
 
-        <div class="row">
+        <div class="row" *ngIf="referencesGroups && referencesGroups.length > 0">
           <div class="col s12">
-            <h6>Referencias</h6>
+            <h6>Resultados</h6>
             <div class="references-list">
               <app-reference-container 
                 *ngFor="let referencesGroup of referencesGroups"

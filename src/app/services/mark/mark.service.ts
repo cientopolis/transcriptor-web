@@ -39,7 +39,7 @@ export class MarkService {
     return this.httpService.lget(path, { responseDataType: Mark }) as Observable<Mark[]>;
   }
 
-  listBySlug(slugs): Observable<Mark[]> {
-    return this.httpService.lpost(this.listBySlugPath, { slugs: slugs }, { responseDataType: Mark }) as Observable<Mark[]>;
+  listBySlug(slugs, pageId = null): Observable<Mark[]> {
+    return this.httpService.lpost(this.listBySlugPath, { slugs: slugs, page_id: pageId }, { responseDataType: Mark }) as Observable<Mark[]>;
   }
 }

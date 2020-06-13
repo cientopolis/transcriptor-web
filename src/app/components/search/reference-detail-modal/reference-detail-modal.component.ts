@@ -127,9 +127,6 @@ export class ReferenceDetailModalComponent implements OnInit {
   }
 
   open(mark, referenceInfo) {
-    // this.semanticService.getAllTypes().then(result => {
-    //   console.log(result);
-    // })
     this.referenceInfo = referenceInfo
     this.mark = mark
     this.detailMark = null

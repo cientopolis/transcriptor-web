@@ -1,8 +1,8 @@
-<mz-card class="transcriptor-search-input" [ngClass]="{ 'flat': flatStyle }">
+<mz-card class="transcriptor-search-input" [ngClass]="{ 'flat': flatStyle }" (click)="focusInput()">
   <mz-card-content>
     <mz-input-container>
       <i mz-icon-mdi mz-input-prefix [icon]="'magnify'" [align]="'center'"></i>
-      <input mz-input [placeholder]="placeholder" type="text" [ngModel]="searchText" (ngModelChange)="changedSearchText($event)">
+      <input #searchInput mz-input [placeholder]="placeholder" type="text" [ngModel]="searchText" (ngModelChange)="changedSearchText($event)">
       <i mz-icon-mdi class="input-suffix" [icon]="'close'" [align]="'center'" *ngIf="showClearButton" (click)="clear()"></i>
       <div [id]="dropdownButtonId" class="search-dropdown-button"></div>
     </mz-input-container>

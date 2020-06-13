@@ -16,28 +16,38 @@ export class SemanticSearchInputComponent implements OnInit {
   @Input() results = null
   @Input() limitResults = null
   @Input() entityType = null
+  @Input() hierarchical = true
   @Input() fetchSelectedEntity = true
   @Input() placeholder = ""
   @Input() flatStyle = false
+  @Input() typeSelector = false
 
   @Output() semanticModelChange = new EventEmitter()
   @Output() resultsChange = new EventEmitter()
+  @Output() onFetchStart = new EventEmitter()
+  @Output() onFetchEnd = new EventEmitter()
+
+  types = []
 
   constructor(private semanticModelService: SemanticModelService, private schemePipe: SchemePipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults
   }
 
   ngOnInit() {
+    this.loadTypes()
   }
   
   searchEntities($event) {
+    this.onFetchStart.emit()
     this.semanticModelService.listEntities({ 
       filter: {
         labelValue: $event.searchText,
         entityType: this.entityType,
+        hierarchical: this.hierarchical,
         limit: this.limitResults
       } 
     }).subscribe(response => {
+      this.onFetchEnd.emit()
       var mappedEntities = []
       response.bindings.forEach(entity => {
         mappedEntities.push({ title: entity.entityLabel.value, description: this.schemePipe.transform(entity.entityType.value), item: entity })
@@ -61,5 +71,11 @@ export class SemanticSearchInputComponent implements OnInit {
   setSemanticModel(semanticModel) {
     this.semanticModel = semanticModel
     this.semanticModelChange.emit(this.semanticModel)
+  }
+
+  loadTypes() {
+    this.semanticModelService.getAllTypes().then(result => {
+      console.log(result);
+    })
   }
 }

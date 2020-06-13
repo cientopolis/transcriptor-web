@@ -34,7 +34,7 @@ export class ReferenceContainerComponent implements OnInit {
 
   fetchMarks() {
     if (this.filterSlugs && this.filterSlugs.length > 0) {
-      this.markService.listBySlug(this.filterSlugs).subscribe(marks => {
+      this.markService.listBySlug(this.filterSlugs, this.referencesGroup.pageId).subscribe(marks => {
         this.marks = marks
       })
     }

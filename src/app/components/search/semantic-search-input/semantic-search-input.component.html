@@ -1,5 +1,5 @@
 <div class="row m-b-0">
-    <div class="p-l-0 p-r-0" [ngClass]="{ 'col s8': typeSelector, 'col s12': !typeSelector }">
+    <div class="p-l-0 p-r-0 col" [ngClass]="{ 's8': typeSelector, 's12': !typeSelector }">
         <app-search-input
             #searchInput
             (onFetch)="searchEntities($event)"

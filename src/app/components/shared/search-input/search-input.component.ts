@@ -10,6 +10,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class SearchInputComponent implements OnInit {
 
   @ViewChild('searchDropdown') searchDropdown;
+  @ViewChild('searchInput') searchInput;
   
   @Input() placeholder = ''
   @Input() autocomplete = true
@@ -74,5 +75,9 @@ export class SearchInputComponent implements OnInit {
 
   clear() {
     this.changedSearchText('')
+  }
+
+  focusInput() {
+    $(this.searchInput.nativeElement).trigger('focus');
   }
 }
