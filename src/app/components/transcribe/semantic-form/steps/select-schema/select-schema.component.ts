@@ -65,6 +65,7 @@ export class SelectSchemaComponent implements OnInit {
     this.parents.push(schema);
     this.schemas = schema.children;
     this.scheme=schema;
+    this.searchText='';
     this.selectSchema();
   }
   selectSchema() {

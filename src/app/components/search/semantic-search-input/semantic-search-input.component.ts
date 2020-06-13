@@ -21,7 +21,8 @@ export class SemanticSearchInputComponent implements OnInit {
   @Input() flatStyle = false
 
   @Output() semanticModelChange = new EventEmitter()
-  @Output() resultsChange = new EventEmitter()
+  @Output() resultsChange = new EventEmitter();
+  public typeSelector = false;
 
   constructor(private semanticModelService: SemanticModelService, private schemePipe: SchemePipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults

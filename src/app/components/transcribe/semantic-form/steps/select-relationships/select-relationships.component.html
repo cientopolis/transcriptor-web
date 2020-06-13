@@ -5,13 +5,18 @@
       [propertieName]="relationship.name"
       (relationshipGenerated)="handleScheme($event)" 
       [level]="level"
-      [propertiesSelected]="relationship.properties" 
-      [schemeName]="relationship.type">
+      [propertiesSelected]="relationship.properties"
+      [schemeName]="relationship.type"
+      [showCancel]='true'
+      (deleteRelation)="handleDeleteRelationship($event)"
+      (validatePropertiesEvent)="handlePropertieValidation($event)"
+      (cancel)="searchRelationship($event)">
     </app-select-properties>
     <app-search-semantic-relationship *ngIf="relationship.searchRelationship" 
       [relationship]="relationship"
       (createRelation)="handleNewRelationship($event)"
-      (createRelationType)="assignRelationship($event)">
+      (createRelationType)="assignRelationship($event)"
+      (deleteRelation)="handleDeleteRelationship($event)">
     </app-search-semantic-relationship>
   </div>
 </div>

@@ -53,6 +53,7 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   showActionStep3 = false;
   showActionStep4 = false;
   actualStep ='step1';
+  public formValid = true;
   constructor(
             private semanticService: SemanticModelService,
             private changeDetector: ChangeDetectorRef,
@@ -105,7 +106,9 @@ export class SemanticFormComponent implements OnInit,OnChanges {
           feedbackPreloader: '<div class="spinner-layer spinner-blue-only">...</div>'
 
         });
+
         this.showSelectSchema = true;
+        //$('#first-step').addClass('disabled')
       } else {
         // es pobible que no se llame mas revisar
         this.getSemanticContribution();
@@ -162,7 +165,8 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   }
 
 validateStepOne() {
-   return this.schemeName!=null;
+  console.log('');
+  return false;
 }
 selectSchema(scheme){
 /*   console.log(scheme); */
@@ -182,7 +186,7 @@ stepTwo(){
 }
 
 handleScheme(event){
-  this.addProperties(event.propertiesSelected);
+  this.addProperties(event.propertiesSelected,false);
   if (this.properties==null || this.properties.length==0){
     this.properties = event.properties;
   }
@@ -192,17 +196,91 @@ handleScheme(event){
   
   //this.notifyNextStep2 = false;
 }
-addProperties(properties){
-  properties.forEach(propertie => {
-    this.propertiesSelected.push(propertie);
-  });
+addProperties(properties,relationship){
+  console.log(properties);
+  if (relationship){
+    this.mergeRelationships(properties);
+  }else{
+    this.mergeProperties(properties)
+  }
+  console.log(this.propertiesSelected);
+}
+
+  mergeProperties(properties) {
+    let indexes = new Array<any>();
+    this.propertiesSelected.forEach((propSelected, index) => {
+      if (!propSelected.scheme) {
+        indexes.push(index);
+      }
+    });
+    indexes.forEach(indez => {
+      this.propertiesSelected.splice(indez, 1);
+    });
+    properties.forEach(propertie => {
+
+      if (!propertie.scheme || (propertie.properties && properties.length > 0)) {
+        this.propertiesSelected.push(propertie);
+      } else {
+        console.log('relacion con datos vacios, la ignoro');
+      }
+    });
+
+  }
+  mergeRelationships(properties){
+    let indexes= new Array<any>();
+    this.propertiesSelected.forEach((propSelected, index) => {
+      //let found = false;
+      if (propSelected.scheme) {
+        indexes.push(index);
+
+/*         console.log('Es relacion propSelected');
+        properties.forEach(propertie => {
+          console.log(propertie);
+          if(propSelected.name==propertie.name){
+            console.log('Encontro');
+            found=true;
+          }
+        });
+        if(!found){
+          console.log('No entro');
+          console.log(this.propertiesSelected);
+          console.log(index);
+          indexes.push(index);
+//          this.propertiesSelected.slice(index,1);
+          console.log(this.propertiesSelected);
+        }else{
+          console.log('Entro');
+        } */
+      }
+      /*     if (item.name.toLowerCase() === propertie.name.toLowerCase()){ 
+        this.relationshipsSelected.splice(index, 1);
+        console.log(this.relationshipsSelected);
+      } */
+    });
+    console.log(indexes);
+    indexes.forEach(indez =>{
+      this.propertiesSelected.splice(indez, 1);
+    });
+    console.log(this.propertiesSelected);
+    properties.forEach(propertie => {
+      console.log(propertie);
+      if ((propertie.scheme && propertie.scheme.length > 0) || propertie.searchRelationship) {
+        this.propertiesSelected.push(propertie);
+      }else{
+        console.log('relacion con datos vacios, la ignoro');
+      }
+
+    });
+
 }
 
 handleSchemeRelationships(event){
   /* event.relationshipsSelected.forEach(relationship => {
     this.propertiesSelected.push(relationship);
   });*/
-  this.addProperties(event.relationshipsSelected);
+  //deberia borrar la relacion
+  console.log(event.relationshipsSelected);
+  this.addProperties(event.relationshipsSelected,true);
   this.showGeneratedScheme = true;
   this.saveScheme(false);
 }
@@ -239,7 +317,48 @@ handleSchemeRelationships(event){
     this.notifyNextStep2=true;
     
   }
+  setUpStepTwo(){
+    this.validateInputs();    
+  }
+  turnDownStepTwo(){
+
+  }
+
+  validateInputs(){
+    this.formValid=false;
+  }
+  handlePropertieValidation(event){
+    console.log(event);
+    if(event){
+      this.formValid=true;
+      console.log('none');
+      let a = $('#first-step .btn-floating');
+      console.log(a);
+      a.prop('disabled', false);
+
+      a.parent().css({ pointerEvents: "auto" });
+      a.removeClass('disabled');
+      console.log(a)
+    }else{
+      this.formValid=false;
+        console.log('none');
+        let a = $('#first-step .btn-floating');
+        console.log(a);
+        a.parent().css({ pointerEvents: "none" });
+        a.prop('disabled',true);
+        a.addClass('disabled')
+        console.log(a)
+    }
+  }
   next(step){
+    if(step=='none'){
+      console.log('none');
+      let a = $('.fixed-action-btn next-step');
+      console.log(a);
+      a.removeClass('fixed-action-btn next-step');
+      a.addClass('disabled')
+      console.log()
+    }
     this.actualStep=step;
     if (this.actualStep == step){
       switch (step) {
@@ -261,14 +380,16 @@ handleSchemeRelationships(event){
     }
     switch (step) {
       case "step2": {
-
+        //llamar validador de inouts
         this.showActionStep1=false;
         this.showActionStep2=true;
         this.showActionStep3=false;
         this.showActionStep4 = false;
+
         break;
       }
       case "step3": {
+        this.turnDownStepTwo();
         this.saveProperties();
         this.showActionStep1 = false;
         this.showActionStep2 = false;
@@ -321,6 +442,8 @@ handleSchemeRelationships(event){
         this.showActionStep2 = true;
         this.showActionStep3 = false;
         this.showActionStep4 = false;
+      
+
         break;
       }
       case "step3": {

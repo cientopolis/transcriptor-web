@@ -144,7 +144,19 @@ processProperties(properties) {
           }
         }
     } */
-
+  handleDeleteRelationship(event){
+    console.log('delete');
+    console.log(event);
+    let relationship = { selected:false,name:event.name};
+ //   this.selectPropertie(relationship,null);
+    this.relationshipsSelected.forEach((item, index) => {
+      if (item.name.toLowerCase() === event.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
+      console.log(this.relationshipsSelected);
+    });
+    this.relationships.forEach( prop => {
+      if (prop.name.toLowerCase() == event.name.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
+    })
+  }
   selectPropertie(propertie, $event) {
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
@@ -156,9 +168,12 @@ processProperties(properties) {
         }
       }
     } else {
+      console.log(this.relationshipsSelected);      
       this.relationshipsSelected.forEach((item, index) => {
         if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
+        console.log(this.relationshipsSelected);
       });
+      console.log(this.relationshipsSelected);
     }
   }
 
@@ -185,7 +200,26 @@ processProperties(properties) {
         if (item.name.toLowerCase() === event.name.toLowerCase()) item.searchRelationship=false;
       });
     }
+  }
+  searchRelationship(event) {
+    console.log('alto cancel');
+    if (event && event.name != null) {
+      this.relationshipsSelected.forEach((item, index) => {
+        if (item.name.toLowerCase() === event.name.toLowerCase()){
+          item.searchRelationship = true;
+          item.model = '';
+        }  
+      });
+    }
 
+  }
+  handlePropertieValidation(event) {
+    console.log(event);
+    if (event) {
+   
+    } else {
+    
+    }
   }
 }
   

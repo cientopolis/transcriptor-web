@@ -14,7 +14,8 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   @Input() public layerName = null;
   @Input() public schemeType = null;
   @Input() public relationship = null
-
+  
+  @Output() public deleteRelation = new EventEmitter<any>();
   @Output() public createType = new EventEmitter<Boolean>();
   @Output() public schemeComplete = new EventEmitter<any>();
   @Output() public createRelation = new EventEmitter<any>();
@@ -31,6 +32,8 @@ export class SearchSemanticRelationshipComponent implements OnInit {
 
   ngOnInit() {
     this.setHeader();
+    $('#delete').click(function (e) { e.stopPropagation(); });
+
     if (this.relationship){
       this.schemeType = "schema:" + SchemeUtils.extractAllPrefix(this.relationship.type);
       if(this.relationship.model!=''){
@@ -38,6 +41,10 @@ export class SearchSemanticRelationshipComponent implements OnInit {
         this.itemView.name = this.relationship.model['schema:name'];
       }
     }
+  }
+  deleteRelarionship() {
+    console.log('delete papa');
+    this.deleteRelation.emit({ name: this.relationship.name });
   }
   itemChange(event){
     this.enableModal=true;

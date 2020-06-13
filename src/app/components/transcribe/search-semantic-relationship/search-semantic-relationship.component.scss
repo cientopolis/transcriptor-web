@@ -22,6 +22,7 @@
 }
 .header-box {
    width:100%;
+   padding: 10px !important;
 }
 .header-box h5{
     margin-bottom: 0px;
@@ -49,16 +50,18 @@
     background-color: #f8f8f8 !important;
 }
 .no-saved{
-   color:#fbc02d ;
-   border-bottom: 2px solid #fbc02d ; 
-   font-size: 9px;
-   margin-top: 20px;
+    color:#fbc02d ;
+    border-top: 2px solid #fbc02d ; 
+    font-size: 9px;
+    padding-top: 5px;
+    margin-top: 10px;
 }
 .saved{
     color:#66bb6a;
-   border-bottom: 2px solid #66bb6a;
-   font-size: 9px;
-      margin-top: 20px;
+    border-top: 2px solid #66bb6a;
+    font-size: 9px;
+    padding-top: 7px;
+    margin-top: 11px;
 }
 .save-relation-button{
     width: 100%;
@@ -82,3 +85,12 @@ disabled-relation-button{
     pointer-events: none !important;
 
 }
+:host ::ng-deep .modal { 
+   width: 75% !important ; 
+   height: 80% !important ;
+   max-height: 100% !important;
+ } 
+
+:host ::ng-deep .collapsible-header {
+    padding: 10px;
+ }
