@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  apiUrl: '',
   transcribe: {
     classicMode: false,
     layers: true
