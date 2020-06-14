@@ -1,4 +1,4 @@
-.transcribe-screen {
+.mark-detail-map {
     height: 100px;
     border-radius: 8px;
 }
@@ -12,7 +12,7 @@
     padding: 0 !important;
 }
 
-.transcribe-screen .map-loading {
+.mark-detail-map .map-loading {
   background-color: rgba(48, 48, 48, 0.8);
   height: 100%;
   width: 100%;
@@ -20,6 +20,6 @@
   position: absolute;
   z-index: 999;
 }
-:host ::ng-deep .transcribe-screen .map-loading .preloader-wrapper {
+:host ::ng-deep .mark-detail-map .map-loading .preloader-wrapper {
   top: calc(50% - 18px);
 }
