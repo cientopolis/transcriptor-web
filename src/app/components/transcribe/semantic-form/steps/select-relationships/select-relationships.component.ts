@@ -83,6 +83,10 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     });
 
 }
+
+  proccessScheme(event){
+
+  }
 /*
   getRelationship(propertie, ranges, relationship) {
     var types = new Array();
@@ -140,15 +144,24 @@ processProperties(properties) {
           }
         }
     } */
-
+  handleDeleteRelationship(event){
+    let relationship = { selected:false,name:event.name};
+ //   this.selectPropertie(relationship,null);
+    this.relationshipsSelected.forEach((item, index) => {
+      if (item.name.toLowerCase() === event.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
+    });
+    this.relationships.forEach( prop => {
+      if (prop.name.toLowerCase() == event.name.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
+    })
+  }
   selectPropertie(propertie, $event) {
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
-        this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: new Array<any>(), properties: new Array<any>() });
+        this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: new Array<any>(), properties: new Array<any>(), searchRelationship:true });
        // this.prepareSchemeBuilder(propertie.types[0], propertie.name);
       } else {
         if (propertie.types.length > 0) {
-          this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, properties:null});
+          this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, properties: null, searchRelationship: true});
         }
       }
     } else {
@@ -165,6 +178,40 @@ processProperties(properties) {
     });
     prop.types.unshift(event.detail);
     prop.type = event.detail;
+  }
+
+
+  handleNewRelationship(event) {
+    if (event && event.name != null) {
+      this.relationshipsSelected.forEach((item, index) => {
+        if (item.name.toLowerCase() === event.name.toLowerCase()) item = event.semanticRelationship;
+      });
+    }
+  }
+  assignRelationship(event){
+    if(event && event.name!=null){
+      this.relationshipsSelected.forEach((item, index) => {
+        if (item.name.toLowerCase() === event.name.toLowerCase()) item.searchRelationship=false;
+      });
+    }
+  }
+  searchRelationship(event) {
+    if (event && event.name != null) {
+      this.relationshipsSelected.forEach((item, index) => {
+        if (item.name.toLowerCase() === event.name.toLowerCase()){
+          item.searchRelationship = true;
+          item.model = '';
+        }  
+      });
+    }
+
+  }
+  handlePropertieValidation(event) {
+    if (event) {
+   
+    } else {
+    
+    }
   }
 }
   

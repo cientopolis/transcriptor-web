@@ -19,6 +19,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   @Input() renderedMarks = null;
   @Input() delegate = null;
   @Input() showComponent = false;
+  selectRelationship=true;
 
   semantic_text:String=null;
   schema_type:String=null;
@@ -35,6 +36,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   ngOnInit() {
    /*  console.log("call types from backend")
     this.semanticModel.getFullTree(); */
+    this.selectRelationship=true;
   }
 
   save() {
@@ -59,9 +61,13 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
       });*/
     this.renderedMark.mark=mark;
     this.delegate.addModalMark();
+    
+  }
+  createType(event){
+    this.selectRelationship=false;
   }
   proccessScheme(event){
-    console.log(event);
+
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;
@@ -71,7 +77,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
    }
 
   cancel() {
-
+    this.selectRelationship = true;
     this.delegate.cancelModal();
   }
 

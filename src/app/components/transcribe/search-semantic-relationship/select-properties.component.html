@@ -6,11 +6,13 @@
           <h5 class="primary-color-text">{{schemeName}}</h5>
           <p>{{propertieNameTitle}}</p>
         </div>
-          <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelarionship()">
-            <a (click)="deleteRelarionship()">
+        <div class="col s1" (click)="$event.stopPropagation()">
+          <a (click)="deleteRelarionship()">
+            <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;">
               &times;
-            </a>
-          </div>
+            </button>
+          </a>
+        </div>
       </div>
 
 
@@ -44,21 +46,12 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="!relationSaved && validInputs">
+      <div class="row" *ngIf="!relationSaved">
         <div class="col s12">
           <a class="waves-effect btn-flat" style="width: 100%;background-color: #e65100;
     text-align:center;
     color:white;
-    border: 1px solid white ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar Relación</a>
-        </div>
-      </div>
-      
-      <div class="row" *ngIf="!relationSaved && !validInputs">
-        <div class="col s12">
-          <a class="waves-effect btn-flat disabled" style="width: 100%;background-color: #e65100;
-          text-align:center;
-          ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar
-            Relación</a>
+    border: 1px solid white ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar relación</a>
         </div>
       </div>
 

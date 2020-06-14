@@ -139,6 +139,8 @@ import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
 import { ReferenceContainerComponent } from './components/search/reference-container/reference-container.component';
 import { ReferenceDetailModalComponent } from './components/search/reference-detail-modal/reference-detail-modal.component';
+import { SearchSemanticRelationshipComponent } from './components/transcribe/search-semantic-relationship/search-semantic-relationship.component';
+import { ShowRelationshipItemComponent } from './components/transcribe/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 
 @NgModule({
   declarations: [
@@ -194,7 +196,9 @@ import { ReferenceDetailModalComponent } from './components/search/reference-det
     SemanticSearchInputComponent,
     HighlightSearchPipe,
     ReferenceContainerComponent,
-    ReferenceDetailModalComponent
+    ReferenceDetailModalComponent,
+    SearchSemanticRelationshipComponent,
+    ShowRelationshipItemComponent
   ],
   imports: [
     BrowserModule,
