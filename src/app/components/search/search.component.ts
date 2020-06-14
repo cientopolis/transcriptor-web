@@ -7,7 +7,8 @@ import { SemanticModelService } from 'app/services/semantic-model/semantic-model
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
+  public itemList: any;
+  public item:any;
   constructor() {
   }
 

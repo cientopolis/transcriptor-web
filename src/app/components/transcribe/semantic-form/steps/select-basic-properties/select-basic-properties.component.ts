@@ -20,11 +20,15 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   @Input() notifyNextStep = false;
   @Input() propertiesSelected: Array<any>;
   @Output() public schemeGenerated = new EventEmitter<any>();
+  @Output() public validatePropertiesEvent = new EventEmitter<any>();
   level=0;
   propertieNameTitle: String;
   sublevel = false;
   searchText: any;
   searchTextFilter:any;
+
+  public validationMap = new Map();
+
   public relationships = new Array<any>();
 
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
@@ -54,6 +58,25 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
 
   }
 
+  handleInputChange(event) {
+    this.validationMap.set(event.model.name, event.valid);
+    this.validateProperties();
+  }
+
+  validateProperties(){
+    let found = false;
+    this.validationMap.forEach((value,key) => {
+      if(!value){
+        found=true;
+      }
+    });
+    if(found){
+      this.validatePropertiesEvent.emit(false);
+    }else{
+      this.validatePropertiesEvent.emit(true);
+    }
+  }
+
   selectType(prop, event) {
     prop.types.forEach((t, index) => {
       if (t.toLowerCase() === event.detail.toLowerCase())
@@ -81,6 +104,8 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     this.propertiesSelected.forEach((item, index) => {
       if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.propertiesSelected.splice(index, 1);
     });
+    this.validationMap.delete(propertie.name);
+    this.validateProperties();
   }
 
   selectPropertie(propertie, $event) {
@@ -88,15 +113,19 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
         this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, canDelete: true });
         this.prepareSchemeBuilder(propertie.types[0], propertie.name);
+        this.validationMap.set(propertie.name,false);
       } else {
         if (propertie.types.length > 0) {
+          this.validationMap.set(propertie.name, false);
+         
           this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, canDelete: true });
         }
       }
     } else {
       this.removePropertie(propertie);
+
     }
-   
+    this.validateProperties();
   }
  
   public openModalSelectPropertie(){
@@ -134,6 +163,8 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     });
     if (types.length > 0) {
       if (name.toLowerCase() == 'name') {
+        this.validationMap.set(name, false);
+//        this.validateProperties();
         propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
       }else{
         propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });

@@ -136,6 +136,8 @@ import { SchemePipe } from './pipes/scheme.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
+import { SearchSemanticRelationshipComponent } from './components/transcribe/search-semantic-relationship/search-semantic-relationship.component';
+import { ShowRelationshipItemComponent } from './components/transcribe/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 
 @NgModule({
   declarations: [
@@ -189,7 +191,9 @@ import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.p
     SearchComponent,
     SearchInputComponent,
     SemanticSearchInputComponent,
-    HighlightSearchPipe
+    HighlightSearchPipe,
+    SearchSemanticRelationshipComponent,
+    ShowRelationshipItemComponent
   ],
   imports: [
     BrowserModule,

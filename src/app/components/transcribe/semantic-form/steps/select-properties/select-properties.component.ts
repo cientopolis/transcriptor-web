@@ -21,19 +21,32 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
   @Input() level: number;
   @Input() notifyNextStep = false;
   @Input() propertiesSelected:Array<any>;
+  @Input() showCancel = false;
+
+  @Output() public deleteRelation = new EventEmitter<any>();
+  @Output() public cancel = new EventEmitter<any>();
   @Output() public schemeGenerated = new EventEmitter<any>();
   @Output() public relationshipGenerated = new EventEmitter<any>();
+  @Output() public validatePropertiesEvent = new EventEmitter<any>();
+
+  public validationMap = new Map();
+  public validInputs = false;
   propertieNameTitle: String;
   sublevel = false;
   searchText: any;
+  relationSaved = false;
   public relationships = new Array<any>();
 
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
   constructor(private semanticService: SemanticModelService) {
     this.basicTypes=SchemeUtils.basicTypes;
    }
-
-
+  deleteRelarionship(){
+    this.deleteRelation.emit({ name: this.propertieName });
+  }
+   cancelCreatePropertie(){
+     this.cancel.emit({ name: this.propertieName});
+   }
   ngOnChanges(changes) {
     if (changes.notifyNextStep && changes.notifyNextStep.currentValue){
       this.generateScheme();
@@ -51,7 +64,7 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     }
   }
   ngOnInit() {
-
+    $('#delete').click(function (e) { e.stopPropagation(); });
   }
 
   selectType(prop, event) {
@@ -70,10 +83,32 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     }
   }
 
+  handleInputChange(event){
+    this.relationSaved = false;
+    this.validationMap.set(event.model.name, event.valid);
+    this.validateProperties();
+  }
+
+  validateProperties() {
+    let found = false;
+    this.validationMap.forEach((value, key) => {
+      if (!value) {
+        found = true;
+      }
+    });
+    if (found) {
+      this.validInputs=false;
+      //this.validatePropertiesEvent.emit(false);
+    } else {
+      this.validInputs = true;
+      //this.validatePropertiesEvent.emit(true);
+    }
+  }
   removePropertieEvent(event){
     this.properties.forEach((item, index) => {
       if (item.name.toLowerCase() === event.model.name.toLowerCase()) this.properties[index].selected=false;
     });
+    this.relationSaved = false;
     this.removePropertie(event.model);
   }
   removePropertie(propertie){
@@ -81,20 +116,27 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     this.propertiesSelected.forEach((item, index) => {
       if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.propertiesSelected.splice(index, 1);
     });
+    this.validationMap.delete(propertie.name);
+    this.validateProperties();
   }
   selectPropertie(propertie, $event) {
     if (propertie.selected) {
       if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
         this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, canDelete: true });
         this.prepareSchemeBuilder(propertie.types[0], propertie.name);
+        this.validationMap.set(propertie.name, false);
       } else {
         if (propertie.types.length > 0) {
           this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, canDelete: true });
+          this.validationMap.set(propertie.name, false);
         }
       }
     } else {
+      this.validationMap.delete(propertie.name);
       this.removePropertie(propertie);
     }
+    this.relationSaved=false;
+    this.validateProperties();
   }
   public openModalForRelationship(){
     this.modalAddPropertieForRelationship.openModal();
@@ -150,6 +192,8 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     });
     if (types.length > 0) {
       if (name.toLowerCase() == 'name') {
+        this.validationMap.set(name, false);
+        this.validateProperties();
         propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
       }else{
         propertiesArray.push({ name: name, types: types, selected: false, description: propertie.comment, id: name + Date.now() });
@@ -261,6 +305,7 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     });
   }
   generateSchemeRelation(){
+    this.relationSaved=true;
     this.relationshipGenerated.emit({
       propertiesSelected: this.propertiesSelected,
       properties: this.relationships,

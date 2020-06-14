@@ -25,4 +25,12 @@
 }
 :host ::ng-deep .collapsible-body{
     padding:5px;
+    padding-top: 0px !important;
+    background-color: #f8f8f8 !important; 
 }
+
+:host ::ng-deep .modal { 
+   width: 75% !important ; 
+   height: 80% !important ;
+   max-height: 100% !important;
+ } 

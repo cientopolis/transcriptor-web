@@ -1,12 +1,13 @@
 export const environment = {
   production: true,
-  apiUrl: 'localhost:8080',
+  apiUrl: '',
   transcribe: {
     classicMode: false,
     layers: true
   },
   semantic_transcription: {
-    prefix: "http://transcriptor-dev.com/"
+    prefix: 'http://transcriptor-dev.com/',
+    keyPefix: 'transcriptor:'
   },
   usePusher: false
 };

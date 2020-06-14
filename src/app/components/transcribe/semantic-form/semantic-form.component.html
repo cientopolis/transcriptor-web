@@ -13,21 +13,24 @@
         <app-select-schema [mark]="mark" (schemeSelected)="selectSchema($event)"></app-select-schema>
       </div>
       <div class="step-actions">
+
           <div class="fixed-action-btn previous-step" style="position: left;margin-right: 5%;">
-            <a class="btn-floating btn-large" style="background-color: #808080;" (click)="back(actualStep)"   *ngIf="!showActionStep1">
+            <button type="button" class="btn-floating btn-large " style="background-color: #808080;" (click)="back(actualStep)"   *ngIf="!showActionStep1">
               <i mz-icon-mdi [icon]="'chevron-left'" [align]="'rigth'"></i>
-            </a>
+            </button>
           </div>
-          <div class="fixed-action-btn next-step" >
-            <a class="btn-floating btn-large" style="background-color: #e65100;" (click)="next(actualStep)" *ngIf="!showActionStep4">
+
+          <div class="fixed-action-btn next-step" id="first-step">
+            <button type="button" class="btn-floating btn-large"  style="background-color: #e65100;"  (click)="next(actualStep)" *ngIf="!showActionStep4">
               <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i>
-            </a>
+            </button>
           </div>
+
           <div class="fixed-action-btn next-step" >
-            <a class="btn-floating btn-large" style="background-color: #e65100;" (click)="finish()"
+            <button type="button" class="btn-floating btn-large" style="background-color: #e65100;" (click)="finish()"
               *ngIf="showActionStep4">
               <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i>
-            </a>
+            </button>
           </div>
       </div>
     </div>
@@ -47,7 +50,7 @@
       <div class="row">
         <div class="col s12">
           <div class="row">
-            <app-select-basic-properties (schemeGenerated)="handleScheme($event)" [notifyNextStep]="notifyNextStep2" [propertiesSelected]="basicProperties" [schemeParents]="parents" [schemeName]="schemeName">
+            <app-select-basic-properties (validatePropertiesEvent)="handlePropertieValidation($event)" (schemeGenerated)="handleScheme($event)" [notifyNextStep]="notifyNextStep2" [propertiesSelected]="basicProperties" [schemeParents]="parents" [schemeName]="schemeName">
             </app-select-basic-properties>
           </div>
         </div>
@@ -80,7 +83,7 @@
     <div class="step-title waves-effect waves-dark" data-step-label="Revisá y Guardá" style="pointer-events: none;"  (click)="next('step4')">Paso 4</div>
     <div class="step-content p-t-0">
       <div class="row step-header">
-        <h5>Reservá y Guardá</h5>
+        <h5>Revisá y Guardá</h5>
         <p>Ahora revisá que los datos sean correctos. Si todo esta bien ya podes continuar con el guardado.</p>
       </div>
       <!--*ngIf="showGeneratedScheme"-->

@@ -1,0 +1,22 @@
+<div class="row p-t-0">
+  <div class="col-12 header" *ngIf="!onlyShow">
+    <h5>Revisá y Guardá</h5>
+    <p>Ahora revisá que los datos sean correctos. Si todo esta bien ya podes continuar con el guardado.</p>
+  </div>
+  <div class="col-12" *ngIf="loadedRelation" style="padding-left: 2px;padding-right: 2px;">
+    <app-semantic-transcription-details [showPreviousSave]='true' [markSelected]="markView">
+    </app-semantic-transcription-details>
+  </div>
+  <div class="col-12" *ngIf="!onlyShow">
+    <div class="fixed-action-btn previous-step" style="position: left;margin-right: 5%;">
+      <a class="btn-floating btn-large" style="background-color: #808080;" (click)="back()">
+        <i mz-icon-mdi [icon]="'chevron-left'" [align]="'rigth'"></i>
+      </a>
+    </div>
+    <div class="fixed-action-btn next-step">
+      <a class="btn-floating btn-large" style="background-color: #e65100;" (click)="save()">
+        <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i>
+      </a>
+    </div>
+  </div>
+</div>

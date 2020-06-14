@@ -86,3 +86,11 @@ table {
 .step-content {
     padding:2px;
 }
+
+.disabled{
+    background-color: #dddddd;
+    color:gray;
+    cursor: auto;
+    pointer-events: none !important;
+
+}

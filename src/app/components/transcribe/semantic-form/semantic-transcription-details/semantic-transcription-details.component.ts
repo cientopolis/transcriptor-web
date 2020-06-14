@@ -9,6 +9,7 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 })
 export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
 
+  @Input() showRelationshipItem = null;
   @Input() markSelected = null;
   @Input() showPreviousSave = false;
   @Input() relation = false;

@@ -24,22 +24,17 @@ export class SelectSchemaComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    if (this.mark) {
-/*       this.headerService.headerParagraph = 'Hechos Históricos';
-      this.headerService.headerSubparagraph = null;
-      this.headerService.header = "Nueva Marca";
-      this.headerService.showDetails = false;
-      this.headerService.headerStep=true;
-      this.headerService.stepNumber=1; */
-      this.semanticService.getAllTypes().then(result => {
-        this.scheme = result;
-        this.parents.push(result);
-        this.schemas = result.children;
-        this.selectSchema();
-        this.loader = false;
-        this.changeDetector.detectChanges();
-      });
-    }
+    this.getAllEntities();
+  }
+  getAllEntities(){
+    this.semanticService.getAllTypes().then(result => {
+      this.scheme = result;
+      this.parents.push(result);
+      this.schemas = result.children;
+      this.selectSchema();
+      this.loader = false;
+      this.changeDetector.detectChanges();
+    });
   }
 
   filter(event){
@@ -65,6 +60,7 @@ export class SelectSchemaComponent implements OnInit {
     this.parents.push(schema);
     this.schemas = schema.children;
     this.scheme=schema;
+    this.searchText='';
     this.selectSchema();
   }
   selectSchema() {
