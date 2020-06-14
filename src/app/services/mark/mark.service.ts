@@ -14,6 +14,7 @@ export class MarkService {
   private getPath = '/api/mark/{markId}';
   private listByPagePath = '/api/page/';
   private listByLayerPath = '/api/layer/';
+  private listBySlugPath = '/api/mark/by_slug';
 
   constructor(private httpService: HttpService) { }
 
@@ -36,5 +37,9 @@ export class MarkService {
   listByPage(pageId, layerId = null): Observable<Mark[]> {
     let path = (layerId ? this.listByLayerPath + layerId : this.listByPagePath + pageId) + "/marks";
     return this.httpService.lget(path, { responseDataType: Mark }) as Observable<Mark[]>;
+  }
+
+  listBySlug(slugs, pageId = null): Observable<Mark[]> {
+    return this.httpService.lpost(this.listBySlugPath, { slugs: slugs, page_id: pageId }, { responseDataType: Mark }) as Observable<Mark[]>;
   }
 }

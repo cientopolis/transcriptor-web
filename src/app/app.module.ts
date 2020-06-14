@@ -36,6 +36,7 @@ import { MzDropdownModule } from 'ngx-materialize';
 import { MzModalModule } from 'ngx-materialize';
 import { MzInjectionService } from 'ngx-materialize';
 import { MzButtonModule } from 'ngx-materialize';
+import { MzBadgeModule } from 'ngx-materialize';
 import { MzTextareaModule } from 'ngx-materialize';
 import { MzIconModule, MzIconMdiModule } from 'ngx-materialize';
 import { MzToastModule } from 'ngx-materialize';
@@ -136,6 +137,8 @@ import { SchemePipe } from './pipes/scheme.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
+import { ReferenceContainerComponent } from './components/search/reference-container/reference-container.component';
+import { ReferenceDetailModalComponent } from './components/search/reference-detail-modal/reference-detail-modal.component';
 import { SearchSemanticRelationshipComponent } from './components/transcribe/search-semantic-relationship/search-semantic-relationship.component';
 import { ShowRelationshipItemComponent } from './components/transcribe/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 
@@ -192,6 +195,8 @@ import { ShowRelationshipItemComponent } from './components/transcribe/search-se
     SearchInputComponent,
     SemanticSearchInputComponent,
     HighlightSearchPipe,
+    ReferenceContainerComponent,
+    ReferenceDetailModalComponent,
     SearchSemanticRelationshipComponent,
     ShowRelationshipItemComponent
   ],
@@ -210,6 +215,7 @@ import { ShowRelationshipItemComponent } from './components/transcribe/search-se
     MzCheckboxModule,
     MzIconModule,
     MzIconMdiModule,
+    MzBadgeModule,
     MzSelectModule,
     MzTabModule,
     MzCollectionModule,

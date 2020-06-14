@@ -6,7 +6,8 @@
       "save":"Guardar",
       "saveChanges":"Guardar Cambios",
       "delete":"Eliminar",
-      "show":"Ver"
+      "show":"Ver",
+      "filter":"filtrar"
     },
     "placeholder": {
       "search.empty.list": "Aún no hay resultados que coincidan con tu búsqueda."
@@ -333,7 +334,6 @@
       "confirmProperties":"Confirmar propiedades",
       "generateScheme":"Generar esquema",
       "back":"Volver"
-
     },
     "table":{
       "header":{
@@ -355,7 +355,36 @@
     "noVersionsMessage": "Aún no existen versiones de esta página.",
     "actionText": "ver cambios"
   },
+  "semanticSearchInput": {
+    "label": {
+      "typeFilter": "Filtrar por tipo"
+    },
+    "placeholder": {
+      "typeFilter": "Todos los tipos"
+    },
+    "modal": {
+      "typeFilterModal": {
+        "title": "Filtrado por Tipo",
+        "description": "Seleccione un tipo de entidad para filtar los resultados de la búsqueda."
+      }
+    }
+  },
   "search":{
-    "title":"Búsqueda"
+    "title": "Búsqueda",
+    "description": "A través de esta pantalla podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="p-l-0 p-r-0" [ngClass]="{ 'col s8': typeSelector, 'col s12': !typeSelector }">
+<div class="row m-b-0">
+    <div class="p-l-0 p-r-0 col" [ngClass]="{ 's8': typeSelector, 's12': !typeSelector }">
         <app-search-input
             #searchInput
             (onFetch)="searchEntities($event)"
@@ -7,28 +7,47 @@
             [placeholder]="placeholder"
             [itemIcon]="'semantic-web'"
             [autocomplete]="autocomplete"
-            [flatStyle]="flatStyle">
+            [flatStyle]="flatStyle"
+            (onClear)="onClear()"
+            (invalidInput)="handleInvalidInput()">
         </app-search-input>
     </div>
-    <div class="col s4 p-r-0" *ngIf="typeSelector">
+    <div class="col s4 p-r-0" *ngIf="typeSelector" (click)="openTypeFilter()">
         <mz-card class="transcriptor-type-filter" [ngClass]="{ 'flat': flatStyle }">
             <mz-card-content>
                 <mz-input-container>
-                    <mz-select-container (click)="$event.stopPropagation()">
-                        <select mz-select [(ngModel)]="entityType">
-                            <option [ngValue]="null" selected>Todos los tipos de entidad</option>
-                            <optgroup label="HTTP">
-                                <option value="schema:Person">Person</option>
-                                <option value="schema:Car">Car</option>
-                            </optgroup>
-                            <optgroup label="HTTPS">
-                                <option value="<https://schema.org/Person>">Person</option>
-                            </optgroup>
-                        </select>
-                    </mz-select-container>
+                    <small class="input-fixed-label">{{ 'semanticSearchInput.label.typeFilter' | translate }}</small>
+                    <input 
+                        #searchInput 
+                        mz-input
+                        [placeholder]="'semanticSearchInput.placeholder.typeFilter' | translate" 
+                        type="text" 
+                        [ngModel]="showedType"
+                        readonly>
+                    <i mz-icon-mdi class="input-suffix" [icon]="'filter'" [align]="'center'"></i>
                 </mz-input-container>
             </mz-card-content>
         </mz-card>
     </div>
 </div>
 
+<mz-modal #modalTypeFilter [fixedFooter]="true">
+    <mz-modal-header>
+        <h4>{{ 'semanticSearchInput.modal.typeFilterModal.title' | translate }}</h4>
+        <p class="m-b-10">{{ 'semanticSearchInput.modal.typeFilterModal.description' | translate }}</p>
+    </mz-modal-header>
+    <mz-modal-content>
+        <mz-checkbox-container>
+            <input mz-checkbox [(ngModel)]="showAllTypes" [label]="'Mostrar todos los tipos en la búsqueda'" [filledIn]="true" type="checkbox">
+        </mz-checkbox-container>
+        <div class="entity-type-selector" [ngClass]="{ 'disabled-component': showAllTypes }">
+            <app-select-schema [mark]="{}" (schemeSelected)="selectType($event)"></app-select-schema>
+        </div>
+    </mz-modal-content>
+    <mz-modal-footer>
+        <button class="primary-color-text" mz-button [flat]="true"
+            mz-modal-close>{{'app.button.cancel' | translate}}</button>
+        <button class="primary-color" mz-button mz-modal-close
+            (click)="filter()">{{'app.button.filter' | translate}}</button>
+    </mz-modal-footer>
+</mz-modal>

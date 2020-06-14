@@ -31,8 +31,8 @@
               "node_modules/leaflet-draw/dist/leaflet.draw.css",
               "node_modules/izitoast/dist/css/iziToast.min.css",
               "node_modules/diff2html/dist/diff2html.min.css",
-              "src/styles/styles.scss",
-              "node_modules/materialize-stepper/dist/css/mstepper.min.css"
+              "node_modules/materialize-stepper/dist/css/mstepper.min.css",
+              "src/styles/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
