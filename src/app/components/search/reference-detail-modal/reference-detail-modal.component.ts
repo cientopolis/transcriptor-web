@@ -77,11 +77,13 @@ export class ReferenceDetailModalComponent implements OnInit {
 
     this.pageLayer = L.imageOverlay(environment.apiUrl + pageImage, this.bounds);
     var that = this
+    $('.transcribe-screen .map-loading').fadeIn()
     this.pageLayer.on('load',function() {
       console.log("Loaded")
       that.map.invalidateSize()
       setTimeout(function() {
         that.addMark()
+        $('.transcribe-screen .map-loading').fadeOut()
       }, 1000)
     })
     this.pageLayer.addTo(this.map);

@@ -9,6 +9,10 @@
       leaflet 
       [leafletOptions]="options" 
       (leafletMapReady)="onMapReady($event)">
+      <div class="map-loading center-align">
+        <mz-spinner [color]="'yellow'" [size]="'small'">
+        </mz-spinner>
+      </div>
     </div>
     <app-semantic-transcription-details
       *ngIf="detailMark"

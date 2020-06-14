@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { SchemePipe } from 'app/pipes/scheme.pipe';
-import { ITreeOptions } from 'angular-tree-component';
 
 @Component({
   selector: 'app-semantic-search-input',
