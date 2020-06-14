@@ -145,13 +145,10 @@ processProperties(properties) {
         }
     } */
   handleDeleteRelationship(event){
-    console.log('delete');
-    console.log(event);
     let relationship = { selected:false,name:event.name};
  //   this.selectPropertie(relationship,null);
     this.relationshipsSelected.forEach((item, index) => {
       if (item.name.toLowerCase() === event.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
-      console.log(this.relationshipsSelected);
     });
     this.relationships.forEach( prop => {
       if (prop.name.toLowerCase() == event.name.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
@@ -168,12 +165,9 @@ processProperties(properties) {
         }
       }
     } else {
-      console.log(this.relationshipsSelected);      
       this.relationshipsSelected.forEach((item, index) => {
         if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
-        console.log(this.relationshipsSelected);
       });
-      console.log(this.relationshipsSelected);
     }
   }
 
@@ -202,7 +196,6 @@ processProperties(properties) {
     }
   }
   searchRelationship(event) {
-    console.log('alto cancel');
     if (event && event.name != null) {
       this.relationshipsSelected.forEach((item, index) => {
         if (item.name.toLowerCase() === event.name.toLowerCase()){
@@ -214,7 +207,6 @@ processProperties(properties) {
 
   }
   handlePropertieValidation(event) {
-    console.log(event);
     if (event) {
    
     } else {

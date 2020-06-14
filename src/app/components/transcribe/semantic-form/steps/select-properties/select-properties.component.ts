@@ -85,16 +85,13 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
 
   handleInputChange(event){
     this.relationSaved = false;
-    console.log(event);
     this.validationMap.set(event.model.name, event.valid);
     this.validateProperties();
   }
 
   validateProperties() {
     let found = false;
-    console.log(this.validationMap);
     this.validationMap.forEach((value, key) => {
-      console.log(value, key);
       if (!value) {
         found = true;
       }
@@ -102,7 +99,6 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
     if (found) {
       this.validInputs=false;
       //this.validatePropertiesEvent.emit(false);
-      console.log('retornar que los inputs son invalidos');
     } else {
       this.validInputs = true;
       //this.validatePropertiesEvent.emit(true);

@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as $ from 'jquery';
 @Component({
@@ -10,6 +11,8 @@ export class SchemeInputsComponent implements OnInit {
   @Output() public modelDeleted = new EventEmitter<any>();
   @Output() public inputChange = new EventEmitter<any>();
   
+  public valid=false;
+  public enableValidation=true;
 
   public options: Pickadate.DateOptions = {
     /* monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -32,22 +35,25 @@ export class SchemeInputsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  
+    if (this.model.type == 'http://schema.org/Boolean' || this.model.type == 'Boolean'){
+      this.enableValidation=false;
+      this.valid=true;
+    }
   }
 
   deleteModel(model){
     this.modelDeleted.emit({model:this.model})
   }
   handleChange(model = null){
-    console.log(this.model);
-    console.log('handre change from inpur');
-    if (!this.model || this.model.model =='' ) {
-      this.inputChange.emit({ model: this.model, valid: false });
-      console.log('No es valido');
-    } else {
-      this.inputChange.emit({ model: this.model,valid:true});
-      console.log('es validazo');
-    } 
+    if(this.enableValidation){
+      if (!this.model || this.model.model =='' ) {
+        this.inputChange.emit({ model: this.model, valid: false });
+        this.valid=false;
+      } else {
+        this.valid = true;
+        this.inputChange.emit({ model: this.model,valid:true});
+      } 
+    }
   }
 
 }

@@ -49,8 +49,13 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   itemChange(event){
     this.enableModal=true;
    // this.semanticItemSelected=event;
-    this.itemView.type = this.semanticItemSelected['@type'];
-    this.itemView.name = this.semanticItemSelected['schema:name'];
+    if (Array.isArray(this.semanticItemSelected['@type'])){
+      this.itemView.type = this.semanticItemSelected['@type'][0];
+   }else{
+      this.itemView.type = this.semanticItemSelected['@type'];
+   }
+   this.itemView.name = this.semanticItemSelected['schema:name'];
+   console.log(this.itemView);
     this.confirm();
     this.changeDetector.detectChanges();
   }

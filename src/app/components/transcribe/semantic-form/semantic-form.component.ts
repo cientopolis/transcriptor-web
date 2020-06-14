@@ -53,7 +53,7 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   showActionStep3 = false;
   showActionStep4 = false;
   actualStep ='step1';
-  public formValid = true;
+  public formValid = false;
   constructor(
             private semanticService: SemanticModelService,
             private changeDetector: ChangeDetectorRef,
@@ -165,7 +165,6 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   }
 
 validateStepOne() {
-  console.log('');
   return false;
 }
 selectSchema(scheme){
@@ -197,13 +196,11 @@ handleScheme(event){
   //this.notifyNextStep2 = false;
 }
 addProperties(properties,relationship){
-  console.log(properties);
   if (relationship){
     this.mergeRelationships(properties);
   }else{
     this.mergeProperties(properties)
   }
-  console.log(this.propertiesSelected);
 }
 
   mergeProperties(properties) {
@@ -257,13 +254,10 @@ addProperties(properties,relationship){
         console.log(this.relationshipsSelected);
       } */
     });
-    console.log(indexes);
     indexes.forEach(indez =>{
       this.propertiesSelected.splice(indez, 1);
     });
-    console.log(this.propertiesSelected);
     properties.forEach(propertie => {
-      console.log(propertie);
       if ((propertie.scheme && propertie.scheme.length > 0) || propertie.searchRelationship) {
         this.propertiesSelected.push(propertie);
       }else{
@@ -279,7 +273,6 @@ handleSchemeRelationships(event){
     this.propertiesSelected.push(relationship);
   });*/
   //deberia borrar la relacion
-  console.log(event.relationshipsSelected);
   this.addProperties(event.relationshipsSelected,true);
   this.showGeneratedScheme = true;
   this.saveScheme(false);
@@ -295,11 +288,44 @@ handleSchemeRelationships(event){
     );
     e.then(
       result => {
+        let resultShow = JSON.parse(JSON.stringify(result));
+        let show = resultShow['schema:mainEntity'];
+        for (let key in show) {
+          const item = show[key];
+          if(item['@id']){
+            for (let r in item) {
+              let relation = item[r];
+              let relationArray = '';
+              if(Array.isArray(relation) ){
+                relation.forEach( elem => {
+                  if (elem['rdfs:label']){
+                    if (Array.isArray(elem['rdfs:label'])){
+                      relationArray = elem['rdfs:label'].join(',');
+                    }else{
+                      relationArray = elem['rdfs:label'];
+                    }
+                   }else{
+                   }
+                })
+              }
+              if (relation['@id']) {
+                relationArray = relation['rdfs:label'];
+              }
+              if (relationArray!=''){
+                item[r] = relationArray;
+              }
+            }
+          }
+
+          if (Array.isArray(item['@type'])) {
+            item['@type'] = item['@type'][0];
+          }
+
+        }
+        console.log(resultShow);
+        console.log(result);
         this.schema_type="http://schema.org/" + this.schemeName
-        this.markView = { semanticContribution: { text: result, schema_type: this.schema_type} };
-/*         console.log("slug");
-        console.log(result['schema:mainEntity']);
-        console.log(SchemeUtils.getSlug(result['@id'])); */
+        this.markView = { semanticContribution: { text: resultShow, schema_type: this.schema_type} };
         if(confirm){
           this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
         }
@@ -317,48 +343,35 @@ handleSchemeRelationships(event){
     this.notifyNextStep2=true;
     
   }
-  setUpStepTwo(){
-    this.validateInputs();    
-  }
+
   turnDownStepTwo(){
 
   }
 
   validateInputs(){
-    this.formValid=false;
+   // this.formValid=false;
   }
-  handlePropertieValidation(event){
-    console.log(event);
-    if(event){
-      this.formValid=true;
-      console.log('none');
-      let a = $('#first-step .btn-floating');
-      console.log(a);
-      a.prop('disabled', false);
+  handlePropertieValidation(event = null){
 
+    if(event!=null){
+      this.formValid = event;
+    }else{
+      event=true;
+    }
+    if(event){
+      let a = $('#first-step .btn-floating');
+      a.prop('disabled', false);
       a.parent().css({ pointerEvents: "auto" });
       a.removeClass('disabled');
-      console.log(a)
     }else{
-      this.formValid=false;
-        console.log('none');
         let a = $('#first-step .btn-floating');
-        console.log(a);
         a.parent().css({ pointerEvents: "none" });
         a.prop('disabled',true);
         a.addClass('disabled')
-        console.log(a)
     }
   }
   next(step){
-    if(step=='none'){
-      console.log('none');
-      let a = $('.fixed-action-btn next-step');
-      console.log(a);
-      a.removeClass('fixed-action-btn next-step');
-      a.addClass('disabled')
-      console.log()
-    }
+   
     this.actualStep=step;
     if (this.actualStep == step){
       switch (step) {
@@ -385,7 +398,7 @@ handleSchemeRelationships(event){
         this.showActionStep2=true;
         this.showActionStep3=false;
         this.showActionStep4 = false;
-
+        this.handlePropertieValidation(this.formValid);
         break;
       }
       case "step3": {
@@ -414,6 +427,7 @@ handleSchemeRelationships(event){
       switch (step) {
         case "step2": {
           this.actualStep = "step1";
+          this.handlePropertieValidation(null);
           break;
         }
         case "step3": {

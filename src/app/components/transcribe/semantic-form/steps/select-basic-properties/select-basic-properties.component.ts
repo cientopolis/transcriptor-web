@@ -59,23 +59,19 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
 
   handleInputChange(event) {
-    console.log(event);
     this.validationMap.set(event.model.name, event.valid);
     this.validateProperties();
   }
 
   validateProperties(){
     let found = false;
-    console.log(this.validationMap);
     this.validationMap.forEach((value,key) => {
-      console.log(value,key);
       if(!value){
         found=true;
       }
     });
     if(found){
       this.validatePropertiesEvent.emit(false);
-      console.log('retornar que los inputs son invalidos');
     }else{
       this.validatePropertiesEvent.emit(true);
     }
