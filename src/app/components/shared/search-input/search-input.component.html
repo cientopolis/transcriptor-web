@@ -11,7 +11,7 @@
 
 <mz-dropdown #searchDropdown [id]="dropdownId" [dropdownButtonId]="dropdownButtonId" [belowOrigin]="true"
   [constrainWidth]="true" [hover]="false" [stopPropagation]="true">
-  <mz-dropdown-item *ngIf="results.length > 0">
+  <mz-dropdown-item *ngIf="results != null && results.length > 0">
     <mz-collection>
       <mz-collection-item [avatar]="true" class="collection-item" *ngFor="let result of results" (click)="selectItem(result.item)">
         <i mz-avatar mz-icon-mdi [icon]="itemIcon" class="grey lighten-1"></i>
@@ -22,7 +22,7 @@
       </mz-collection-item>
     </mz-collection>
   </mz-dropdown-item>
-  <mz-dropdown-item *ngIf="results.length == 0">
+  <mz-dropdown-item *ngIf="results && results.length == 0">
     <a href="#!" class="center-align">{{ 'app.placeholder.search.empty.list' | translate }}</a>
   </mz-dropdown-item>
 </mz-dropdown>
