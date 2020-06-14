@@ -1,9 +1,15 @@
 <mz-modal #modal [fixedFooter]="true">
   <mz-modal-header>
-    <h5 (click)="addMark()">Detalle de Referencia</h5>
+    <h5 (click)="addMark()">{{ 'search.modal.detailReference.title' | translate }}</h5>
   </mz-modal-header>
   <mz-modal-content>
-    <div class="transcribe-screen m-b-15" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"></div>
+    <div 
+      [ngClass]="{ 'hide': !referenceInfo }"
+      class="transcribe-screen m-b-15"
+      leaflet 
+      [leafletOptions]="options" 
+      (leafletMapReady)="onMapReady($event)">
+    </div>
     <app-semantic-transcription-details
       *ngIf="detailMark"
       [relation]="true" 
@@ -11,6 +17,6 @@
     </app-semantic-transcription-details>
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Cerrar</button>
+    <button mz-button [flat]="true" mz-modal-close>{{ 'app.button.close' | translate }}</button>
   </mz-modal-footer>
 </mz-modal>

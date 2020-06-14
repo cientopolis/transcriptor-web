@@ -64,9 +64,6 @@ export class ReferenceDetailModalComponent implements OnInit {
   }
 
   addPageToMap(pageImage) {
-    // this.map.eachLayer(function (thisLayer) {
-    //   console.log(thisLayer, thisLayer instanceof L.ImageOverlay)
-    // })
     if (this.pageLayer) {
       this.map.removeLayer(this.pageLayer)
       this.drawnLayers.clearLayers()
@@ -126,14 +123,16 @@ export class ReferenceDetailModalComponent implements OnInit {
     return mark
   }
 
-  open(mark, referenceInfo) {
+  open(mark, referenceInfo = null) {
     this.referenceInfo = referenceInfo
     this.mark = mark
     this.detailMark = null
     this.detailMark = this.getMarksAsNoteDigitalDocument(mark);
     
-    this.map.invalidateSize()
-    this.addPageToMap(this.referenceInfo.base_image)
+    if (referenceInfo) {
+      this.map.invalidateSize()
+      this.addPageToMap(this.referenceInfo.base_image)      
+    }
     this.modal.openModal();
   }
 

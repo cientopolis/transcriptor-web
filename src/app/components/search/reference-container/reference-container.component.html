@@ -7,7 +7,7 @@
           <div mz-avatar [style.background-image]="'url(' + getThumbnailUrl(referencesGroup) + ')'" class="reference-avatar"></div>
           <span>{{referencesGroup.collectionTitle}} / {{referencesGroup.workTitle}}</span>
             <div class="title"><a routerLink="/transcribe/{{referencesGroup.pageId}}">{{referencesGroup.pageTitle}}</a></div>
-          <label>{{ referencesGroup.referencesAmount }} Referencias</label>
+          <label>{{ referencesGroup.referencesAmount }} {{ 'search.label.references' | translate }}</label>
           <div mz-secondary-content>
             <i mz-icon-mdi [icon]="'chevron-down'" [align]="'right'"></i>
           </div>

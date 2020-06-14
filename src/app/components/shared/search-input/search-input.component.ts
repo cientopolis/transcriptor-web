@@ -24,6 +24,9 @@ export class SearchInputComponent implements OnInit {
   
   @Output() onFetch = new EventEmitter();
   @Output() itemChange = new EventEmitter();
+  @Output() onClear = new EventEmitter();
+  @Output() invalidInput = new EventEmitter();
+
   
   dropdownId = null
   dropdownButtonId = null
@@ -43,11 +46,15 @@ export class SearchInputComponent implements OnInit {
   ngOnInit() {
   }
 
-  search(searchText) {
+  search(searchText = this.searchText) {
     console.log("search", searchText)
     this.searchDropdown.close()
     if (searchText && searchText.length > this.minChars) { 
       this.onFetch.emit({searchText: searchText});
+    } else {
+      if(searchText) {
+        this.invalidInput.emit()
+      }
     }
   }
 
@@ -68,13 +75,16 @@ export class SearchInputComponent implements OnInit {
 
   changedSearchText(searchText: string) {
     this.searchText = searchText
-    if (searchText && searchText.length > this.minChars) { 
-      this.searchTextChanged.next(searchText);
-    }
+    this.searchTextChanged.next(searchText);
+    // if (searchText && searchText.length > this.minChars) { 
+    // } else {
+    //   this.invalidInput.emit()
+    // }
   }
 
   clear() {
     this.changedSearchText('')
+    this.onClear.emit()
   }
 
   focusInput() {

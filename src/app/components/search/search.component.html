@@ -2,21 +2,57 @@
   <div class="col s12 m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h5 class="m-b-20">{{'search.title' | translate}}</h5>
+        <h5 class="m-b-10">{{'search.title' | translate}}</h5>
       </mz-card-title>
       <mz-card-content>
+        <p class="m-b-10">{{ 'search.description' | translate }}</p>
         <app-semantic-search-input 
-          [(semanticModel)]="semanticEntity" 
+          #semanticSearchInput
           [fetchSelectedEntity]="false"
           [placeholder]="'semanticForm.placeholder.entitySearch' | translate" 
           [flatStyle]="true"
           [typeSelector]="true"
-          (semanticModelChange)="doSemanticSearch()">
+          [autocomplete] = "false"
+          [(results)]="semanticEntities"
+          (resultsChange)="semanticEntitiesChange()">
         </app-semantic-search-input>
 
-        <div class="row" *ngIf="referencesGroups && referencesGroups.length > 0">
+        <div class="selected-semantic-entity m-b-10" *ngIf="!isNewSearch && semanticEntity">
+          <small class="primary-color-text">{{ 'search.label.selectedEntity' | translate }}</small>
+          <mz-collection>
+            <mz-collection-item [avatar]="true" class="collection-item">
+              <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="primary-color"></i>
+              <div class="title">{{semanticEntity.entityLabel.value}}</div>
+              <p class="descriptiom-item">{{ semanticEntity.entityType.value | scheme_type }}</p>
+              <a mz-secondary-content style="margin-right: 0px;">
+                <a (click)="openSelectedEntityDetail()" style="cursor: pointer;">{{ 'search.button.showMore' | translate }}</a>
+                <i (click)="clearSelectedEntity()" style="margin-right: 0px;color: black;" mz-icon-mdi
+                  [icon]="'close'" [align]="'right'"></i>
+              </a>
+            </mz-collection-item>
+          </mz-collection>
+        </div>
+
+        <div class="semantic-entity-results" *ngIf="isNewSearch && semanticEntities">
+          <h6>{{ 'search.label.loadedEntities' | translate }}</h6>
+          <mz-collection>
+            <mz-collection-item [avatar]="true" class="collection-item" *ngFor="let semanticEntity of semanticEntities"
+              (click)="selectSemanticEntity(semanticEntity.item)">
+              <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
+              <div class="title">{{semanticEntity.title}}</div>
+              <p class="descriptiom-item">{{ semanticEntity.description }}</p>
+              <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+                  [icon]="'chevron-right'" [align]="'left'"></i></a>
+            </mz-collection-item>
+            <mz-collection-item class="center-align" *ngIf="semanticEntities && !semanticEntities.length > 0">
+              <a href="#!" class="center-align">{{ 'app.placeholder.search.empty.list' | translate }}</a>
+            </mz-collection-item>
+          </mz-collection>
+        </div>
+
+        <div class="row" *ngIf="referencesGroups && referencesGroups.length > 0 && !isNewSearch">
           <div class="col s12">
-            <h6>Resultados</h6>
+            <h6>{{ 'search.label.results' | translate }}</h6>
             <div class="references-list">
               <app-reference-container 
                 *ngFor="let referencesGroup of referencesGroups"

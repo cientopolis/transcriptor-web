@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { SchemePipe } from 'app/pipes/scheme.pipe';
+import { ITreeOptions } from 'angular-tree-component';
 
 @Component({
   selector: 'app-semantic-search-input',
@@ -10,6 +11,7 @@ import { SchemePipe } from 'app/pipes/scheme.pipe';
 export class SemanticSearchInputComponent implements OnInit {
 
   @ViewChild('searchInput') searchInput;
+  @ViewChild('modalTypeFilter') modalTypeFilter;
   
   @Input() autocomplete = true
   @Input() semanticModel = null
@@ -26,15 +28,17 @@ export class SemanticSearchInputComponent implements OnInit {
   @Output() resultsChange = new EventEmitter()
   @Output() onFetchStart = new EventEmitter()
   @Output() onFetchEnd = new EventEmitter()
+  @Output('onClear') onClearPressed = new EventEmitter()
 
-  types = []
+  showAllTypes = true
+  filterType = null
+  showedType = null
 
   constructor(private semanticModelService: SemanticModelService, private schemePipe: SchemePipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults
   }
 
   ngOnInit() {
-    this.loadTypes()
   }
   
   searchEntities($event) {
@@ -73,9 +77,35 @@ export class SemanticSearchInputComponent implements OnInit {
     this.semanticModelChange.emit(this.semanticModel)
   }
 
-  loadTypes() {
-    this.semanticModelService.getAllTypes().then(result => {
-      console.log(result);
-    })
+  openTypeFilter() {
+    this.showAllTypes = this.entityType == null
+    this.modalTypeFilter.openModal()
+  }
+
+  selectType(type) {
+    this.filterType = type
+  }
+
+  filter() {
+    this.entityType = this.showAllTypes ? null : `schema:${this.filterType.split('>').slice(-1)[0]}`;
+    this.showedType = this.showAllTypes ? null : this.filterType.split('>').slice(-1)[0]
+    this.refresh()
+  }
+
+  refresh() {
+    this.searchInput.search()
+  }
+
+  onClear() {
+    this.results = null
+    this.resultsChange.emit(this.results)
+    this.searchInput.setResults(this.results)
+    this.onClearPressed.emit()
+  }
+
+  handleInvalidInput() {
+    this.results = []
+    this.resultsChange.emit(this.results)
+    this.searchInput.setResults(this.results)
   }
 }

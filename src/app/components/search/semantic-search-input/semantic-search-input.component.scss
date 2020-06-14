@@ -3,7 +3,7 @@
 :host ::ng-deep .transcriptor-type-filter .card-content {
     padding-top: 5px;
     padding-bottom: 13px;
-    padding-left: 5px;
+    padding-left: 15px;
     padding-right: 15px;
 }
 :host ::ng-deep .transcriptor-type-filter .card-content .input-field,
@@ -27,6 +27,9 @@
 :host ::ng-deep .transcriptor-type-filter .input-field .prefix.active {
     color: $primaryColor;
 }
+:host ::ng-deep .transcriptor-type-filter .input-field input {
+    cursor: pointer;
+}
 
 :host ::ng-deep .dropdown-content {
     border-bottom-right-radius: 8px;
@@ -43,4 +46,5 @@
 .transcriptor-type-filter.card.flat {
     box-shadow: none;
     background-color: #F5F5F5;
+    border: 1px solid #dddddd;
 }
