@@ -6,7 +6,8 @@
       "save":"Guardar",
       "saveChanges":"Guardar Cambios",
       "delete":"Eliminar",
-      "show":"Ver"
+      "show":"Ver",
+      "filter":"filtrar"
     },
     "placeholder": {
       "search.empty.list": "Aún no hay resultados que coincidan con tu búsqueda."
@@ -326,14 +327,13 @@
     "placeholder": {
       "scheme": "- Seleccione un schema -",
       "search": "Ingresa un nombre de una propiedad",
-      "entitySearch": "Busca un elemento a asociar a tu marca, Ejemplo: \"San Martín\" o \"Edad Medieval\""
+      "entitySearch": "Busca un elemento a asociar a tu marca, Ejemplo: \"San Martín\" o \"Edad Media\""
     },
     "button":{
       "confirmType":"Confirmar tipo",
       "confirmProperties":"Confirmar propiedades",
       "generateScheme":"Generar esquema",
       "back":"Volver"
-
     },
     "table":{
       "header":{
@@ -355,7 +355,39 @@
     "noVersionsMessage": "Aún no existen versiones de esta página.",
     "actionText": "ver cambios"
   },
+  "semanticSearchInput": {
+    "label": {
+      "typeFilter": "Filtrar por tipo"
+    },
+    "placeholder": {
+      "typeFilter": "Todos los tipos"
+    },
+    "modal": {
+      "typeFilterModal": {
+        "title": "Filtrado por Tipo",
+        "description": "Seleccione un tipo de entidad para filtar los resultados de la búsqueda."
+      }
+    }
+  },
   "search":{
-    "title":"Búsqueda"
+    "title": "Búsqueda",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
   }
 }

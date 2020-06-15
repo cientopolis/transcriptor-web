@@ -1,16 +1,37 @@
 <mz-collapsible *ngIf="colapsible" [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback">
   <mz-collapsible-item [active]="false">
     <mz-collapsible-item-header class="header-box">
-      <h5 class="primary-color-text">{{schemeName}}</h5>
-      <p>{{propertieNameTitle}}</p>
+      <div clas="row">
+        <div class="col s11">
+          <h5 class="primary-color-text">{{schemeName}}</h5>
+          <p>{{propertieNameTitle}}</p>
+        </div>
+          <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelarionship()">
+            <a (click)="deleteRelarionship()">
+              &times;
+            </a>
+          </div>
+      </div>
+
+
     </mz-collapsible-item-header>
     <mz-collapsible-item-body style="padding:5px">
+      <div class="row" *ngIf="false">
+        <div class="col s11"></div>
+          <div class="col s1">
+            <a *ngIf="showCancel" (click)="cancelCreatePropertie()">
+              <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
+                &times;
+              </button>
+            </a>
+          </div>
+      </div>
       <div class="row" *ngFor="let prop of  propertiesSelected" (click)="$event.stopPropagation()">
-        <app-scheme-inputs (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
+        <app-scheme-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
         <div *ngIf="prop.scheme">
           <label> {{prop.name}}</label>
           <div class="row" *ngFor="let sc of  prop.scheme.properties">
-            <app-scheme-inputs (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
+            <app-scheme-inputs  (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
           </div>
         </div>
       </div>
@@ -23,14 +44,43 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" *ngIf="!relationSaved && validInputs">
         <div class="col s12">
           <a class="waves-effect btn-flat" style="width: 100%;background-color: #e65100;
     text-align:center;
     color:white;
-    border: 1px solid white ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar relación</a>
+    border: 1px solid white ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar Relación</a>
         </div>
       </div>
+      
+      <div class="row" *ngIf="!relationSaved && !validInputs">
+        <div class="col s12">
+          <a class="waves-effect btn-flat disabled" style="width: 100%;background-color: #e65100;
+          text-align:center;
+          ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar
+            Relación</a>
+        </div>
+      </div>
+
+        <div class="row" [ngClass]="relationSaved ? 'saved':'no-saved'">
+          <div class="col s4 offset-s4  text-align center">
+            <span style="font-size: 11px;" *ngIf="!relationSaved">
+              Relacion aun no asignada
+            </span>
+            <span style="font-size: 11px;" *ngIf="relationSaved">
+              Relacion asignada!
+            </span>
+          </div>
+        </div>
+
+    <div class="row" *ngIf="showCancel">
+      <div class="col s4 offset-s4">
+        <a class="waves-effect waves-light btn-small" style="width: 100%;
+                  background-color: white;color:#e65100;text-align:center;font-size: 13px;
+                  border: 1px solid #e65100;font-size: 11px;" (click)="cancelCreatePropertie()">
+          Buscar entidad</a>
+      </div>
+    </div>
 
       <div class="row" *ngIf="false">
         <div class="col s12" style="padding-right: 0px;padding-left: 0px;">

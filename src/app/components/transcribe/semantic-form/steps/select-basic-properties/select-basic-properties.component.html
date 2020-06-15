@@ -1,4 +1,11 @@
-<div>
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loader">
   <div *ngIf="schemeName" class="row">
     <div class="col s12 header-box">
       <h5 class="primary-color-text">{{schemeName}}</h5>
@@ -6,11 +13,11 @@
     </div>
   </div>
   <div class="row" *ngFor="let prop of  propertiesSelected" (click)="$event.stopPropagation()">
-    <app-scheme-inputs (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
+    <app-scheme-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
     <div *ngIf="prop.scheme">
       <label> {{prop.name}}</label>
       <div class="row" *ngFor="let sc of  prop.scheme.properties">
-        <app-scheme-inputs (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
+        <app-scheme-inputs  (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@
     padding-bottom: 13px;
     padding-left: 5px;
     padding-right: 15px;
+    height: 100% !important;
 }
 :host ::ng-deep .transcriptor-search-input .card-content .input-field,
 :host ::ng-deep .transcriptor-search-input .card-content .input-field input {
@@ -43,4 +44,5 @@
 .transcriptor-search-input.card.flat {
     box-shadow: none;
     background-color: #F5F5F5;
+    border: 1px solid #dddddd;
 }

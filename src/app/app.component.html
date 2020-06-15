@@ -9,7 +9,7 @@
 
     <mz-navbar-item-container [align]="'right'">
       <mz-navbar-item><a routerLink="/collections/list">{{'collections.title' | translate}}</a></mz-navbar-item>
-      <!-- <mz-navbar-item><a routerLink="/search">{{'search.title' | translate}}</a></mz-navbar-item> -->
+        <mz-navbar-item><a routerLink="/search">{{'search.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item><a routerLink="dashboard">{{'dashboard.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item *ngIf="!global['currentUser']"><a routerLink="login"><b>{{'signIn.title' | translate}}</b></a></mz-navbar-item>
         <mz-navbar-item *ngIf="global['currentUser']">

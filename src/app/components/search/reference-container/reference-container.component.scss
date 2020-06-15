@@ -1,0 +1,73 @@
+@import '~styles/styles';
+
+:host ::ng-deep .collapsible {
+    // border-radius: 8px;
+    box-shadow: none;
+    background-color: #f8f8f8;
+    margin: 0;
+}
+:host ::ng-deep mz-collapsible-item-header {
+    width: 100%;
+}
+:host ::ng-deep .collapsible li .collapsible-header {
+    padding: 0;
+}
+:host ::ng-deep .collapsible li .collapsible-header.active {
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.1);
+    transition: all .2s $transitionTimingFunction;
+}
+// :host ::ng-deep .collapsible li:first-of-type .collapsible-header,
+// :host ::ng-deep .collapsible li:first-of-type .collapsible-body {
+//     border-top-right-radius: 8px;
+//     border-top-left-radius: 8px;
+// }
+// :host ::ng-deep .collapsible li:last-of-type .collapsible-header:not(.active),
+// :host ::ng-deep .collapsible li:last-of-type .collapsible-body {
+//     border-bottom-right-radius: 8px;
+//     border-bottom-left-radius: 8px;
+// }
+
+:host ::ng-deep .collapsible li .collapsible-header .collection {
+    border-radius: 0px;
+}
+
+:host ::ng-deep .collapsible li .collapsible-body {
+    padding: 15px;
+}
+
+.reference-avatar {
+  border-radius: 2px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 65px !important;
+  width: 65px !important;
+  background-color: $hightlightGrey;
+}
+.reference-item {
+  padding-left: 105px !important;
+}
+
+:host ::ng-deep .collapsible li .collapsible-body .collection mz-collection-item {
+    border-radius: 8px;
+}
+.collection-item.bordered {
+    border: 1px solid #dddddd;
+}
+.collection-item .secondary-content {
+    color: black;
+}
+.collection-item.avatar .secondary-content {
+    top: calc(50% - 12px);
+}
+
+.mark-label {
+    color: #9e9e9e;
+}
+
+.badge-scheme-type {
+    color: white;
+    background-color: $primaryColor;
+    padding: 0px 3px 3px 3px;
+    border-radius: 3px;
+}

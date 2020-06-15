@@ -1,0 +1,29 @@
+<mz-collapsible #referenceCollapsible>
+  <mz-collapsible-item>
+
+    <mz-collapsible-item-header>
+      <mz-collection>
+        <mz-collection-item class="reference-item" [avatar]="true" (click)="onToggleCollapse($event)">
+          <div mz-avatar [style.background-image]="'url(' + getThumbnailUrl(referencesGroup) + ')'" class="reference-avatar"></div>
+          <span>{{referencesGroup.collectionTitle}} / {{referencesGroup.workTitle}}</span>
+            <div class="title"><a routerLink="/transcribe/{{referencesGroup.pageId}}">{{referencesGroup.pageTitle}}</a></div>
+          <label>{{ referencesGroup.referencesAmount }} {{ 'search.label.references' | translate }}</label>
+          <div mz-secondary-content>
+            <i mz-icon-mdi [icon]="'chevron-down'" [align]="'right'"></i>
+          </div>
+        </mz-collection-item>
+      </mz-collection>
+    </mz-collapsible-item-header>
+
+    <mz-collapsible-item-body>
+      <mz-collection>
+        <a mz-collection-link class="bordered" *ngFor="let mark of marks" (click)="onReferenceSelection.emit(mark)">
+          <span class="mark-label">{{mark.semanticContribution.created_at | localizedDate}} - </span>{{ mark.getSemanticLabel()   }}
+          <span class="badge-scheme-type"><small>{{mark.semanticContribution.schema_type | scheme_type}}</small></span>
+          <span mz-secondary-content><!--<a>VER MÁS</a>--><i mz-icon-mdi [icon]="'chevron-right'" [align]="'right'"></i></span>
+        </a>
+      </mz-collection>
+    </mz-collapsible-item-body>
+
+  </mz-collapsible-item>
+</mz-collapsible>

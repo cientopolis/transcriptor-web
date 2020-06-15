@@ -91,7 +91,7 @@ nav .back-button i{
   opacity: 0.9;
 }
 
-// helpers
+// color helpers
 
 .primary-color{
   background-color: $primaryColor;
@@ -138,6 +138,11 @@ nav .back-button i{
   color: $primaryColor;
 }
 
+[type="checkbox"].filled-in:checked+label:after {
+  border-color: $primaryColor;
+  background-color: $primaryColor;
+}
+
 .input-field textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid $primaryColor;
   box-shadow: 0 1px 0 0 $primaryColor;
@@ -148,10 +153,15 @@ nav .back-button i{
 }
 
 :host ::ng-deep .input-field .input-suffix {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+
+:host ::ng-deep .input-field .input-fixed-label {
+  position: absolute;
+  top: -3px;
 }
 
 .switch label input[type="checkbox"]:checked + .lever {
@@ -212,6 +222,12 @@ nav .back-button i{
 a {
   color: $primaryColor; 
 }
+.collection a.collection-item {
+    color: $primaryColor;
+}
+.collection:empty {
+  border: none;
+}
 
 // toasts
 #toast-container {
@@ -250,6 +266,13 @@ a {
 // helpers
 .float-correction {
   margin-top: 10px;
+}
+
+.disabled-component {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(1);
+  transition: all .2s $transitionTimingFunction;
 }
 
 .card:not(.card-collection) .card-action {

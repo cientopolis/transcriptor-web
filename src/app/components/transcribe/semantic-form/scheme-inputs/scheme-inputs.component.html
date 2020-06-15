@@ -1,16 +1,22 @@
 <div *ngIf="model.type=='Text' || model.type=='http://schema.org/Text'" class="row">
   <div  class="input-field  col s11" style="margin-top: 0px;padding-right: 2px;">
-    <input id="model.name" [(ngModel)]="model.model" type="text" class="validate">
-    <label for="model.name" >{{model.name}} </label> 
+    <input style="margin-bottom: 0px;" (change)="handleChange(model)" 
+      (keyup)="handleChange(model)"  
+      [(ngModel)]="model.model" 
+      type="text" 
+      class="validate" 
+      required>
+    <label>{{model.name}} </label>
   </div>
   <div *ngIf="model.canDelete" class="input-field  col s1" (click)="deleteModel(model)">
     <i mz-icon-mdi class="tiny" [icon]="'close-circle'"  style="color: #c0c0c0 !important;"></i>
   </div>
 </div>
+
 <div *ngIf="model.type=='http://schema.org/Boolean' || model.type=='Boolean'" class="row">
   <div class="input-field  col s11">
     <mz-select-container  (click)="$event.stopPropagation()">
-      <select mz-select [label]="model.name" [(ngModel)]="model.model">
+      <select mz-select [label]="model.name"  [(ngModel)]="model.model">
         <option [ngValue]="false" selected>False</option>
         <option [ngValue]="true">True</option>
       </select>
@@ -22,7 +28,7 @@
 </div>
 <div *ngIf="model.type=='http://schema.org/Integer' || model.type=='http://schema.org/Number' || model.type=='Number' || model.type=='Integer'" class="row" >
   <div class="input-field  col s11">
-    <input id="model.name" [(ngModel)]="model.model" type="number">
+    <input style="margin-bottom: 0px;" (change)="handleChange(model)" id="{{model.name}}" [(ngModel)]="model.model" type="number">
     <label for="model.name">{{model.name}}</label>
   </div>
   <div *ngIf="model.canDelete" class="input-field  col s1" (click)="deleteModel(model)">
@@ -32,7 +38,7 @@
 <div class="row" *ngIf="model.type=='http://schema.org/Date' || model.type=='Date'">
   <div class="input-field  col s11">
     <mz-datepicker-container class="col s11" (click)="$event.stopPropagation()">
-      <input mz-datepicker [label]="'Fecha'" [options]="options" [(ngModel)]="model.model" id="model.name"
+      <input mz-datepicker [label]="'Fecha'" [options]="options" [(ngModel)]="model.model" id="{{model.name}}"
         placeholder="Elige una fecha" type="text">
     </mz-datepicker-container>
   </div>
@@ -40,7 +46,7 @@
     <i mz-icon-mdi class="tiny" [icon]="'close-circle'"  style="color: #c0c0c0 !important;"></i>
   </div>
 </div>
-<div class="row" *ngIf="model.type=='Time'">
+<div class="row" *ngIf="false">
   <div class="input-field  col s11">
     <mz-timepicker-container (click)="$event.stopPropagation()">
       <input  mz-timepicker [label]="'Hora'" [options]="timepickerOptions"
@@ -49,5 +55,19 @@
   </div>
   <div *ngIf="model.canDelete" class="input-field  col s1" (click)="deleteModel(model)">
     <i mz-icon-mdi class="tiny" [icon]="'close-circle'"></i>
+  </div>
+</div>
+<div *ngIf="model.type=='Time' || model.type=='DateTime'" class="row">
+  <div class="input-field  col s11" style="margin-top: 0px;padding-right: 2px;">
+    <input (change)="handleChange(model)" id="{{model.name}}" [(ngModel)]="model.model" type="text" class="validate">
+    <label for="model.name">{{model.name}} </label>
+  </div>
+  <div *ngIf="model.canDelete" class="input-field  col s1" (click)="deleteModel(model)">
+    <i mz-icon-mdi class="tiny" [icon]="'close-circle'" style="color: #c0c0c0 !important;"></i>
+  </div>
+</div>
+<div class="row" *ngIf="model && !valid" style="margin-top: 1px;">
+  <div class="col s12 text-align-center">
+    <h6 style="color:red;text-align: center; font-size: 11px;margin-top: 1px;">Este campo no debe estar vacio</h6>
   </div>
 </div>

@@ -15,13 +15,14 @@
         </div>
       </div>
     </mz-card-title>
-    <mz-card-content class="p-l-0 p-r-0" *ngIf="showComponent">
+    <mz-card-content class="p-l-0 p-r-0 p-b-0" *ngIf="showComponent">
       <div class="row" *ngIf="!renderedMark && renderedMarks.length==0">
         <div class="center-align">
           <h5 class="primary-color-text" >{{'semanticForm.emptyMarker' | translate}}</h5>
         </div>
       </div>
-      <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark" [layerName]="layer.name" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
+      <app-search-semantic-relationship *ngIf="page && renderedMark && renderedMark.mark && selectRelationship" [layerName]="layer.name" [mark]="renderedMark.mark" (createType)="createType($event)" (schemeComplete)="proccessScheme($event)"></app-search-semantic-relationship>
+      <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark && !selectRelationship" [layerName]="layer.name" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
       
       <app-list-semantic-marks *ngIf="page && (renderedMark==null || renderedMark.mark==null)"
         [renderedMarks]="renderedMarks" [layerDescription]="layer.description" [layerName]="layer.name"></app-list-semantic-marks>

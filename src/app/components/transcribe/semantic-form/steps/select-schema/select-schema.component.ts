@@ -14,7 +14,8 @@ export class SelectSchemaComponent implements OnInit {
   scheme: any;
   searchText: any;
   schemasShow= new Array<any>();
-
+  @Input() notifyNextStep = false;
+  @Input() eagerSelection = true;
   @Input() mark: any;
   @Output() public schemeSelected = new EventEmitter<any>();
   constructor(
@@ -24,22 +25,19 @@ export class SelectSchemaComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    if (this.mark) {
-/*       this.headerService.headerParagraph = 'Hechos Históricos';
-      this.headerService.headerSubparagraph = null;
-      this.headerService.header = "Nueva Marca";
-      this.headerService.showDetails = false;
-      this.headerService.headerStep=true;
-      this.headerService.stepNumber=1; */
-      this.semanticService.getAllTypes().then(result => {
-        this.scheme = result;
-        this.parents.push(result);
-        this.schemas = result.children;
+    this.getAllEntities();
+  }
+  getAllEntities(){
+    this.semanticService.getAllTypes().then(result => {
+      this.scheme = result;
+      this.parents.push(result);
+      this.schemas = result.children;
+      if (this.eagerSelection) {
         this.selectSchema();
-        this.loader = false;
-        this.changeDetector.detectChanges();
-      });
-    }
+      }
+      this.loader = false;
+      this.changeDetector.detectChanges();
+    });
   }
 
   filter(event){
@@ -47,7 +45,9 @@ export class SelectSchemaComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-   
+    if (changes.notifyNextStep && changes.notifyNextStep.currentValue) {
+      this.selectSchema();
+    }
   }
 
   setParent(parent) {
@@ -58,25 +58,22 @@ export class SelectSchemaComponent implements OnInit {
     this.scheme = parent;
     this.parents.splice(index);
     this.schemas = this.scheme.children;
-    this.selectSchema();
+    if (this.eagerSelection) {
+      this.selectSchema();
+    }
   }
 
   selectType(schema) {
     this.parents.push(schema);
     this.schemas = schema.children;
     this.scheme=schema;
-    this.selectSchema();
+    this.searchText='';
+    if (this.eagerSelection) {
+      this.selectSchema();
+    }
   }
   selectSchema() {
-    let hierarchy = ""
-    this.parents.forEach(parent => {
-      if (hierarchy==""){
-        hierarchy= parent.name;
-      }else{
-        hierarchy = hierarchy + ">" + parent.name; 
-      }
-    });
-    this.schemeSelected.emit(hierarchy);
+    this.schemeSelected.emit(this.scheme.name);
   }
 
 }

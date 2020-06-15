@@ -1,36 +1,40 @@
 @import '~styles/styles';
 
-:host ::ng-deep .transcriptor-search-input .card-content {
-    padding-top: 5px;
-    padding-bottom: 13px;
-    padding-left: 5px;
-    padding-right: 15px;
-}
-:host ::ng-deep .transcriptor-search-input .card-content .input-field,
-:host ::ng-deep .transcriptor-search-input .card-content .input-field input {
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-:host ::ng-deep .transcriptor-search-input .collection {
-    margin: 0;
-}
-:host ::ng-deep .transcriptor-search-input .collection .collection-item.avatar {
-    min-height: 64px;
-}
-:host ::ng-deep .transcriptor-search-input .collection .collection-item.avatar:hover {
-    background-color: #efefef;
-}
-:host ::ng-deep .transcriptor-search-input .collection .collection-item.avatar .secondary-content {
-    top: calc(50% - 12px)
-}
-
-:host ::ng-deep .dropdown-content {
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible,
+:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible li:first-of-type .collapsible-header,
+:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible li:first-of-type .collapsible-header .collection {
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
 }
-.search-dropdown-button {
-    width: 100%;
+
+:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible,
+:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-header:not(.active),
+:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-header:not(.active) .collection,
+:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-body {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+:host ::ng-deep .selected-semantic-entity .collection,
+:host ::ng-deep .semantic-entity-results .collection {
+    margin: 0;
+}
+:host ::ng-deep .selected-semantic-entity .collection .collection-item.avatar,
+:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar {
+    min-height: 64px;
+}
+:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar:hover {
+    background-color: #efefef;
+}
+:host ::ng-deep .selected-semantic-entity .collection .collection-item.avatar .secondary-content,
+:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar .secondary-content {
+    top: calc(50% - 12px)
+}
+:host ::ng-deep .selected-semantic-entity .collection {
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+:host ::ng-deep .card,
+:host ::ng-deep .card .card-content {
+    transition: all .2s $transitionTimingFunction;
 }
