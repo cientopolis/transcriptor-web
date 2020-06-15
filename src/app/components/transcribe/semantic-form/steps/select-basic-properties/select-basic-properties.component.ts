@@ -15,7 +15,6 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   @ViewChild('modalAddPropertieBasic') modalAddPropertieBasic;
   @Input() properties: Array<any>;
   @Input() schemeName: String;
-  @Input() schemeParents: String;
   @Input() propertieName: String;
   @Input() notifyNextStep = false;
   @Input() propertiesSelected: Array<any>;
@@ -26,6 +25,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   sublevel = false;
   searchText: any;
   searchTextFilter:any;
+  public loader=true;
 
   public validationMap = new Map();
 
@@ -137,7 +137,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
 
   getSchema(name) {
-  
+    this.loader=true;
     let schema_type = 'http://schema.org/' + name;
     this.properties = new Array<any>();
     this.propertiesSelected = new Array<any>();
@@ -163,6 +163,8 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     });
     if (types.length > 0) {
       if (name.toLowerCase() == 'name') {
+        console.log('add name');
+        console.log(this.schemeName);
         this.validationMap.set(name, false);
 //        this.validateProperties();
         propertiesSelected.push({ name: name, value: '', model: '', type: types, scheme: null, canDelete: false });
@@ -174,7 +176,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
       relationship.push({ name: name, description: propertie.comment, type: relationTypes });
     }
 
-
+    this.loader=false;
 
   }
 

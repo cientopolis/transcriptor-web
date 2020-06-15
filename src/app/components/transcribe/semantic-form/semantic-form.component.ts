@@ -40,6 +40,7 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   relationships = new Array<any>();
   markView=null;
 
+  notifyNextStep1 = false;
   notifyNextStep2 = false;
   notifyNextStep3 = false;
   // deberia ser false y nulo
@@ -169,10 +170,13 @@ validateStepOne() {
 }
 selectSchema(scheme){
 /*   console.log(scheme); */
-  let hierarchy = scheme.split(">");
-
-  this.schemeName = hierarchy[hierarchy.length-1];
-  this.parents = scheme;
+//  let hierarchy = scheme.split(">");
+  if(this.schemeName==scheme){
+    return;
+  }
+  this.formValid=false;
+  this.handlePropertieValidation(this.formValid);
+  this.schemeName = scheme;
   this.propertiesSelected = new Array<any>(); 
   this.basicProperties = new Array<any>();
   this.relationProperties = new Array<any>();
@@ -218,7 +222,7 @@ addProperties(properties,relationship){
       if (!propertie.scheme || (propertie.properties && properties.length > 0)) {
         this.propertiesSelected.push(propertie);
       } else {
-        console.log('relacion con datos vacios, la ignoro');
+
       }
     });
 
@@ -261,7 +265,7 @@ addProperties(properties,relationship){
       if ((propertie.scheme && propertie.scheme.length > 0) || propertie.searchRelationship) {
         this.propertiesSelected.push(propertie);
       }else{
-        console.log('relacion con datos vacios, la ignoro');
+
       }
 
     });
@@ -322,8 +326,6 @@ handleSchemeRelationships(event){
           }
 
         }
-        console.log(resultShow);
-        console.log(result);
         this.schema_type="http://schema.org/" + this.schemeName
         this.markView = { semanticContribution: { text: resultShow, schema_type: this.schema_type} };
         if(confirm){
@@ -398,6 +400,7 @@ handleSchemeRelationships(event){
         this.showActionStep2=true;
         this.showActionStep3=false;
         this.showActionStep4 = false;
+        this.notifyNextStep1=true;
         this.handlePropertieValidation(this.formValid);
         break;
       }
@@ -448,6 +451,7 @@ handleSchemeRelationships(event){
         this.showActionStep2 = false;
         this.showActionStep3 = false;
         this.showActionStep4 = false;
+        this.notifyNextStep1 = false;
         break;
       }
       case "step2": {

@@ -14,7 +14,8 @@ export class SelectSchemaComponent implements OnInit {
   scheme: any;
   searchText: any;
   schemasShow= new Array<any>();
-
+  @Input() notifyNextStep = false;
+  @Input() eagerSelection = true;
   @Input() mark: any;
   @Output() public schemeSelected = new EventEmitter<any>();
   constructor(
@@ -31,7 +32,9 @@ export class SelectSchemaComponent implements OnInit {
       this.scheme = result;
       this.parents.push(result);
       this.schemas = result.children;
-      this.selectSchema();
+      if (this.eagerSelection) {
+        this.selectSchema();
+      }
       this.loader = false;
       this.changeDetector.detectChanges();
     });
@@ -42,7 +45,9 @@ export class SelectSchemaComponent implements OnInit {
   }
 
   ngOnChanges(changes) {
-   
+    if (changes.notifyNextStep && changes.notifyNextStep.currentValue) {
+      this.selectSchema();
+    }
   }
 
   setParent(parent) {
@@ -53,7 +58,9 @@ export class SelectSchemaComponent implements OnInit {
     this.scheme = parent;
     this.parents.splice(index);
     this.schemas = this.scheme.children;
-    this.selectSchema();
+    if (this.eagerSelection) {
+      this.selectSchema();
+    }
   }
 
   selectType(schema) {
@@ -61,18 +68,12 @@ export class SelectSchemaComponent implements OnInit {
     this.schemas = schema.children;
     this.scheme=schema;
     this.searchText='';
-    this.selectSchema();
+    if (this.eagerSelection) {
+      this.selectSchema();
+    }
   }
   selectSchema() {
-    let hierarchy = ""
-    this.parents.forEach(parent => {
-      if (hierarchy==""){
-        hierarchy= parent.name;
-      }else{
-        hierarchy = hierarchy + ">" + parent.name; 
-      }
-    });
-    this.schemeSelected.emit(hierarchy);
+    this.schemeSelected.emit(this.scheme.name);
   }
 
 }

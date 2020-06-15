@@ -43,8 +43,7 @@ export class SearchSemanticRelationshipComponent implements OnInit {
     }
   }
   deleteRelarionship() {
-    console.log('delete papa');
-    this.deleteRelation.emit({ name: this.relationship.name });
+     this.deleteRelation.emit({ name: this.relationship.name });
   }
   itemChange(event){
     this.enableModal=true;
@@ -55,8 +54,11 @@ export class SearchSemanticRelationshipComponent implements OnInit {
       this.itemView.type = this.semanticItemSelected['@type'];
    }
    this.itemView.name = this.semanticItemSelected['schema:name'];
-   console.log(this.itemView);
     this.confirm();
+    this.changeDetector.detectChanges();
+  }
+
+  detectChanges(event){
     this.changeDetector.detectChanges();
   }
   save(){

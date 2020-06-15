@@ -9,13 +9,14 @@
       entidad haciendo click en el botón "Cargar nuevo Elemento"
     </p>
   </div>
-  <div class="col s12" (click)="$event.stopPropagation()">
+  <div class="col s12" >
     <app-semantic-search-input 
       [(semanticModel)]="item" 
       [(results)]="searchRelationshipList"
       [fetchSelectedEntity]="false" 
       [autocomplete]="false"
       [limitResults]='10'
+      (resultsChange)="detectChanges($event)"
       [placeholder]="'semanticForm.placeholder.entitySearch' | translate" >
     </app-semantic-search-input>
   </div>
