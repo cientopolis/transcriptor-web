@@ -7,7 +7,8 @@ export class SchemeUtils {
     public static keyPrefix = SchemaPrefixUtils.keyPrefix;
     public static schema_prefix = SchemaPrefixUtils.schema_prefix
     public static prefix_schema = SchemaPrefixUtils.prefix_schema
-    public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
+//    public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
+    public static schema_tree = `${environment.apiUrl}/api/schemaorg/config/tree.jsonld`
     public static schema_properties = `${environment.apiUrl}/api/schemaorg/`
     public static local_sources = false;
     public static basicTypes = [
