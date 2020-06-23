@@ -141,6 +141,7 @@ import { ReferenceContainerComponent } from './components/search/reference-conta
 import { ReferenceDetailModalComponent } from './components/search/reference-detail-modal/reference-detail-modal.component';
 import { SearchSemanticRelationshipComponent } from './components/transcribe/search-semantic-relationship/search-semantic-relationship.component';
 import { ShowRelationshipItemComponent } from './components/transcribe/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
+import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
 
 @NgModule({
   declarations: [
@@ -198,7 +199,8 @@ import { ShowRelationshipItemComponent } from './components/transcribe/search-se
     ReferenceContainerComponent,
     ReferenceDetailModalComponent,
     SearchSemanticRelationshipComponent,
-    ShowRelationshipItemComponent
+    ShowRelationshipItemComponent,
+    CanAccessPipe
   ],
   imports: [
     BrowserModule,

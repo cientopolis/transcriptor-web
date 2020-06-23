@@ -18,8 +18,8 @@
             <div class='row'>
               <div class="col s12">
                 <div class='input-field'>
-                  <input [(ngModel)]="loginCredentials.username" type='email' name='username' />
-                  <label for='email'>{{'signIn.label.username' | translate}}</label>
+                  <input placeholder="{{'signIn.label.username' | translate}}" [(ngModel)]="loginCredentials.username" type='email' name='username' />
+                  <label for='email'></label>
                 </div>
               </div>
             </div>
@@ -27,8 +27,15 @@
             <div class='row'>
               <div class="col s12">
                 <div class='input-field'>
-                  <input [(ngModel)]="loginCredentials.password" type='password' name='password' />
-                  <label for='password'>{{'signIn.label.password' | translate}}</label>
+                  <input placeholder="{{'signIn.label.password' | translate}}" [(ngModel)]="loginCredentials.password" value="loginCredentials.password" type='password' name='password' />
+                  <label for='password'></label>
+                </div>
+                <div class="left-align">
+                  <mz-checkbox-container>
+                    <input mz-checkbox  class="filled-in checkbox-orange" filledIn=true type="checkbox"
+                      value="loginCredentials.remember" [label]="'Recordar usuario'" [(ngModel)]="loginCredentials.remember" name='remember' id="remember-id">
+                  </mz-checkbox-container>
+
                 </div>
                 <div class="right-align">
                   <a class='primary-color-text' routerLink="/users/password/recover"><b>{{'signIn.button.forgotPassword' | translate}}</b></a>
