@@ -10,16 +10,16 @@ a {
   margin-right: auto !important;
 }
 
-.comment-container {
+.comment-text {
   background-color: $lightboxColor;
   padding: 10px 15px;
   border-radius: 25px;
   display: inline-block;
 }
-.comment-container span {
+.comment-text span {
   display: block;
 }
-.comment-container a {
+.comment-text a {
   font-weight: bold !important;
 }
 
@@ -27,26 +27,46 @@ a {
   padding: 2px 15px;
 }
 
-.image-column {
-  width: auto !important;
-}
+// .image-column {
+//   width: auto !important;
+// }
 
+// .comment-image img {
+//   height: 40px;
+// }
+// .comment-image.response img {
+//   padding-top: 5px;
+//   height: 35px;
+// }
+
+.comment-image {
+  float: left;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
 .comment-image img {
   height: 40px;
 }
-.comment-image.response img {
-  padding-top: 5px;
-  height: 35px;
+
+.comment-container {
+  padding: 0px 20px 0px 20px;
+  width: calc(100% - 45px);
+  float: right;
+  margin: 0px;
 }
 
 .response-list-margin {
-  margin-left: 4% !important;
+  width: calc(100% - 45px);
+  margin-left: 45px !important;
 }
 
 .reply-container {
   transition: opacity 0.2s;
   transition-timing-function: $transitionTimingFunction;
   opacity: 0.5;
+  height: 100%;
 }
 .reply-container:hover, .reply-container.focused {
   opacity: 1;
@@ -54,8 +74,10 @@ a {
 .reply-box {
   background-color: white;
   border-radius: 25px;
-  padding: 15px 20px 10px 20px;
-  margin-top: 0;
+  padding: 0px 20px 0px 20px;
+  width: calc(100% - 45px);
+  float: right;
+  margin: 0px;
 }
 .reply-box .input-field {
   margin: 0;
@@ -68,10 +90,28 @@ a {
 }
 .reply-box .text-field{
   width: 93%;
-  padding:0;
+  padding:12px 0 0 0;
 }
 .reply-box .send-button {
   width: 7%;
   padding:0;
+  margin-top: 2px;
   text-align: right;
 }
+
+@keyframes mark-publication-color {
+    0% {
+        background-color: rgb(255, 175, 71);
+        opacity:1;
+    }
+    100% {
+      background-color: rgb(255, 255, 255);;
+    }
+}
+    
+.mark-publication-color {
+    animation-name: mark-publication-color;
+    animation-duration: 1500ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}  

@@ -34,7 +34,7 @@ export class ForumService {
   }
 
   create(foro, options = {}) {
-    return this.httpService.post(this.createPath,foro,options);
+    return this.httpService.lpost(this.createPath,foro,options);
   }
 
 }
