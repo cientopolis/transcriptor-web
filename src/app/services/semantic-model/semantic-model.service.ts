@@ -1,3 +1,4 @@
+import { Ontology } from './../../models/scheme/ontology';
 import { SchemeUtils } from './../../utils/schema-utils';
 import { HttpService } from './../http/http.service';
 import { Observable } from 'rxjs';
@@ -10,23 +11,24 @@ import { environment } from 'environments/environment';
   providedIn: 'root'
 })
 export class SemanticModelService {
-
-
   private getTreejsonld = '/files/tree.jsonld';
-  private getTreejson = '/files/tree.json';
+  private getTreejson = '/api/schemaorg/config/tree';
   private fullProperties = '/files/fullproperties.json';
-
   private listEntitiesPath = '/api/semantic_entity/list';
   private getEntityPath = '/api/semantic_entity/describe';
+  // new
+  private listOntologiesPath = '';
   
   constructor(private httpService: HttpService) { }
 
-  getTypesTreejsonld(options = {})  {
+/*   getTypesTreejsonld(options = {})  {
     return this.httpService.get([this.getTreejsonld, {}], options);
   }
+ */
   getTypesTreejson(options = {}) {
-    return this.httpService.get([this.getTreejson, {}], options);
+    return this.httpService.lget([this.getTreejson, {}], options);
   }
+
   getAllProperties(options = {}) {
     return this.httpService.get([this.fullProperties, {}], options);
   }
@@ -36,14 +38,27 @@ export class SemanticModelService {
     })
   }
 
-  public getAllTypes() {
-        const userAction = async () => {
-          const response = await fetch(SchemeUtils.schema_tree);
-          const json = await response.json();
-          return json;
-        }
-        return userAction();
-    
+  getOntologies(options={}){
+    console.log('getOntologies');
+    this.httpService.get([this.listOntologiesPath],options);
+    //por ahi recibir los prefijos asi nos ahorramos urls
+    const response = [
+        { 'name': 'schema', 'description': 'Esquema ontology'}, 
+        { 'name': 'lalalal', 'description': 'lalaOntology'}
+      ];
+    let ontologies = Ontology.mapOntologies(response);
+    console.log(ontologies);
+    return ontologies;
+  }
+
+  public getAllTypes(ontology=null) {
+    const userAction = async () => {
+      console.log(SchemeUtils.schema_tree);
+      const response = await fetch(SchemeUtils.schema_tree);
+      const json = await response.json();
+      return json;
+    }
+    return userAction();
   }
 
 
@@ -95,6 +110,8 @@ export class SemanticModelService {
       }
     }
 
+    console.log(scheme);
+    console.log(properties);
     if (processProperties){
       doc = this.processProperties(scheme,properties,context);
     }else{
@@ -140,16 +157,21 @@ export class SemanticModelService {
     var contextMap = new Map();
     var docMap = new Map();
     var doc = {};
+    var label =''
     for (var p in properties) {
       if (properties[p].searchRelationship){
         continue;
+      }
+      if (properties[p].name=='label'){
+        label = properties[p].model;
+        continue;
+//        docMap.set(properties[p].name, properties[p].model);
       }
      if (properties[p].scheme) {
       //docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].scheme.properties, context));
        docMap.set("http://schema.org/" + properties[p].name, this.processProperties(properties[p].type,properties[p].scheme,context));
        contextMap.set(properties[p].name, "http://schema.org/" + properties[p].type);
       }else{
-          
           docMap.set("http://schema.org/" + properties[p].name, properties[p].model)
           contextMap.set(properties[p].name, "http://schema.org/" + properties[p].name);
         }
@@ -161,8 +183,8 @@ export class SemanticModelService {
         doc[key] = value;
       });
       doc['@type'] = SchemeUtils.schema_prefix+type;
-      doc['rdfs:label'] = doc['http://schema.org/name'];
-      doc['@id'] = SchemeUtils.prefix + doc['http://schema.org/name'].split(' ').join('_');
+      doc['rdfs:label'] = label;
+      doc['@id'] = SchemeUtils.prefix + label.split(' ').join('_');
       return doc;
     }
 

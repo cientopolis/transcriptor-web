@@ -299,3 +299,12 @@ a {
         transform: translateY(0);
     }
 }
+
+.button-bordered{
+    width: 100%;
+    background-color: white;color:$primaryColor;text-align:center;font-size: 13px;
+    border: 1px solid $primaryColor;font-size: 13px;
+}
+.button-primary{
+
+}

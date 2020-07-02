@@ -1,4 +1,5 @@
-import { ListSemanticMarksComponent } from './components/transcribe/semantic-form/list/list.component';
+import { SelectOntologyTypeComponent } from './components/transcribe/semantic/semantic-form/steps/select-ontology-type/select-ontology-type.component';
+import { ListSemanticMarksComponent } from './components/transcribe/semantic/semantic-form/list/list.component';
 import { SemanticModelService } from './services/semantic-model/semantic-model.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -118,17 +119,16 @@ import { LayerModalComponent } from './components/transcribe/layer/layer-modal/l
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
-import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
-import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
-import { SchemeInputsComponent } from './components/transcribe/semantic-form/scheme-inputs/scheme-inputs.component';
+import { SemanticFormComponent } from './components/transcribe/semantic/semantic-form/semantic-form.component';
+import { SchemeBuilderComponent } from './components/transcribe/semantic/semantic-form/scheme-builder/scheme-builder.component';
+import { SchemeInputsComponent } from './components/transcribe/semantic/semantic-form/scheme-inputs/scheme-inputs.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
-import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
-import { HeaderComponentComponent } from './components/transcribe/semantic-form/header-component/header-component.component';
-import { SelectSchemaComponent } from './components/transcribe/semantic-form/steps/select-schema/select-schema.component';
-import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
-import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
-import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
+import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
+import { HeaderComponentComponent } from './components/transcribe/semantic/semantic-form/header-component/header-component.component';
+import { SelectPropertiesComponent } from './components/transcribe/semantic/semantic-form/steps/select-properties/select-properties.component';
+import { SelectRelationshipsComponent } from './components/transcribe/semantic/semantic-form/steps/select-relationships/select-relationships.component';
+import { SelectBasicPropertiesComponent } from './components/transcribe/semantic/semantic-form/steps/select-basic-properties/select-basic-properties.component';
 import { SearchComponent } from './components/search/search.component';
 import { SearchInputComponent } from './components/shared/search-input/search-input.component';
 import { SemanticSearchInputComponent } from './components/search/semantic-search-input/semantic-search-input.component';
@@ -139,8 +139,10 @@ import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
 import { ReferenceContainerComponent } from './components/search/reference-container/reference-container.component';
 import { ReferenceDetailModalComponent } from './components/search/reference-detail-modal/reference-detail-modal.component';
-import { SearchSemanticRelationshipComponent } from './components/transcribe/search-semantic-relationship/search-semantic-relationship.component';
-import { ShowRelationshipItemComponent } from './components/transcribe/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
+import { SearchSemanticRelationshipComponent } from './components/transcribe/semantic/search-semantic-relationship/search-semantic-relationship.component';
+import { ShowRelationshipItemComponent } from './components/transcribe/semantic/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
+import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
+import { OntologyComponent } from './components/ontology/ontology.component';
 
 @NgModule({
   declarations: [
@@ -184,7 +186,7 @@ import { ShowRelationshipItemComponent } from './components/transcribe/search-se
     SchemeInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
-    SelectSchemaComponent,
+    SelectOntologyTypeComponent,
     SelectPropertiesComponent,
     SelectRelationshipsComponent,
     SelectBasicPropertiesComponent,
@@ -198,7 +200,9 @@ import { ShowRelationshipItemComponent } from './components/transcribe/search-se
     ReferenceContainerComponent,
     ReferenceDetailModalComponent,
     SearchSemanticRelationshipComponent,
-    ShowRelationshipItemComponent
+    ShowRelationshipItemComponent,
+    OntologiesComponent,
+    OntologyComponent
   ],
   imports: [
     BrowserModule,

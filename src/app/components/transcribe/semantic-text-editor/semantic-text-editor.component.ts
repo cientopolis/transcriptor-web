@@ -1,8 +1,8 @@
+import { Ontology } from './../../../models/scheme/ontology';
 import { SemanticModelService } from './../../../services/semantic-model/semantic-model.service';
 import { HeaderService } from './../../../services/sharedData/header.service';
 import { RenderedMark } from './../../../models/renderedMark';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 import { MarkService } from '../../../services/mark/mark.service';
 
@@ -19,6 +19,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   @Input() renderedMarks = null;
   @Input() delegate = null;
   @Input() showComponent = false;
+  ontology:Ontology;
   selectRelationship=true;
 
   semantic_text:String=null;
@@ -32,11 +33,20 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
       private headerService: HeaderService,
       private  semanticModel:SemanticModelService) { }
 
-  ngOnChanges(changes) {}
+  ngOnChanges(changes) {
+    console.log(changes);
+    this.ontology=null;
+  }
   ngOnInit() {
    /*  console.log("call types from backend")
     this.semanticModel.getFullTree(); */
     this.selectRelationship=true;
+  }
+
+
+  selectOntology(event){
+    console.log('Ontologia seleccionada', event)
+    this.ontology=event;
   }
 
   save() {
@@ -49,30 +59,17 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     mark.semantic_text = this.semantic_text;
     mark.schema_type = this.schema_type;
     mark.contribution_slug = this.contribution_slug;
-    /*this.markService.create(mark)
-      .subscribe(mark => {
-        this.renderedMark.mark = mark;
-        this.renderedMark.layer.on('click', function () {
-          component.editing = true;
-          component.fitToLayer(renderedMark.layer);
-        });
-        component.renderedMarks.push(this.renderedMark);
-        component.reset();
-      });*/
     this.renderedMark.mark=mark;
     this.delegate.addModalMark();
-    
-  }
+      }
   createType(event){
     this.selectRelationship=false;
   }
   proccessScheme(event){
-
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;
     this.contribution_slug = event.contribution_slug;
-
     this.save();
    }
 
@@ -80,5 +77,4 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.selectRelationship = true;
     this.delegate.cancelModal();
   }
-
 }

@@ -9,7 +9,7 @@ export class SchemeUtils {
     public static prefix_schema = SchemaPrefixUtils.prefix_schema
 //    public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
     public static schema_tree = `${environment.apiUrl}/api/schemaorg/config/tree`
-    public static schema_properties = `${environment.apiUrl}/api/schemaorg/`
+    public static schema_properties = `${environment.apiUrl}api/schemaorg/`
     public static local_sources = false;
     public static basicTypes = [
         'http://schema.org/Integer',
@@ -20,6 +20,7 @@ export class SchemeUtils {
         'http://schema.org/DateTime', 
         'http://schema.org/Number', 
         'http://schema.org/measuredValue',
+        'http://schema.org/URL',
         'Integer',
         'Time',
         'Text',
@@ -27,6 +28,7 @@ export class SchemeUtils {
         'Boolean',
         'DateTime',
         'Number',
+        'URL',
         'measuredValue'];
 
     public static getSlug(id){
@@ -53,7 +55,7 @@ export class SchemeUtils {
 
     public static buildProperties(graphjson){
         let schemaProperties = new Array<SchemaPropertie>();
-        if(graphjson!=null){
+        if(graphjson!=null && Array.isArray(graphjson)){
             graphjson.forEach(propertie => {
                 if (propertie['@type'] == "rdfs:Property" && propertie['schema:rangeIncludes']){
                    
@@ -96,17 +98,23 @@ export class SchemeUtils {
             }
         for (let key in semanticContribution) {
             const item = semanticContribution[key];
+            console.log(item);
                 if (item['@type']) {
                     let propOfScheme = new Array<any>();
                     for (let itemKey in item) {
+                        console.log(item[itemKey]);
+                        if (itemKey == "rdfs:label") {
+                            propOfScheme.push({ name: 'Label', value: item[itemKey], model: item[itemKey] });
+                        }
                         if (itemKey != '@type' && itemKey != '@id' && itemKey != 'rdfs:label' && itemKey != 'http://www.w3.org/2000/01/rdf-schema#label') {
                             propOfScheme.push({ name: SchemeUtils.extractPrefix(itemKey), value: item[itemKey], model: item[itemKey] });
                         }
                     }
                     propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: propOfScheme, model: propOfScheme, isArray: true, schema_type: item['@type'] });
                 } else {
-                    if (key == "schema:name") {
-                        mark.name = item
+                    if (key == "rdfs:label") {
+                        mark.name = item;
+                        propertiesSelected.push({ name: 'Label', value: item, model: item, isArray: false, schema_type: null });
                     }
                     if (key != '@type' && key != '@id' && key != 'rdfs:label' && key !='http://www.w3.org/2000/01/rdf-schema#label') {
                         propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: item, model: item, isArray: false, schema_type: null });

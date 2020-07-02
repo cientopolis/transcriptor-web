@@ -22,8 +22,9 @@
         </div>
       </div>
       <app-search-semantic-relationship *ngIf="page && renderedMark && renderedMark.mark && selectRelationship" [layerName]="layer.name" [mark]="renderedMark.mark" (createType)="createType($event)" (schemeComplete)="proccessScheme($event)"></app-search-semantic-relationship>
-      <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark && !selectRelationship" [layerName]="layer.name" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
-      
+     
+      <app-semantic-form *ngIf="ontology && page && renderedMark && renderedMark.mark && !selectRelationship" [ontology]="ontology" [layerName]="layer.name" [mark]="renderedMark.mark" [renderedMarks]="renderedMarks" (schemeComplete)="proccessScheme($event)"></app-semantic-form>
+      <app-ontologies *ngIf="!ontology && page && renderedMark && renderedMark.mark && !selectRelationship" (ontologySelected)="selectOntology($event)"></app-ontologies>
       <app-list-semantic-marks *ngIf="page && (renderedMark==null || renderedMark.mark==null)"
         [renderedMarks]="renderedMarks" [layerDescription]="layer.description" [layerName]="layer.name"></app-list-semantic-marks>
       <!--

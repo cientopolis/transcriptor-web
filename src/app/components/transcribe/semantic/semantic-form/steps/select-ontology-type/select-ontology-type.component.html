@@ -1,0 +1,43 @@
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+<div class="row"  *ngIf="!loader" style="margin-top: 0px;">
+  <mz-input-container>
+    <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+    <input mz-input [label]="'Buscar un tipo de dato'"  
+    id="search-input-scheme"  type="text" [(ngModel)]="searchText">
+  </mz-input-container>
+  <div class="col s12">
+    <span class="primary-color-text">A continuación se listaran los tipos de la ontologia: {{ontology.name}}</span>
+  </div>
+  <div class="col s12">
+    <ul class="breadcrumb">
+      <li *ngFor="let parent of parents"><a (click)="setParent(parent)">{{parent.name}}</a></li>
+    </ul>
+  </div>
+  <div class="col s12">
+    <small class="primary-color-text">Seleccionaste el esquema {{typeSelected.name}}</small>
+  </div>
+  <div class="row" *ngIf="types && types.length>0">
+    <div class="col s12">
+      <h5>Tipos de datos</h5>
+      <mz-collection >
+        <mz-collection-item [avatar]="true" *ngFor="let type of  types | filter:searchText" (click)="selectType(type)" class="collection-item">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <h6>{{type.name | scheme_type}}</h6>
+          <p class="descriptiom-item">{{type.description | scheme_type}}</p>
+          <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi [icon]="'chevron-right'"
+              [align]="'left'"></i></a>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+  </div>
+  <div class="row" *ngIf="!types || types.length==0">
+    <div class="col s12">
+      <h6 class="primary-color-text text-align center">No hay esquemas a mostrar</h6>
+    </div>
+  </div>
+</div>
