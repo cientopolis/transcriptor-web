@@ -18,21 +18,21 @@ export class PublicationsListComponent implements OnInit {
   publications = [];
   publicationsResult: boolean = false;
   @Input() modalOptions: Materialize.ModalOptions = {};
-  @ViewChild('modal') modal;
   @Output() close = new EventEmitter();
   replyBoxFocused:boolean = false;
 
   constructor(private publicationService:PublicationService, public global: SimpleGlobal,private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-
+    $('.publications-modal').modal()
   }
   open() {
-    this.modal.openModal();
+    $('.publications-modal').modal('open')
     this.loadPublications();
   }
 
   closeModal() {
+    $('.publications-modal').modal('close')
     this.close.emit();
   }
 
@@ -67,10 +67,22 @@ export class PublicationsListComponent implements OnInit {
           this.publications.push(publication);
           this.publication={text:"",foro:this.forum};
           this.changeDetector.detectChanges();
+          this.scrollToLastPublication()
     });
   }
 
   getAvatarUrl(username) {
     return 'https://ui-avatars.com/api/?name='+ username + '&background=f61&color=fff&rounded=true';
+  }
+
+  textAreaScrollDown() {
+    $('.publications-modal .modal').animate({ scrollTop: $('.publications-modal .modal').height() }, 1000);
+  }
+
+  scrollToLastPublication() {
+    $('.publications-modal .modal-content').animate({
+      scrollTop: $('.publication:last .row').offset().top
+    }, 1500)
+    $('.publication:last .row').addClass('mark-publication-color')
   }
 }

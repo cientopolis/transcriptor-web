@@ -1,64 +1,55 @@
-<mz-modal class="publications-modal" #modal [fixedFooter]="true" [options]="modalOptions">
-  <mz-modal-content>
-    <h5>{{'publication.list.title' | translate}}</h5>
-    <mz-card>
-      <mz-card-title>
-
-      </mz-card-title>
+<div class="modal modal-fixed-footer publications-modal">
+  <div class="modal-header">
+    <div class="row m-b-0">
+      <div class="col s12">
+        <h5>{{'publication.list.title' | translate}} <a mz-icon-mdi [icon]="'close'" [align]="'right'" (click)="closeModal()"></a></h5>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <mz-card class="transcription-card">
       <mz-card-content>
         <p>{{'publication.transcription.label' | translate}}</p>
-        <h5>{{text}}</h5> 
+        <h5>{{text}}</h5>
       </mz-card-content>
-
     </mz-card>
     <div class="center-align">
-      <mz-spinner
-        *ngIf="!publicationsResult"
-        [color]="'yellow'"
-        [size]="'big'">
+      <mz-spinner *ngIf="!publicationsResult" [color]="'yellow'" [size]="'big'">
       </mz-spinner>
     </div>
-    <p>Comentarios</p>
-    <app-publication-container
-      [forum]="forum"
-      [publication]="publication"
-      [publications] = "publications"
-      (publicationEvent)="showPublication($event)"
-      *ngFor="let publication of publications">
-    </app-publication-container>
-  </mz-modal-content>
-  <mz-modal-footer>
-    <!-- <mz-textarea-container>
-      <textarea mz-textarea
-        [(ngModel)]="publication.text"
-        [label]="'publication.list.addPublication' | translate">
-      </textarea>
-    </mz-textarea-container> -->
-    
-    <div class="row reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
-      <div class="col s1 image-column">
-        <div class="comment-image">
-          <img [src]="getAvatarUrl(global['currentUser'].display_name)">
-        </div>
+    <div class="comments-list">
+      <p>Comentarios</p>
+      <app-publication-container 
+        [forum]="forum"
+        [publication]="publication"
+        [publications]="publications"
+        (publicationEvent)="showPublication($event)"
+        class="publication scrollspy"
+        *ngFor="let publication of publications">
+      </app-publication-container>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
+      <div class="comment-image">
+        <img [src]="getAvatarUrl(global['currentUser'].display_name)">
       </div>
-      <div class="col s11 p-l-0">
-        <div class="card-panel reply-box">
-          <div class="row m-b-0">
-            <div class="col s11 text-field">
-              <div class="input-field">
-                <textarea class="materialize-textarea" placeholder="Escribe un comentario..." [(ngModel)]="publication.text" (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false"></textarea>
-              </div>
+      <div class="card-panel reply-box">
+        <div class="row m-b-0">
+          <div class="col s11 text-field">
+            <div class="input-field">
+              <textarea class="materialize-textarea" placeholder="Escribe un comentario..." [(ngModel)]="publication.text"
+                (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false" (keyup)="textAreaScrollDown()">
+                    </textarea>
             </div>
-            <div class="col s1 send-button">
-              <button mz-button
-                [float]="true"
-                (click)="addComment()">
-                <i mz-icon-mdi [icon]="'send'"></i>
-              </button>
-            </div>
+          </div>
+          <div class="col s1 send-button">
+            <button mz-button [float]="true" (click)="addComment()">
+              <i mz-icon-mdi [icon]="'send'"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </mz-modal-footer>
-</mz-modal>
+  </div>
+</div>
