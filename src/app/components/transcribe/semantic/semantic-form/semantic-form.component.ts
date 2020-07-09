@@ -1,8 +1,10 @@
-import { Ontology } from './../../../../models/scheme/ontology';
+import { ontologyClassInstance } from '../../../../models/ontology/instance/ontologyClassInstance';
+import { OntologyClass } from '../../../../models/ontology/class/ontologyClass';
+import { Ontology } from '../../../../models/ontology/ontology';
 import { SchemeUtils } from '../../../../utils/schema-utils';
 import { HeaderService } from '../../../../services/sharedData/header.service';
 import { SemanticModelService } from '../../../../services/semantic-model/semantic-model.service';
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import * as $ from 'jquery';
 declare const MStepper: any;
 
@@ -12,24 +14,18 @@ declare const MStepper: any;
   templateUrl: './semantic-form.component.html',
   styleUrls: ['./semantic-form.component.scss']
 })
-export class SemanticFormComponent implements OnInit,OnChanges {
+export class SemanticFormComponent implements OnInit, OnChanges, AfterViewInit {
   loader:Boolean=true;
   showSelectSchema:Boolean=false;
   showCompleteForm=false;
-  schemas:Array<any>;
-  scheme: any;
   schemeParents:string;
   properties:Array<any>;
   propertiesSelected= new Array<any>();
-  //
   basicProperties = new Array<any>();
   relationProperties = new Array<any>();
-
-  searchText:any;
   schema_type: String = null;
   showGeneratedScheme:Boolean = false;
   @Output() public schemeComplete = new EventEmitter<any>();
-  
   @Input() public mark = null;
   @Input() public layerName = null;
   semanticContribution:any;
@@ -45,10 +41,6 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   notifyNextStep1 = false;
   notifyNextStep2 = false;
   notifyNextStep3 = false;
-  // deberia ser false y nulo
-  //showPropertiesSelection=true;
-  //schemeName:String='Person';
-
   showPropertiesSelection = false;
   schemeName: String;
   showActionStep1=true;
@@ -57,57 +49,29 @@ export class SemanticFormComponent implements OnInit,OnChanges {
   showActionStep4 = false;
   actualStep ='step1';
   public formValid = false;
+
+  ontologyClass:OntologyClass;
+  ontologyInstance:ontologyClassInstance;  
   constructor(
             private semanticService: SemanticModelService,
             private changeDetector: ChangeDetectorRef,
             private headerService: HeaderService) {
     }
 
-/*
-  selectPropertie(propertie ,$event) {
-    if (propertie.selected) {
-      this.propertiesSelected.push({ name: propertie.name, value: '', model: '', type: this.typesSupported.get(propertie.name) });
-    }else{
-      this.propertiesSelected.forEach((item, index) => {
-        if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.propertiesSelected.splice(index, 1);
-      });
-    }
 
-  }
-*/
-  
   ngOnChanges(changes){
     if (changes.mark.currentValue){
       if (changes.mark.currentValue.semanticContribution == null) {
-       /* this.semanticService.getAllTypes().then(result => {
-          this.schemas = result.children;
-          console.log("loader is true");
-          console.log(this.loader);
-          this.scheme = result;
-          this.parents.push(result);
-          this.schemas = result.children;
-          this.loader = false;
-          
-          this.changeDetector.detectChanges();
-        });*/
+     
         var stepper = document.querySelector('.stepper');
         var stepperInstace = new MStepper(stepper, {
-          // options
           firstActive: 0, // this is the default
           linearStepsNavigation: true,
-          // Auto focus on first input of each step.
           autoFocusInput: false,
-          // Set if a loading screen will appear while feedbacks functions are running.
           showFeedbackPreloader: true,
-          // Auto generation of a form around the stepper.
           autoFormCreation: true,
-          // Function to be called everytime a nextstep occurs. It receives 2 arguments, in this sequece: stepperForm, activeStepContent.
-         // more about this default functions below
-          // Enable or disable navigation by clicking on step-titles
           stepTitleNavigation: true,
-          // Preloader used when step is waiting for feedback function. If not defined, Materializecss spinner-blue-only will be used.
           feedbackPreloader: '<div class="spinner-layer spinner-blue-only">...</div>'
-
         });
 
         this.showSelectSchema = true;
@@ -133,25 +97,10 @@ export class SemanticFormComponent implements OnInit,OnChanges {
 
   ngOnInit() {
     this.setHeader();
-    /*
-    if (this.mark.semanticContribution==null){
-      this.semanticService.getAllTypes().then(result => {
-        this.loader = false;
-        this.parents.push(result);
-        this.schemas = result.children;
-        this.parents.push();
-        this.showSelectSchema = true;
-      });
-    }else{
-      this.getSemanticContribution();
-      this.loader = false;
-      this.showSelectSchema = false;
-      this.showGeneratedScheme=true;
-    }*/
   }
 
   getSemanticContribution() {
-    if (this.mark.semanticContribution) {
+     if (this.mark.semanticContribution) {
       this.schema_type = this.mark.semanticContribution.schema_type;
 //      this.propertiesSelected = new Array<any>();
       let properties = new Array<any>();
@@ -170,15 +119,17 @@ export class SemanticFormComponent implements OnInit,OnChanges {
 validateStepOne() {
   return false;
 }
-selectSchema(scheme){
-/*   console.log(scheme); */
-//  let hierarchy = scheme.split(">");
-  if(this.schemeName==scheme){
+
+handleOntologyClassSelected(ontologyClass){
+  this.ontologyClass=ontologyClass;
+  this.ontologyInstance = new ontologyClassInstance(ontologyClass);
+  console.log(ontologyClass);
+  if (this.schemeName == ontologyClass.label){
     return;
   }
   this.formValid=false;
   this.handlePropertieValidation(this.formValid);
-  this.schemeName = scheme;
+  this.schemeName = ontologyClass.label;
   this.propertiesSelected = new Array<any>(); 
   this.basicProperties = new Array<any>();
   this.relationProperties = new Array<any>();
@@ -190,17 +141,11 @@ stepTwo(){
   this.showCompleteForm=true;
 }
 
-handleScheme(event){
-  this.addProperties(event.propertiesSelected,false);
-  if (this.properties==null || this.properties.length==0){
-    this.properties = event.properties;
-  }
-
-  //this.basicProperties = event.propertiesSelected;
-  
-  
-  //this.notifyNextStep2 = false;
+handleBasicPropertiesGenerated(event){
+  this.ontologyInstance=event;
+  console.log(this.ontologyInstance);
 }
+
 addProperties(properties,relationship){
   if (relationship){
     this.mergeRelationships(properties);
@@ -279,14 +224,18 @@ handleSchemeRelationships(event){
     this.propertiesSelected.push(relationship);
   });*/
   //deberia borrar la relacion
-  this.addProperties(event.relationshipsSelected,true);
+/*   this.addProperties(event.relationshipsSelected,true); */
   this.showGeneratedScheme = true;
+  this.ontologyInstance.relations = event.relationshipsSelected;
+  console.log(this.ontologyInstance);
   this.saveScheme(false);
 }
 
   
   saveScheme(confirm){
-    let e = this.semanticService.generateCompacted(this.schemeName,this.propertiesSelected).then(
+/*     let e = this.semanticService.generateCompacted(this.schemeName, this.propertiesSelected).then( */
+    
+    let e = this.semanticService.generateJsonld(this.ontologyInstance).then(
       function (success) {
         //console.log(component);
         return success;
@@ -294,8 +243,10 @@ handleSchemeRelationships(event){
     );
     e.then(
       result => {
+        console.log('result from s-form');
         let resultShow = JSON.parse(JSON.stringify(result));
         let show = resultShow['schema:mainEntity'];
+        console.log(show);
         for (let key in show) {
           const item = show[key];
           if(item['@id']){
@@ -328,10 +279,12 @@ handleSchemeRelationships(event){
           }
 
         }
-        this.schema_type="http://schema.org/" + this.schemeName
-        this.markView = { semanticContribution: { text: resultShow, schema_type: this.schema_type} };
+        console.log(show)
+/*         this.schema_type="http://schema.org/" + this.schemeName */
+
+        this.markView = { semanticContribution: { text: show, schema_type: this.ontologyInstance.ontologyClass.getName()} };
         if(confirm){
-          this.schemeComplete.emit({ schema_type: this.schema_type, semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
+          this.schemeComplete.emit({ schema_type: this.ontologyInstance.ontologyClass.getName(), semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
         }
         this.showCompleteForm=false;
         this.showGeneratedScheme=true;
@@ -345,18 +298,24 @@ handleSchemeRelationships(event){
 
   saveProperties(){
     this.notifyNextStep2=true;
-    
   }
 
-  turnDownStepTwo(){
-
+  ngAfterViewInit() {
+    this.handlePropertieValidation(false);    
   }
 
-  validateInputs(){
-   // this.formValid=false;
+  selectOntology(event) {
+    console.log('Ontologia seleccionada', event)
+    this.ontology = event;
+    if(this.ontology==null){
+      this.handlePropertieValidation(false);
+    }else{
+      this.handlePropertieValidation(true);
+    }
   }
+
   handlePropertieValidation(event = null){
-
+    console.log(event);
     if(event!=null){
       this.formValid = event;
     }else{
@@ -368,14 +327,13 @@ handleSchemeRelationships(event){
       a.parent().css({ pointerEvents: "auto" });
       a.removeClass('disabled');
     }else{
-        let a = $('#first-step .btn-floating');
-        a.parent().css({ pointerEvents: "none" });
-        a.prop('disabled',true);
-        a.addClass('disabled')
+      let a = $('#first-step .btn-floating');
+      a.parent().css({ pointerEvents: "none" });
+      a.prop('disabled',true);
+      a.addClass('disabled')
     }
   }
   next(step){
-   
     this.actualStep=step;
     if (this.actualStep == step){
       switch (step) {
@@ -391,9 +349,8 @@ handleSchemeRelationships(event){
           this.actualStep = "step4";
           break;
         }
-      
-        }
-        step=this.actualStep;
+      }
+      step=this.actualStep;
     }
     switch (step) {
       case "step2": {
@@ -407,7 +364,6 @@ handleSchemeRelationships(event){
         break;
       }
       case "step3": {
-        this.turnDownStepTwo();
         this.saveProperties();
         this.showActionStep1 = false;
         this.showActionStep2 = false;
@@ -483,7 +439,4 @@ handleSchemeRelationships(event){
       }
     }
   }
-
-
-
 }

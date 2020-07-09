@@ -1,4 +1,4 @@
-import { Ontology } from './../../../models/scheme/ontology';
+import { Ontology } from '../../../models/ontology/ontology';
 import { SemanticModelService } from './../../../services/semantic-model/semantic-model.service';
 import { HeaderService } from './../../../services/sharedData/header.service';
 import { RenderedMark } from './../../../models/renderedMark';

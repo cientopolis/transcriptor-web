@@ -35,8 +35,11 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
       //this.semanticContributions = this.getMarks(this.markSelected);
       this.headerService.showDetails = true;
       let propertiesSelected = new Array<any>();
+      console.log(this.markSelected);
       let sContribution = this.markSelected.semanticContribution.text;
+      console.log(sContribution);
       this.semanticContributions = SchemeUtils.getMarksAsNoteDigitalDocument(this.markSelected, sContribution);
+      console.log(this.semanticContributions);
       this.markSelected.schema_type = this.markSelected.semanticContribution.schema_type;
       this.markSelected.semanticContribution = this.semanticContributions;
       this.semanticContributions.push(this.markSelected);

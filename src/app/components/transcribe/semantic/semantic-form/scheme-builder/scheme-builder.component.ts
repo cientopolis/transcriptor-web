@@ -75,14 +75,14 @@ export class SchemeBuilderComponent implements OnInit {
     let schema_type = 'https://schema.org/' + name;
     this.properties = new Array<any>();
     this.propertiesSelected = new Array<any>();
-    this.semanticService.getType(name).then(result => {
+ /*    this.semanticService.getType(name).then(result => {
       let properties = result['@graph'];
       if(this.level>0){
         this.processProperties(properties);
       }else{
         this.processPropertiesLastLevel(properties);
       }
-    });
+    }); */
   }
 
   processProperties(properties){

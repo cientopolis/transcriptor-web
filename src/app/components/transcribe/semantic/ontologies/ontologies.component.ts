@@ -1,7 +1,6 @@
 import { OntologyService } from './../../../../services/ontology/ontology.service';
-import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Ontology } from 'app/models/scheme/ontology';
+import { Ontology } from 'app/models/ontology/ontology';
 
 @Component({
   selector: 'app-ontologies',

@@ -1,26 +1,25 @@
-import { SchemaPropertie } from './../models/scheme/propertie';
 import { SchemaPrefixUtils } from './schema-prefix-utils';
 import { environment } from 'environments/environment';
+import { DataPropertie } from 'app/models/ontology/class/dataPropertie';
 
 export class SchemeUtils {
     public static prefix = SchemaPrefixUtils.prefix
     public static keyPrefix = SchemaPrefixUtils.keyPrefix;
     public static schema_prefix = SchemaPrefixUtils.schema_prefix
     public static prefix_schema = SchemaPrefixUtils.prefix_schema
-//    public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
+    //    public static schema_tree = `${environment.apiUrl}/files/tree.jsonld`
     public static schema_tree = `${environment.apiUrl}/api/schemaorg/config/tree`
-    public static schema_properties = `${environment.apiUrl}api/schemaorg/`
+    public static schema_properties = `${environment.apiUrl}/api/schemaorg/`
     public static local_sources = false;
     public static basicTypes = [
         'http://schema.org/Integer',
-        'http://schema.org/Time', 
-        'http://schema.org/Text', 
-        'http://schema.org/Date', 
-        'http://schema.org/Boolean', 
-        'http://schema.org/DateTime', 
-        'http://schema.org/Number', 
+        'http://schema.org/Time',
+        'http://schema.org/Text',
+        'http://schema.org/Date',
+        'http://schema.org/Boolean',
+        'http://schema.org/DateTime',
+        'http://schema.org/Number',
         'http://schema.org/measuredValue',
-        'http://schema.org/URL',
         'Integer',
         'Time',
         'Text',
@@ -28,12 +27,11 @@ export class SchemeUtils {
         'Boolean',
         'DateTime',
         'Number',
-        'URL',
         'measuredValue'];
 
-    public static getSlug(id){
+    public static getSlug(id) {
         var res = id;
-        if (id != null && id.includes(SchemeUtils.prefix)){
+        if (id != null && id.includes(SchemeUtils.prefix)) {
             res = id.substring(SchemeUtils.prefix.length, id.length);
         }
         if (id != null && id.includes(SchemeUtils.keyPrefix)) {
@@ -42,24 +40,24 @@ export class SchemeUtils {
         return res;
     }
 
-    public static extractPrefix(str){
+    public static extractPrefix(str) {
         return SchemaPrefixUtils.extractPrefix(str)
     }
-    public static getTypeFromPrefix(str){
+    public static getTypeFromPrefix(str) {
         return SchemaPrefixUtils.getTypeFromPrefix(str);
     }
     /** this method extract schema.org and schema: */
-    public static extractAllPrefix(str){
+    public static extractAllPrefix(str) {
         return SchemaPrefixUtils.extractAllPrefix(str);
     }
 
-    public static buildProperties(graphjson){
-        let schemaProperties = new Array<SchemaPropertie>();
-        if(graphjson!=null && Array.isArray(graphjson)){
+    public static buildProperties(graphjson) {
+        let schemaProperties = new Array<DataPropertie>();
+        if (graphjson != null) {
             graphjson.forEach(propertie => {
-                if (propertie['@type'] == "rdfs:Property" && propertie['schema:rangeIncludes']){
-                   
-                    let prop = new SchemaPropertie(propertie);
+                if (propertie['@type'] == "rdfs:Property" && propertie['schema:rangeIncludes']) {
+
+                    let prop = new DataPropertie(propertie);
                     schemaProperties.push(prop);
                 }
             });
@@ -67,66 +65,83 @@ export class SchemeUtils {
         return schemaProperties;
     }
 
-    public static getPropertiesForType(properties,type=null,parents=null) {
-        let schemaProperties = new Array < SchemaPropertie>();
-        if(type){
+/*     public static getPropertiesForType(properties, type = null, parents = null) {
+        let schemaProperties = new Array<DataPropertie>();
+        if (type) {
             let types = type.split('>');
             for (let propertie in properties) {
-                let prop = new SchemaPropertie(properties[propertie]);
+                let prop = new DataPropertie(properties[propertie]);
                 let found = false;
                 types.forEach(type => {
-                    if (!found && prop.domainIncludes.includes(type)){
+                    if (!found && prop.domainIncludes.includes(type)) {
                         schemaProperties.push(prop);
-                        found=true;
+                        found = true;
                     }
                 });
-            
+
             }
-        }else{
+        } else {
             for (let propertie in properties) {
                 let prop = new SchemaPropertie(properties[propertie]);
                 schemaProperties.push(prop);
             }
         }
-        return schemaProperties; 
-    }
-
-    public static getMarksAsNoteDigitalDocument(mark,semanticContribution) {
+        return schemaProperties;
+    } */
+    public static getMarksAsNoteDigitalDocument2(mark, semanticContribution) {
         let propertiesSelected = new Array<any>();
         if (semanticContribution['schema:mainEntity']) {
             semanticContribution = semanticContribution['schema:mainEntity'];
-            }
+        }
         for (let key in semanticContribution) {
+            console.log(key);
             const item = semanticContribution[key];
             console.log(item);
-                if (item['@type']) {
-                    let propOfScheme = new Array<any>();
-                    for (let itemKey in item) {
-                        console.log(item[itemKey]);
-                        if (itemKey == "rdfs:label") {
-                            propOfScheme.push({ name: 'Label', value: item[itemKey], model: item[itemKey] });
-                        }
-                        if (itemKey != '@type' && itemKey != '@id' && itemKey != 'rdfs:label' && itemKey != 'http://www.w3.org/2000/01/rdf-schema#label') {
-                            propOfScheme.push({ name: SchemeUtils.extractPrefix(itemKey), value: item[itemKey], model: item[itemKey] });
-                        }
-                    }
-                    propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: propOfScheme, model: propOfScheme, isArray: true, schema_type: item['@type'] });
-                } else {
-                    if (key == "rdfs:label") {
-                        mark.name = item;
-                        propertiesSelected.push({ name: 'Label', value: item, model: item, isArray: false, schema_type: null });
-                    }
-                    if (key != '@type' && key != '@id' && key != 'rdfs:label' && key !='http://www.w3.org/2000/01/rdf-schema#label') {
-                        propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: item, model: item, isArray: false, schema_type: null });
+            if (!item['@type']) {
+                if (key.includes('label')) {
+                    mark.name = item
+                }else{
+                    if (key != '@type' && key != '@id') {
+                        propertiesSelected.push({ name: key, value: item, model: item, isArray: false, schema_type: null });
                     }
                 }
+            }else{
+
             }
-            return propertiesSelected;
-        
+        }
+        return propertiesSelected;
+
+    }
+    public static getMarksAsNoteDigitalDocument(mark, semanticContribution) {
+        let propertiesSelected = new Array<any>();
+        if (semanticContribution['schema:mainEntity']) {
+            semanticContribution = semanticContribution['schema:mainEntity'];
+        }
+        for (let key in semanticContribution) {
+            const item = semanticContribution[key];
+            if (item['@type']) {
+                let propOfScheme = new Array<any>();
+                for (let itemKey in item) {
+                    if (itemKey != '@type' && itemKey != '@id' && itemKey != 'rdfs:label' && itemKey != 'http://www.w3.org/2000/01/rdf-schema#label') {
+                        propOfScheme.push({ name: SchemeUtils.extractPrefix(itemKey), value: item[itemKey], model: item[itemKey] });
+                    }
+                }
+                propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: propOfScheme, model: propOfScheme, isArray: true, schema_type: item['@type'] });
+            } else {
+                if (key.includes('label')) {
+                    mark.name = item
+                }
+                if (key != '@type' && key != '@id' && key != 'rdfs:label' && key != 'http://www.w3.org/2000/01/rdf-schema#label') {
+                    propertiesSelected.push({ name: SchemeUtils.extractPrefix(key), value: item, model: item, isArray: false, schema_type: null });
+                }
+            }
+        }
+        return propertiesSelected;
+
     }
 
 
-    public static  getAtributes(properties) {
+    public static getAtributes(properties) {
         let basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
         let propertiesSelected = new Array<any>();
         let relationships = new Array<any>();
@@ -137,8 +152,8 @@ export class SchemeUtils {
                     properties[prop]['schema:rangeIncludes'].forEach(element => {
                         if (basicTypes.includes(element['@id'].split(':')[1])) {
                             types.push(element['@id'].split(':')[1]);
-                            }
-                        });
+                        }
+                    });
                 } else {
                     if (basicTypes.includes(properties[prop]['schema:rangeIncludes']['@id'].split(':')[1])) {
                         //agregar si es name, pushearlo y no ponerlo como atributo elegible
@@ -147,18 +162,18 @@ export class SchemeUtils {
                         }
                         types.push(properties[prop]['schema:rangeIncludes']['@id'].split(':')[1]);
                     }
-                    else{
+                    else {
                         relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });
                     }
                 }
                 if (types.length > 0) {
-                   properties.push({ name: properties[prop]['@id'].split(':')[1], types: types, selected: false, description: properties[prop]['rdfs:comment'] });
+                    properties.push({ name: properties[prop]['@id'].split(':')[1], types: types, selected: false, description: properties[prop]['rdfs:comment'] });
                 }
             }
         }
-        return { relationships: relationships, propertiesSelected:propertiesSelected,properties:properties};
+        return { relationships: relationships, propertiesSelected: propertiesSelected, properties: properties };
     }
-    
+
     public static processProperties(properties) {
         for (var prop in properties) {
             //     console.log(properties[prop]['rdfs:label']);
@@ -180,4 +195,3 @@ export class SchemeUtils {
         }
     }
 }
-

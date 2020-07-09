@@ -1,7 +1,9 @@
-import { Ontology } from './../../models/scheme/ontology';
+import { RelationOntologyInstance } from './../../models/ontology/instance/relationOntologyInstance';
+import { Ontology } from 'app/models/ontology/ontology';
+import { DataPropertieValue } from './../../models/ontology/instance/dataPropertieValue';
+import { ontologyClassInstance } from './../../models/ontology/instance/ontologyClassInstance';
 import { SchemeUtils } from './../../utils/schema-utils';
 import { HttpService } from './../http/http.service';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 declare var jsonld;
 import * as $ from 'jquery';
@@ -11,76 +13,31 @@ import { environment } from 'environments/environment';
   providedIn: 'root'
 })
 export class SemanticModelService {
-  private getTreejsonld = '/files/tree.jsonld';
-  private getTreejson = '/api/schemaorg/config/tree';
-  private fullProperties = '/files/fullproperties.json';
+
+
+
   private listEntitiesPath = '/api/semantic_entity/list';
   private getEntityPath = '/api/semantic_entity/describe';
-  // new
-  private listOntologiesPath = '';
+  private listClassesOntologyPath = '/api/semantic_ontology/list_classes';
+  private getBasicPropertiesPath = '/api/semantic_ontology/list_properties';
+  private getRelationshipsPath = '/api/semantic_ontology/list_relations';
   
   constructor(private httpService: HttpService) { }
 
-/*   getTypesTreejsonld(options = {})  {
-    return this.httpService.get([this.getTreejsonld, {}], options);
+/*   getTypesTreejson(params,options = {}):Observable<OntologyClass[]> {
+    return this.httpService.lpost(this.listClassesOntologyPath, params, { responseDataType: OntologyClass }) as Observable<OntologyClass[]>;
   }
  */
-  getTypesTreejson(options = {}) {
-    return this.httpService.lget([this.getTreejson, {}], options);
+  getTypesTreejson(params,options = {}) {
+    return this.httpService.lpost([this.listClassesOntologyPath, {}],params, options);
   }
 
-  getAllProperties(options = {}) {
-    return this.httpService.get([this.fullProperties, {}], options);
+  getBasicProperties(params,options = {}) {
+    return this.httpService.lpost([this.getBasicPropertiesPath, {}], params, options);
   }
 
-  getLocalSchemaProperties(options = {}) {
-      return $.getJSON("assets/tmp/fullproperties.jsonld", function (datos) {
-    })
-  }
-
-  getOntologies(options={}){
-    console.log('getOntologies');
-    this.httpService.get([this.listOntologiesPath],options);
-    //por ahi recibir los prefijos asi nos ahorramos urls
-    const response = [
-        { 'name': 'schema', 'description': 'Esquema ontology'}, 
-        { 'name': 'lalalal', 'description': 'lalaOntology'}
-      ];
-    let ontologies = Ontology.mapOntologies(response);
-    console.log(ontologies);
-    return ontologies;
-  }
-
-  public getAllTypes(ontology=null) {
-    const userAction = async () => {
-      console.log(SchemeUtils.schema_tree);
-      const response = await fetch(SchemeUtils.schema_tree);
-      const json = await response.json();
-      return json;
-    }
-    return userAction();
-  }
-
-
-
-  public getType(scheme) {
-    if (SchemeUtils.local_sources) {
-       this.getLocalSchemaProperties();
-    } else {
-      const userAction = async () => {
-
-//        const response = await fetch(SchemeUtils.schema_prefix + scheme + '.jsonld');
-        const response = await fetch(SchemeUtils.schema_properties+scheme);
-        let json = await response.json(); 
-        if(json['@graph']){
-          json = json['@graph'];
-        }
-        //return SchemeUtils.getPropertiesForType(json,scheme);
-        return SchemeUtils.buildProperties(json);
-        
-      }
-      return  userAction();
-    }
+  getRelationships(params, options = {}){
+    return this.httpService.lpost([this.getRelationshipsPath, {}], params, options);
   }
 
   public triplets(doc){
@@ -96,8 +53,83 @@ export class SemanticModelService {
       const compacted = jsonld.compact(doc, context);
       return compacted;
     }
+  setContext(ontologyInstance: ontologyClassInstance){
+    let ontology = ontologyInstance.ontologyClass.ontology;
+    let context = {
+      "@context": {
+        "schema": "http://schema.org/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "transcriptor": `${environment.semantic_transcription.prefix}`
+      }, 
+      "@id": "http://test-lala.com/semantic-contribution-1",
+      "@type":"schema:NoteDigitalDocument",
+      "schema:mainEntity": {
 
+      }
   
+    }
+    context["@context"][ontology.prefix] = ontology.url;
+    return context;
+  }
+
+  generateJsonld(ontologyInstance:ontologyClassInstance){
+    let context = this.setContext(ontologyInstance);
+    let instance = {};
+    let noteEntitydoc = this.setContext(ontologyInstance);
+    let basicProp = this.processBasicProperties(ontologyInstance.properties,ontologyInstance.ontologyClass.ontology,instance);
+    let relationProp = this.processRelationships(ontologyInstance.relations, ontologyInstance.ontologyClass.ontology, instance)
+    instance['@type']=ontologyInstance.name;
+/*     noteEntitydoc['@type'] = ontologyInstance.ontologyClass.ontology.prefix+':'+ "NoteDigitalDocument"; */
+    noteEntitydoc['@id'] = `${environment.semantic_transcription.prefix}`+"semantic-contribution-" + Date.now();
+    noteEntitydoc['rdfs:label'] = instance['rdfs:label'];
+    noteEntitydoc['schema:mainEntity'] = instance;
+    let response = this.compacted(noteEntitydoc, context);
+    response.then(docCompacted => {
+    })
+    return response;
+
+  }
+
+  processBasicProperties(properties: Array<DataPropertieValue>,ontology:Ontology,instance,isRelation=false) {
+    var basicPropertieMap = new Map();
+    properties.forEach(propertie => {
+
+      if (propertie.name!='label'){
+        basicPropertieMap.set(propertie.getNameWithPrefix(),propertie.value);
+      }else{
+        basicPropertieMap.set('rdfs:label', propertie.value);
+       
+      }
+    });
+    if(!isRelation){
+      basicPropertieMap.set('@id', `${environment.semantic_transcription.prefix}` +basicPropertieMap.get('rdfs:label').split(' ').join('_'));
+    }else{
+      basicPropertieMap.set('@id', `${environment.semantic_transcription.prefix}` + basicPropertieMap.get('rdfs:label').split(' ').join('_'));
+    }
+    basicPropertieMap.forEach((value, key) => {
+      instance[key] = value;
+    });
+    return basicPropertieMap;
+  }
+  processRelationships(relationships: Array<RelationOntologyInstance>, ontology: Ontology,instance){
+    var relationMap = new Map();
+   // var relationInstance = {};
+    relationships.forEach(relation =>{
+      if (relation.searchRelationship){
+        relationMap.set(relation.getName(), relation.relationPersisted);
+        instance[relation.getName()] = relation.relationPersisted;
+      }else{
+        var relationInstance = {};
+        let body = this.processBasicProperties(relation.properties, ontology, relationInstance,true);
+        relationInstance['@type'] = relation.type;
+        instance[relation.getName()] = relationInstance;
+        relationMap.set(relation.getName(),body);
+      }
+    })
+    return relationMap;
+  }
+
   generateCompacted(scheme,properties,processProperties = true){
     var doc = {};
     var context = {};
@@ -110,8 +142,7 @@ export class SemanticModelService {
       }
     }
 
-    console.log(scheme);
-    console.log(properties);
+
     if (processProperties){
       doc = this.processProperties(scheme,properties,context);
     }else{

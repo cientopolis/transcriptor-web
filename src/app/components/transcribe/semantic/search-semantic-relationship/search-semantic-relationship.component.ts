@@ -35,25 +35,25 @@ export class SearchSemanticRelationshipComponent implements OnInit {
     $('#delete').click(function (e) { e.stopPropagation(); });
 
     if (this.relationship){
-      this.schemeType = "schema:" + SchemeUtils.extractAllPrefix(this.relationship.type);
-      if(this.relationship.model!=''){
-        this.itemView.type = this.relationship.model['@type'];
-        this.itemView.name = this.relationship.model['schema:name'];
-      }
+      console.log(this.relationship);
+      this.schemeType = this.relationship.type;
+      this.itemView.type = this.relationship.type;
+      this.itemView.name = this.relationship.label;
     }
+
+    
   }
-  deleteRelarionship() {
-     this.deleteRelation.emit({ name: this.relationship.name });
+  deleteRelationship() {
+     this.deleteRelation.emit({ label: this.relationship.label });
   }
   itemChange(event){
     this.enableModal=true;
-   // this.semanticItemSelected=event;
     if (Array.isArray(this.semanticItemSelected['@type'])){
       this.itemView.type = this.semanticItemSelected['@type'][0];
-   }else{
-      this.itemView.type = this.semanticItemSelected['@type'];
-   }
-   this.itemView.name = this.semanticItemSelected['schema:name'];
+    }else{
+        this.itemView.type = this.semanticItemSelected['@type'];
+    }
+    this.itemView.name = this.semanticItemSelected['rdfs:label'];
     this.confirm();
     this.changeDetector.detectChanges();
   }
@@ -80,18 +80,18 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   }
 
   createNewRelation() {
-    this.createRelationType.emit({name:this.relationship.name});
+    this.createRelationType.emit({label:this.relationship.name});
   }
   removeRelationship(){
     this.semanticItemSelected = null;
-    this.relationship.model = this.semanticItemSelected;
+    this.relationship.relationPersisted = this.semanticItemSelected;
     this.createRelation.emit({ semanticRelationship: this.relationship });
     this.itemView = { name: '', type: '' };
     this.relationSaved = false;
   }
   confirm() {
     this.relationSaved=true;
-    this.relationship.model = this.semanticItemSelected;
+    this.relationship.relationPersisted = this.semanticItemSelected;
     this.createRelation.emit({ semanticRelationship: this.relationship });
 
   }

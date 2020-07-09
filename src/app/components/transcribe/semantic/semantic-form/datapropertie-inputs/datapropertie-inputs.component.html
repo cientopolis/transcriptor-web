@@ -1,4 +1,48 @@
-<div *ngIf="model.type=='Text' || model.type=='http://schema.org/Text'" class="row">
+
+<div *ngIf="!model.canDelete" class="row m-t-5">
+  <div class="input-field  col s12" style="margin-top: 0px;padding-right: 2px;">
+    <input style="margin-bottom: 0px;" (change)="handleChange(model)" (keyup)="handleChange(model)"
+      [(ngModel)]="model.value" type="text" class="validate" required>
+    <label class="m-t-10">{{model.name}}</label>
+  </div>
+</div>
+
+<div *ngIf="model.canDelete && typeOfInput=='primary'" class="row">
+  <div class="input-field  col s11" style="margin-top: 0px;padding-right: 2px;">
+    <input style="margin-bottom: 0px;" (change)="handleChange(model)" (keyup)="handleChange(model)"
+      [(ngModel)]="model.value" type="{{internalType}}" class="validate" required>
+    <label class="m-t-10">{{model.name}}</label>
+  </div>
+  <div class="input-field  col s1" (click)="deleteModel(model)">
+    <i mz-icon-mdi class="tiny" [icon]="'close-circle'" style="color: #c0c0c0 !important;"></i>
+  </div>
+</div>
+
+<div *ngIf="model.canDelete && typeOfInput=='date'">
+  <mz-datepicker-container class="col s11 m-t-10" >
+    <input mz-datepicker [label]="model.name" [options]="options" [(ngModel)]="model.value" id="{{model.name}}"
+      placeholder="Elige una fecha" type="text">
+  </mz-datepicker-container>
+  <div class="input-field  col s1" (click)="deleteModel(model)">
+    <i mz-icon-mdi class="tiny" [icon]="'close-circle'" style="color: #c0c0c0 !important;"></i>
+  </div>
+</div>
+
+<div *ngIf="model.canDelete && typeOfInput=='select'" class="row">
+  <div class="input-field  col s11">
+    <mz-select-container (click)="$event.stopPropagation()">
+      <select mz-select [label]="model.name" [(ngModel)]="model.value">
+        <option [ngValue]="false" selected>False</option>
+        <option [ngValue]="true">True</option>
+      </select>
+    </mz-select-container>
+  </div>
+  <div *ngIf="model.canDelete" class="input-field  col s1" (click)="deleteModel(model)">
+    <i mz-icon-mdi class="tiny" [icon]="'close-circle'" style="color: #c0c0c0 !important;"></i>
+  </div>
+</div>
+
+<!-- <div *ngIf="model.type=='Text' || model.type=='http://schema.org/Text'" class="row">
   <div  class="input-field  col s11" style="margin-top: 0px;padding-right: 2px;">
     <input style="margin-bottom: 0px;" (change)="handleChange(model)" 
       (keyup)="handleChange(model)"  
@@ -82,4 +126,4 @@
   <div class="col s12 text-align-center">
     <h6 style="color:red;text-align: center; font-size: 11px;margin-top: 1px;">Este campo no debe estar vacio</h6>
   </div>
-</div>
+</div> -->

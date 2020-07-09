@@ -1,3 +1,7 @@
+import { RelationOntologyInstance } from './../../../../../../models/ontology/instance/relationOntologyInstance';
+import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
+import { RelationOntologyClass } from '../../../../../../models/ontology/class/relationOntologyClass';
+import { ontologyClassInstance } from '../../../../../../models/ontology/instance/ontologyClassInstance';
 import { SchemeUtils } from '../../../../../../utils/schema-utils';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 
@@ -8,16 +12,19 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } 
 })
 export class SelectRelationshipsComponent implements OnInit,OnChanges {
   @ViewChild('modalAddRelationPropertie') modalAddRelationPropertie;
-  relationships =new Array<any>();
   @Input() properties = new Array<any>();
   @Input() schemeName: String;
+  relationships = new Array<RelationOntologyClass>();
   relationshipsSelected = new Array<any>();
   @Output() public relationshipGenerated = new EventEmitter<any>();
   @Input() notifyNextStep = false;
   level = 0;
   searchText:String;
+  @Input() ontologyInstance: ontologyClassInstance;
+  loader=true;
+
   basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
-  constructor() { 
+  constructor(private semanticService: SemanticModelService) { 
     this.basicTypes = SchemeUtils.basicTypes;
   }
 
@@ -25,29 +32,58 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     if (changes.notifyNextStep && changes.notifyNextStep.currentValue) {
       this.generateSchemeRelationships();
     } 
-    if (changes.properties && changes.properties.currentValue) {
-      this.relationships = new Array<any>();
-      this.relationshipsSelected= new Array<any>();
-      this.processProperties(changes.properties.currentValue);
+    if (changes.ontologyInstance) {
+      if (!changes.ontologyInstance.previousValue || (changes.ontologyInstance.previousValue.name != changes.ontologyInstance.currentValue.name)) {
+        if (this.ontologyInstance != null && this.ontologyInstance.name != null) {
+          this.getRelationships();
+        }
+      }
     }
   }
   ngOnInit() {
-    //this.processProperties(this.properties);
+  }
+
+  getRelationships() {
+    console.log('get relation prop');
+    this.relationships = new Array<RelationOntologyClass>();
+    this.relationshipsSelected = new Array<any>();
+    let param = { class: this.ontologyInstance.name };
+    this.semanticService.getRelationships(param).subscribe(result => {
+      let relations = result;
+      console.log(relations);
+      let propertiesClass = new Array<RelationOntologyClass>();
+      relations.forEach(prop => {
+        propertiesClass.push(new RelationOntologyClass(prop,this.ontologyInstance.ontologyClass));
+      });
+      this.relationships = propertiesClass;
+      this.loader = false;
+      console.log(propertiesClass);
+    });
   }
   public openModalSelectRelarionship() {
     this.modalAddRelationPropertie.openModal();
   }
 
-  handleScheme(event){
+  handleRelationGenerated(event){
     this.relationshipsSelected.forEach(relationship => {
-      if (event.propertieName == relationship.name) {
-        relationship.scheme = event.propertiesSelected;
+      if (event.label == relationship.label) {
+        relationship.properties = event.properties;
       }
     })
+    console.log(this.relationshipsSelected);
   }
   generateSchemeRelationships(){
+    let relationships = new Array<RelationOntologyInstance>();
+    this.relationshipsSelected.forEach(relation => {
+      if (relation.searchRelationship && relation.relationPersisted){
+        relationships.push(relation);
+      }
+      if (relation.properties.length>0){
+        relationships.push(relation);
+      }
+    })
     this.relationshipGenerated.emit({
-      relationshipsSelected: this.relationshipsSelected
+      relationshipsSelected: relationships
     });
   }
   
@@ -84,91 +120,28 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
 
 }
 
-  proccessScheme(event){
 
-  }
-/*
-  getRelationship(propertie, ranges, relationship) {
-    var types = new Array();
-    var relationTypes = new Array();
-    var name = propertie['@id'].slice(18, propertie['@id'].length);
-    ranges.forEach(element => {
-      var res = element['@id'].slice(18, element['@id'].length);
-      if (!this.basicTypes.includes(res)) {
-        relationTypes.push(res);
-      }
-    });
-
-    if (relationTypes.length > 0) {
-      //      relationships.push({ name: properties[prop]['@id'].split(':')[1], description: properties[prop]['rdfs:comment'] });
-      relationship.push({ name: name, description: propertie['http://www.w3.org/2000/01/rdf-schema#comment'][0]['@value'], types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
-
-    }
-
-
-  }
-  processProperties(properties) {
-    for (var prop in properties) {
-      let propertie = properties[prop];
-      let label = propertie['http://www.w3.org/2000/01/rdf-schema#label'];
-      let propertieId = properties['@id'];
-      let ranges = propertie['http://schema.org/rangeIncludes'];
-      if (label != null) {
-        label = propertie['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
-        if (ranges != null && ranges.length) {
-
-          this.getRelationship(propertie, ranges, this.relationships);
-        }
-      }
-    }
-}
-
-processProperties(properties) {
-    for (var prop in properties) {
-        if (this.hasRanges(properties,prop)) {
-            let types = new Array<any>();
-            if (properties[prop]['schema:rangeIncludes'] != null && properties[prop]['schema:rangeIncludes'].length) {
-              properties[prop]['schema:rangeIncludes'].forEach(element => {
-                if (!this.basicTypes.includes(element['@id'].split(':')[1])){
-                  types.push(element['@id'].split(':')[1]);
-                }
-              });
-            } else {
-              if (!this.basicTypes.includes(properties[prop]['@id'].split(':')[1])) {
-                types.push(properties[prop]['schema:rangeIncludes']['@id'].split(':')[1]);
-              }
-            }
-            if (types.length > 0) {
-              this.relationships.push({ name: properties[prop]['@id'].split(':')[1], types: types, type: types[0], selected: false, description: properties[prop]['rdfs:comment'] });
-            }
-          }
-        }
-    } */
   handleDeleteRelationship(event){
     let relationship = { selected:false,name:event.name};
- //   this.selectPropertie(relationship,null);
     this.relationshipsSelected.forEach((item, index) => {
-      if (item.name.toLowerCase() === event.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
+      if (item.label.toLowerCase() === event.label.toLowerCase()) this.relationshipsSelected.splice(index, 1);
     });
     this.relationships.forEach( prop => {
-      if (prop.name.toLowerCase() == event.name.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
+      if (prop.label.toLowerCase() == event.label.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
     })
   }
-  selectPropertie(propertie, $event) {
-    if (propertie.selected) {
-      if (propertie.types.length > 0 && !this.basicTypes.includes(propertie.types[0])) {
-        this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: new Array<any>(), properties: new Array<any>(), searchRelationship:true });
-       // this.prepareSchemeBuilder(propertie.types[0], propertie.name);
+
+  selectRelation(relation, $event) {
+    if (relation.selected) {
+      let relationInstance = new RelationOntologyInstance(relation);
+      relationInstance.ontologyInstance=this.ontologyInstance;
+      this.relationshipsSelected.push(relationInstance);
       } else {
-        if (propertie.types.length > 0) {
-          this.relationshipsSelected.push({ name: propertie.name, value: '', model: '', type: propertie.types[0], scheme: null, properties: null, searchRelationship: true});
-        }
-      }
-    } else {
       this.relationshipsSelected.forEach((item, index) => {
-        if (item.name.toLowerCase() === propertie.name.toLowerCase()) this.relationshipsSelected.splice(index, 1);
+        if (item.label.toLowerCase() === relation.label.toLowerCase()) this.relationshipsSelected.splice(index, 1);
       });
     }
+    console.log(this.relationshipsSelected);
   }
 
   selectType(prop, event) {
@@ -182,25 +155,28 @@ processProperties(properties) {
 
 
   handleNewRelationship(event) {
-    if (event && event.name != null) {
+    if (event && event.label != null) {
       this.relationshipsSelected.forEach((item, index) => {
-        if (item.name.toLowerCase() === event.name.toLowerCase()) item = event.semanticRelationship;
+        if (item.label.toLowerCase() === event.label.toLowerCase()) item.relationPersisted = event.semanticRelationship;
       });
     }
+    console.log(this.relationshipsSelected);
   }
+
   assignRelationship(event){
-    if(event && event.name!=null){
+    console.log(event);
+    if(event && event.label!=null){
       this.relationshipsSelected.forEach((item, index) => {
-        if (item.name.toLowerCase() === event.name.toLowerCase()) item.searchRelationship=false;
+        if (item.label.toLowerCase() === event.label.toLowerCase()) item.searchRelationship=false;
       });
     }
   }
   searchRelationship(event) {
-    if (event && event.name != null) {
+    if (event && event.label != null) {
       this.relationshipsSelected.forEach((item, index) => {
-        if (item.name.toLowerCase() === event.name.toLowerCase()){
+        if (item.label.toLowerCase() === event.label.toLowerCase()){
           item.searchRelationship = true;
-          item.model = '';
+          item.properties=new Array<any>();
         }  
       });
     }

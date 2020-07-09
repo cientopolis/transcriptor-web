@@ -1,6 +1,6 @@
 import { OntologyService } from './../../services/ontology/ontology.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Ontology } from 'app/models/scheme/ontology';
+import { Ontology } from 'app/models/ontology/ontology';
 
 
 @Component({

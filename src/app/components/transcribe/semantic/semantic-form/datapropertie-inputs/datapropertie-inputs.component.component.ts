@@ -1,18 +1,22 @@
+import { DataPropertieValue } from '../../../../../models/ontology/instance/dataPropertieValue';
 import { Type } from 'class-transformer';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as $ from 'jquery';
 @Component({
-  selector: 'app-scheme-inputs',
-  templateUrl: './scheme-inputs.component.html',
-  styleUrls: ['./scheme-inputs.component.scss']
+  selector: 'app-datapropertie-inputs',
+  templateUrl: './datapropertie-inputs.component.html',
+  styleUrls: ['./datapropertie-inputs.component.scss']
 })
-export class SchemeInputsComponent implements OnInit {
-  @Input() model:any;
+export class DataPropertieInputsComponent implements OnInit {
+  @Input() model:DataPropertieValue;
   @Output() public modelDeleted = new EventEmitter<any>();
   @Output() public inputChange = new EventEmitter<any>();
   
   public valid=false;
   public enableValidation=true;
+  public internalType = 'text';
+  //[primary,select,date]
+  public typeOfInput = 'primary';
 
   public options: Pickadate.DateOptions = {
     /* monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -36,8 +40,22 @@ export class SchemeInputsComponent implements OnInit {
   };
   constructor() { }
 
+  getTypeOfInput(){
+    if (this.internalType.toLowerCase() == 'text' || this.internalType.toLowerCase()=='number'){
+      this.typeOfInput='primary';
+    }
+    if (this.internalType.toLowerCase() == 'date' || this.internalType.toLowerCase() == 'datetime'){
+      this.typeOfInput='date'
+    }
+    if (this.internalType.toLowerCase() == 'boolean'){
+      this.typeOfInput='select'
+    }
+
+  }
   ngOnInit() {
-    if (this.model.type == 'http://schema.org/Boolean' || this.model.type == 'Boolean'){
+    this.internalType= this.model.getInternalType();
+    this.getTypeOfInput();
+    if (this.typeOfInput=='select'){
       this.enableValidation=false;
       this.valid=true;
     }
@@ -48,7 +66,7 @@ export class SchemeInputsComponent implements OnInit {
   }
   handleChange(model = null){
     if(this.enableValidation){
-      if (!this.model || this.model.model =='' ) {
+      if (!this.model || this.model.value =='' ) {
         this.inputChange.emit({ model: this.model, valid: false });
         this.valid=false;
       } else {
@@ -57,5 +75,4 @@ export class SchemeInputsComponent implements OnInit {
       } 
     }
   }
-
 }

@@ -1,6 +1,5 @@
-import { OntologyType } from './../../../../../../models/scheme/type';
-
-import { Ontology } from '../../../../../../models/scheme/ontology';
+import { OntologyClass } from '../../../../../../models/ontology/class/ontologyClass';
+import { Ontology } from '../../../../../../models/ontology/ontology';
 import { SemanticModelService } from '../../../../../../services/semantic-model/semantic-model.service';
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 
@@ -14,13 +13,14 @@ export class SelectOntologyTypeComponent implements OnInit {
   parents = new Array<any>();
   searchText: any;
   schemasShow= new Array<any>();
-  types: Array<OntologyType>;
-  typeSelected:OntologyType;
+  types: Array<OntologyClass>;
+  typeSelected: OntologyClass;
   @Input() ontology:Ontology;
   @Input() notifyNextStep = false;
   @Input() eagerSelection = true;
   @Input() mark: any;
-  @Output() public ontologyTypeSelected = new EventEmitter<any>();
+  @Output() public ontologySelected = new EventEmitter<any>();
+  @Output() public ontologyTypeSelected = new EventEmitter<OntologyClass>();
   constructor(
     private semanticService: SemanticModelService,
     private changeDetector: ChangeDetectorRef
@@ -28,80 +28,112 @@ export class SelectOntologyTypeComponent implements OnInit {
 
   ngOnInit() {
     if(this.ontology!=null){
-      console.log(this.ontology);
-      this.getAllEntities();
+      this.getTypes();
     }else{
       console.log('debe tener una ontologia cargada');
-      // temporalmente: 
-      this.ontology = new Ontology({ 'name': 'schema', 'description': 'Esquema ontology' });
-      //
-      console.log(this.ontology);
-      this.getAllEntities();
-      //this.getTypes();
+      this.ontology = null;
+      this.loader = false;
+      this.returnOntology(null); 
     }  
   }
 
-  getTypes(){
-   /*  this.semanticService.getTypesTreejson().subscribe(response => {
+  getOntologyClassDetail() {
+    console.log('Get specific class');
+    this.loader = true;
+    let params = { parent: this.typeSelected.name, ontology_id: this.ontology.id }
+    this.semanticService.getTypesTreejson(params).subscribe(response => {
       console.log(response);
-    }); */
-    this.semanticService.getAllTypes(this.ontology).then(result => {
-      this.typeSelected = result;
-      if (this.eagerSelection) {
-        this.selectSchema();
-      }
+      this.setChildrens(response);
       this.loader = false;
       this.changeDetector.detectChanges();
-    });
+    }); 
   }
-  getAllEntities(){
-    this.semanticService.getAllTypes(this.ontology).then(result => {
-      this.typeSelected = result;
-      this.parents.push(result);
-      this.types = result.children;
-      if (this.eagerSelection) {
-        this.selectSchema();
-      }
-      this.loader = false;
-      this.changeDetector.detectChanges();
-    });
+  setChildrens(response){
+    let childs = new Array<OntologyClass>();
+    if (response && response.length > 0) {
+      response.forEach(child => {
+        childs.push(new OntologyClass(child, this.ontology));
+      });
+    }
+    this.types = childs;
+    console.log(childs);
   }
 
+  selectOntologyClass(ontologyClass) {
+    this.searchText = '';
+    this.typeSelected=ontologyClass;
+    this.parents.push(this.typeSelected);
+    if (this.eagerSelection) {
+      this.selectClass();
+    }
+    this.getOntologyClassDetail();
+
+  }
+
+  isHierarchycal(response){
+    if(response && response.length==1){
+      return true;
+    }
+    return false;
+  }
+  getTypes(){
+    console.log('Get First types');
+    this.loader=true;
+    let params = { parent: this.typeSelected,ontology_id:this.ontology.id}
+    this.semanticService.getTypesTreejson(params).subscribe(response => {
+      if(this.isHierarchycal(response)){
+        let typeSelected = new OntologyClass(response[0], this.ontology);
+        this.selectOntologyClass(typeSelected);
+      }else{
+        let parent = new OntologyClass();
+        parent.label=this.ontology.name;
+        this.parents.push(parent);
+        this.setChildrens(response);
+      }
+      console.log(this.typeSelected);
+      this.loader = false;
+      this.changeDetector.detectChanges();
+    }); 
+  }
+
+
   filter(event){
-    this.schemasShow = this.types.filter(schema => schema.name.toLowerCase().includes(this.searchText.toLowerCase()));
+    this.schemasShow = this.types.filter(schema => schema.label.toLowerCase().includes(this.searchText.toLowerCase()));
   }
 
   ngOnChanges(changes) {
     if (changes.notifyNextStep && changes.notifyNextStep.currentValue) {
-      this.selectSchema();
+      this.selectClass();
     }
+  }
+
+  selectOntology(event) {
+    console.log('Ontologia seleccionada desde el type', event)
+    this.ontology = event;
+    this.getTypes(); 
+    this.returnOntology(this.ontology); 
+  }
+  returnOntology(ontology){
+    this.ontologySelected.emit(this.ontology);
   }
 
   setParent(parent) {
-    let index = this.parents.indexOf(parent);
-    if (index < this.parents.length) {
-      index++;
-    }
-    this.typeSelected = parent;
-    this.parents.splice(index);
-    this.types = this.typeSelected.children;
-    if (this.eagerSelection) {
-      this.selectSchema();
-    }
+      let index = this.parents.indexOf(parent);
+      if (index < this.parents.length) {
+        index++;
+      }
+      this.parents.splice(index-1);
+      this.selectOntologyClass(parent);
   }
 
-  selectType(type) {
-    this.parents.push(type);
-    this.types = type.children;
-    this.typeSelected = type;
-    this.searchText='';
-    if (this.eagerSelection) {
-      this.selectSchema();
-    }
-  }
-  selectSchema() {
+
+  selectClass() {
     console.log(this.typeSelected);
-    this.ontologyTypeSelected.emit(this.typeSelected.name);
+    if(this.typeSelected.id!=null){
+      this.ontologyTypeSelected.emit(this.typeSelected);
+    }else{
+      console.log('el tipo seleccionado esta vacio');
+    }
   }
 
 }

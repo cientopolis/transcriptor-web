@@ -1,35 +1,21 @@
-<div class="row" *ngIf="loader">
+<div class="row m-t-10" *ngIf="loader">
   <div class="col s6 offset-s6">
     <mz-spinner [color]="'yellow'" [size]="'small'">
     </mz-spinner>
   </div>
 </div>
 
-<div class="row" *ngIf="!loader">
-  <div *ngIf="schemeName" class="row">
+<div class="row m-t-10" *ngIf="!loader" >
+  <div *ngIf="ontologyInstance && ontologyInstance.name" class="row">
     <div class="col s12 header-box">
-      <h5 class="primary-color-text">{{schemeName}}</h5>
-      <p>propiedades</p>
+      <h5 class="primary-color-text">{{ontologyInstance.name}}</h5>
+      <p>Propiedades</p>
     </div>
   </div>
   <div class="row" *ngFor="let prop of  propertiesSelected" (click)="$event.stopPropagation()">
-    <app-scheme-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
-    <div *ngIf="prop.scheme">
-      <label> {{prop.name}}</label>
-      <div class="row" *ngFor="let sc of  prop.scheme.properties">
-        <app-scheme-inputs  (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
-      </div>
-    </div>
+    <app-datapropertie-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-datapropertie-inputs>
   </div>
   <div class="row">
-<!--
-    <div class="col s12">
-      <a class="waves-effect waves-light btn-small" style="width: 100%;
-      background-color: white;color:#e65100;text-align:center;font-size: 13px;
-      border: 1px solid #e65100;font-size: 13px;" (click)="openModalSelectPropertie()">+
-        Agregar Propiedad</a>
-    </div>
--->
     <div class="col s12">
       <a class="waves-effect waves-light btn-small" style="width: 100%;
           background-color: #e65100;color:white;text-align:center;font-size: 13px;"
@@ -45,7 +31,7 @@
     Agregar una propiedad
   </mz-modal-header>
   <mz-modal-content style="font-size: 13px;">
-    <div class="row">
+    <div class="row" *ngIf="ontologyInstance">
         <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
           <mz-input-container>
             <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
@@ -54,8 +40,8 @@
           </mz-input-container>
       </div>
       <div class="col s12 header-box">
-        <h5 class="primary-color-text">{{schemeName}}</h5>
-        <p>propiedades</p>
+        <h5 class="primary-color-text">{{ontologyInstance.name}}</h5>
+        <p>Propiedades</p>
       </div>
       <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
         <table class="bordered striped centered">
@@ -69,19 +55,19 @@
           </thead>
           <tbody>
             <tr *ngFor="let prop of properties | filter:searchTextFilter">
-              <td>{{prop.name}}</td>
+              <td>{{prop.label}}</td>
               <td>
                 <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
                   <select mz-select (change)="selectType(prop,$event)">
-                    <option *ngFor="let type of prop.types" [ngValue]="type">{{ type | scheme_type }}</option>
+                    <option *ngFor="let t of prop.types" [ngValue]="t">{{t}}</option>
                   </select>
                 </mz-select-container>
                 <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
               </td>
-              <td>{{prop.description}}</td>
+              <td>{{prop.comment}}</td>
               <td>
                 <mz-checkbox-container>
-                  <input mz-checkbox id="{{prop.id}}" class="filled-in checkbox-orange" filledIn=true type="checkbox"
+                  <input mz-checkbox id="{{prop.idInput}}" class="filled-in checkbox-orange" filledIn=true type="checkbox"
                     value="{{prop.selected}}" [(ngModel)]="prop.selected" (change)="selectPropertie(prop,$event)">
                 </mz-checkbox-container>
               </td>

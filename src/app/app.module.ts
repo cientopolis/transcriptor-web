@@ -121,7 +121,7 @@ import { ImageSettingsComponent } from './components/transcribe/image-settings/i
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 import { SemanticFormComponent } from './components/transcribe/semantic/semantic-form/semantic-form.component';
 import { SchemeBuilderComponent } from './components/transcribe/semantic/semantic-form/scheme-builder/scheme-builder.component';
-import { SchemeInputsComponent } from './components/transcribe/semantic/semantic-form/scheme-inputs/scheme-inputs.component';
+import { DataPropertieInputsComponent } from './components/transcribe/semantic/semantic-form/datapropertie-inputs/datapropertie-inputs.component.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
 import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
@@ -183,7 +183,7 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     ListSemanticMarksComponent,
     SchemePipe,
     SchemeBuilderComponent,
-    SchemeInputsComponent,
+    DataPropertieInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
     SelectOntologyTypeComponent,

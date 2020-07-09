@@ -16,7 +16,7 @@ export class OntologyService {
 
 
   list(ontology, options = {}) {
-    return this.httpService.lget([this.listPath,{}], options);
+    return this.httpService.lget([this.listPath + '?fields=ontology_datatypes', {fields:'ontology_datatypes'}], options);
   }
 
   edit(ontology, options = {}) {

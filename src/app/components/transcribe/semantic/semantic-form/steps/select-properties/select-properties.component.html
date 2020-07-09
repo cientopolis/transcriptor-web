@@ -3,8 +3,8 @@
     <mz-collapsible-item-header class="header-box">
       <div clas="row">
         <div class="col s11">
-          <h5 class="primary-color-text">{{schemeName}}</h5>
-          <p>{{propertieNameTitle}}</p>
+          <h5 class="primary-color-text">{{relationship.type}}</h5>
+          <p>{{relationship.name}}</p>
         </div>
           <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelarionship()">
             <a (click)="deleteRelarionship()">
@@ -27,13 +27,7 @@
           </div>
       </div>
       <div class="row" *ngFor="let prop of  propertiesSelected" (click)="$event.stopPropagation()">
-        <app-scheme-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
-        <div *ngIf="prop.scheme">
-          <label> {{prop.name}}</label>
-          <div class="row" *ngFor="let sc of  prop.scheme.properties">
-            <app-scheme-inputs  (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
-          </div>
-        </div>
+        <app-datapropertie-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-datapropertie-inputs>
       </div>
       <div class="row">
         <div class="col s12">
@@ -98,16 +92,16 @@
 <div *ngIf="!colapsible">
   <div *ngIf="schemeName" class="row">
     <div class="col s12 header-box">
-      <h5 class="primary-color-text">{{schemeName}}</h5>
-      <p>propiedades</p>
+      <h5 class="primary-color-text">{{relationship.type}}</h5>
+      <p>{{relationship.name}}</p>
     </div>
   </div>
   <div class="row" *ngFor="let prop of  propertiesSelected"  (click)="$event.stopPropagation()">
-    <app-scheme-inputs (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-scheme-inputs>
+    <app-datapropertie-inputs (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-datapropertie-inputs>
     <div *ngIf="prop.scheme">
       <label> {{prop.name}}</label>
       <div class="row" *ngFor="let sc of  prop.scheme.properties">
-        <app-scheme-inputs (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-scheme-inputs>
+        <app-datapropertie-inputs (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-datapropertie-inputs>
       </div>
     </div>
   </div>
@@ -146,8 +140,8 @@
           </mz-input-container>
         </div>
         <div class="col s12 header-box">
-          <h5 class="primary-color-text">{{schemeName}}</h5>
-          <p>propiedades</p>
+          <h5 class="primary-color-text">{{relationship.type}}</h5>
+          <p>{{relationship.name}}</p>
         </div>
         <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
           <table class="bordered striped centered">
@@ -161,7 +155,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let prop of properties | filter:searchText">
-                <td>{{prop.name}}</td>
+                <td>{{prop.label}}</td>
                 <td>
                   <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
                     <select mz-select (change)="selectType(prop,$event)">
@@ -170,10 +164,10 @@
                   </mz-select-container>
                   <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
                 </td>
-                <td>{{prop.description}}</td>
+                <td>{{prop.comment}} {{prop.idInput}}d</td>
                 <td>
                   <mz-checkbox-container>
-                    <input mz-checkbox id="{{prop.id}}+'modalAddPropertie'" class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{prop.selected}}"
+                    <input mz-checkbox id="{{prop.idInput}}" class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{prop.selected}}"
                       [(ngModel)]="prop.selected" (change)="selectPropertie(prop,$event)">
                   </mz-checkbox-container>
                 </td>
@@ -189,21 +183,18 @@
   </mz-modal>
 
   <mz-modal #modalAddPropertieForRelationship [fixedFooter]="true">
-    <mz-modal-header>
-      Agregar una propiedad
-    </mz-modal-header>
     <mz-modal-content style="font-size: 13px;">
       <div class="row">
         <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
           <mz-input-container>
             <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
-            <input style="margin-bottom: 5px;" mz-input [label]="'Buscar un tipo de dato'" id="search-input-propertie" type="text"
-              [(ngModel)]="searchText">
+            <input style="margin-bottom: 5px;" mz-input [label]="'Buscar un tipo de dato'" id="search-input-propertie"
+              type="text" [(ngModel)]="searchText">
           </mz-input-container>
         </div>
         <div class="col s12 header-box">
-          <h5 class="primary-color-text">{{schemeName}}</h5>
-          <p>propiedades</p>
+          <h5 class="primary-color-text">{{relationship.type}}</h5>
+          <p>{{relationship.name}}</p>
         </div>
         <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
           <table class="bordered striped centered">
@@ -217,7 +208,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let prop of properties | filter:searchText">
-                <td>{{prop.name}}</td>
+                <td>{{prop.label}}</td>
                 <td>
                   <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
                     <select mz-select (change)="selectType(prop,$event)">
@@ -226,11 +217,12 @@
                   </mz-select-container>
                   <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
                 </td>
-                <td>{{prop.description}}</td>
+                <td>{{prop.comment}} {{prop.idInput}}d</td>
                 <td>
                   <mz-checkbox-container>
-                    <input mz-checkbox id="{{prop.id}}" class="filled-in checkbox-orange" filledIn=true type="checkbox"
-                      value="{{prop.selected}}" [(ngModel)]="prop.selected" (change)="selectPropertie(prop,$event)">
+                    <input mz-checkbox id="{{prop.idInput}}+'?'" class="filled-in checkbox-orange" filledIn=true
+                      type="checkbox" value="{{prop.selected}}" [(ngModel)]="prop.selected"
+                      (change)="selectPropertie(prop,$event)">
                   </mz-checkbox-container>
                 </td>
               </tr>

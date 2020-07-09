@@ -82,12 +82,15 @@ export class SemanticSearchInputComponent implements OnInit {
   }
 
   selectType(type) {
+    console.log(this.filterType);
     this.filterType = type
   }
 
   filter() {
-    this.entityType = this.showAllTypes ? null : `schema:${this.filterType.split('>').slice(-1)[0]}`;
-    this.showedType = this.showAllTypes ? null : this.filterType.split('>').slice(-1)[0]
+/*     this.entityType = this.showAllTypes ? null : `schema:${this.filterType.split('>').slice(-1)[0]}`;
+    this.showedType = this.showAllTypes ? null : this.filterType.split('>').slice(-1)[0] */
+    this.entityType = this.showAllTypes ? null : this.filterType.name;
+    this.showedType = this.showAllTypes ? null : this.filterType.name
     this.refresh()
   }
 

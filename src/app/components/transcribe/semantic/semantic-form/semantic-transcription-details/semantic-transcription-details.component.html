@@ -10,8 +10,8 @@
 <div class="row row p-l-10 p-r-10">
   <div class="row"  style="margin-top: 0px;margin-bottom: 0px;"> 
     <div class="col s12 z-depth-1 header-box">
-      <h5 class="primary-color-text">{{markSelected.name | scheme_type}}</h5>
-      <p>{{markSelected.schema_type | scheme_type}}</p>
+      <h5 class="primary-color-text">{{markSelected.name }}</h5>
+      <p>{{markSelected.schema_type }}</p>
     </div>
   </div>
   <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
@@ -33,7 +33,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let propertie of properties" class="p-t-0">
-                <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.type }}</td>
+                <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name }}</td>
                 <td class="p-t-5 p-b-5" *ngIf="propertie.model">
                   <span *ngIf="propertie.type!='URL'">{{propertie.model}}</span>
                   <a *ngIf="propertie.type=='URL'">-{{propertie.model}}</a>
