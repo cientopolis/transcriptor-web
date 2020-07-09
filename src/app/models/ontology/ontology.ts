@@ -9,6 +9,7 @@ export class Ontology {
     domainkey:string;
     rangekey:string;
     prefix:string;
+    class_type:string;
     ontology_datatypes: Array<any>;
     @Expose({ name: "ontology_datatypes" })
     ontology_datatypes_attributes: Array<any>;

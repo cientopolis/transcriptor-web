@@ -23,6 +23,7 @@ export class OntologyComponent implements OnInit {
     'datetime',
     'boolean'
   ]
+  searchOntologyText:String
 
   constructor(
     private ontologyService:OntologyService,
