@@ -1,3 +1,5 @@
+import { Expose } from "class-transformer";
+import { DataType } from "./datatype";
 
 export class Ontology {
     id:number;
@@ -5,7 +7,11 @@ export class Ontology {
     description:string;
     url:string;
     domainkey:string;
+    rangekey:string;
     prefix:string;
+    ontology_datatypes: DataType[];
+    @Expose({ name: "ontology_datatypes" })
+    ontology_datatypes_attributes: DataType[];
 
     constructor(ontologyJson = null){
         if(ontologyJson){
