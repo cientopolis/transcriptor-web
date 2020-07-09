@@ -1,7 +1,7 @@
 import { HttpService } from './../http/http.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ontology } from 'app/models/scheme/ontology';
+import { Ontology } from 'app/models/ontology/ontology';
 
 @Injectable({
   providedIn: 'root'

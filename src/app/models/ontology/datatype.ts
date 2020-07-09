@@ -2,7 +2,7 @@ import { Expose } from "class-transformer";
 
 export class DataType {
     id:number;
-    name:string;
-    description:string;
+    semantic_class:string;
+    internal_type:string;
     _destroy: boolean = false
 }

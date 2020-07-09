@@ -9,9 +9,9 @@ export class Ontology {
     domainkey:string;
     rangekey:string;
     prefix:string;
-    ontology_datatypes: DataType[];
+    ontology_datatypes: Array<any>;
     @Expose({ name: "ontology_datatypes" })
-    ontology_datatypes_attributes: DataType[];
+    ontology_datatypes_attributes: Array<any>;
 
     constructor(ontologyJson = null){
         if(ontologyJson){
@@ -27,19 +27,21 @@ export class Ontology {
     }
 
      public formatDatatypes(){
-
-        this.ontology_datatypes.forEach(datatype => {
-            if (datatype.semantic_class.includes(this.prefix)){
-                let pref = this.prefix; 
-                if(!this.prefix.includes(':')){
-                    pref = pref+':';
-                }
-                datatype.semantic_class = datatype.semantic_class.split(pref)[1];
-            }
-            if (datatype.semantic_class.includes(this.url)){
-                datatype.semantic_class = datatype.split(this.url)[1];
-            }           
-        });
+         if (this.ontology_datatypes) {
+            
+             this.ontology_datatypes.forEach(datatype => {
+                 if (datatype.semantic_class.includes(this.prefix)){
+                     let pref = this.prefix; 
+                     if(!this.prefix.includes(':')){
+                         pref = pref+':';
+                     }
+                     datatype.semantic_class = datatype.semantic_class.split(pref)[1];
+                 }
+                 if (datatype.semantic_class.includes(this.url)){
+                     datatype.semantic_class = datatype.semantic_class.split(this.url)[1];
+                 }           
+             });
+        }
     } 
     public static mapOntologies(json){
         let ontologies = new Array<Ontology>();

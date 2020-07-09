@@ -1,9 +1,8 @@
 import { OntologyService } from './../../services/ontology/ontology.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ontology } from 'app/models/ontology/ontology';
-import { Ontology } from 'app/models/scheme/ontology';
 import { FlashMessagesService } from 'app/services/util/flash-messages/flash-messages.service';
-import { DataType } from 'app/models/scheme/datatype';
+import { DataType } from 'app/models/ontology/datatype';
 
 
 @Component({
@@ -76,7 +75,7 @@ export class OntologyComponent implements OnInit {
 
 
   listOntologies(){
-    this.ontologyService.list({}).subscribe(ontologies=>{
+    this.ontologyService.listOntologies({}).subscribe(ontologies=>{
       this.ontologies = ontologies;
     })
   }
