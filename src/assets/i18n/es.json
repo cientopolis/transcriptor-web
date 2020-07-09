@@ -389,5 +389,49 @@
         "title": "Detalle de Referencia"
       }
     }
+  },
+  "ontology":{
+    "title": "Ontologias",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "create":"Crear Ontología",
+      "showMore": "Ver más",
+      "edit": "Editar Ontología"
+    },
+    "modal": {
+      "edit":{
+        "title": "Modificar una ontología",
+        "button":{
+          "delete":"Eliminar Ontología",
+          "save":"Guardar Cambios"
+        }
+      },
+      "create":{
+        "label": {
+          "name": "Nombre de la ontología",
+          "description": "Descripción",
+          "url":"Url de la ontología",
+          "prefix":"Prefijo de la ontología",
+          "domainkey":"Ingrese la clave de relación"
+        },
+        "button":{
+          "cancel":"Cancelar",
+          "save":"Guardar ontología"
+        },
+        "title":"Crear una ontología"
+      },
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
   }
 }

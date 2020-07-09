@@ -1,0 +1,44 @@
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+
+<div class="row" *ngIf="!loader" style="margin-top: 0px;">
+  <div class="col s12">
+    <mz-input-container>
+      <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+      <input mz-input [label]="'Buscar una ontologia'" id="search-input-ontology" type="text" [(ngModel)]="searchOntologyText">
+    </mz-input-container>
+  </div>
+
+  <div class="col s12" *ngIf="ontology">
+    <span class="primary-color-text">Seleccionaste la ontologia: {{ontology.name}}</span>
+  </div>
+  <div class="row" *ngIf="ontologies && ontologies.length>0">
+    <div class="col s12">
+      <h5>Ontologias</h5>
+      <mz-collection>
+        <mz-collection-item [avatar]="true" *ngFor="let ontology of  ontologies | filter:searchOntologyText"
+          (click)="selectOntology(ontology)" class="collection-item">
+          <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
+          <h6>{{ontology.name}}</h6>
+          <p class="descriptiom-item">{{ontology.description}}</p>
+          <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+              [icon]="'chevron-right'" [align]="'left'"></i></a>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+  <div class="col s12" *ngIf="ontology">
+        <a class="waves-effect waves-light btn-small button-bordered"  (click)="confirmOntology()">
+         Confirmar ontologia</a>
+  </div>
+  </div>
+  <div class="row" *ngIf="!ontologies || ontologies.length==0">
+    <div class="col s12">
+      <h6 class="primary-color-text text-align center">No hay esquemas a mostrar</h6>
+    </div>
+  </div>
+
+</div>

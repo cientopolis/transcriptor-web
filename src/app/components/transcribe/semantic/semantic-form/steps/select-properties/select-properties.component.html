@@ -1,0 +1,237 @@
+<mz-collapsible *ngIf="colapsible" [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback">
+  <mz-collapsible-item [active]="false">
+    <mz-collapsible-item-header class="header-box">
+      <div clas="row">
+        <div class="col s11">
+          <h5 class="primary-color-text">{{relationship.type}}</h5>
+          <p>{{relationship.name}}</p>
+        </div>
+          <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelarionship()">
+            <a (click)="deleteRelarionship()">
+              &times;
+            </a>
+          </div>
+      </div>
+
+
+    </mz-collapsible-item-header>
+    <mz-collapsible-item-body style="padding:5px">
+      <div class="row" *ngIf="false">
+        <div class="col s11"></div>
+          <div class="col s1">
+            <a *ngIf="showCancel" (click)="cancelCreatePropertie()">
+              <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
+                &times;
+              </button>
+            </a>
+          </div>
+      </div>
+      <div class="row" *ngFor="let prop of  propertiesSelected" (click)="$event.stopPropagation()">
+        <app-datapropertie-inputs (inputChange)="handleInputChange($event)" (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-datapropertie-inputs>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn-small" style="width: 100%;
+            background-color: white;color:#e65100;text-align:center;font-size: 13px;
+            border: 1px solid #e65100;font-size: 13px;" (click)="openModalForRelationship()">+
+            Agregar Propiedad</a>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!relationSaved && validInputs">
+        <div class="col s12">
+          <a class="waves-effect btn-flat" style="width: 100%;background-color: #e65100;
+    text-align:center;
+    color:white;
+    border: 1px solid white ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar Relación</a>
+        </div>
+      </div>
+      
+      <div class="row" *ngIf="!relationSaved && !validInputs">
+        <div class="col s12">
+          <a class="waves-effect btn-flat disabled" style="width: 100%;background-color: #e65100;
+          text-align:center;
+          ;font-size: 13px;text-transform: capitalize;" (click)="generateSchemeRelation()">Guardar
+            Relación</a>
+        </div>
+      </div>
+
+        <div class="row" [ngClass]="relationSaved ? 'saved':'no-saved'">
+          <div class="col s4 offset-s4  text-align center">
+            <span style="font-size: 11px;" *ngIf="!relationSaved">
+              Relacion aun no asignada
+            </span>
+            <span style="font-size: 11px;" *ngIf="relationSaved">
+              Relacion asignada!
+            </span>
+          </div>
+        </div>
+
+    <div class="row" *ngIf="showCancel">
+      <div class="col s4 offset-s4">
+        <a class="waves-effect waves-light btn-small" style="width: 100%;
+                  background-color: white;color:#e65100;text-align:center;font-size: 13px;
+                  border: 1px solid #e65100;font-size: 11px;" (click)="cancelCreatePropertie()">
+          Buscar entidad</a>
+      </div>
+    </div>
+
+      <div class="row" *ngIf="false">
+        <div class="col s12" style="padding-right: 0px;padding-left: 0px;">
+          <button mz-button class="waves-effect btn-flat text-align center" style="width: 100%;font-size: 11px;"
+            (click)="generateSchemeRelation()">
+            <i mz-icon-mdi [icon]="'content-chevron_right'" [align]="'left'"></i>
+            Continuar
+          </button>
+        </div>
+      </div>
+    </mz-collapsible-item-body>
+  </mz-collapsible-item>
+</mz-collapsible>
+
+<div *ngIf="!colapsible">
+  <div *ngIf="schemeName" class="row">
+    <div class="col s12 header-box">
+      <h5 class="primary-color-text">{{relationship.type}}</h5>
+      <p>{{relationship.name}}</p>
+    </div>
+  </div>
+  <div class="row" *ngFor="let prop of  propertiesSelected"  (click)="$event.stopPropagation()">
+    <app-datapropertie-inputs (modelDeleted)="removePropertieEvent($event)" [model]=prop></app-datapropertie-inputs>
+    <div *ngIf="prop.scheme">
+      <label> {{prop.name}}</label>
+      <div class="row" *ngFor="let sc of  prop.scheme.properties">
+        <app-datapropertie-inputs (modelDeleted)="removePropertieEvent($event)" [model]=sc></app-datapropertie-inputs>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <a class="waves-effect waves-light btn-small" style="width: 100%;
+      background-color: white;color:#e65100;text-align:center;font-size: 13px;
+      border: 1px solid #e65100;font-size: 13px;" (click)="openModalSelectPropertie()">+
+        Agregar Propiedad</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12" style="padding-right: 0px;padding-left: 0px;">
+      <a (click)="generateScheme()" class="waves-effect waves-light btn-small" style="width: 100%;
+      background-color: #e65100;
+      text-align:center;
+      color:white;
+      border: 1px solid white ;font-size: 13px;">+ Continuar</a>
+    </div>
+  </div>
+</div>
+
+   
+  <mz-modal #modalAddPropertie [fixedFooter]="true">
+    <mz-modal-header>
+      Agregar una propiedad
+    </mz-modal-header>
+    <mz-modal-content style="font-size: 13px;">
+      <div class="row">
+        <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
+          <mz-input-container >
+            <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+            <input style="margin-bottom: 5px;"mz-input [label]="'Buscar un tipo de dato'" id="search-input-propertie" type="text"
+              [(ngModel)]="searchText">
+          </mz-input-container>
+        </div>
+        <div class="col s12 header-box">
+          <h5 class="primary-color-text">{{relationship.type}}</h5>
+          <p>{{relationship.name}}</p>
+        </div>
+        <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
+          <table class="bordered striped centered">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.type' | translate}}</th>
+                <th>Descripcion</th>
+                <th>{{'semanticForm.table.header.select' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prop of properties | filter:searchText">
+                <td>{{prop.label}}</td>
+                <td>
+                  <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
+                    <select mz-select (change)="selectType(prop,$event)">
+                      <option *ngFor="let type of prop.types" [ngValue]="type">{{ type }}</option>
+                    </select>
+                  </mz-select-container>
+                  <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
+                </td>
+                <td>{{prop.comment}} {{prop.idInput}}d</td>
+                <td>
+                  <mz-checkbox-container>
+                    <input mz-checkbox id="{{prop.idInput}}" class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{prop.selected}}"
+                      [(ngModel)]="prop.selected" (change)="selectPropertie(prop,$event)">
+                  </mz-checkbox-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mz-modal-content>
+    <mz-modal-footer>
+      <a class="waves-effect btn-flat primary-color-text text-align center" mz-modal-close>Cerrar</a>
+    </mz-modal-footer>
+  </mz-modal>
+
+  <mz-modal #modalAddPropertieForRelationship [fixedFooter]="true">
+    <mz-modal-content style="font-size: 13px;">
+      <div class="row">
+        <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+            <input style="margin-bottom: 5px;" mz-input [label]="'Buscar un tipo de dato'" id="search-input-propertie"
+              type="text" [(ngModel)]="searchText">
+          </mz-input-container>
+        </div>
+        <div class="col s12 header-box">
+          <h5 class="primary-color-text">{{relationship.type}}</h5>
+          <p>{{relationship.name}}</p>
+        </div>
+        <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
+          <table class="bordered striped centered">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.type' | translate}}</th>
+                <th>Descripcion</th>
+                <th>{{'semanticForm.table.header.select' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prop of properties | filter:searchText">
+                <td>{{prop.label}}</td>
+                <td>
+                  <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
+                    <select mz-select (change)="selectType(prop,$event)">
+                      <option *ngFor="let type of prop.types" [ngValue]="type">{{ type }}</option>
+                    </select>
+                  </mz-select-container>
+                  <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
+                </td>
+                <td>{{prop.comment}} {{prop.idInput}}d</td>
+                <td>
+                  <mz-checkbox-container>
+                    <input mz-checkbox id="{{prop.idInput}}+'?'" class="filled-in checkbox-orange" filledIn=true
+                      type="checkbox" value="{{prop.selected}}" [(ngModel)]="prop.selected"
+                      (change)="selectPropertie(prop,$event)">
+                  </mz-checkbox-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mz-modal-content>
+    <mz-modal-footer>
+      <a class="waves-effect btn-flat primary-color-text text-align center" mz-modal-close>Cerrar</a>
+    </mz-modal-footer>
+  </mz-modal>

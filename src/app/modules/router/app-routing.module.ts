@@ -16,6 +16,8 @@ import { PublicationContainerComponent } from '../../components/forum/publicatio
 import { ForumComponent } from '../../components/forum/forum.component';
 import { PageVersionComponent } from '../../components/page-version/page-version.component';
 import { SearchComponent } from 'app/components/search/search.component';
+import { OntologyComponent } from 'app/components/ontology/ontology.component';
+
 
 
 
@@ -39,7 +41,8 @@ const routes: Routes = [
   { path: 'users/password/edit', component: ChangePasswordComponent, data: {animation:'collection'} },
 	{ path: 'forum/:transcriptionId', component: ForumComponent, data: {animation:'transcription'} },
   { path: 'page-version/:pageId', component: PageVersionComponent, data: {animation:'page-version'} },
-  { path: 'search', component: SearchComponent, data: { animation: 'search' } }
+  { path: 'search', component: SearchComponent, data: { animation: 'search' } },
+  { path: 'ontology', component: OntologyComponent, data: { animation: 'ontology' } }
 ];
 
 @NgModule({

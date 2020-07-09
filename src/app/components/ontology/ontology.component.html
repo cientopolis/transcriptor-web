@@ -1,0 +1,91 @@
+
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-20">{{'ontology.title' | translate}} <button mz-button class="right m-t-10"
+            (click)="openModalOntology()">
+            <i mz-avatar mz-icon-mdi [icon]="'library-plus'"
+              [align]="'left'"></i>{{'ontology.button.create' | translate}}</button></h4>
+      </mz-card-title>
+      <mz-card-content>
+        <mz-collection>
+          <mz-collection-item [avatar]="true" *ngFor="let ontology of  ontologies | filter:searchOntologyText"
+            (click)="openModalUpdateOntology(ontology)" class="collection-item">
+            <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
+            <h5>{{ontology.name}}</h5>
+            <p class="descriptiom-item">{{ontology.description}}</p>
+            <div mz-secondary-content>
+              <i mz-icon-mdi [icon]="'pencil'"
+                  [align]="'left'" class="secondary-item"></i>
+            </div>
+          </mz-collection-item>
+        </mz-collection>
+      </mz-card-content>
+    </mz-card>
+
+    <mz-modal #modalNewOntology [fixedFooter]="true">
+      <mz-modal-header>
+        <h5 *ngIf="!updateMode">{{'ontology.modal.create.title' | translate}}</h5>
+        <h5 *ngIf="updateMode">{{'ontology.modal.edit.title' | translate}}</h5>
+      </mz-modal-header>
+      <mz-modal-content>
+        <div class="row">
+          <div class="col m12">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.name' | translate"
+                [(ngModel)]="ontology.name" type="text">
+            </mz-input-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m12">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.url' | translate"
+                [(ngModel)]="ontology.url" type="text">
+            </mz-input-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m12">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.domainkey' | translate"
+                [(ngModel)]="ontology.domainkey" type="text">
+            </mz-input-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m12">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.prefix' | translate"
+                [(ngModel)]="ontology.prefix" type="text">
+            </mz-input-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <mz-textarea-container>
+              <textarea mz-textarea [(ngModel)]="ontology.description"
+                [label]="'ontology.modal.create.label.description' | translate">
+                </textarea>
+            </mz-textarea-container>
+          </div>
+        </div>
+        
+        <div class="row center-align" *ngIf="updateMode">
+          <button mz-button class="btn white btn-bordered" mz-modal-close (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'"
+              [align]="'left'"></i>{{'ontology.modal.edit.button.delete' | translate}}</button>
+        </div>
+      </mz-modal-content>
+      <mz-modal-footer>
+        
+        <button mz-button [flat]="true" mz-modal-close>{{'ontology.modal.create.button.cancel' | translate}}</button>
+        <button mz-button [flat]="true" mz-modal-close
+          (click)="createOntology()" *ngIf="!updateMode">{{'ontology.modal.create.button.save' | translate}}</button>
+        <button mz-button [flat]="true" mz-modal-close (click)="updateOntology()"
+          *ngIf="updateMode">{{'ontology.modal.edit.button.save' | translate}}</button>
+
+      </mz-modal-footer>
+    </mz-modal>
+
+  </div>

@@ -1,0 +1,49 @@
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+
+<app-ontologies *ngIf="!ontology"
+  (ontologySelected)="selectOntology($event)">
+</app-ontologies>
+
+<div class="row"  *ngIf="!loader && ontology" style="margin-top: 0px;">
+  <mz-input-container>
+    <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+    <input mz-input [label]="'Buscar un tipo de dato'"  
+    id="search-input-scheme"  type="text" [(ngModel)]="searchText">
+  </mz-input-container>
+  <div class="col s12">
+    <span class="primary-color-text">A continuación se listaran los tipos de la ontologia: {{ontology.name}}</span>
+  </div>
+  <div class="col s12">
+    <ul class="breadcrumb">
+      <li *ngFor="let parent of parents"><a (click)="setParent(parent)">{{parent.label}}</a></li>
+    </ul>
+  </div>
+  <div class="col s12">
+    <small class="primary-color-text" *ngIf="typeSelected">Seleccionaste el tipo: {{typeSelected.label}}</small>
+    <small class="primary-color-text" *ngIf="!typeSelected">Debe seleccionar una tipo de {{ontology.name}} </small>
+  </div>
+  <div class="row" *ngIf="types && types.length>0">
+    <div class="col s12">
+      <h5>Tipos de datos</h5>
+      <mz-collection >
+        <mz-collection-item [avatar]="true" *ngFor="let type of  types | filter:searchText" (click)="selectOntologyClass(type)" class="collection-item">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <h6>{{type.label }}</h6>
+          <p class="descriptiom-item">{{type.comment }}</p>
+          <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi [icon]="'chevron-right'"
+              [align]="'left'"></i></a>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+  </div>
+  <div class="row" *ngIf="!types || types.length==0">
+    <div class="col s12">
+      <h6 class="primary-color-text text-align center">No hay tipos para mostrar</h6>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="row">
+  <div *ngFor="let relationship of  relationshipsSelected">
+    <app-select-properties *ngIf="!relationship.searchRelationship"
+      [colapsible]='true'
+      [relationship]="relationship"
+      (relationshipGenerated)="handleRelationGenerated($event)" 
+      [showCancel]='true'
+      (deleteRelation)="handleDeleteRelationship($event)"
+      (validatePropertiesEvent)="handlePropertieValidation($event)"
+      (cancel)="searchRelationship($event)">
+    </app-select-properties>
+    <app-search-semantic-relationship *ngIf="relationship.searchRelationship" 
+      [relationship]="relationship"
+      (createRelation)="handleNewRelationship($event)"
+      (createRelationType)="assignRelationship($event)"
+      (deleteRelation)="handleDeleteRelationship($event)">
+    </app-search-semantic-relationship>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12" style="padding-right: 0px;padding-left: 0px;">
+    <a (click)="openModalSelectRelarionship()"
+      class="waves-effect waves-light btn-small" style="width: 100%;
+    background-color: #bf360c;
+    text-align:center;
+    color:white;
+    border: 1px solid white ;font-size: 13px;">+ Agregar Relacion</a>
+  </div>
+</div>
+
+
+
+  <mz-modal #modalAddRelationPropertie [fixedFooter]="true">
+    <mz-modal-header>
+      Agregar una relacion
+    </mz-modal-header>
+    <mz-modal-content style="font-size: 13px;">
+      <div class="row"  *ngIf="ontologyInstance && !loader">
+        <div class="col m12"  style="padding-left: 0px;padding-right: 0px;">
+          <mz-input-container>
+            <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+            <input mz-input [label]="'Buscar un tipo de dato'" id="search-input-relationship" length="150" type="text"
+              [(ngModel)]="searchText">
+          </mz-input-container>
+        </div>
+        <div class="col s12 header-box">
+          <h5 class="primary-color-text">{{ontologyInstance.name}}</h5>
+          <p>propiedades</p>
+        </div>
+        <div class="col s12">
+          <table class="bordered striped" style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.type' | translate}}</th>
+                <th>Descripcion</th>
+                <th>{{'semanticForm.table.header.select' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let relation of relationships | filter:searchText">
+
+                <td>{{relation.label}}</td>
+                <td>
+                  <mz-select-container *ngIf="relation && relation.types && relation.types.length>1" (click)="$event.stopPropagation()">
+                    <select mz-select (change)="selectType(relation,$event)">
+                      <option *ngFor="let type of relation.types" [ngValue]="type">{{ type }}</option>
+                    </select>
+                  </mz-select-container>
+                  <span *ngIf="relation.types.length==1">{{relation.types[0]}}</span>
+                </td>
+                <td >{{relation.comment}}</td>
+                <td>
+                  <mz-checkbox-container>
+                    <input mz-checkbox id="{{relation.idInput}}"  class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{relation.selected}}" [(ngModel)]="relation.selected"
+                      (change)="selectRelation(relation,$event)">
+                  </mz-checkbox-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+  
+  
+    </mz-modal-content>
+    <mz-modal-footer>
+      <a class="waves-effect btn-flat primary-color-text text-align center" mz-modal-close>Cerrar</a>
+    </mz-modal-footer>
+  </mz-modal>
