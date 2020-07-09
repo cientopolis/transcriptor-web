@@ -76,20 +76,26 @@
           </div>
         </div>
         <div class="row m-b-0">
-          <div class="col m4">
+          <div class="col m6">
             <mz-input-container>
               <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las clases' | translate"
                 [(ngModel)]="ontology.class_type" type="text">
             </mz-input-container>
           </div>
-          <div class="col m4">
+          <div class="col m6">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las propiedades literales' | translate"
+                [(ngModel)]="ontology.literal_type" type="text">
+            </mz-input-container>
+          </div>
+          <div class="col m6">
             <mz-input-container>
               <input mz-input class="input-field-primary-color"
                 [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.domainkey"
                 type="text">
             </mz-input-container>
           </div>
-          <div class="col m4">
+          <div class="col m6">
             <mz-input-container>
               <input mz-input class="input-field-primary-color"
                 [label]="'Ingrese la clave de los tipos incluidos'" [(ngModel)]="ontology.rangekey"
@@ -99,7 +105,7 @@
         </div>
 
         <p>Tipos Literales</p>
-        <div class="empty-list-message primary-color-text center-align" *ngIf="ontology.ontology_datatypes_attributes">
+        <div class="empty-list-message primary-color-text center-align" *ngIf="ontology && ontology.ontology_datatypes_attributes && ontology.ontology_datatypes_attributes.length == 0">
           <p>Aún no se cargaron asociaciones de tipos para esta ontología.</p>
         </div>
         <div *ngFor="let datatype of ontology.ontology_datatypes_attributes">
