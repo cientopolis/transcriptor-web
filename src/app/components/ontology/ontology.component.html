@@ -1,9 +1,8 @@
-
 <div class="row m-t-15">
   <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-20">{{'ontology.title' | translate}} <button mz-button class="right m-t-10"
+        <h4 class="m-b-20">{{'ontology.title' | translate}} <button mz-button class="btn btn-small right m-t-5"
             (click)="openModalOntology()">
             <i mz-avatar mz-icon-mdi [icon]="'library-plus'"
               [align]="'left'"></i>{{'ontology.button.create' | translate}}</button></h4>
@@ -13,11 +12,10 @@
           <mz-collection-item [avatar]="true" *ngFor="let ontology of  ontologies | filter:searchOntologyText"
             (click)="openModalUpdateOntology(ontology)" class="collection-item">
             <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
-            <h5>{{ontology.name}}</h5>
+            <h6>{{ontology.name}}</h6>
             <p class="descriptiom-item">{{ontology.description}}</p>
             <div mz-secondary-content>
-              <i mz-icon-mdi [icon]="'pencil'"
-                  [align]="'left'" class="secondary-item"></i>
+              <i mz-icon-mdi [icon]="'pencil'" [align]="'left'" class="secondary-item"></i>
             </div>
           </mz-collection-item>
         </mz-collection>
@@ -30,58 +28,115 @@
         <h5 *ngIf="updateMode">{{'ontology.modal.edit.title' | translate}}</h5>
       </mz-modal-header>
       <mz-modal-content>
-        <div class="row">
-          <div class="col m12">
+        <div class="row m-b-0">
+          <div class="col m6">
             <mz-input-container>
               <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.name' | translate"
                 [(ngModel)]="ontology.name" type="text">
             </mz-input-container>
           </div>
+          <div class="col m6">
+            <div class="file-field input-field">
+              <div class="btn btn-small">
+                <span>Archivo de definición</span>
+                <input #fileInput tabindex="-1" accept="*" type="file" name="ontology[graph_file]" id="ontology_graph_file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-b-0">
+          <div class="col s12">
+            <mz-textarea-container>
+              <textarea mz-textarea [(ngModel)]="ontology.description"
+                [label]="'ontology.modal.create.label.description' | translate">
+              </textarea>
+            </mz-textarea-container>
+          </div>
         </div>
         <div class="row">
-          <div class="col m12">
+          <div class="col m6">
             <mz-input-container>
               <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.url' | translate"
                 [(ngModel)]="ontology.url" type="text">
             </mz-input-container>
           </div>
-        </div>
-        <div class="row">
-          <div class="col m12">
-            <mz-input-container>
-              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.domainkey' | translate"
-                [(ngModel)]="ontology.domainkey" type="text">
+          <div class="col m6">
+            <mz-input-container class="input-text-prefixed">
+              <input mz-input class="input-field-primary-color"
+                [label]="'ontology.modal.create.label.prefix' | translate" [(ngModel)]="ontology.prefix" type="text">
             </mz-input-container>
           </div>
         </div>
-        <div class="row">
-          <div class="col m12">
-            <mz-input-container>
-              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.prefix' | translate"
-                [(ngModel)]="ontology.prefix" type="text">
-            </mz-input-container>
-          </div>
-        </div>
-        <div class="row">
+        <div class="row m-b-0">
           <div class="col s12">
-            <mz-textarea-container>
-              <textarea mz-textarea [(ngModel)]="ontology.description"
-                [label]="'ontology.modal.create.label.description' | translate">
-                </textarea>
-            </mz-textarea-container>
+            <h6>Configuración de tipos</h6>
           </div>
         </div>
-        
+        <div class="row m-b-0">
+          <div class="col m6">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color"
+                [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.domainkey"
+                type="text">
+            </mz-input-container>
+          </div>
+          <div class="col m6">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color"
+                [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.rangekey"
+                type="text">
+            </mz-input-container>
+          </div>
+        </div>
+
+        <p>Tipos Literales</p>
+        <div class="empty-list-message primary-color-text center-align" *ngIf="ontology.ontology_datatypes_attributes">
+          <p>Aún no se cargaron asociaciones de tipos para esta ontología.</p>
+        </div>
+        <div *ngFor="let datatype of ontology.ontology_datatypes_attributes">
+          <div class="row m-b-10 datatype-container valign-wrapper" *ngIf="!datatype._destroy">
+            <div class="datatype-values">
+              <div class="col m6">
+                <mz-input-container>
+                  <input mz-input class="input-field-primary-color" [label]="'Clase Literal' | translate"
+                    [placeholder]="'Ej.: schema:Date'"
+                    [(ngModel)]="datatype.semantic_class" type="text">
+                </mz-input-container>
+              </div>
+              <div class="col m6">
+                <mz-select-container (click)="$event.stopPropagation()">
+                  <select mz-select id="options-select" [label]="'Tipo de campo'"
+                    [(ngModel)]="datatype.internal_type" [required]="'true'">
+                    <option *ngFor="let internalType of internalTypes" [ngValue]="internalType">{{internalType}}</option>
+                  </select>
+                </mz-select-container>
+              </div>
+            </div>
+            <div class="datatype-remove right">
+              <i mz-icon-mdi [icon]="'delete-forever'" (click)="datatype._destroy = true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="row center-align">
+          <a class="waves-effect waves-light btn btn-primary white-text m-b-20" (click)="addDataType()">+ Agregar Tipo</a>
+        </div>
+
         <div class="row center-align" *ngIf="updateMode">
-          <button mz-button class="btn white btn-bordered" mz-modal-close (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'"
-              [align]="'left'"></i>{{'ontology.modal.edit.button.delete' | translate}}</button>
+          <button mz-button class="btn white btn-bordered" mz-modal-close (click)="confirmDelete()">
+            <i mz-icon-mdi
+              [icon]="'delete-forever'"
+              [align]="'left'"></i>{{'ontology.modal.edit.button.delete' | translate}}
+          </button>
         </div>
       </mz-modal-content>
       <mz-modal-footer>
-        
+
         <button mz-button [flat]="true" mz-modal-close>{{'ontology.modal.create.button.cancel' | translate}}</button>
-        <button mz-button [flat]="true" mz-modal-close
-          (click)="createOntology()" *ngIf="!updateMode">{{'ontology.modal.create.button.save' | translate}}</button>
+        <button mz-button [flat]="true" mz-modal-close (click)="createOntology()"
+          *ngIf="!updateMode">{{'ontology.modal.create.button.save' | translate}}</button>
         <button mz-button [flat]="true" mz-modal-close (click)="updateOntology()"
           *ngIf="updateMode">{{'ontology.modal.edit.button.save' | translate}}</button>
 
