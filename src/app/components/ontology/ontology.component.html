@@ -76,17 +76,23 @@
           </div>
         </div>
         <div class="row m-b-0">
-          <div class="col m6">
+          <div class="col m4">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las clases' | translate"
+                [(ngModel)]="ontology.classType" type="text">
+            </mz-input-container>
+          </div>
+          <div class="col m4">
             <mz-input-container>
               <input mz-input class="input-field-primary-color"
                 [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.domainkey"
                 type="text">
             </mz-input-container>
           </div>
-          <div class="col m6">
+          <div class="col m4">
             <mz-input-container>
               <input mz-input class="input-field-primary-color"
-                [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.rangekey"
+                [label]="'Ingrese la clave de los tipos incluidos'" [(ngModel)]="ontology.rangekey"
                 type="text">
             </mz-input-container>
           </div>
@@ -135,9 +141,9 @@
       <mz-modal-footer>
 
         <button mz-button [flat]="true" mz-modal-close>{{'ontology.modal.create.button.cancel' | translate}}</button>
-        <button mz-button [flat]="true" mz-modal-close (click)="createOntology()"
+        <button mz-button mz-modal-close (click)="createOntology()"
           *ngIf="!updateMode">{{'ontology.modal.create.button.save' | translate}}</button>
-        <button mz-button [flat]="true" mz-modal-close (click)="updateOntology()"
+        <button mz-button mz-modal-close (click)="updateOntology()"
           *ngIf="updateMode">{{'ontology.modal.edit.button.save' | translate}}</button>
 
       </mz-modal-footer>
