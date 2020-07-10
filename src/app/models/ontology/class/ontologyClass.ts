@@ -26,12 +26,14 @@ export class OntologyClass {
     }
     getInternalType(type){
         let internaltype='text';
-        this.ontology.ontology_datatypes.forEach(dataType => {
-            if (type.toLowerCase().includes(dataType.semantic_class.toLowerCase())){
-                console.log('deberia retornar');
-                internaltype=dataType.internal_type;
-            }
-        });
+        if (this.ontology.ontology_datatypes) {            
+            this.ontology.ontology_datatypes.forEach(dataType => {
+                if (type.toLowerCase().includes(dataType.semantic_class.toLowerCase())){
+                    console.log('deberia retornar');
+                    internaltype=dataType.internal_type;
+                }
+            });
+        }
    
         return internaltype;
     }

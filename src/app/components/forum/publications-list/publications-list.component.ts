@@ -17,14 +17,19 @@ export class PublicationsListComponent implements OnInit {
   publication = {text:"",foro:null};
   publications = [];
   publicationsResult: boolean = false;
-  @Input() modalOptions: Materialize.ModalOptions = {};
+  @Input() modalOptions: Materialize.ModalOptions = {
+    opacity: 0,
+    ready: function() {
+      $('.modal-overlay').remove()
+    }
+  };
   @Output() close = new EventEmitter();
   replyBoxFocused:boolean = false;
 
   constructor(private publicationService:PublicationService, public global: SimpleGlobal,private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    $('.publications-modal').modal()
+    $('.publications-modal').modal(this.modalOptions)
   }
   open() {
     $('.publications-modal').modal('open')

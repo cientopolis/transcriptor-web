@@ -23,3 +23,42 @@
     color: $primaryColor;
     margin-top: 5px;
 }
+
+:host ::ng-deep .file-field.input-field {
+    display: flex;
+    align-items: center;
+}
+:host ::ng-deep .btn.btn-small {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+:host ::ng-deep .input-text-prefixed .input-field {
+    display: flex;
+    align-items: center;
+}
+:host ::ng-deep i.input-text-prefix.prefix {
+    position: absolute;
+    width: 3rem;
+    font-size: 1.1rem;
+    font-style: normal;
+    transition: color .2s;
+    padding-bottom: 1.4rem;
+}
+
+:host ::ng-deep .modal {
+    width: 65%;
+}
+
+.datatype-container {
+    background-color: #f2f2f2;
+    padding: 16px;
+    border-radius: 8px;
+}
+.datatype-container input[type=text]:not(.browser-default),
+:host ::ng-deep .select-wrapper input.select-dropdown {
+    margin: 0;
+}
+.datatype-container .datatype-values {
+    width: calc(100% - 24px);
+}
