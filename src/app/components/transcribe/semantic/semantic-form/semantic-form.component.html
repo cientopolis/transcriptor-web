@@ -9,8 +9,8 @@
         <p style="font-size: 13px;">Los tipos de datos te ayudarán a definir mejor lo que querés representar dentro del manuscrito, usa el buscador para
         encontrar el que necesitas ¡Hay un montón!</p>
       </div>
-      <div class="row" >
-        <select-ontology-type [mark]="mark" (ontologySelected)="selectOntology($event)" (ontologyTypeSelected)="handleOntologyClassSelected($event)" [eagerSelection]="false" [notifyNextStep]="notifyNextStep1"></select-ontology-type>
+      <div class="row" *ngIf="mark">
+        <select-ontology-type [showStepper]="true" (ontologySelected)="selectOntology($event)" (ontologyTypeSelected)="handleOntologyClassSelected($event)" [eagerSelection]="false" [notifyNextStep]="notifyNextStep1"></select-ontology-type>
       </div>
       <div class="step-actions">
           <div class="fixed-action-btn previous-step" style="position: left;margin-right: 5%;">

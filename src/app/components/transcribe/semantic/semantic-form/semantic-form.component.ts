@@ -227,7 +227,6 @@ handleSchemeRelationships(event){
 /*   this.addProperties(event.relationshipsSelected,true); */
   this.showGeneratedScheme = true;
   this.ontologyInstance.relations = event.relationshipsSelected;
-  console.log(this.ontologyInstance);
   this.saveScheme(false);
 }
 
@@ -279,7 +278,7 @@ handleSchemeRelationships(event){
           }
 
         }
-        console.log(show)
+
 /*         this.schema_type="http://schema.org/" + this.schemeName */
 
         this.markView = { semanticContribution: { text: show, schema_type: this.ontologyInstance.ontologyClass.getName()} };
@@ -301,11 +300,17 @@ handleSchemeRelationships(event){
   }
 
   ngAfterViewInit() {
-    this.handlePropertieValidation(false);    
+   // this.handlePropertieValidation(false);
+    this.hideButtonStep();    
+  }
+  hideButtonStep(){
+    let a = $('#first-step .btn-floating');
+    a.prop('disabled', false);
+    a.parent().css({ pointerEvents: "auto",display:"none"});
+    a.removeClass('disabled');
   }
 
   selectOntology(event) {
-    console.log('Ontologia seleccionada', event)
     this.ontology = event;
     if(this.ontology==null){
       this.handlePropertieValidation(false);
@@ -315,7 +320,6 @@ handleSchemeRelationships(event){
   }
 
   handlePropertieValidation(event = null){
-    console.log(event);
     if(event!=null){
       this.formValid = event;
     }else{
@@ -324,11 +328,11 @@ handleSchemeRelationships(event){
     if(event){
       let a = $('#first-step .btn-floating');
       a.prop('disabled', false);
-      a.parent().css({ pointerEvents: "auto" });
+      a.parent().css({ pointerEvents: "auto", display: "inline-block" });
       a.removeClass('disabled');
     }else{
       let a = $('#first-step .btn-floating');
-      a.parent().css({ pointerEvents: "none" });
+      a.parent().css({ pointerEvents: "none", display: "inline-block" });
       a.prop('disabled',true);
       a.addClass('disabled')
     }

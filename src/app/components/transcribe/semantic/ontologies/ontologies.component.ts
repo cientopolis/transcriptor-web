@@ -1,5 +1,5 @@
 import { OntologyService } from './../../../../services/ontology/ontology.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { Ontology } from 'app/models/ontology/ontology';
 
 @Component({
@@ -7,23 +7,45 @@ import { Ontology } from 'app/models/ontology/ontology';
   templateUrl: './ontologies.component.html',
   styleUrls: ['./ontologies.component.scss']
 })
-export class OntologiesComponent implements OnInit {
+export class OntologiesComponent implements OnInit, AfterViewInit{
   loader=true;
   ontologies : Array<Ontology>;
   searchOntologyText:string;
   ontology:Ontology;
-
+  @Input() showStepper = false;
   @Output() public ontologySelected = new EventEmitter<Ontology>(); 
 
   constructor(private ontologyService: OntologyService) { }
 
+  ngAfterViewInit() {
+    // this.handlePropertieValidation(false);
+    // this.hideButtonStep();
+    //this.disableButton();
+
+  }
+
+  disableButton(){
+    console.log('disable');
+    let a = $('#select-ontology-step .btn-floating');
+    a.prop('disabled', true);
+    a.addClass('disabled');
+    //a.parent().css({ pointerEvents: "auto" });
+  }
+
+  enableButton() {
+    console.log('enable');
+    let a = $('#select-ontology-step .btn-floating');
+    $('#select-ontology-step .btn-floating').removeClass('disabled')
+    a.prop('disabled', false);
+
+  }
   ngOnInit() {
+    console.log(this.showStepper);
     this.getOntologies();
   }
   getOntologies(){
     this.ontologies = new Array<Ontology>();
     this.ontologyService.list({}).subscribe(response => {
-      console.log(response);
       if (response) {
         response.forEach(ontology => {
           let on = new Ontology(ontology);
@@ -31,15 +53,21 @@ export class OntologiesComponent implements OnInit {
         });
       }
       this.loader = false;
-      console.log(this.ontologies);
     })
 
   }
 
   selectOntology(ontology) {
     this.ontology = ontology;
+    this.enableButton();
   }
   confirmOntology(){
+    console.log('confirm');
+    let a = $('#select-ontology-step .btn-floating');
+    a.prop('disabled', false);
+    a.parent().css({ pointerEvents: "auto", display: "none" });
+    a.removeClass('disabled');
+
     this.searchOntologyText = '';
     this.ontologySelected.emit(this.ontology);
   }

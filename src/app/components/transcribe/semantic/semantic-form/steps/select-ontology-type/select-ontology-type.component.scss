@@ -47,11 +47,11 @@ ul.breadcrumb li+li:before {
   content: "/\00a0";
 }
 ul.breadcrumb li a {
-  color:#e65100;
+  color:$primaryColor;
   text-decoration: none;
 }
 ul.breadcrumb li a:hover {
-  color: #c04705;
+  color: $primaryColor;
   text-decoration: underline;
   cursor:pointer; cursor: hand;
 }

@@ -6,6 +6,7 @@
 </div>
 
 <app-ontologies *ngIf="!ontology"
+  [showStepper] = "showStepper"
   (ontologySelected)="selectOntology($event)">
 </app-ontologies>
 

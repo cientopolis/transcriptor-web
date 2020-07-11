@@ -15,10 +15,10 @@ export class SelectOntologyTypeComponent implements OnInit {
   schemasShow= new Array<any>();
   types: Array<OntologyClass>;
   typeSelected: OntologyClass;
+  @Input() public showStepper = false;
   @Input() ontology:Ontology;
   @Input() notifyNextStep = false;
   @Input() eagerSelection = true;
-  @Input() mark: any;
   @Output() public ontologySelected = new EventEmitter<any>();
   @Output() public ontologyTypeSelected = new EventEmitter<OntologyClass>();
   constructor(
@@ -30,7 +30,6 @@ export class SelectOntologyTypeComponent implements OnInit {
     if(this.ontology!=null){
       this.getTypes();
     }else{
-      console.log('debe tener una ontologia cargada');
       this.ontology = null;
       this.loader = false;
       this.returnOntology(null); 
@@ -42,7 +41,6 @@ export class SelectOntologyTypeComponent implements OnInit {
     this.loader = true;
     let params = { parent: this.typeSelected.name, ontology_id: this.ontology.id }
     this.semanticService.getTypesTreejson(params).subscribe(response => {
-      console.log(response);
       this.setChildrens(response);
       this.loader = false;
       this.changeDetector.detectChanges();
@@ -56,7 +54,6 @@ export class SelectOntologyTypeComponent implements OnInit {
       });
     }
     this.types = childs;
-    console.log(childs);
   }
 
   selectOntologyClass(ontologyClass) {
@@ -77,7 +74,6 @@ export class SelectOntologyTypeComponent implements OnInit {
     return false;
   }
   getTypes(){
-    console.log('Get First types');
     this.loader=true;
     let params = { parent: this.typeSelected,ontology_id:this.ontology.id}
     this.semanticService.getTypesTreejson(params).subscribe(response => {
@@ -90,7 +86,6 @@ export class SelectOntologyTypeComponent implements OnInit {
         this.parents.push(parent);
         this.setChildrens(response);
       }
-      console.log(this.typeSelected);
       this.loader = false;
       this.changeDetector.detectChanges();
     }); 
@@ -108,7 +103,6 @@ export class SelectOntologyTypeComponent implements OnInit {
   }
 
   selectOntology(event) {
-    console.log('Ontologia seleccionada desde el type', event)
     this.ontology = event;
     this.getTypes(); 
     this.returnOntology(this.ontology); 
@@ -128,11 +122,8 @@ export class SelectOntologyTypeComponent implements OnInit {
 
 
   selectClass() {
-    console.log(this.typeSelected);
     if(this.typeSelected.id!=null){
       this.ontologyTypeSelected.emit(this.typeSelected);
-    }else{
-      console.log('el tipo seleccionado esta vacio');
     }
   }
 

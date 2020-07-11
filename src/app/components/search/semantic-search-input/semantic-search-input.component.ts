@@ -82,7 +82,6 @@ export class SemanticSearchInputComponent implements OnInit {
   }
 
   selectType(type) {
-    console.log(this.filterType);
     this.filterType = type
   }
 

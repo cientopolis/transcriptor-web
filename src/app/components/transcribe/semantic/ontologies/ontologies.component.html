@@ -30,10 +30,17 @@
         </mz-collection-item>
       </mz-collection>
     </div>
-  <div class="col s12" *ngIf="ontology">
-        <a class="waves-effect waves-light btn-small button-bordered"  (click)="confirmOntology()">
-         Confirmar ontologia</a>
-  </div>
+    <div class="col s12" *ngIf="!showStepper && ontology">
+          <a class="waves-effect waves-light btn-small button-bordered"  (click)="confirmOntology()">
+          Confirmar ontologia</a>
+    </div>
+    <div class="col s12" *ngIf="showStepper">
+      <div class="fixed-action-btn" id="select-ontology-step">
+        <button type="button" class="btn-floating btn-large buttonselect-ontology-step disabled" (click)="confirmOntology()">
+          <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="row" *ngIf="!ontologies || ontologies.length==0">
     <div class="col s12">
