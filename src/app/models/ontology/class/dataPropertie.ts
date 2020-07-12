@@ -26,7 +26,6 @@ export class DataPropertie {
     }
     generateId(){
         this.idInput = Date.now().toString() + this.name;
-        console.log(this.idInput);
     }
     getInternalType(type){
         return this.ontologyClass.getInternalType(type);

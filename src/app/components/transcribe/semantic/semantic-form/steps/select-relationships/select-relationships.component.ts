@@ -44,20 +44,17 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   }
 
   getRelationships() {
-    console.log('get relation prop');
     this.relationships = new Array<RelationOntologyClass>();
     this.relationshipsSelected = new Array<any>();
     let param = { class: this.ontologyInstance.name };
     this.semanticService.getRelationships(param).subscribe(result => {
       let relations = result;
-      console.log(relations);
       let propertiesClass = new Array<RelationOntologyClass>();
       relations.forEach(prop => {
         propertiesClass.push(new RelationOntologyClass(prop,this.ontologyInstance.ontologyClass));
       });
       this.relationships = propertiesClass;
       this.loader = false;
-      console.log(propertiesClass);
     });
   }
   public openModalSelectRelarionship() {
@@ -70,7 +67,6 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         relationship.properties = event.properties;
       }
     })
-    console.log(this.relationshipsSelected);
   }
   generateSchemeRelationships(){
     let relationships = new Array<RelationOntologyInstance>();
@@ -127,7 +123,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
       if (item.label.toLowerCase() === event.label.toLowerCase()) this.relationshipsSelected.splice(index, 1);
     });
     this.relationships.forEach( prop => {
-      if (prop.label.toLowerCase() == event.label.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
+      if (prop.label.toLowerCase() == event.label.toLowerCase()) { prop.selected = false; return}
     })
   }
 
@@ -141,7 +137,6 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         if (item.label.toLowerCase() === relation.label.toLowerCase()) this.relationshipsSelected.splice(index, 1);
       });
     }
-    console.log(this.relationshipsSelected);
   }
 
   selectType(prop, event) {
@@ -160,11 +155,9 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         if (item.label.toLowerCase() === event.label.toLowerCase()) item.relationPersisted = event.semanticRelationship;
       });
     }
-    console.log(this.relationshipsSelected);
   }
 
   assignRelationship(event){
-    console.log(event);
     if(event && event.label!=null){
       this.relationshipsSelected.forEach((item, index) => {
         if (item.label.toLowerCase() === event.label.toLowerCase()) item.searchRelationship=false;

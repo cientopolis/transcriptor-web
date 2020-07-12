@@ -27,6 +27,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   showSaveButton:Boolean = false;
   contribution_slug:string;
   semanticContribution = null;
+  label = null;
 
   constructor(private transcribeService: TranscribeService,
      private markService: MarkService,
@@ -59,6 +60,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     mark.semantic_text = this.semantic_text;
     mark.schema_type = this.schema_type;
     mark.contribution_slug = this.contribution_slug;
+    mark.label = this.label;
     this.renderedMark.mark=mark;
     this.delegate.addModalMark();
       }
@@ -66,10 +68,12 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.selectRelationship=false;
   }
   proccessScheme(event){
+    console.log(event);
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;
     this.contribution_slug = event.contribution_slug;
+    this.label=event.label;
     this.save();
    }
 

@@ -222,11 +222,11 @@ export class SemanticModelService {
     listEntities(filter, options = {}) {
       return this.httpService.lpost(this.listEntitiesPath, filter, options);
     }
-
-    getEntity(entityId, useDefaultSchema, options = {}) {
+    //https://himalia.ddns.net:8080/api/semantic_entity/describe?entity_id=slu&use_default_schema=true&is_contribution=true
+    getEntity(entityId, useDefaultSchema,isContribution = false, options = {}) {
       var getEntityPathWithParams = `${this.getEntityPath}?entity_id=${entityId}`
       getEntityPathWithParams = useDefaultSchema ? `${getEntityPathWithParams}&use_default_schema=${useDefaultSchema}` : getEntityPathWithParams
+      getEntityPathWithParams = isContribution ? `${getEntityPathWithParams}&is_contribution=${isContribution}` : getEntityPathWithParams;
       return this.httpService.lget(getEntityPathWithParams, options);
     }
-  
 }

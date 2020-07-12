@@ -120,7 +120,6 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 import { SemanticFormComponent } from './components/transcribe/semantic/semantic-form/semantic-form.component';
-import { SchemeBuilderComponent } from './components/transcribe/semantic/semantic-form/scheme-builder/scheme-builder.component';
 import { DataPropertieInputsComponent } from './components/transcribe/semantic/semantic-form/datapropertie-inputs/datapropertie-inputs.component.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
@@ -143,6 +142,7 @@ import { SearchSemanticRelationshipComponent } from './components/transcribe/sem
 import { ShowRelationshipItemComponent } from './components/transcribe/semantic/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
 import { OntologyComponent } from './components/ontology/ontology.component';
+import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
 
 @NgModule({
   declarations: [
@@ -182,7 +182,6 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     SemanticFormComponent,
     ListSemanticMarksComponent,
     SchemePipe,
-    SchemeBuilderComponent,
     DataPropertieInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
@@ -202,7 +201,8 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     SearchSemanticRelationshipComponent,
     ShowRelationshipItemComponent,
     OntologiesComponent,
-    OntologyComponent
+    OntologyComponent,
+    EmptyValuePipe
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,11 @@
-<div class="row" *ngIf="!showPreviousSave && !relation">
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+
+<div class="row" *ngIf="!showPreviousSave && !relation && !loader">
   <div class="col s1 offset-s11" style="margin-top: -70px;">
     <a  (click)="cancel()" >
       <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
@@ -7,11 +14,11 @@
     </a>
   </div>
 </div>
-<div class="row row p-l-10 p-r-10">
+<div class="row row p-l-10 p-r-10" *ngIf=" !loader">
   <div class="row"  style="margin-top: 0px;margin-bottom: 0px;"> 
     <div class="col s12 z-depth-1 header-box">
       <h5 class="primary-color-text">{{markSelected.name }}</h5>
-      <p>{{markSelected.schema_type }}</p>
+      <p>{{markSelected.type }}</p>
     </div>
   </div>
   <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
@@ -28,17 +35,38 @@
               <tr>
                 <th>{{'semanticForm.table.header.name' | translate}}</th>
                 <th>{{'semanticForm.table.header.value' | translate}}</th>
-<!--                 <th>Descripcion</th>
- -->              </tr>
+              </tr>
             </thead>
             <tbody>
               <tr *ngFor="let propertie of properties" class="p-t-0">
                 <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name }}</td>
                 <td class="p-t-5 p-b-5" *ngIf="propertie.model">
-                  <span *ngIf="propertie.type!='URL'">{{propertie.model}}</span>
-                  <a *ngIf="propertie.type=='URL'">-{{propertie.model}}</a>
+                  <span>{{propertie.model}}</span>
                 </td>
-               <!--  <td class="p-t-5 p-b-5">-</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+
+    <mz-collapsible *ngIf="relationship.length>0 && !showPreviousSave" [mode]="'expandable'" style="margin-top: 0px;margin-bottom: 0px;">
+      <mz-collapsible-item [active]="true">
+        <mz-collapsible-item-header>
+          <div class="primary-color-text">
+            <p class="properties">Relaciones</p>
+          </div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          <table class="bordered striped" style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th>{{'semanticForm.table.header.name' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let relation of  relationship" class="p-t-0">
+                <td class="p-t-5 p-b-5" ><a>{{ relation.name | emptyValue}}</a></td>
               </tr>
             </tbody>
           </table>
@@ -48,25 +76,58 @@
 
 
 
-    <mz-collapsible *ngIf="relationship.length>0" [mode]="'expandable'"
+    <mz-collapsible *ngIf="relationship.length>0 && showPreviousSave" [mode]="'expandable'"
        style="margin-top: 0px;margin-bottom: 0px;">
       <mz-collapsible-item [active]="true">
         <mz-collapsible-item-header>
           <div class="primary-color-text">
-            <p class="properties">Relaciones</p>
+            <p class="properties">Relaciones-</p>
           </div>
         </mz-collapsible-item-header>
         <mz-collapsible-item-body>
-          <app-semantic-transcription-details *ngFor="let relation of  relationship" [markSelected]="relation" [relation]="true">
-          </app-semantic-transcription-details>
-        </mz-collapsible-item-body>
+          <div *ngFor="let relation of  relationship">
+            <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
+              <div class="col s12 z-depth-1 header-box">
+                <h5 class="primary-color-text">{{relation.name }}</h5>
+                <p>{{relation.type }}</p>
+              </div>
+            </div>
+              <mz-collapsible [mode]="'expandable'">
+                <mz-collapsible-item [active]="true" style="margin-top: 0px;margin-bottom: 0px;">
+                  <mz-collapsible-item-header style="margin-top: 0px;margin-bottom: 0px;">
+                    <div class="primary-color-text">
+                      <p class="properties">Propiedades</p>
+                    </div>
+                  </mz-collapsible-item-header>
+                  <mz-collapsible-item-body>
+                    <table class="bordered striped" style="font-size: 12px;">
+                      <thead>
+                        <tr>
+                          <th>{{'semanticForm.table.header.name' | translate}}</th>
+                          <th>{{'semanticForm.table.header.value' | translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let propertie of relation.model" class="p-t-0">
+                          <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name }}</td>
+                          <td class="p-t-5 p-b-5" *ngIf="propertie.model">
+                            <span>{{propertie.model}}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mz-collapsible-item-body>
+                </mz-collapsible-item>
+              </mz-collapsible>
+            </div>
+           </mz-collapsible-item-body>
       </mz-collapsible-item>
     </mz-collapsible>
 
   </div>
 </div>
 
-<div class="row" *ngIf="false">
+<!-- <div class="row" *ngIf="false">
   <div class="row">
     <div class="col 12">
       <div class="primary-color-text">
@@ -80,10 +141,10 @@
       </mz-collapsible-item-body>
     </div>
   </div>
-</div>
+</div> -->
 
 
-
+<!-- 
 <mz-collapsible [mode]="'accordein'" *ngIf="false">
   <mz-collapsible-item [active]="false" *ngFor="let mark of  semanticContributions">
     <mz-collapsible-item-header>
@@ -123,3 +184,4 @@
     </mz-collapsible-item-body>
   </mz-collapsible-item>
 </mz-collapsible>
+ -->

@@ -1,3 +1,5 @@
+import { SemanticUtils } from './../../../../../utils/semantic-utils';
+import { SemanticModelService } from './../../../../../services/semantic-model/semantic-model.service';
 import { SchemeUtils } from '../../../../../utils/schema-utils';
 import { HeaderService } from '../../../../../services/sharedData/header.service';
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
@@ -9,16 +11,18 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 })
 export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
 
+  @Input() entityid ;
   @Input() showRelationshipItem = null;
   @Input() markSelected = null;
   @Input() showPreviousSave = false;
   @Input() relation = false;
   @Output() cancelEvent = new EventEmitter<any>();
-
+  loader = true;
   semanticContributions = null;
   relationship = new Array<any>(); 
   properties = new Array<any>();
-  constructor(private headerService: HeaderService) {
+  constructor(private headerService: HeaderService,
+    private semanticService:SemanticModelService) {
 
   }
 
@@ -30,48 +34,50 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
         this.headerService.header = this.markSelected.name;
         this.headerService.showDetails = true;
       }
-      this.semanticContributions = this.markSelected.semanticContribution;
+      if (this.entityid != null) {
+        let options = { use_default_schema: false, is_contribution: true }
+        this.semanticService.getEntity(this.entityid, true,true).subscribe(semanticdata => {
+          console.log(semanticdata);
+          let properties = SemanticUtils.getFromMainEntity(this.markSelected, semanticdata,this.relation);
+          console.log('propetries extracted');
+          console.log(properties);
+          this.semanticContributions = properties;
+          this.setProperties();
+        });;
+      }
     } else {
-      //this.semanticContributions = this.getMarks(this.markSelected);
+      this.semanticContributions = new Array<any>();
+      this.properties = new Array<any>();
+      this.relationship = new Array<any>();
+      this.loader=false;
       this.headerService.showDetails = true;
-      let propertiesSelected = new Array<any>();
       console.log(this.markSelected);
+
       let sContribution = this.markSelected.semanticContribution.text;
       console.log(sContribution);
-      this.semanticContributions = SchemeUtils.getMarksAsNoteDigitalDocument(this.markSelected, sContribution);
+      this.semanticContributions = SemanticUtils.getFromMainEntity(this.markSelected, sContribution,true);
       console.log(this.semanticContributions);
-      this.markSelected.schema_type = this.markSelected.semanticContribution.schema_type;
-      this.markSelected.semanticContribution = this.semanticContributions;
-      this.semanticContributions.push(this.markSelected);
+      this.markSelected.type = this.markSelected.semanticContribution.type;
+      this.setProperties();
     }
 
-    this.semanticContributions.forEach(element => {
 
+  }
+  setProperties(){
+    this.semanticContributions.forEach(element => {
+      console.log(element);
       if (!element.isArray && !element.scheme) {
         this.properties.push(element);
       } else {
-        //element.name = element.model['name'];
         element.semanticContribution = element.model;
-        //element.schema_type=element.name;
-        this.relationship.push(element);
-      }
-    });
-    console.log(this.properties);
-    /*
-    this.semanticContributions = this.markSelected.semanticContribution;
-    this.semanticContributions.forEach(element => {
-        if(!element.isArray){
-        this.properties.push(element);
-      }else{
-        element.name = element.model['name'];
-        element.semanticContribution=element.model;
         this.relationship.push(element);
       }
     });
     console.log(this.relationship);
-
-    */
+    this.loader = false;
+    console.log(this.properties);
   }
+
   cancel(){
     this.headerService.showDetails = false;
     this.cancelEvent.emit();
@@ -79,7 +85,9 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   ngOnInit() {
 
   }
+  showDetail(r){
 
+  }
 
   getMarks(mark) {
     let semanticContributions= new Array<any>();
