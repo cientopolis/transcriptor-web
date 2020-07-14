@@ -41,7 +41,8 @@
               <tr *ngFor="let propertie of properties" class="p-t-0">
                 <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name }}</td>
                 <td class="p-t-5 p-b-5" *ngIf="propertie.model">
-                  <span>{{propertie.model}}</span>
+                  <span *ngIf="!propertie.isUrl">{{propertie.model}}</span>
+                  <a *ngIf="propertie.isUrl">{{propertie.model}}</a>
                 </td>
               </tr>
             </tbody>

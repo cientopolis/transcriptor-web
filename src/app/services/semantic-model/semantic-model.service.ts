@@ -53,8 +53,7 @@ export class SemanticModelService {
       const compacted = jsonld.compact(doc, context);
       return compacted;
     }
-  setContext(ontologyInstance: ontologyClassInstance){
-    let ontology = ontologyInstance.ontologyClass.ontology;
+  setContext(ontologyInstance: ontologyClassInstance = null){
     let context = {
       "@context": {
         "schema": "http://schema.org/",
@@ -65,21 +64,33 @@ export class SemanticModelService {
       "@id": "http://test-lala.com/semantic-contribution-1",
       "@type":"schema:NoteDigitalDocument",
       "schema:mainEntity": {
-
+        
       }
-  
+      
     }
-    context["@context"][ontology.prefix] = ontology.url;
+    if (ontologyInstance){
+      let ontology = ontologyInstance.ontologyClass.ontology;
+      context["@context"][ontology.prefix] = ontology.url;
+    } 
     return context;
   }
 
-  generateJsonld(ontologyInstance:ontologyClassInstance){
+
+  generateJsonld(ontologyInstance:ontologyClassInstance = null,entityPreviousSaved = null){
+    console.log('param received');
+    console.log(ontologyInstance);
     let context = this.setContext(ontologyInstance);
     let instance = {};
     let noteEntitydoc = this.setContext(ontologyInstance);
-    let basicProp = this.processBasicProperties(ontologyInstance.properties,ontologyInstance.ontologyClass.ontology,instance);
-    let relationProp = this.processRelationships(ontologyInstance.relations, ontologyInstance.ontologyClass.ontology, instance)
-    instance['@type']=ontologyInstance.name;
+
+    if(!entityPreviousSaved){
+      let basicProp = this.processBasicProperties(ontologyInstance.properties,ontologyInstance.ontologyClass.ontology,instance);
+      let relationProp = this.processRelationships(ontologyInstance.relations, ontologyInstance.ontologyClass.ontology, instance)
+      instance['@type']=ontologyInstance.name;
+
+    }else{
+      instance = entityPreviousSaved;
+    }
 /*     noteEntitydoc['@type'] = ontologyInstance.ontologyClass.ontology.prefix+':'+ "NoteDigitalDocument"; */
     noteEntitydoc['@id'] = `${environment.semantic_transcription.prefix}`+"semantic-contribution-" + Date.now();
     noteEntitydoc['rdfs:label'] = instance['rdfs:label'];

@@ -64,6 +64,7 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
 
   }
   setProperties(){
+    console.log(this.semanticContributions);
     this.semanticContributions.forEach(element => {
       console.log(element);
       if (!element.isArray && !element.scheme) {
@@ -87,6 +88,9 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   }
   showDetail(r){
 
+  }
+  isUrl(element){
+    return SemanticUtils.isUrl(element);
   }
 
   getMarks(mark) {

@@ -11,7 +11,7 @@ export class ShowRelationshipItemComponent implements OnInit {
   @Input() public semanticItem = null;
   @Input() public onlyShow = false;
   @Output() public finished = new EventEmitter<any>();
-  schemeName:string;
+  type:string;
   markView = null;
   loadedRelation=false;
   compacted:any;
@@ -21,60 +21,22 @@ export class ShowRelationshipItemComponent implements OnInit {
 
   ngOnInit() {
     let propertie = new Array<any>();
-    for (let key in this.semanticItem) {
-      const item = this.semanticItem[key];
-       //ignore la
-      if (key=='@type') {
-        let type = item;
-        if(Array.isArray(item)){
-          type = item[0];
-        }
-        this.schemeName = SchemeUtils.getTypeFromPrefix(type);
-      }
-    }
+    this.type = this.semanticItem['rdfs:label'];
+    this.markView = { semanticContribution: { text: this.semanticItem, schema_type: this.type } };
     this.saveScheme();
   }
   saveScheme() {
 
-    let e = this.semanticService.generateCompacted(this.schemeName, this.semanticItem,false).then(
+    let e = this.semanticService.generateJsonld(null, this.semanticItem).then(
       function (success) {
-        //console.log(component);
+        console.log(success);
         return success;
       }
     );
     e.then(
       result => {
-        let resultShow = JSON.parse(JSON.stringify(result));
-        let show = resultShow['schema:mainEntity'];
-        for (let key in show) {
-          const item = show[key];
-          if(Array.isArray(item)){
-            let cont = 0;
-            item.forEach(possibleRelation => {
-              let hasType=false;
-              for (let pkey in possibleRelation) {
-                const pitem = possibleRelation[pkey];
-                if (pkey=='@type'){
-                  hasType=true;
-                }
-              };
-              if(hasType){
-                if(cont==0){
-                  show[key] = possibleRelation;
-                }else{
-                  show[key + cont] = possibleRelation;
-                }
-                cont++;
-              }
-              
-            });
-          }
-          if (Array.isArray(item['@type'])) {
-            item['@type'] = item['@type'][0];
-          }
 
-        }
-        this.markView = { semanticContribution: { text: resultShow, schema_type: this.schemeName } };
+        this.markView = { semanticContribution: { text: result['schema:mainEntity'], type: this.type } };
         this.compacted=result;
         this.loadedRelation=true;
         return result;
@@ -82,7 +44,7 @@ export class ShowRelationshipItemComponent implements OnInit {
     );
   }
   save(){
-    let obj = { schema_type: this.schemeName, semantic_text: this.compacted, contribution_slug: SchemeUtils.getSlug(this.compacted['@id']) };
+    let obj = { schema_type: this.type, semantic_text: this.compacted, contribution_slug: SchemeUtils.getSlug(this.compacted['@id']), label: this.compacted['rdfs:label'] };
     this.finished.emit(obj);
 
   }

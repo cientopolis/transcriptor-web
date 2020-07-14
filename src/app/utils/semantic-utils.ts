@@ -1,4 +1,5 @@
 export class SemanticUtils {
+    public static regexurl = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 
     public static generateLabelWithoutSpaces(label:string):string{
         let labelws=label;
@@ -18,13 +19,13 @@ export class SemanticUtils {
         if (!isrelation){
             for (let itemKey in relation) {
                 if (itemKey == '@id') {
-                    properties.push({ name: itemKey, value: relation[itemKey], model: relation[itemKey] });
+                    properties.push({ name: itemKey, value: relation[itemKey], model: relation[itemKey], isUrl: true});
                 }
             }
         }else{
             for (let itemKey in relation) {
                 if (itemKey != '@type' && itemKey != '@id') {
-                    properties.push({ name: itemKey, value: relation[itemKey], model: relation[itemKey] });
+                    properties.push({ name: itemKey, value: relation[itemKey], model: relation[itemKey], isUrl: this.isUrl(relation[itemKey]) });
                 }
             }
         }
@@ -47,14 +48,15 @@ export class SemanticUtils {
                     mark.name = item
                 }
                 if (key != '@type' && key != '@id') {
-                    atributes.push({ name: key, value: item, model: item, isArray: false, type: null });
+                    atributes.push({ name: key, value: item, model: item, isArray: false, type: null,isUrl:this.isUrl(item) });
                 }
             }
         }
         return atributes;
 
     }
-
-
+    public static isUrl(element){
+        return this.regexurl.test(element);
+    }
 
 }
