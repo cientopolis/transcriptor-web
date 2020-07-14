@@ -125,12 +125,16 @@ export class ReferenceDetailModalComponent implements OnInit {
     return mark
   }
 
+
   open(mark, referenceInfo = null) {
     this.referenceInfo = referenceInfo
     this.mark = mark
+    this.mark.schema_type=this.mark.semanticContribution.schema_type;
+    this.mark.type = this.mark.semanticContribution.schema_type;
     this.detailMark = null
-    this.detailMark = this.getMarksAsNoteDigitalDocument(mark);
-    
+ //   this.detailMark = this.getMarksAsNoteDigitalDocument(mark);
+    this.detailMark = this.mark;
+    console.log(mark);
     if (referenceInfo) {
       this.map.invalidateSize()
       this.addPageToMap(this.referenceInfo.base_image)      
