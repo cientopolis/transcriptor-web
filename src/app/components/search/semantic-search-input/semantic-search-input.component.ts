@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
-import { SchemePipe } from 'app/pipes/scheme.pipe';
+import { OntologyPipe } from 'app/pipes/ontology.pipe';
 
 @Component({
   selector: 'app-semantic-search-input',
@@ -33,7 +33,7 @@ export class SemanticSearchInputComponent implements OnInit {
   filterType = null
   showedType = null
 
-  constructor(private semanticModelService: SemanticModelService, private schemePipe: SchemePipe) {
+  constructor(private semanticModelService: SemanticModelService, private schemePipe: OntologyPipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults
   }
 

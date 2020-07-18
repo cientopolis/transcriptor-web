@@ -22,7 +22,7 @@ export class ReferenceDetailModalComponent implements OnInit {
   bounds: LatLngBounds;
   pageLayer: any;
   drawnLayers = new L.FeatureGroup();
-
+  isContribution = false;
   options = {
     crs: L.CRS.Simple,
     maxZoom: 3,
@@ -113,28 +113,15 @@ export class ReferenceDetailModalComponent implements OnInit {
     this.map.fitBounds(layer.getBounds(), { padding: [10, 10] });
   }
 
-  getMarksAsNoteDigitalDocument(markParam) {
-    let mark = JSON.parse(JSON.stringify(markParam));
-    if (mark && mark.semanticContribution) {
-      mark.schema_type = mark.semanticContribution.schema_type;
-      let propertiesSelected = new Array<any>();
-      let sContribution = JSON.parse(mark.semanticContribution.text);
-      propertiesSelected = SchemeUtils.getMarksAsNoteDigitalDocument(mark, sContribution);
-      mark.semanticContribution = propertiesSelected;
-    }
-    return mark
-  }
-
-
-  open(mark, referenceInfo = null) {
+  /** isContribution es para saber si tiene que buscar una entidad por contribucion valga la redundancia tv */
+  open(mark, referenceInfo = null, isContribution = true) {
+    this.isContribution = isContribution;
     this.referenceInfo = referenceInfo
     this.mark = mark
     this.mark.schema_type=this.mark.semanticContribution.schema_type;
     this.mark.type = this.mark.semanticContribution.schema_type;
     this.detailMark = null
- //   this.detailMark = this.getMarksAsNoteDigitalDocument(mark);
     this.detailMark = this.mark;
-    console.log(mark);
     if (referenceInfo) {
       this.map.invalidateSize()
       this.addPageToMap(this.referenceInfo.base_image)      

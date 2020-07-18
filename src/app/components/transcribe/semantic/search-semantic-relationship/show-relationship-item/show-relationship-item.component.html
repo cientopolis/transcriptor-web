@@ -4,7 +4,7 @@
     <p>Ahora revisá que los datos sean correctos. Si todo esta bien ya podes continuar con el guardado.</p>
   </div>
   <div class="col-12" *ngIf="loadedRelation" style="padding-left: 2px;padding-right: 2px;">
-    <app-semantic-transcription-details [showPreviousSave]='true' [markSelected]="markView">
+    <app-semantic-transcription-details [showPreviousSave]="isPreviousSave" [isContribution]='false' [entityid]="markView.slug" [markSelected]="markView">
     </app-semantic-transcription-details>
   </div>
   <div class="col-12" *ngIf="!onlyShow">

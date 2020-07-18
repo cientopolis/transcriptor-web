@@ -3,7 +3,7 @@ export class DataPropertie {
     id:number;
     label:string;
     name:string;
-    propertie: string;
+    property: string;
     comment:string;
     types: Array<string>;
     selected:boolean = false;
@@ -18,9 +18,10 @@ export class DataPropertie {
             this.label = propertieJson.label;
             this.name=this.label;
             this.comment = propertieJson.comment;
-            this.propertie=propertieJson.propertie;
+            this.property = propertieJson.property;
             this.types=propertieJson.types;
             this.ontologyClass=propertieJson.ontologyClass;
+            console.log('propertie',this.property);
             this.generateId();
         }
     }

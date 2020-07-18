@@ -1,3 +1,4 @@
+import { SimpleGlobal } from 'ng2-simple-global';
 import { OntologyService } from './../../../../services/ontology/ontology.service';
 import { Component, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { Ontology } from 'app/models/ontology/ontology';
@@ -15,7 +16,7 @@ export class OntologiesComponent implements OnInit, AfterViewInit{
   @Input() showStepper = false;
   @Output() public ontologySelected = new EventEmitter<Ontology>(); 
 
-  constructor(private ontologyService: OntologyService) { }
+  constructor(private ontologyService: OntologyService, public global: SimpleGlobal) { }
 
   ngAfterViewInit() {
     // this.handlePropertieValidation(false);
@@ -33,20 +34,19 @@ export class OntologiesComponent implements OnInit, AfterViewInit{
   }
 
   enableButton() {
-    console.log('enable');
     let a = $('#select-ontology-step .btn-floating');
     $('#select-ontology-step .btn-floating').removeClass('disabled')
     a.prop('disabled', false);
 
   }
   ngOnInit() {
-    console.log(this.showStepper);
     this.getOntologies();
   }
   getOntologies(){
     this.ontologies = new Array<Ontology>();
     this.ontologyService.list({}).subscribe(response => {
       if (response) {
+        this.global['ontologies'] = response;
         response.forEach(ontology => {
           let on = new Ontology(ontology);
           this.ontologies.push(on);
@@ -62,7 +62,6 @@ export class OntologiesComponent implements OnInit, AfterViewInit{
     this.enableButton();
   }
   confirmOntology(){
-    console.log('confirm');
     let a = $('#select-ontology-step .btn-floating');
     a.prop('disabled', false);
     a.parent().css({ pointerEvents: "auto", display: "none" });

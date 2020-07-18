@@ -1,3 +1,5 @@
+@import '~styles/styles';
+
 /*.header{
     
     padding-left: 10px;
@@ -79,3 +81,41 @@ padding: 0px !important;
     padding-top: 0px !important;
     background-color: #f8f8f8 !important;
 }
+
+
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+   overflow: auto;
+}
+
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li:last-child a,
+ul.breadcrumb li:last-child a:hover {
+  background-color: $primaryColor;
+  color:white;
+  border-radius: 3px;
+  padding:3px;
+
+}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color:$primaryColor;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: $primaryColor;
+  text-decoration: underline;
+  cursor:pointer; cursor: hand;
+}
+
+

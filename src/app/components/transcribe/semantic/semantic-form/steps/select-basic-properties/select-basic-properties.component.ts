@@ -88,11 +88,13 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
   }
 
   selectPropertie(propertie, $event) {
+    console.log(propertie);
     if (propertie.selected) {
       if (propertie.types.length > 0) {
         propertie.ontologyClass = this.ontologyInstance.ontologyClass;
         let selectProp = new DataPropertieValue(propertie);        
         this.propertiesSelected.push(selectProp);
+        console.log(this.propertiesSelected);
 //        this.propertiesSelected.push({ name: propertie.name, value: '', type: propertie.types[0], scheme: null, canDelete: true });
         this.validationMap.set(propertie.name,false);
       }
@@ -142,6 +144,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     });
   }
   generateBasicModel() {
+    console.log(this.propertiesSelected);
     this.ontologyInstance.properties=this.propertiesSelected;
     this.basicPropertieGenerated.emit(this.ontologyInstance);
   }

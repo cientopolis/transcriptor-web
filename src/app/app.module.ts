@@ -132,7 +132,7 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchInputComponent } from './components/shared/search-input/search-input.component';
 import { SemanticSearchInputComponent } from './components/search/semantic-search-input/semantic-search-input.component';
 
-import { SchemePipe } from './pipes/scheme.pipe';
+import { OntologyPipe } from './pipes/ontology.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
@@ -181,7 +181,7 @@ import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
     PlayerProfileComponent,
     SemanticFormComponent,
     ListSemanticMarksComponent,
-    SchemePipe,
+    OntologyPipe,
     DataPropertieInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
@@ -277,7 +277,7 @@ import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
     PageVersionService,
     LayerService,
     SemanticModelService,
-    SchemePipe
+    OntologyPipe
   ],
   bootstrap: [AppComponent]
 })

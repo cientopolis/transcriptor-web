@@ -2,7 +2,7 @@ import { SemanticUtils } from './../../../../../utils/semantic-utils';
 import { SemanticModelService } from './../../../../../services/semantic-model/semantic-model.service';
 import { SchemeUtils } from '../../../../../utils/schema-utils';
 import { HeaderService } from '../../../../../services/sharedData/header.service';
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-semantic-transcription-details',
@@ -10,17 +10,22 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
   styleUrls: ['./semantic-transcription-details.component.scss']
 })
 export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
+  @ViewChild('relationDetailModal') relationDetailModal;
 
   @Input() entityid ;
   @Input() showRelationshipItem = null;
   @Input() markSelected = null;
   @Input() showPreviousSave = false;
   @Input() relation = false;
+  @Input() isContribution = true;
   @Output() cancelEvent = new EventEmitter<any>();
   loader = true;
   semanticContributions = null;
   relationship = new Array<any>(); 
   properties = new Array<any>();
+  parentsDetails = new Array<{name:'',type:'',properties:any,relationships:any}>();
+  nametoshow:string;
+  typetoshow:string;
   constructor(private headerService: HeaderService,
     private semanticService:SemanticModelService) {
 
@@ -34,37 +39,57 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
         this.headerService.header = this.markSelected.name;
         this.headerService.showDetails = true;
       }
+      console.log(this.entityid);
       if (this.entityid != null) {
-        let options = { use_default_schema: false, is_contribution: true }
-        this.semanticService.getEntity(this.entityid, true,true).subscribe(semanticdata => {
-          console.log(semanticdata);
-          let properties = SemanticUtils.getFromMainEntity(this.markSelected, semanticdata,this.relation);
-          console.log('propetries extracted');
-          console.log(properties);
-          this.semanticContributions = properties;
-          this.setProperties();
-        });;
+        this.resetData();
+        this.getEntity();
       }
     } else {
-      this.semanticContributions = new Array<any>();
-      this.properties = new Array<any>();
-      this.relationship = new Array<any>();
+      this.resetData();
       this.loader=false;
       this.headerService.showDetails = true;
-      console.log(this.markSelected);
-
       let sContribution = this.markSelected.semanticContribution.text;
-      console.log(sContribution);
       this.semanticContributions = SemanticUtils.getFromMainEntity(this.markSelected, sContribution,true);
-      console.log(this.semanticContributions);
       this.markSelected.type = this.markSelected.semanticContribution.type;
+      this.nametoshow = this.markSelected.name;
+      this.typetoshow = this.markSelected.type;
       this.setProperties();
     }
 
 
   }
+  resetData(){
+    this.semanticContributions = new Array<any>();
+    this.properties = new Array<any>();
+    this.relationship = new Array<any>();
+  }
+
+  getEntity(id=null,isContrubution=null){
+    
+    let entityIdParam = this.entityid;
+    let isContributionParam = this.isContribution;
+    if(id!=null){
+      entityIdParam=id;
+    }
+    if (isContrubution != null){
+      isContributionParam=isContrubution;
+    }
+    this.semanticService.getEntity(entityIdParam, true, isContributionParam).subscribe(semanticdata => {
+      console.log(semanticdata);
+      this.resetData();
+      let properties = SemanticUtils.getFromMainEntity(this.markSelected, semanticdata, this.relation);
+      console.log('propetries extracted');
+      console.log(properties);
+      this.semanticContributions = properties;
+      this.nametoshow=this.markSelected.name;
+      this.typetoshow=this.markSelected.type;
+      this.setProperties();
+    });;
+  }
+
+
+ 
   setProperties(){
-    console.log(this.semanticContributions);
     this.semanticContributions.forEach(element => {
       console.log(element);
       if (!element.isArray && !element.scheme) {
@@ -77,59 +102,45 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
     console.log(this.relationship);
     this.loader = false;
     console.log(this.properties);
+    this.parentsDetails.push(
+      {
+        name:this.markSelected.name,
+        type:this.markSelected.type,
+        properties:this.properties,
+        relationships:this.relationship
+      })
   }
 
   cancel(){
     this.headerService.showDetails = false;
     this.cancelEvent.emit();
   }
-  ngOnInit() {
+  ngOnInit() {}
 
+  setParentDetail(parent) {
+    console.log(parent);
+    let index = this.parentsDetails.indexOf(parent);
+    if (index < this.parentsDetails.length) {
+      index++;
+    }
+    this.parentsDetails.splice(index);
+    this.resetData();
+    this.properties = parent.properties;
+    this.relationship = parent.relationships;
+    this.nametoshow = parent.name;
+    this.typetoshow = parent.type;
   }
-  showDetail(r){
 
+
+  showDetail(relation){
+    console.log(relation);
+    console.log(SemanticUtils.extractTranscriptorSchema(relation.model[0].model));
+    this.getEntity(SemanticUtils.extractTranscriptorSchema(relation.model[0].model),false);
+    
+    //this.relationDetailModal.open({ semanticContribution: { text: {}, schema_type: relation.name, slug: SemanticUtils.extractTranscriptorSchema(relation.model[0].model)} },null,false)
   }
   isUrl(element){
     return SemanticUtils.isUrl(element);
   }
 
-  getMarks(mark) {
-    let semanticContributions= new Array<any>();
-    if (mark && mark.semanticContribution) {
-      mark.schema_type = mark.semanticContribution.schema_type;
-      let propertiesSelected = new Array<any>();
-      if (mark.semanticContribution.text['schema:mainEntity']){
-        mark.semanticContribution.text = mark.semanticContribution.text['schema:mainEntity'];
-      }
-      let sContribution = mark.semanticContribution.text;
-      for (let key in sContribution) {
-        if (key != "@context") {
-          const item = sContribution[key];
-          if (key.includes("schema")) {
-            //necesitamos persistir el tipo de esquema de la relacion
-            const context = sContribution['@context'];
-            let s_type = null;
-            for (let c in context) {
-              if ('http://schema.org/' + c == key) {
-                s_type = context[c];
-              }
-            }
-            let propOfScheme = new Array<any>();
-            for (let i in item) {
-              propOfScheme.push({ name: i, value: item[i], model: item[i] });
-            }
-            propertiesSelected.push({ name: key, value: propOfScheme, model: propOfScheme, isArray: true, schema_type: s_type });
-          } else {
-            if (key == "name") {
-              mark.name = item
-            }
-            propertiesSelected.push({ name: key, value: item, model: item, isArray: false, schema_type: null });
-          }
-        }
-      }
-      mark.semanticContribution = propertiesSelected;
-      semanticContributions.push(mark);
-    }
-    return mark.semanticContribution;
-  }
 }

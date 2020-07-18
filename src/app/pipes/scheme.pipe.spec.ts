@@ -1,8 +1,8 @@
-import { SchemePipe } from './scheme.pipe';
+import { OntologyPipe } from './ontology.pipe';
 
 describe('SchemePipe', () => {
   it('create an instance', () => {
-    const pipe = new SchemePipe();
+    const pipe = new OntologyPipe();
     expect(pipe).toBeTruthy();
   });
 });
