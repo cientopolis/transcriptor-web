@@ -45,7 +45,7 @@
           </mz-input-container>
         </div>
         <div class="col s12 header-box">
-          <h5 class="primary-color-text">{{ontologyInstance.name}}</h5>
+          <h5 class="primary-color-text">{{ontologyInstance.name | ontology_type}}</h5>
           <p>propiedades</p>
         </div>
         <div class="col s12">
@@ -65,10 +65,10 @@
                 <td>
                   <mz-select-container *ngIf="relation && relation.types && relation.types.length>1" (click)="$event.stopPropagation()">
                     <select mz-select (change)="selectType(relation,$event)">
-                      <option *ngFor="let type of relation.types" [ngValue]="type">{{ type }}</option>
+                      <option *ngFor="let type of relation.types" [ngValue]="type">{{ type | ontology_type }}</option>
                     </select>
                   </mz-select-container>
-                  <span *ngIf="relation.types.length==1">{{relation.types[0]}}</span>
+                  <span *ngIf="relation.types.length==1">{{relation.types[0] | ontology_type}}</span>
                 </td>
                 <td >{{relation.comment}}</td>
                 <td>

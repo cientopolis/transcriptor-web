@@ -17,15 +17,15 @@
 <div class="row" *ngIf="!showPreviousSave && !relation && !loader">
   <div class="col s12">
     <ul class="breadcrumb">
-      <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.name}}</a></li>
+      <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.name | ontology_type}}</a></li>
     </ul>
   </div>
 </div>
 <div class="row row p-l-10 p-r-10" *ngIf=" !loader">
   <div class="row"  style="margin-top: 0px;margin-bottom: 0px;"> 
     <div class="col s12 z-depth-1 header-box">
-      <h5 class="primary-color-text">{{markSelected.name }}</h5>
-      <p>{{markSelected.type }}</p>
+      <h5 class="primary-color-text">{{markSelected.name | ontology_type}}</h5>
+      <p>{{markSelected.type | ontology_type}}</p>
     </div>
   </div>
   <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
@@ -46,10 +46,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let propertie of properties" class="p-t-0">
-                <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name }}</td>
+                <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name | ontology_type}}</td>
                 <td class="p-t-5 p-b-5" *ngIf="propertie.model">
-                  <span *ngIf="!propertie.isUrl">{{propertie.model}}</span>
-                  <a *ngIf="propertie.isUrl">{{propertie.model}}</a>
+                  <span *ngIf="!propertie.urlType">{{propertie.model | ontology_type}}</span>
+                  <a *ngIf="propertie.urlType && propertie.urlType=='external'"  href="{{propertie.model}}" target="_blank">{{propertie.model}}</a>
+                  <a *ngIf="propertie.urlType  && propertie.urlType=='internal'" style="cursor: pointer;" (click)="showDetail(propertie.model,true)">{{propertie.model | ontology_type}}</a>
+
                 </td>
               </tr>
             </tbody>
@@ -76,8 +78,8 @@
             <tbody>
 
               <tr *ngFor="let relation of  relationship" class="p-t-0" (click)="showDetail(relation)" style="cursor: pointer;">
-                <td class="p-t-5 p-b-5" ><a>{{ relation.name | emptyValue}}</a></td>
-                <td class="p-t-5 p-b-5"><a>{{ relation.model[0].model | emptyValue}}</a></td>
+                <td class="p-t-5 p-b-5" ><a>{{ relation.name | emptyValue | ontology_type}}</a></td>
+                <td class="p-t-5 p-b-5"><a>{{ relation.model[0].model | emptyValue | ontology_type}}</a></td>
 
               </tr>
             </tbody>
@@ -100,8 +102,8 @@
           <div *ngFor="let relation of  relationship">
             <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
               <div class="col s12 z-depth-1 header-box">
-                <h5 class="primary-color-text">{{relation.name }}</h5>
-                <p>{{relation.type }}</p>
+                <h5 class="primary-color-text">{{relation.name | ontology_type}}</h5>
+                <p>{{relation.type | ontology_type}}</p>
               </div>
             </div>
               <mz-collapsible [mode]="'expandable'">
@@ -121,9 +123,9 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let propertie of relation.model" class="p-t-0">
-                          <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name }}</td>
+                          <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name | ontology_type}}</td>
                           <td class="p-t-5 p-b-5" *ngIf="propertie.model">
-                            <span>{{propertie.model}}</span>
+                            <span>{{propertie.model }}</span>
                           </td>
                         </tr>
                       </tbody>

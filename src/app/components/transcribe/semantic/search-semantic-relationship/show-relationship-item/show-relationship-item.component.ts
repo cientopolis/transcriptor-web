@@ -29,31 +29,27 @@ export class ShowRelationshipItemComponent implements OnInit {
               public global: SimpleGlobal ) { }
 
   ngOnInit() {
-    let propertie = new Array<any>();
-    
-    this.type = this.semanticItem['@type'];
-    //let prefix = SemanticUtils.getPrefix(this.type);
-    console.log(this.semanticItem);
-    this.markView = { slug: SemanticUtils.extractTranscriptorSchema(this.semanticItem['@id']),semanticContribution: { text: this.semanticItem, schema_type: this.type } };
-    console.log(this.markView);
     let ontologies = this.global['ontologies'];
-    console.log('ontologies from global',ontologies);
+    /**el type puede contener url, estamos manejando prefix asi que sanitisamos por las dudas */
+    this.type = this.semanticItem['@type'];
+    this.markView = { slug: SemanticUtils.extractTranscriptorSchema(this.semanticItem['@id']),semanticContribution: { text: this.semanticItem, schema_type: this.type } };
     if (ontologies) {
-      console.log(this.type);
       if(!SemanticUtils.isUrl(this.type)){
         let prefix = SemanticUtils.getPrefix(this.type);
         ontologies.forEach(ontology => {
           if (ontology.prefix.includes(prefix)) {
             this.ontology = new Ontology(ontology);
+            this.type = SemanticUtils.filterURLFromOntology(ontologies, this.type);
+            this.type = SemanticUtils.filterPrefixFromOntology(ontologies, this.type);
             this.saveScheme();
           }
         });
       }else{
         ontologies.forEach(ontology => {
-          console.log(this.type);
-          console.log(ontology);
           if (this.type.includes(ontology.url)) {
             this.ontology = new Ontology(ontology);
+            this.type = SemanticUtils.filterURLFromOntology(ontologies, this.type);
+            this.type = SemanticUtils.filterPrefixFromOntology(ontologies, this.type);
             this.saveScheme();
           }
         });
@@ -65,9 +61,9 @@ export class ShowRelationshipItemComponent implements OnInit {
     let ontologyInstance = new ontologyClassInstance();
     ontologyInstance.ontologyClass = new OntologyClass();
     ontologyInstance.ontologyClass.ontology=this.ontology;
+    this.type=this.ontology.prefix+':'+this.type;
     let e = this.semanticService.generateJsonld(ontologyInstance, this.semanticItem).then(
       function (success) {
-        console.log(success);
         return success;
       }
     );

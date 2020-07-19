@@ -132,10 +132,18 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   }
 
 
-  showDetail(relation){
+  showDetail(relation,ispropertie=false){
     console.log(relation);
-    console.log(SemanticUtils.extractTranscriptorSchema(relation.model[0].model));
-    this.getEntity(SemanticUtils.extractTranscriptorSchema(relation.model[0].model),false);
+    let url = null;
+    if(!ispropertie){
+      url = relation.model[0].model;
+    }else{
+      url = relation;
+    }
+    console.log(relation);
+    let urlwoprefix = SemanticUtils.extractTranscriptorSchema(url);
+    console.log(SemanticUtils.extractTranscriptorSchema(url));
+    this.getEntity(SemanticUtils.extractTranscriptorSchema(url),false);
     
     //this.relationDetailModal.open({ semanticContribution: { text: {}, schema_type: relation.name, slug: SemanticUtils.extractTranscriptorSchema(relation.model[0].model)} },null,false)
   }

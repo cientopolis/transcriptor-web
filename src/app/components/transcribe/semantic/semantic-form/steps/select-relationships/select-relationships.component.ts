@@ -1,3 +1,4 @@
+import { SemanticUtils } from './../../../../../../utils/semantic-utils';
 import { RelationOntologyInstance } from './../../../../../../models/ontology/instance/relationOntologyInstance';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { RelationOntologyClass } from '../../../../../../models/ontology/class/relationOntologyClass';
@@ -53,7 +54,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
       relations.forEach(prop => {
         propertiesClass.push(new RelationOntologyClass(prop,this.ontologyInstance.ontologyClass));
       });
-      this.relationships = propertiesClass;
+      this.relationships = SemanticUtils.sortProperties(propertiesClass);
       this.loader = false;
     });
   }
