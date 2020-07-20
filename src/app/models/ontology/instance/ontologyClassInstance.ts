@@ -11,8 +11,10 @@ export class ontologyClassInstance {
     properties = new Array<DataPropertieValue>();
     relations = new Array <RelationOntologyInstance>();
     constructor(ontologyClass = null) {
-        this.ontologyClass = ontologyClass;
-        this.name=ontologyClass.name;
+        if (ontologyClass){
+            this.ontologyClass = ontologyClass;
+            this.name=ontologyClass.name;
+        }
     }
     getNameWithPrefix(){
         return this.ontologyClass.getName();

@@ -1,3 +1,4 @@
+import { OntologyService } from './../../services/ontology/ontology.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {SimpleGlobal} from 'ng2-simple-global';
 import { Router } from "@angular/router";
@@ -19,13 +20,23 @@ export class LoginComponent implements OnInit {
 
   loginCredentials:LoginCredentials = new LoginCredentials();
 
-  constructor(private userService: UserService,private loginService: LoginService, public global: SimpleGlobal, private router: Router) { }
+  constructor(private userService: UserService,
+              private loginService: LoginService, 
+              public global: SimpleGlobal, 
+              private router: Router,
+              private ontologyService: OntologyService) { }
 
   ngOnInit() {
   }
 
+  getOntologies(){
+    this.ontologyService.list({}).subscribe(response => {
+      if (response) {
+        this.global['ontologies']=response;
+      }
+    })
+  }
   login(formValue: NgForm) {
-    console.log(formValue)
     this.loginService.login(this.loginCredentials)
         .subscribe(response => this.handleResponse(response));
   }
@@ -33,9 +44,9 @@ export class LoginComponent implements OnInit {
   private handleResponse(user) {
     if(user){
       this.setUser(user);
-      console.log(user);
       this.userService.userInfoMetagame()
-          .subscribe(response => this.handleResponseMG(user,response));
+      .subscribe(response => this.handleResponseMG(user,response));
+      this.getOntologies();
     }
   }
 

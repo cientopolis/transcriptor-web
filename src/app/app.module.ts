@@ -120,7 +120,6 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 import { SemanticFormComponent } from './components/transcribe/semantic/semantic-form/semantic-form.component';
-import { SchemeBuilderComponent } from './components/transcribe/semantic/semantic-form/scheme-builder/scheme-builder.component';
 import { DataPropertieInputsComponent } from './components/transcribe/semantic/semantic-form/datapropertie-inputs/datapropertie-inputs.component.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
@@ -133,7 +132,7 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchInputComponent } from './components/shared/search-input/search-input.component';
 import { SemanticSearchInputComponent } from './components/search/semantic-search-input/semantic-search-input.component';
 
-import { SchemePipe } from './pipes/scheme.pipe';
+import { OntologyPipe } from './pipes/ontology.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
@@ -143,6 +142,7 @@ import { SearchSemanticRelationshipComponent } from './components/transcribe/sem
 import { ShowRelationshipItemComponent } from './components/transcribe/semantic/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
 import { OntologyComponent } from './components/ontology/ontology.component';
+import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
 
 @NgModule({
   declarations: [
@@ -181,8 +181,7 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     PlayerProfileComponent,
     SemanticFormComponent,
     ListSemanticMarksComponent,
-    SchemePipe,
-    SchemeBuilderComponent,
+    OntologyPipe,
     DataPropertieInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
@@ -202,7 +201,8 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     SearchSemanticRelationshipComponent,
     ShowRelationshipItemComponent,
     OntologiesComponent,
-    OntologyComponent
+    OntologyComponent,
+    EmptyValuePipe
   ],
   imports: [
     BrowserModule,
@@ -277,7 +277,7 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     PageVersionService,
     LayerService,
     SemanticModelService,
-    SchemePipe
+    OntologyPipe
   ],
   bootstrap: [AppComponent]
 })

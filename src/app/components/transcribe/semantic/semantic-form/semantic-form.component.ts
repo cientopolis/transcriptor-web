@@ -281,9 +281,11 @@ handleSchemeRelationships(event){
 
 /*         this.schema_type="http://schema.org/" + this.schemeName */
 
-        this.markView = { semanticContribution: { text: show, schema_type: this.ontologyInstance.ontologyClass.getName()} };
+        console.log(show);
+        console.log(this.ontologyInstance.ontologyClass.getName());
+        this.markView = { semanticContribution: { text: show, type: this.ontologyInstance.ontologyClass.getName() },label: show['rdfs:label'] };
         if(confirm){
-          this.schemeComplete.emit({ schema_type: this.ontologyInstance.ontologyClass.getName(), semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id'])} );
+          this.schemeComplete.emit({ schema_type: this.ontologyInstance.ontologyClass.getName(), semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id']), label: show['rdfs:label']} );
         }
         this.showCompleteForm=false;
         this.showGeneratedScheme=true;

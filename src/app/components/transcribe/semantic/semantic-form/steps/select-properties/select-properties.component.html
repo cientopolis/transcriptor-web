@@ -3,8 +3,8 @@
     <mz-collapsible-item-header class="header-box">
       <div clas="row">
         <div class="col s11">
-          <h5 class="primary-color-text">{{relationship.type}}</h5>
-          <p>{{relationship.name}}</p>
+          <h5 class="primary-color-text">{{relationship.type | ontology_type}}</h5>
+          <p>{{relationship.name | ontology_type}}</p>
         </div>
           <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelarionship()">
             <a (click)="deleteRelarionship()">
@@ -92,8 +92,8 @@
 <div *ngIf="!colapsible">
   <div *ngIf="schemeName" class="row">
     <div class="col s12 header-box">
-      <h5 class="primary-color-text">{{relationship.type}}</h5>
-      <p>{{relationship.name}}</p>
+      <h5 class="primary-color-text">{{relationship.type | ontology_type}}</h5>
+      <p>{{relationship.name | ontology_type}}</p>
     </div>
   </div>
   <div class="row" *ngFor="let prop of  propertiesSelected"  (click)="$event.stopPropagation()">
@@ -140,8 +140,8 @@
           </mz-input-container>
         </div>
         <div class="col s12 header-box">
-          <h5 class="primary-color-text">{{relationship.type}}</h5>
-          <p>{{relationship.name}}</p>
+          <h5 class="primary-color-text">{{relationship.type | ontology_type}}</h5>
+          <p>{{relationship.name | ontology_type}}</p>
         </div>
         <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
           <table class="bordered striped centered">
@@ -159,10 +159,10 @@
                 <td>
                   <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
                     <select mz-select (change)="selectType(prop,$event)">
-                      <option *ngFor="let type of prop.types" [ngValue]="type">{{ type }}</option>
+                      <option *ngFor="let type of prop.types" [ngValue]="type">{{ type | ontology_type }}</option>
                     </select>
                   </mz-select-container>
-                  <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
+                  <span *ngIf="prop.types.length==1">{{prop.types[0] | ontology_type}}</span>
                 </td>
                 <td>{{prop.comment}} {{prop.idInput}}d</td>
                 <td>
@@ -193,8 +193,8 @@
           </mz-input-container>
         </div>
         <div class="col s12 header-box">
-          <h5 class="primary-color-text">{{relationship.type}}</h5>
-          <p>{{relationship.name}}</p>
+          <h5 class="primary-color-text">{{relationship.type | ontology_type}}</h5>
+          <p>{{relationship.name | ontology_type}}</p>
         </div>
         <div class="col s12" style="padding-left: 0px;padding-right: 0px;">
           <table class="bordered striped centered">
@@ -212,10 +212,10 @@
                 <td>
                   <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">
                     <select mz-select (change)="selectType(prop,$event)">
-                      <option *ngFor="let type of prop.types" [ngValue]="type">{{ type }}</option>
+                      <option *ngFor="let type of prop.types" [ngValue]="type">{{ type | ontology_type }}</option>
                     </select>
                   </mz-select-container>
-                  <span *ngIf="prop.types.length==1">{{prop.types[0]}}</span>
+                  <span *ngIf="prop.types.length==1">{{prop.types[0] | ontology_type}}</span>
                 </td>
                 <td>{{prop.comment}} {{prop.idInput}}d</td>
                 <td>

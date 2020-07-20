@@ -18,7 +18,6 @@ export class OntologyClass {
             this.ontology=ontology;
             this.name = ontology.prefix+':'+this.label;
         }
-        console.log('lalal');
     }
 
     getName(){

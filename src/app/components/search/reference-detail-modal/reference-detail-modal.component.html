@@ -16,7 +16,9 @@
     </div>
     <app-semantic-transcription-details
       *ngIf="detailMark"
-      [relation]="true" 
+      [relation]="false"
+      [isContribution]="isContribution"
+      [entityid]="detailMark.semanticContribution.slug"
       [markSelected]="detailMark">
     </app-semantic-transcription-details>
   </mz-modal-content>
