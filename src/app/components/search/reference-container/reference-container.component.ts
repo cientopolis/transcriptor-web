@@ -38,7 +38,6 @@ export class ReferenceContainerComponent implements OnInit {
         this.marks = marks
       })
     }
-    console.log(this.marks);
   }
 
   getThumbnailUrl(reference) {

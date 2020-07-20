@@ -84,15 +84,15 @@ padding: 0px !important;
 
 
 ul.breadcrumb {
-  padding: 10px 16px;
+  padding: 5px 10px;
   list-style: none;
   background-color: #eee;
-   overflow: auto;
+  overflow: auto;
 }
 
 ul.breadcrumb li {
   display: inline;
-  font-size: 18px;
+  font-size: 12px;
 }
 ul.breadcrumb li:last-child a,
 ul.breadcrumb li:last-child a:hover {

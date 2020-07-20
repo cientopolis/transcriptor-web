@@ -17,6 +17,7 @@ export class ShowRelationshipItemComponent implements OnInit {
   @Input() public semanticItem = null;
   @Input() public onlyShow = false;
   @Input() public isPreviousSave = true;
+  @Input() showheader = true;
   @Output() public finished = new EventEmitter<any>();
   type:string;
   markView = null;

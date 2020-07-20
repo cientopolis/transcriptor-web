@@ -16,7 +16,6 @@ export class DataPropertieValue {
             this.name = propertieJson.name;
             this.property = propertieJson.property;
             this.comment = propertieJson.comment;
-            console.log('propertie', this.property);
             if (propertieJson.types){
                 this.type = propertieJson.types[0];
             }

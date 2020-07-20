@@ -11,6 +11,7 @@
     </app-select-properties>
     <app-search-semantic-relationship *ngIf="relationship.searchRelationship" 
       [relationship]="relationship"
+      [enableheader]="false"
       (createRelation)="handleNewRelationship($event)"
       (createRelationType)="assignRelationship($event)"
       (deleteRelation)="handleDeleteRelationship($event)">

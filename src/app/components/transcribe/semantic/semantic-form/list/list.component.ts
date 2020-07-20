@@ -34,7 +34,6 @@ export class ListSemanticMarksComponent implements OnInit {
 
   extractContributions(renderedMarks) {
     renderedMarks.forEach(renderedMark => {
-      console.log(renderedMark);
       renderedMark.label = renderedMark.mark.semanticContribution.label;
       renderedMark.name = renderedMark.label;
       renderedMark.slug = renderedMark.mark.semanticContribution.slug;

@@ -26,7 +26,6 @@ export class OntologiesComponent implements OnInit, AfterViewInit{
   }
 
   disableButton(){
-    console.log('disable');
     let a = $('#select-ontology-step .btn-floating');
     a.prop('disabled', true);
     a.addClass('disabled');

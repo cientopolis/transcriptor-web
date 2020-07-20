@@ -23,7 +23,7 @@
             <mz-collection-item [avatar]="true" class="collection-item">
               <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="primary-color"></i>
               <div class="title">{{semanticEntity.entityLabel.value}}</div>
-              <p class="descriptiom-item">{{ semanticEntity.entityType.value }}-</p>
+              <p class="descriptiom-item">{{ semanticEntity.entityType.value }}</p>
               <a mz-secondary-content style="margin-right: 0px;">
                 <a (click)="openSelectedEntityDetail()" style="cursor: pointer;">{{ 'search.button.showMore' | translate }}</a>
                 <i (click)="clearSelectedEntity()" style="margin-right: 0px;color: black;" mz-icon-mdi

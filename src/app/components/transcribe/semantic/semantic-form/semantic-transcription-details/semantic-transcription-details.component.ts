@@ -18,14 +18,18 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   @Input() showPreviousSave = false;
   @Input() relation = false;
   @Input() isContribution = true;
+  @Input() showheader = true;
   @Output() cancelEvent = new EventEmitter<any>();
   loader = true;
   semanticContributions = null;
   relationship = new Array<any>(); 
   properties = new Array<any>();
-  parentsDetails = new Array<{name:'',type:'',properties:any,relationships:any}>();
+  parentsDetails = new Array<{name:'',type:'',propname:string,properties:any,relationships:any}>();
   nametoshow:string;
   typetoshow:string;
+  propertienametoshow:string;
+  
+
   constructor(private headerService: HeaderService,
     private semanticService:SemanticModelService) {
 
@@ -33,13 +37,12 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes){
     if (!this.showPreviousSave) {
-      if (!this.headerService.showDetails) {
+      if (!this.headerService.showDetails && this.showheader) {
         this.headerService.headerParagraph = 'Hechos Históricos / Detalle de Marca';
         this.headerService.headerSubparagraph = null;
         this.headerService.header = this.markSelected.name;
         this.headerService.showDetails = true;
       }
-      console.log(this.entityid);
       if (this.entityid != null) {
         this.resetData();
         this.getEntity();
@@ -53,6 +56,7 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
       this.markSelected.type = this.markSelected.semanticContribution.type;
       this.nametoshow = this.markSelected.name;
       this.typetoshow = this.markSelected.type;
+    
       this.setProperties();
     }
 
@@ -65,7 +69,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   }
 
   getEntity(id=null,isContrubution=null){
-    
     let entityIdParam = this.entityid;
     let isContributionParam = this.isContribution;
     if(id!=null){
@@ -75,14 +78,15 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
       isContributionParam=isContrubution;
     }
     this.semanticService.getEntity(entityIdParam, true, isContributionParam).subscribe(semanticdata => {
-      console.log(semanticdata);
       this.resetData();
       let properties = SemanticUtils.getFromMainEntity(this.markSelected, semanticdata, this.relation);
-      console.log('propetries extracted');
-      console.log(properties);
       this.semanticContributions = properties;
       this.nametoshow=this.markSelected.name;
       this.typetoshow=this.markSelected.type;
+      if (!this.propertienametoshow){
+        this.propertienametoshow=this.typetoshow;
+      }
+
       this.setProperties();
     });;
   }
@@ -91,7 +95,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
  
   setProperties(){
     this.semanticContributions.forEach(element => {
-      console.log(element);
       if (!element.isArray && !element.scheme) {
         this.properties.push(element);
       } else {
@@ -99,17 +102,16 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
         this.relationship.push(element);
       }
     });
-    console.log(this.relationship);
     this.loader = false;
-    console.log(this.properties);
     this.parentsDetails.push(
       {
         name:this.markSelected.name,
+        propname:this.propertienametoshow,
         type:this.markSelected.type,
         properties:this.properties,
         relationships:this.relationship
       })
-  }
+    }
 
   cancel(){
     this.headerService.showDetails = false;
@@ -118,7 +120,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   ngOnInit() {}
 
   setParentDetail(parent) {
-    console.log(parent);
     let index = this.parentsDetails.indexOf(parent);
     if (index < this.parentsDetails.length) {
       index++;
@@ -133,16 +134,15 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
 
 
   showDetail(relation,ispropertie=false){
-    console.log(relation);
     let url = null;
     if(!ispropertie){
       url = relation.model[0].model;
+    
     }else{
       url = relation;
     }
-    console.log(relation);
+    this.propertienametoshow=relation.name;
     let urlwoprefix = SemanticUtils.extractTranscriptorSchema(url);
-    console.log(SemanticUtils.extractTranscriptorSchema(url));
     this.getEntity(SemanticUtils.extractTranscriptorSchema(url),false);
     
     //this.relationDetailModal.open({ semanticContribution: { text: {}, schema_type: relation.name, slug: SemanticUtils.extractTranscriptorSchema(relation.model[0].model)} },null,false)

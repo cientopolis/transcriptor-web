@@ -21,7 +21,6 @@ export class DataPropertie {
             this.property = propertieJson.property;
             this.types=propertieJson.types;
             this.ontologyClass=propertieJson.ontologyClass;
-            console.log('propertie',this.property);
             this.generateId();
         }
     }

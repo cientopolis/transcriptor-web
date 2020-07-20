@@ -35,18 +35,14 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
       private  semanticModel:SemanticModelService) { }
 
   ngOnChanges(changes) {
-    console.log(changes);
     this.ontology=null;
   }
   ngOnInit() {
-   /*  console.log("call types from backend")
-    this.semanticModel.getFullTree(); */
     this.selectRelationship=true;
   }
 
 
   selectOntology(event){
-    console.log('Ontologia seleccionada', event)
     this.ontology=event;
   }
 
@@ -68,7 +64,6 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.selectRelationship=false;
   }
   proccessScheme(event){
-    console.log(event);
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;

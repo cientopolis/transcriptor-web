@@ -3,7 +3,6 @@ import { RelationOntologyInstance } from './../../../../../../models/ontology/in
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { RelationOntologyClass } from '../../../../../../models/ontology/class/relationOntologyClass';
 import { ontologyClassInstance } from '../../../../../../models/ontology/instance/ontologyClassInstance';
-import { SchemeUtils } from '../../../../../../utils/schema-utils';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
@@ -24,9 +23,9 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   @Input() ontologyInstance: ontologyClassInstance;
   loader=true;
 
-  basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
+
   constructor(private semanticService: SemanticModelService) { 
-    this.basicTypes = SchemeUtils.basicTypes;
+
   }
 
   ngOnChanges(changes) {
@@ -84,38 +83,11 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     });
   }
   
-  getRelationship(propertie, ranges, relationship) {
-    var types = new Array();
-    var relationTypes = new Array();
-    var name = propertie.name;
-    ranges.forEach(range => {
-      var res = range;
-      if (!this.basicTypes.includes(res)) {
-        relationTypes.push(res);
-      }
-    });
 
-    if (relationTypes.length > 0) {
-      relationship.push({ name: name, description: propertie.comment, types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
-    }
-  }
 
   hasRanges(properties,prop){
     return (properties[prop]['@type'] != "rdfs:Class" && properties[prop]['schema:rangeIncludes']);
   }
-  processProperties(properties) {
-    properties.forEach(propertie => {
-      let label = propertie.label;
-      let propertieId = propertie.id;
-      let ranges = propertie.types;
-      if (label != null) {
-        if (ranges != null && ranges.length) {
-          this.getRelationship(propertie, ranges, this.relationships);
-        }
-      }  
-    });
-
-}
 
 
   handleDeleteRelationship(event){
@@ -177,11 +149,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
 
   }
   handlePropertieValidation(event) {
-    if (event) {
-   
-    } else {
-    
-    }
+
   }
 }
   

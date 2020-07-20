@@ -14,6 +14,7 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   @Input() public layerName = null;
   @Input() public schemeType = null;
   @Input() public relationship = null
+  @Input() public enableheader = true
   
   @Output() public deleteRelation = new EventEmitter<any>();
   @Output() public createType = new EventEmitter<Boolean>();
@@ -31,11 +32,12 @@ export class SearchSemanticRelationshipComponent implements OnInit {
  
 
   ngOnInit() {
-    this.setHeader();
-    $('#delete').click(function (e) { e.stopPropagation(); });
 
+    if(this.enableheader){
+      this.setHeader();
+    }
+    $('#delete').click(function (e) { e.stopPropagation(); });
     if (this.relationship){
-      console.log(this.relationship);
       this.schemeType = this.relationship.type;
       this.itemView.type = this.relationship.type;
       this.itemView.name = this.relationship.label;
