@@ -1,3 +1,4 @@
+import { MarkSemanticRelation } from './../../../../models/marksemanticrelation';
 import { SemanticUtils } from './../../../../utils/semantic-utils';
 import { RelationOntologyClass } from './../../../../models/ontology/class/relationOntologyClass';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
@@ -20,11 +21,12 @@ export class AddRelationshipComponent implements OnInit {
   semanticItemSelected: any;
   typesSelected: any;
   typeselected:any;
-
+  relation = new MarkSemanticRelation();
   constructor(private headerService:HeaderService,
               private semanticService: SemanticModelService) { }
 
   ngOnInit() {
+    this.relation.subject_id=this.mark.id;
     console.log(this.mark);
 
     this.setHeader();
@@ -58,6 +60,8 @@ export class AddRelationshipComponent implements OnInit {
 
   itemChange(event){
     console.log(event);
+    console.log(this.semanticItemSelected);
+    this.relation.object_id = event['@id'];
   }
   showMarkDetail(mark=null){
 
@@ -67,6 +71,7 @@ export class AddRelationshipComponent implements OnInit {
     console.log(relation);
     console.log(this.relationselected);
     this.typesSelected = this.relationselected.types;
+    this.relation.predicate_id = this.relationselected.property;
     if (this.relationselected.types.length==0){
       this.typesSelected = this.relationselected.types[0];
     }else{
@@ -78,6 +83,13 @@ export class AddRelationshipComponent implements OnInit {
     console.log(type);
     console.log(this.typesSelected);
 
+  }
+  save(){
+    console.log('sapbe');
+    console.log(this.relation);
+    this.semanticService.addRelation(this.relation).subscribe(response => {
+      console.log(response);
+    }) 
   }
 
 }

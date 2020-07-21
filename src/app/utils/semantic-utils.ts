@@ -53,6 +53,9 @@ export class SemanticUtils {
                 if (key == '@type'){
                     mark.type = item
                 }
+                if(key=='@id'){
+                    mark.id=item;
+                }
                 if (key != '@type' && key != '@id') {
                     let url = item;
                     let urlType=null

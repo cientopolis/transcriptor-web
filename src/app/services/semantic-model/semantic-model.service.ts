@@ -1,3 +1,5 @@
+import { MarkSemanticRelation } from './../../models/marksemanticrelation';
+import { Observable } from 'rxjs';
 import { RelationOntologyInstance } from './../../models/ontology/instance/relationOntologyInstance';
 import { Ontology } from 'app/models/ontology/ontology';
 import { DataPropertieValue } from './../../models/ontology/instance/dataPropertieValue';
@@ -21,13 +23,23 @@ export class SemanticModelService {
   private listClassesOntologyPath = '/api/semantic_ontology/list_classes';
   private getBasicPropertiesPath = '/api/semantic_ontology/list_properties';
   private getRelationshipsPath = '/api/semantic_ontology/list_relations';
-  
+  private postRelationPath = '/api/semantic_entity/add_relation';
+
+
   constructor(private httpService: HttpService) { }
 
 /*   getTypesTreejson(params,options = {}):Observable<OntologyClass[]> {
     return this.httpService.lpost(this.listClassesOntologyPath, params, { responseDataType: OntologyClass }) as Observable<OntologyClass[]>;
   }
  */
+  addRelation(relation:MarkSemanticRelation,options = {}){
+
+    return this.httpService.post(this.postRelationPath, {
+      "subject_id": relation.subject_id,
+      "predicate_id": relation.predicate_id,
+      "object_id": relation.object_id
+    }, { responseDataType: MarkSemanticRelation }) as Observable<MarkSemanticRelation>;;
+  }
   getTypesTreejson(params,options = {}) {
     return this.httpService.lpost([this.listClassesOntologyPath, {}],params, options);
   }
