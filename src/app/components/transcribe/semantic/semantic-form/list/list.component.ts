@@ -1,4 +1,3 @@
-import { SchemeUtils } from '../../../../../utils/schema-utils';
 import { HeaderService } from '../../../../../services/sharedData/header.service';
 import { Mark } from '../../../../../models/mark';
 import { Component, OnInit, Input } from '@angular/core';
@@ -10,10 +9,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ListSemanticMarksComponent implements OnInit {
   @Input() renderedMarks = null;
+
   @Input() public layerName = null;
   @Input() public layerDescription= null;
   semanticContributions:Mark[] = [];
-  semanticContributionsSelected: Mark[]
+  semanticContributionsSelected: Mark[];
+
   constructor(private headerService:HeaderService) { 
     this.headerService.header ='Hechos Historicos';
     this.headerService.headerParagraph ='Capa Semántica';
@@ -41,9 +42,11 @@ export class ListSemanticMarksComponent implements OnInit {
       this.semanticContributions.push(renderedMark);
     });
   }
+
   showDetail(mark){
     this.semanticContributionsSelected = mark;
   }
+
   cancelShowDetail(event){
     this.setHeaderTitle();
     this.headerService.headerParagraph = 'Capa Semántica';
