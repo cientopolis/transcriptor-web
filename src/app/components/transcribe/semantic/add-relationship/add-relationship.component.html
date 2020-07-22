@@ -17,7 +17,7 @@
   </div>
   <div class="col s12">
     <div class="row">
-      <div class="col s12 z-depth-1" style="box-shadow: none;">
+      <div class="col s12 z-depth-1" style="box-shadow: none;" *ngIf="false">
         <h6 class="primary-color-text m-b-5">{{mark.name | ontology_type}}</h6>
         <p>{{mark.type | ontology_type}}</p>
       </div>
@@ -57,7 +57,7 @@
     <div class="row p-l-20">
       <div class="col s12">
         <mz-select-container *ngIf="relationships && relationships.length>0" (click)="$event.stopPropagation()">
-          <select mz-select (change)="selectRelation(relation,$event)"  [(ngModel)]="relationselected">
+          <select mz-select (change)="selectRelation(relation,$event)" [label]="'Selecciona una relacion'" [(ngModel)]="relationselected">
             <option *ngFor="let relation of relationships" [ngValue]="relation">{{ relation.name | ontology_type }}</option>
           </select>
         </mz-select-container>
@@ -75,19 +75,17 @@
     <h6 class="primary-color-text m-b-5" style="font-weight: bold;">Seleccioná la entidad destino</h6>
   </div>
     <div class="row p-l-20" *ngIf="typesSelected && typesSelected.length>0">
-      <div class="col s12">
-        <h6 class="primary-color-text m-b-5" >selecciona de objeto a relacionar</h6>
-      </div>
+
       <div class="col s12">
         <mz-select-container (click)="$event.stopPropagation()">
-          <select mz-select (change)="selectType(relation,$event)" [(ngModel)]="typeselected">
+          <select mz-select (change)="selectType(relation,$event)" [label]="'selecciona el tipo de la relacion'" [(ngModel)]="typeselected">
             <option *ngFor="let type of typesSelected" [ngValue]="type">{{ type | ontology_type }}</option>
           </select>
         </mz-select-container>
       </div>
     </div>
   <div class="col s12" [ngClass]="typeselected ? '':'disabled-component'">
-    <div class="row p-l-10">
+    <div class="row p-l-12">
       <div class="col s12">
           <app-semantic-search-input 
             [(semanticModel)]="semanticItemSelected" 
@@ -95,19 +93,34 @@
             [(results)]="searchRelationshipList" 
             [fetchSelectedEntity]="true" 
             [autocomplete]="true"
+            (onClear)="clearEntity()"
+            [hierarchical]="hierarchical"
             [placeholder]="'semanticForm.placeholder.entitySearch' | translate" 
             [entityType]="typeselected">
           </app-semantic-search-input>
       </div>
     </div>
+    <div class="col s12" *ngIf="semanticItemSelected">
+      <mz-collection>
+        <mz-collection-item [avatar]="true" (click)="showEntityDetail()" class="collection-item"
+          style="border: 1px solid #dddddd;border-radius: 8px;">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <div class="title" style="font-size: 14px;">{{semanticItemSelected.name | ontology_type}}</div>
+          <p class="descriptiom-item">{{semanticItemSelected.type | ontology_type}}</p>
+          <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+              [icon]="'chevron-right'" [align]="'left'"></i></a>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
   </div>
 </div>
-  <div class="col-12" [ngClass]="semanticItemSelected ? '':'disabled-component'">
-    <div class="fixed-action-btn next-step">
-      <a class="btn-floating btn-large" style="background-color: #e65100;" (click)="save()">
+  <div class="col-12" >
+    <div class="fixed-action-btn">
+      <button type="button"  [disabled]="!semanticItemSelected" class="btn-floating btn-large" style="background-color: #e65100;" (click)="save()">
         <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i>
-      </a>
+      </button>
     </div>
   </div>
 
 
+<app-reference-detail-modal #referenceDetailModalRelation></app-reference-detail-modal>

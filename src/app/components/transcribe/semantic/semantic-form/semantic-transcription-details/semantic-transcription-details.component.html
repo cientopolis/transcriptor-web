@@ -25,7 +25,8 @@
 <div class="row p-0" *ngIf="!loader && showaddrelation">
   <app-add-relationship
     [layername]="layername"
-    [mark]="markrelation">
+    [mark]="markrelation"
+    (saved)="cancel()">
   </app-add-relationship>
 </div>
 <div class="row row p-l-10 p-r-10" *ngIf="!loader && !showaddrelation">

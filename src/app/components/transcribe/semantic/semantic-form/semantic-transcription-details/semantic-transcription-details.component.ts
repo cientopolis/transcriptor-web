@@ -50,10 +50,12 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
         this.headerService.showDetails = true;
       }
       if (this.entityid != null) {
+        this.parentsDetails = new Array<{ name: '', type: '', propname: string, properties: any, relationships: any }>();
         this.resetData();
         this.getEntity();
       }
     } else {
+      this.parentsDetails = new Array<{ name: '', type: '', propname: string, properties: any, relationships: any }>();
       this.resetData();
       this.loader=false;
       this.headerService.showDetails = true;
