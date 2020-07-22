@@ -14,18 +14,30 @@
     </a>
   </div>
 </div>
-<div class="row" *ngIf="!showPreviousSave && !relation && !loader">
+<div class="row m-b-5" *ngIf="!showPreviousSave && !relation && !loader && !showaddrelation">
   <div class="col s12">
     <ul class="breadcrumb">
       <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.propname | ontology_type}}:{{parent.name | ontology_type}}</a></li>
     </ul>
   </div>
 </div>
-<div class="row row p-l-10 p-r-10" *ngIf=" !loader">
-  <div class="row"  style="margin-top: 0px;margin-bottom: 0px;"> 
-    <div class="col s12 z-depth-1 header-box">
+
+<div class="row p-0" *ngIf="!loader && showaddrelation">
+  <app-add-relationship
+    [layername]="layername"
+    [mark]="markrelation"
+    (saved)="cancel()">
+  </app-add-relationship>
+</div>
+<div class="row row p-l-10 p-r-10" *ngIf="!loader && !showaddrelation">
+  <div class="row  header-box"  style="margin-top: 0px;margin-bottom: 0px;"> 
+    <div class="col s9 z-depth-1" style="box-shadow: none;">
       <h5 class="primary-color-text">{{markSelected.name | ontology_type}}</h5>
       <p>{{markSelected.type | ontology_type}}</p>
+
+    </div>
+    <div class="col s3 addrelationbutton" *ngIf="enableaddrelation" >
+      <button (click)="addRelation(markSelected)">Agregar relacion</button>
     </div>
   </div>
   <div class="row" style="margin-top: 0px;margin-bottom: 0px;">

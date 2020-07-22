@@ -25,5 +25,12 @@
   </div>
 </div>
 <div class="row p-l-10 p-r-10" *ngIf="semanticContributionsSelected">
-  <app-semantic-transcription-details (cancelEvent)="cancelShowDetail($event)" [entityid]="semanticContributionsSelected.slug" [markSelected]="semanticContributionsSelected"></app-semantic-transcription-details>
+  <app-semantic-transcription-details 
+    [enableaddrelation] = "true"
+    [layername]="layerName"
+    (cancelEvent)="cancelShowDetail($event)" 
+    [entityid]="semanticContributionsSelected.slug" 
+    [markSelected]="semanticContributionsSelected">
+  </app-semantic-transcription-details>
 </div>
+

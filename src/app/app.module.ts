@@ -143,6 +143,7 @@ import { ShowRelationshipItemComponent } from './components/transcribe/semantic/
 import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
 import { OntologyComponent } from './components/ontology/ontology.component';
 import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
+import { AddRelationshipComponent } from './components/transcribe/semantic/add-relationship/add-relationship.component';
 
 @NgModule({
   declarations: [
@@ -202,7 +203,8 @@ import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
     ShowRelationshipItemComponent,
     OntologiesComponent,
     OntologyComponent,
-    EmptyValuePipe
+    EmptyValuePipe,
+    AddRelationshipComponent
   ],
   imports: [
     BrowserModule,

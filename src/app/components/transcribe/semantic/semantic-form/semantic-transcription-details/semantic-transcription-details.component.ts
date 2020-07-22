@@ -13,12 +13,14 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   @ViewChild('relationDetailModal') relationDetailModal;
 
   @Input() entityid ;
+  @Input() layername= null;
   @Input() showRelationshipItem = null;
   @Input() markSelected = null;
   @Input() showPreviousSave = false;
   @Input() relation = false;
   @Input() isContribution = true;
   @Input() showheader = true;
+  @Input() enableaddrelation = false;
   @Output() cancelEvent = new EventEmitter<any>();
   loader = true;
   semanticContributions = null;
@@ -28,7 +30,8 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   nametoshow:string;
   typetoshow:string;
   propertienametoshow:string;
-  
+  showaddrelation = false;
+  markrelation:any;
 
   constructor(private headerService: HeaderService,
     private semanticService:SemanticModelService) {
@@ -38,16 +41,21 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   ngOnChanges(changes){
     if (!this.showPreviousSave) {
       if (!this.headerService.showDetails && this.showheader) {
-        this.headerService.headerParagraph = 'Hechos Históricos / Detalle de Marca';
+        console.log(this.markSelected);
+        if (this.layername){
+          this.headerService.headerParagraph = this.layername + ' / Detalle de Marca';
+        }
         this.headerService.headerSubparagraph = null;
         this.headerService.header = this.markSelected.name;
         this.headerService.showDetails = true;
       }
       if (this.entityid != null) {
+        this.parentsDetails = new Array<{ name: '', type: '', propname: string, properties: any, relationships: any }>();
         this.resetData();
         this.getEntity();
       }
     } else {
+      this.parentsDetails = new Array<{ name: '', type: '', propname: string, properties: any, relationships: any }>();
       this.resetData();
       this.loader=false;
       this.headerService.showDetails = true;
@@ -61,6 +69,13 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
     }
 
 
+  }
+
+  addRelation(mark){
+    console.log('add relation');
+    console.log(mark);
+    this.markrelation=mark;
+    this.showaddrelation=true;
   }
   resetData(){
     this.semanticContributions = new Array<any>();

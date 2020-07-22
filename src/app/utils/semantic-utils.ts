@@ -10,8 +10,22 @@ export class SemanticUtils {
         return labelws;
     }
 
+    private static isArray(item){
+        if(item){
+            if (Array.isArray(item)){
+                if(item.length>0){
+                    if (item[0]['@type'] != null){
+                        return true
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+    
     private static isRelation(item){
-        return item['@type']!=null ||  item['@id']!=null;
+        return this.isArray(item) || item['@type']!=null ||  item['@id']!=null;
     }
 
     //si es invocado de una relacion que se visializa en el prevous save
@@ -44,31 +58,49 @@ export class SemanticUtils {
         for (let key in jsonld) {
             const item = jsonld[key];
             if(this.isRelation(item)){
-                let properties = this.loadRelation(item, isRelation);
-                atributes.push({ name: key, value: properties, model: properties, isArray: true, type: item['@type'] });
+                if(Array.isArray(item)){
+                    item.forEach(relation =>{
+                        let properties = this.loadRelation(relation, isRelation);
+                        atributes.push({ name: key, value: properties, model: properties, isArray: true, type: relation['@type'] });
+                    })
+                }else{
+                    let properties = this.loadRelation(item, isRelation);
+                    atributes.push({ name: key, value: properties, model: properties, isArray: true, type: item['@type'] });
+                }
            }else{
-                if (key.includes('label')) {
-                    mark.name = item
-                }
-                if (key == '@type'){
-                    mark.type = item
-                }
-                if (key != '@type' && key != '@id') {
-                    let url = item;
-                    let urlType=null
-                    if(this.isUrl(url)){
-                        urlType='external';
-                    }
-                    if(this.isUrlTranscriptor(url)){
-                        urlType='internal';
-                    }
-                    atributes.push({ name: key, value: item, model: item, isArray: false, type: null,urlType: urlType});
+                if (Array.isArray(item)) {
+                    item.forEach(propertie => {
+                        this.loadSimpleAtribute(key, mark, propertie, atributes);
+                    })
+                }else{
+                    this.loadSimpleAtribute(key, mark, item, atributes);
                 }
             }
         }
-
         return this.sortProperties(atributes);
+    }
 
+    public static loadSimpleAtribute(key,mark,item,atributes){
+        if (key.includes('label')) {
+            mark.name = item
+        }
+        if (key == '@type') {
+            mark.type = item
+        }
+        if (key == '@id') {
+            mark.id = item;
+        }
+        if (key != '@type' && key != '@id') {
+            let url = item;
+            let urlType = null
+            if (this.isUrl(url)) {
+                urlType = 'external';
+            }
+            if (this.isUrlTranscriptor(url)) {
+                urlType = 'internal';
+            }
+            atributes.push({ name: key, value: item, model: item, isArray: false, type: null, urlType: urlType });
+        }
     }
 
     /** consulta si cumple con el formato url */
@@ -103,9 +135,9 @@ export class SemanticUtils {
 
 
     public static extractTranscriptorUrlPrefix(id){
-        let urlprefix = `${environment.semantic_transcription.prefix}`;
+        let urlprefix = `${environment.semantic_transcription.prefix}`.toLowerCase();
         if (id && urlprefix){
-            if (id.includes(urlprefix)) {
+            if (id.toLowerCase().includes(urlprefix)) {
                 return id.substring(urlprefix.length,id.length);
             } 
         }
