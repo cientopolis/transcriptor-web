@@ -68,7 +68,8 @@
           </div>
         </div>
         <div class="row right-align m-b-5">
-          <a class="m-t-0" (click)="advancedSearch = !advancedSearch">Búsqueda avanzada</a>
+          <a class="m-t-0" (click)="advancedSearch = false" *ngIf="advancedSearch">Búsqueda avanzada</a>
+          <a class="m-t-0" (click)="advancedSearch = true" *ngIf="!advancedSearch">Búsqueda básica</a>
         </div>
 
         <!-- <app-semantic-search-input #semanticSearchInput [fetchSelectedEntity]="false"

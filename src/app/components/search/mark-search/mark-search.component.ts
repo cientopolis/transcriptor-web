@@ -12,7 +12,7 @@ export class MarkSearchComponent implements OnInit {
   @ViewChild('searchInput') searchInput;
   referencesGroups: any = []
   blockRequests = true
-  advancedSearch = true
+  advancedSearch = false
 
   classFilter=null
   relationFilter=null
