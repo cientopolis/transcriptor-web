@@ -120,7 +120,6 @@ import { SemanticTextEditorComponent } from './components/transcribe/semantic-te
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
 import { SemanticFormComponent } from './components/transcribe/semantic/semantic-form/semantic-form.component';
-import { SchemeBuilderComponent } from './components/transcribe/semantic/semantic-form/scheme-builder/scheme-builder.component';
 import { DataPropertieInputsComponent } from './components/transcribe/semantic/semantic-form/datapropertie-inputs/datapropertie-inputs.component.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
@@ -133,7 +132,7 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchInputComponent } from './components/shared/search-input/search-input.component';
 import { SemanticSearchInputComponent } from './components/search/semantic-search-input/semantic-search-input.component';
 
-import { SchemePipe } from './pipes/scheme.pipe';
+import { OntologyPipe } from './pipes/ontology.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
@@ -145,6 +144,8 @@ import { OntologiesComponent } from './components/transcribe/semantic/ontologies
 import { OntologyComponent } from './components/ontology/ontology.component';
 import { MarkSearchComponent } from './components/search/mark-search/mark-search.component';
 import { OntologySearchInputComponent } from './components/search/ontology-search-input/ontology-search-input.component';
+import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
+import { AddRelationshipComponent } from './components/transcribe/semantic/add-relationship/add-relationship.component';
 
 @NgModule({
   declarations: [
@@ -183,8 +184,7 @@ import { OntologySearchInputComponent } from './components/search/ontology-searc
     PlayerProfileComponent,
     SemanticFormComponent,
     ListSemanticMarksComponent,
-    SchemePipe,
-    SchemeBuilderComponent,
+    OntologyPipe,
     DataPropertieInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
@@ -206,7 +206,9 @@ import { OntologySearchInputComponent } from './components/search/ontology-searc
     OntologiesComponent,
     OntologyComponent,
     MarkSearchComponent,
-    OntologySearchInputComponent
+    OntologySearchInputComponent,
+    EmptyValuePipe,
+    AddRelationshipComponent
   ],
   imports: [
     BrowserModule,
@@ -281,7 +283,7 @@ import { OntologySearchInputComponent } from './components/search/ontology-searc
     PageVersionService,
     LayerService,
     SemanticModelService,
-    SchemePipe
+    OntologyPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,5 @@
+import { MarkSemanticRelation } from './../../models/marksemanticrelation';
+import { Observable } from 'rxjs';
 import { RelationOntologyInstance } from './../../models/ontology/instance/relationOntologyInstance';
 import { Ontology } from 'app/models/ontology/ontology';
 import { DataPropertieValue } from './../../models/ontology/instance/dataPropertieValue';
@@ -21,13 +23,23 @@ export class SemanticModelService {
   private listClassesOntologyPath = '/api/semantic_ontology/list_classes';
   private getBasicPropertiesPath = '/api/semantic_ontology/list_properties';
   private getRelationshipsPath = '/api/semantic_ontology/list_relations';
-  
+  private postRelationPath = '/api/semantic_entity/add_relation';
+
+
   constructor(private httpService: HttpService) { }
 
 /*   getTypesTreejson(params,options = {}):Observable<OntologyClass[]> {
     return this.httpService.lpost(this.listClassesOntologyPath, params, { responseDataType: OntologyClass }) as Observable<OntologyClass[]>;
   }
  */
+  addRelation(relation:MarkSemanticRelation,options = {}){
+
+    return this.httpService.post(this.postRelationPath, {
+      "subject_id": relation.subject_id,
+      "predicate_id": relation.predicate_id,
+      "object_id": relation.object_id
+    }, { responseDataType: MarkSemanticRelation }) as Observable<MarkSemanticRelation>;;
+  }
   getTypesTreejson(params,options = {}) {
     return this.httpService.lpost([this.listClassesOntologyPath, {}],params, options);
   }
@@ -53,8 +65,7 @@ export class SemanticModelService {
       const compacted = jsonld.compact(doc, context);
       return compacted;
     }
-  setContext(ontologyInstance: ontologyClassInstance){
-    let ontology = ontologyInstance.ontologyClass.ontology;
+  setContext(ontologyInstance: ontologyClassInstance = null){
     let context = {
       "@context": {
         "schema": "http://schema.org/",
@@ -65,27 +76,41 @@ export class SemanticModelService {
       "@id": "http://test-lala.com/semantic-contribution-1",
       "@type":"schema:NoteDigitalDocument",
       "schema:mainEntity": {
-
+        
       }
-  
+      
     }
-    context["@context"][ontology.prefix] = ontology.url;
+    if (ontologyInstance){
+      let ontology = ontologyInstance.ontologyClass.ontology;
+      context["@context"][ontology.prefix] = ontology.url;
+    } 
     return context;
   }
 
-  generateJsonld(ontologyInstance:ontologyClassInstance){
+
+  generateJsonld(ontologyInstance:ontologyClassInstance = null,entityPreviousSaved = null){
+    console.log('param received');
+    console.log(ontologyInstance);
     let context = this.setContext(ontologyInstance);
     let instance = {};
     let noteEntitydoc = this.setContext(ontologyInstance);
-    let basicProp = this.processBasicProperties(ontologyInstance.properties,ontologyInstance.ontologyClass.ontology,instance);
-    let relationProp = this.processRelationships(ontologyInstance.relations, ontologyInstance.ontologyClass.ontology, instance)
-    instance['@type']=ontologyInstance.name;
+
+    if(!entityPreviousSaved){
+      this.processBasicProperties(ontologyInstance.properties,ontologyInstance.ontologyClass.ontology,instance);
+      this.processRelationships(ontologyInstance.relations, ontologyInstance.ontologyClass.ontology, instance)
+      instance['@type']=ontologyInstance.name;
+
+    }else{
+      instance = entityPreviousSaved;
+    }
 /*     noteEntitydoc['@type'] = ontologyInstance.ontologyClass.ontology.prefix+':'+ "NoteDigitalDocument"; */
     noteEntitydoc['@id'] = `${environment.semantic_transcription.prefix}`+"semantic-contribution-" + Date.now();
     noteEntitydoc['rdfs:label'] = instance['rdfs:label'];
     noteEntitydoc['schema:mainEntity'] = instance;
+    console.log('instance',instance);
     let response = this.compacted(noteEntitydoc, context);
     response.then(docCompacted => {
+      console.log('compacted',docCompacted);
     })
     return response;
 
@@ -94,9 +119,9 @@ export class SemanticModelService {
   processBasicProperties(properties: Array<DataPropertieValue>,ontology:Ontology,instance,isRelation=false) {
     var basicPropertieMap = new Map();
     properties.forEach(propertie => {
-
+      console.log('propertie de data propertie es:',propertie.property);
       if (propertie.name!='label'){
-        basicPropertieMap.set(propertie.getNameWithPrefix(),propertie.value);
+        basicPropertieMap.set(propertie.property,propertie.value);
       }else{
         basicPropertieMap.set('rdfs:label', propertie.value);
        
@@ -116,15 +141,16 @@ export class SemanticModelService {
     var relationMap = new Map();
    // var relationInstance = {};
     relationships.forEach(relation =>{
+      console.log('propertie de relation propertie es:', relation.property);
       if (relation.searchRelationship){
-        relationMap.set(relation.getName(), relation.relationPersisted);
-        instance[relation.getName()] = relation.relationPersisted;
+        relationMap.set(relation.property, relation.relationPersisted);
+        instance[relation.property] = relation.relationPersisted;
       }else{
         var relationInstance = {};
         let body = this.processBasicProperties(relation.properties, ontology, relationInstance,true);
         relationInstance['@type'] = relation.type;
-        instance[relation.getName()] = relationInstance;
-        relationMap.set(relation.getName(),body);
+        instance[relation.property] = relationInstance;
+        relationMap.set(relation.property,body);
       }
     })
     return relationMap;
@@ -222,11 +248,11 @@ export class SemanticModelService {
     listEntities(filter, options = {}) {
       return this.httpService.lpost(this.listEntitiesPath, filter, options);
     }
-
-    getEntity(entityId, useDefaultSchema, options = {}) {
+    //https://himalia.ddns.net:8080/api/semantic_entity/describe?entity_id=slu&use_default_schema=true&is_contribution=true
+    getEntity(entityId, useDefaultSchema,isContribution = false, options = {}) {
       var getEntityPathWithParams = `${this.getEntityPath}?entity_id=${entityId}`
       getEntityPathWithParams = useDefaultSchema ? `${getEntityPathWithParams}&use_default_schema=${useDefaultSchema}` : getEntityPathWithParams
+      getEntityPathWithParams = isContribution ? `${getEntityPathWithParams}&is_contribution=${isContribution}` : `${getEntityPathWithParams}&is_contribution=${isContribution}`;
       return this.httpService.lget(getEntityPathWithParams, options);
     }
-  
 }

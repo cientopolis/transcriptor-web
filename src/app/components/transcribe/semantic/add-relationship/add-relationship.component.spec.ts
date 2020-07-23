@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SchemeBuilderComponent } from './scheme-builder.component';
+import { AddRelationshipComponent } from './add-relationship.component';
 
-describe('SchemeBuilderComponent', () => {
-  let component: SchemeBuilderComponent;
-  let fixture: ComponentFixture<SchemeBuilderComponent>;
+describe('AddRelationshipComponent', () => {
+  let component: AddRelationshipComponent;
+  let fixture: ComponentFixture<AddRelationshipComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SchemeBuilderComponent ]
+      declarations: [ AddRelationshipComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SchemeBuilderComponent);
+    fixture = TestBed.createComponent(AddRelationshipComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -27,6 +27,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   showSaveButton:Boolean = false;
   contribution_slug:string;
   semanticContribution = null;
+  label = null;
 
   constructor(private transcribeService: TranscribeService,
      private markService: MarkService,
@@ -34,18 +35,14 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
       private  semanticModel:SemanticModelService) { }
 
   ngOnChanges(changes) {
-    console.log(changes);
     this.ontology=null;
   }
   ngOnInit() {
-   /*  console.log("call types from backend")
-    this.semanticModel.getFullTree(); */
     this.selectRelationship=true;
   }
 
 
   selectOntology(event){
-    console.log('Ontologia seleccionada', event)
     this.ontology=event;
   }
 
@@ -59,6 +56,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     mark.semantic_text = this.semantic_text;
     mark.schema_type = this.schema_type;
     mark.contribution_slug = this.contribution_slug;
+    mark.label = this.label;
     this.renderedMark.mark=mark;
     this.delegate.addModalMark();
       }
@@ -70,6 +68,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;
     this.contribution_slug = event.contribution_slug;
+    this.label=event.label;
     this.save();
    }
 

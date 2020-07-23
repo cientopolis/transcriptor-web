@@ -1,3 +1,4 @@
+import { SemanticUtils } from './../../../../../../utils/semantic-utils';
 import { ontologyClassInstance } from '../../../../../../models/ontology/instance/ontologyClassInstance';
 import { DataPropertieValue } from '../../../../../../models/ontology/instance/dataPropertieValue';
 import { DataPropertie } from '../../../../../../models/ontology/class/dataPropertie';
@@ -93,7 +94,6 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
         propertie.ontologyClass = this.ontologyInstance.ontologyClass;
         let selectProp = new DataPropertieValue(propertie);        
         this.propertiesSelected.push(selectProp);
-//        this.propertiesSelected.push({ name: propertie.name, value: '', type: propertie.types[0], scheme: null, canDelete: true });
         this.validationMap.set(propertie.name,false);
       }
     } else {
@@ -137,7 +137,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
       properties.forEach(prop => {
         propertiesClass.push(new DataPropertie(prop));
       });
-      this.properties=propertiesClass;
+      this.properties = SemanticUtils.sortProperties(propertiesClass);
       this.loader=false;
     });
   }

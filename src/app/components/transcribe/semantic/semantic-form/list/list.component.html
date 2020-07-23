@@ -10,8 +10,8 @@
         <mz-collection-item (click)="showDetail(mark)" [avatar]="true" *ngFor="let mark of  semanticContributions"
           class="collection-item">
           <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
-          <h6 class="title" style="font-size: 14px;">{{mark.name | scheme_type}}</h6>
-          <p class="descriptiom-item">{{mark.schema_type | scheme_type}}</p>
+          <h6 class="title" style="font-size: 14px;">{{ mark.label | emptyValue}}</h6>
+          <p class="descriptiom-item">{{mark.type}}</p>
           <span mz-secondary-content><i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"  style="color:black"></i></span>
         </mz-collection-item>
       </mz-collection>
@@ -25,5 +25,12 @@
   </div>
 </div>
 <div class="row p-l-10 p-r-10" *ngIf="semanticContributionsSelected">
-  <app-semantic-transcription-details (cancelEvent)="cancelShowDetail($event)" [markSelected]="semanticContributionsSelected"></app-semantic-transcription-details>
+  <app-semantic-transcription-details 
+    [enableaddrelation] = "true"
+    [layername]="layerName"
+    (cancelEvent)="cancelShowDetail($event)" 
+    [entityid]="semanticContributionsSelected.slug" 
+    [markSelected]="semanticContributionsSelected">
+  </app-semantic-transcription-details>
 </div>
+

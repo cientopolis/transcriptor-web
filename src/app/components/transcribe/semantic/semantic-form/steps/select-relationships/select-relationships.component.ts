@@ -1,8 +1,8 @@
+import { SemanticUtils } from './../../../../../../utils/semantic-utils';
 import { RelationOntologyInstance } from './../../../../../../models/ontology/instance/relationOntologyInstance';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { RelationOntologyClass } from '../../../../../../models/ontology/class/relationOntologyClass';
 import { ontologyClassInstance } from '../../../../../../models/ontology/instance/ontologyClassInstance';
-import { SchemeUtils } from '../../../../../../utils/schema-utils';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 
 @Component({
@@ -23,9 +23,9 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   @Input() ontologyInstance: ontologyClassInstance;
   loader=true;
 
-  basicTypes = ['Time', 'Text', 'Date', 'Boolean', 'DateTime', 'Number', 'measuredValue'];
+
   constructor(private semanticService: SemanticModelService) { 
-    this.basicTypes = SchemeUtils.basicTypes;
+
   }
 
   ngOnChanges(changes) {
@@ -44,20 +44,17 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   }
 
   getRelationships() {
-    console.log('get relation prop');
     this.relationships = new Array<RelationOntologyClass>();
     this.relationshipsSelected = new Array<any>();
     let param = { class: this.ontologyInstance.name };
     this.semanticService.getRelationships(param).subscribe(result => {
       let relations = result;
-      console.log(relations);
       let propertiesClass = new Array<RelationOntologyClass>();
       relations.forEach(prop => {
         propertiesClass.push(new RelationOntologyClass(prop,this.ontologyInstance.ontologyClass));
       });
-      this.relationships = propertiesClass;
+      this.relationships = SemanticUtils.sortProperties(propertiesClass);
       this.loader = false;
-      console.log(propertiesClass);
     });
   }
   public openModalSelectRelarionship() {
@@ -70,7 +67,6 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         relationship.properties = event.properties;
       }
     })
-    console.log(this.relationshipsSelected);
   }
   generateSchemeRelationships(){
     let relationships = new Array<RelationOntologyInstance>();
@@ -87,38 +83,11 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
     });
   }
   
-  getRelationship(propertie, ranges, relationship) {
-    var types = new Array();
-    var relationTypes = new Array();
-    var name = propertie.name;
-    ranges.forEach(range => {
-      var res = range;
-      if (!this.basicTypes.includes(res)) {
-        relationTypes.push(res);
-      }
-    });
 
-    if (relationTypes.length > 0) {
-      relationship.push({ name: name, description: propertie.comment, types: relationTypes, type: relationTypes[0], id: name + Date.now(), selected: false } );
-    }
-  }
 
   hasRanges(properties,prop){
     return (properties[prop]['@type'] != "rdfs:Class" && properties[prop]['schema:rangeIncludes']);
   }
-  processProperties(properties) {
-    properties.forEach(propertie => {
-      let label = propertie.label;
-      let propertieId = propertie.id;
-      let ranges = propertie.types;
-      if (label != null) {
-        if (ranges != null && ranges.length) {
-          this.getRelationship(propertie, ranges, this.relationships);
-        }
-      }  
-    });
-
-}
 
 
   handleDeleteRelationship(event){
@@ -127,7 +96,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
       if (item.label.toLowerCase() === event.label.toLowerCase()) this.relationshipsSelected.splice(index, 1);
     });
     this.relationships.forEach( prop => {
-      if (prop.label.toLowerCase() == event.label.toLowerCase()) { prop.selected = false;console.log('encontro,',prop); return}
+      if (prop.label.toLowerCase() == event.label.toLowerCase()) { prop.selected = false; return}
     })
   }
 
@@ -141,7 +110,6 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         if (item.label.toLowerCase() === relation.label.toLowerCase()) this.relationshipsSelected.splice(index, 1);
       });
     }
-    console.log(this.relationshipsSelected);
   }
 
   selectType(prop, event) {
@@ -160,11 +128,9 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
         if (item.label.toLowerCase() === event.label.toLowerCase()) item.relationPersisted = event.semanticRelationship;
       });
     }
-    console.log(this.relationshipsSelected);
   }
 
   assignRelationship(event){
-    console.log(event);
     if(event && event.label!=null){
       this.relationshipsSelected.forEach((item, index) => {
         if (item.label.toLowerCase() === event.label.toLowerCase()) item.searchRelationship=false;
@@ -183,11 +149,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
 
   }
   handlePropertieValidation(event) {
-    if (event) {
-   
-    } else {
-    
-    }
+
   }
 }
   

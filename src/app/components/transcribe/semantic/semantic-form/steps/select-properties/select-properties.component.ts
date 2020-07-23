@@ -1,3 +1,4 @@
+import { SemanticUtils } from './../../../../../../utils/semantic-utils';
 import { RelationOntologyInstance } from './../../../../../../models/ontology/instance/relationOntologyInstance';
 import { ontologyClassInstance } from './../../../../../../models/ontology/instance/ontologyClassInstance';
 import { DataPropertieValue } from './../../../../../../models/ontology/instance/dataPropertieValue';
@@ -82,7 +83,7 @@ export class SelectPropertiesComponent implements OnInit, OnChanges {
       properties.forEach(prop => {
         propertiesClass.push(new DataPropertie(prop));
       });
-      this.properties = propertiesClass;
+      this.properties = SemanticUtils.sortProperties(propertiesClass);;
       this.loader = false;
     });
   }

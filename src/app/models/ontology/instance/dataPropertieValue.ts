@@ -6,12 +6,15 @@ export class DataPropertieValue {
     comment: string;
     type: string;
     canDelete: boolean = true;
+    property:string;
     value: String;
     dataPropertie:DataPropertie;
+    
     constructor(propertieJson = null) {
         if(propertieJson!=null){
             this.id = propertieJson.id;
             this.name = propertieJson.name;
+            this.property = propertieJson.property;
             this.comment = propertieJson.comment;
             if (propertieJson.types){
                 this.type = propertieJson.types[0];
