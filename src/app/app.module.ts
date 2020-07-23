@@ -143,6 +143,8 @@ import { SearchSemanticRelationshipComponent } from './components/transcribe/sem
 import { ShowRelationshipItemComponent } from './components/transcribe/semantic/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
 import { OntologyComponent } from './components/ontology/ontology.component';
+import { MarkSearchComponent } from './components/search/mark-search/mark-search.component';
+import { OntologySearchInputComponent } from './components/search/ontology-search-input/ontology-search-input.component';
 
 @NgModule({
   declarations: [
@@ -202,7 +204,9 @@ import { OntologyComponent } from './components/ontology/ontology.component';
     SearchSemanticRelationshipComponent,
     ShowRelationshipItemComponent,
     OntologiesComponent,
-    OntologyComponent
+    OntologyComponent,
+    MarkSearchComponent,
+    OntologySearchInputComponent
   ],
   imports: [
     BrowserModule,

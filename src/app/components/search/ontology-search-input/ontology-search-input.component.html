@@ -1,0 +1,17 @@
+<div class="row m-b-0">
+    <div class="p-l-0 p-r-0 col s12">
+        <app-search-input
+            #searchInput
+            (onFetch)="searchComponents($event)"
+            (itemChange)="itemChange($event)"
+            [placeholder]="placeholder"
+            [itemIcon]="null"
+            [autocomplete]="autocomplete"
+            [searchIcon]="searchIcon"
+            [flatStyle]="flatStyle"
+            (textChange)="textChange($event)"
+            (onClear)="onClear()"
+            (invalidInput)="handleInvalidInput()">
+        </app-search-input>
+    </div>
+</div>

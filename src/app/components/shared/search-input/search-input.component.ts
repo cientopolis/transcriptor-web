@@ -21,6 +21,7 @@ export class SearchInputComponent implements OnInit {
   @Input() results = []
   @Input() flatStyle = false
   @Input() showClearButton = true
+  @Input() searchIcon = 'magnify'
   
   @Output() onFetch = new EventEmitter();
   @Output() itemChange = new EventEmitter();
@@ -47,7 +48,6 @@ export class SearchInputComponent implements OnInit {
   }
 
   search(searchText = this.searchText) {
-    console.log("search", searchText)
     this.searchDropdown.close()
     if (searchText && searchText.length > this.minChars) { 
       this.onFetch.emit({searchText: searchText});
