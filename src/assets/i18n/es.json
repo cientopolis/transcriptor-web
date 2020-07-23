@@ -390,6 +390,25 @@
       }
     }
   },
+  "markSearch": {
+    "title": "Búsqueda de Marcas",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar marcas que contengan información de tu interés.",
+    "label": {
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "searchMark": "Buscá un termino para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
   "ontology":{
     "title": "Ontologias",
     "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",

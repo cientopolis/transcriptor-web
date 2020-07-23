@@ -1,0 +1,50 @@
+@import '~styles/styles';
+
+:host ::ng-deep .transcriptor-type-filter .card-content {
+    padding-top: 5px;
+    padding-bottom: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+:host ::ng-deep .transcriptor-type-filter .card-content .input-field,
+:host ::ng-deep .transcriptor-type-filter .card-content .input-field input {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+:host ::ng-deep .transcriptor-type-filter .collection {
+    margin: 0;
+}
+:host ::ng-deep .transcriptor-type-filter .collection .collection-item.avatar {
+    min-height: 64px;
+}
+:host ::ng-deep .transcriptor-type-filter .collection .collection-item.avatar:hover {
+    background-color: #efefef;
+}
+:host ::ng-deep .transcriptor-type-filter .collection .collection-item.avatar .secondary-content {
+    top: calc(50% - 12px)
+}
+:host ::ng-deep .transcriptor-type-filter .input-field .prefix.active {
+    color: $primaryColor;
+}
+:host ::ng-deep .transcriptor-type-filter .input-field input {
+    cursor: pointer;
+}
+
+:host ::ng-deep .dropdown-content {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    max-height: 500%;
+}
+.search-dropdown-button {
+    width: 100%;
+}
+
+// Flat Style
+.transcriptor-type-filter.card.flat {
+    box-shadow: none;
+    background-color: #F5F5F5;
+    border: 1px solid #dddddd;
+}

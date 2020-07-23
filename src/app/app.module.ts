@@ -142,6 +142,8 @@ import { SearchSemanticRelationshipComponent } from './components/transcribe/sem
 import { ShowRelationshipItemComponent } from './components/transcribe/semantic/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
 import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
 import { OntologyComponent } from './components/ontology/ontology.component';
+import { MarkSearchComponent } from './components/search/mark-search/mark-search.component';
+import { OntologySearchInputComponent } from './components/search/ontology-search-input/ontology-search-input.component';
 import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
 import { AddRelationshipComponent } from './components/transcribe/semantic/add-relationship/add-relationship.component';
 
@@ -203,6 +205,8 @@ import { AddRelationshipComponent } from './components/transcribe/semantic/add-r
     ShowRelationshipItemComponent,
     OntologiesComponent,
     OntologyComponent,
+    MarkSearchComponent,
+    OntologySearchInputComponent,
     EmptyValuePipe,
     AddRelationshipComponent
   ],

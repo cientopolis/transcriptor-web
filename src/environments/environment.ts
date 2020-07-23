@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '',
+  apiUrl: 'http://192.168.0.31:3000',
   transcribe: {
     classicMode: false,
     layers: true
