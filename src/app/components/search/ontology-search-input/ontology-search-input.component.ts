@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
-import { SchemePipe } from 'app/pipes/scheme.pipe';
+import { OntologyPipe } from 'app/pipes/ontology.pipe';
 import { SearchService } from 'app/services/search/search.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class OntologySearchInputComponent implements OnInit {
   constructor(
     private searchService: SearchService, 
     private semanticModelService: SemanticModelService,
-    private ontologyPipe: SchemePipe) {
+    private ontologyPipe: OntologyPipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults
   }
 
