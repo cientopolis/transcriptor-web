@@ -1,8 +1,8 @@
 <div class="row m-t-15">
-  <div class="col s12 m10 offset-m1">
+  <div class="col s12">
     <mz-card>
       <mz-card-title>
-        <h5 class="m-b-10">{{'markSearch.title' | translate}}</h5>
+        <h6 class="m-b-10 search-title">{{'markSearch.title' | translate}}</h6>
       </mz-card-title>
       <mz-card-content>
         <p class="m-b-10">{{ 'markSearch.description' | translate }}</p>
@@ -68,8 +68,8 @@
           </div>
         </div>
         <div class="row right-align m-b-5">
-          <a class="m-t-0" (click)="advancedSearch = false" *ngIf="advancedSearch">Búsqueda avanzada</a>
-          <a class="m-t-0" (click)="advancedSearch = true" *ngIf="!advancedSearch">Búsqueda básica</a>
+          <a class="m-t-0" (click)="advancedSearch = false" *ngIf="advancedSearch">Búsqueda básica</a>
+          <a class="m-t-0" (click)="advancedSearch = true" *ngIf="!advancedSearch">Búsqueda avanzada</a>
         </div>
 
         <!-- <app-semantic-search-input #semanticSearchInput [fetchSelectedEntity]="false"
@@ -119,7 +119,7 @@
               <app-reference-container *ngFor="let referencesGroup of referencesGroups"
                 [referencesGroup]="referencesGroup" 
                 [filterSlugs]="referencesGroup.contributionSlugs"
-                (onReferenceSelection)="referenceDetailModal.open($event, referencesGroup)">
+                (onReferenceSelection)="parent.referenceDetailModal.open($event, referencesGroup)">
               </app-reference-container>
             </div>
           </div>
@@ -128,5 +128,3 @@
     </mz-card>
   </div>
 </div>
-
-<app-reference-detail-modal #referenceDetailModal></app-reference-detail-modal>

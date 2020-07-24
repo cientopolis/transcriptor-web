@@ -1,0 +1,65 @@
+<div class="row m-t-15">
+  <div class="col s12">
+    <mz-card>
+      <mz-card-title>
+        <h6 class="m-b-10 search-title">{{'entitySearch.title' | translate}}</h6>
+      </mz-card-title>
+      <mz-card-content>
+        <p class="m-b-10">{{ 'entitySearch.description' | translate }}</p>
+
+
+        <app-semantic-search-input #semanticSearchInput [fetchSelectedEntity]="false"
+          [placeholder]="'entitySearch.placeholder.seachEntity' | translate" [flatStyle]="true" [typeSelector]="true"
+          [autocomplete]="false" [(results)]="semanticEntities" (resultsChange)="semanticEntitiesChange()">
+        </app-semantic-search-input>
+
+        <div class="selected-semantic-entity m-b-10" *ngIf="!isNewSearch && semanticEntity">
+          <small class="primary-color-text">{{ 'entitySearch.label.selectedEntity' | translate }}</small>
+          <mz-collection>
+            <mz-collection-item [avatar]="true" class="collection-item">
+              <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="primary-color"></i>
+              <div class="title">{{semanticEntity.entityLabel.value}}</div>
+              <p class="descriptiom-item">{{ semanticEntity.entityType.value }}</p>
+              <a mz-secondary-content style="margin-right: 0px;">
+                <a (click)="openSelectedEntityDetail()"
+                  style="cursor: pointer;">{{ 'entitySearch.button.showMore' | translate }}</a>
+                <i (click)="clearSelectedEntity()" style="margin-right: 0px;color: black;" mz-icon-mdi [icon]="'close'"
+                  [align]="'right'"></i>
+              </a>
+            </mz-collection-item>
+          </mz-collection>
+        </div>
+
+        <div class="semantic-entity-results" *ngIf="isNewSearch && semanticEntities">
+          <h6>{{ 'entitySearch.label.loadedEntities' | translate }}</h6>
+          <mz-collection>
+            <mz-collection-item [avatar]="true" class="collection-item" *ngFor="let semanticEntity of semanticEntities"
+              (click)="selectSemanticEntity(semanticEntity.item)">
+              <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
+              <div class="title">{{semanticEntity.title}}</div>
+              <p class="descriptiom-item">{{ semanticEntity.description }}</p>
+              <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+                  [icon]="'chevron-right'" [align]="'left'"></i></a>
+            </mz-collection-item>
+            <mz-collection-item class="center-align" *ngIf="semanticEntities && !semanticEntities.length > 0">
+              <a href="#!" class="center-align">{{ 'app.placeholder.search.empty.list' | translate }}</a>
+            </mz-collection-item>
+          </mz-collection>
+        </div>
+
+        <div class="row" *ngIf="referencesGroups && referencesGroups.length > 0 && !isNewSearch">
+          <div class="col s12">
+            <h6>{{ 'entitySearch.label.results' | translate }}</h6>
+            <div class="references-list">
+              <app-reference-container *ngFor="let referencesGroup of referencesGroups"
+                [referencesGroup]="referencesGroup" [filterSlugs]="referencedSlugs"
+                (onReferenceSelection)="parent.referenceDetailModal.open($event, referencesGroup)">
+              </app-reference-container>
+            </div>
+          </div>
+        </div>
+
+      </mz-card-content>
+    </mz-card>
+  </div>
+</div>

@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SearchService } from 'app/services/search/search.service';
 import { filter } from 'lodash';
+import { SearchComponent } from '../search.component';
 
 @Component({
   selector: 'app-mark-search',
@@ -17,6 +18,8 @@ export class MarkSearchComponent implements OnInit {
   classFilter=null
   relationFilter=null
   valueFilter=null
+
+  @Input('parent') parent: SearchComponent
 
   constructor(private searchService: SearchService) { }
 

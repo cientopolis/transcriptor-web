@@ -390,6 +390,27 @@
       }
     }
   },
+  "entitySearch": {
+    "title": "Búsqueda de Entidades",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
   "markSearch": {
     "title": "Búsqueda de Marcas",
     "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar marcas que contengan información de tu interés.",
