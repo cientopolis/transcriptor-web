@@ -18,6 +18,7 @@ import { PageVersionComponent } from '../../components/page-version/page-version
 import { SearchComponent } from 'app/components/search/search.component';
 import { OntologyComponent } from 'app/components/ontology/ontology.component';
 import { MarkSearchComponent } from 'app/components/search/mark-search/mark-search.component';
+import { EntitySearchComponent } from 'app/components/search/entity-search/entity-search.component';
 
 
 
@@ -43,7 +44,6 @@ const routes: Routes = [
 	{ path: 'forum/:transcriptionId', component: ForumComponent, data: {animation:'transcription'} },
   { path: 'page-version/:pageId', component: PageVersionComponent, data: {animation:'page-version'} },
   { path: 'search', component: SearchComponent, data: { animation: 'search' } },
-  { path: 'mark-search', component: MarkSearchComponent, data: { animation: 'mark-search' } },
   { path: 'ontology', component: OntologyComponent, data: { animation: 'ontology' } }
 ];
 

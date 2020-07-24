@@ -1,40 +1,81 @@
 @import '~styles/styles';
 
-:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible,
-:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible li:first-of-type .collapsible-header,
-:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible li:first-of-type .collapsible-header .collection {
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+a.collection-item {
+  color: $primaryColor !important;
 }
 
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible,
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-header:not(.active),
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-header:not(.active) .collection,
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-body {
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+a.btn {
+  color: white;
 }
 
-:host ::ng-deep .selected-semantic-entity .collection,
-:host ::ng-deep .semantic-entity-results .collection {
-    margin: 0;
+.work-image {
+    height: 68px;
+    width: 68px;
+    margin: 2px 5px 0px 0px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-:host ::ng-deep .selected-semantic-entity .collection .collection-item.avatar,
-:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar {
-    min-height: 64px;
-}
-:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar:hover {
-    background-color: #efefef;
-}
-:host ::ng-deep .selected-semantic-entity .collection .collection-item.avatar .secondary-content,
-:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar .secondary-content {
-    top: calc(50% - 12px)
-}
-:host ::ng-deep .selected-semantic-entity .collection {
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-}
-
-:host ::ng-deep .card,
-:host ::ng-deep .card .card-content {
+.work-image .upload-button {
+    background-color: #6c6c6ccc;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
     transition: all .2s $transitionTimingFunction;
+    opacity: 0;
+}
+.work-image:hover .upload-button {
+    opacity: 1;
+}
+.work-image .upload-button p {
+    text-align: center;
+    width: 100%;
+    color: $defaultColor;
+}
+
+
+:host ::ng-deep .collection.with-header .collection-header {
+  color: white;
+  background-color: $hoverColor;
+}
+
+:host ::ng-deep .collection.no-border {
+  border: none;
+}
+
+:host ::ng-deep .empty-data-message {
+  margin: 10px !important;
+}
+
+:host ::ng-deep .collection.with-header .collection-header .mdi {
+  display: block;
+  position:  absolute;
+  top: 3px;
+}
+
+:host ::ng-deep .collection.with-header .collection-header .mdi + span {
+  margin-left: 30px;
+}
+
+:host ::ng-deep .collection-works-list .collection.with-header .collection-header h5 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+:host ::ng-deep .tabs {
+    background-color: $lightGrey;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+:host ::ng-deep .tabs .tab {
+    // text-align: left;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+:host ::ng-deep mz-tab .tabs-content {
+  background-color: #FAFAFA;
+}
+
+mz-card-title {
+  line-height: 0;
 }
