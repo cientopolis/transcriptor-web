@@ -147,6 +147,7 @@ import { OntologySearchInputComponent } from './components/search/ontology-searc
 import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
 import { AddRelationshipComponent } from './components/transcribe/semantic/add-relationship/add-relationship.component';
 import { EntitySearchComponent } from './components/search/entity-search/entity-search.component';
+import { EntityReferencesSearchComponent } from './components/search/entity-references-search/entity-references-search.component';
 
 @NgModule({
   declarations: [
@@ -210,7 +211,8 @@ import { EntitySearchComponent } from './components/search/entity-search/entity-
     OntologySearchInputComponent,
     EmptyValuePipe,
     AddRelationshipComponent,
-    EntitySearchComponent
+    EntitySearchComponent,
+    EntityReferencesSearchComponent
   ],
   imports: [
     BrowserModule,

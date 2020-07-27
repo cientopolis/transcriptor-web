@@ -1,42 +1,46 @@
-@import '~styles/styles';
-
-:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible,
-:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible li:first-of-type .collapsible-header,
-:host ::ng-deep .references-list app-reference-container:first-of-type .collapsible li:first-of-type .collapsible-header .collection {
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+:host ::ng-deep app-search-input .card {
+    margin-bottom: 7px;
 }
 
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible,
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-header:not(.active),
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-header:not(.active) .collection,
-:host ::ng-deep .references-list app-reference-container:last-of-type .collapsible li:last-of-type .collapsible-body {
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+.filters {
+    box-shadow: none;
+    background-color: #F5F5F5;
+    border: 1px solid #dddddd;
+    // padding-top: 10px;
+    // padding-bottom: 10px;
+    margin-bottom: 7px;
+    border-radius: 8px;
 }
-
-:host ::ng-deep .selected-semantic-entity .collection,
-:host ::ng-deep .semantic-entity-results .collection {
+:host ::ng-deep .filters .transcriptor-search-input {
     margin: 0;
 }
-:host ::ng-deep .selected-semantic-entity .collection .collection-item.avatar,
-:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar {
-    min-height: 64px;
-}
-:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar:hover {
-    background-color: #efefef;
-}
-:host ::ng-deep .selected-semantic-entity .collection .collection-item.avatar .secondary-content,
-:host ::ng-deep .semantic-entity-results .collection .collection-item.avatar .secondary-content {
-    top: calc(50% - 12px)
-}
-:host ::ng-deep .selected-semantic-entity .collection {
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+:host ::ng-deep .filters .transcriptor-search-input .card-content {
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
-:host ::ng-deep .card,
-:host ::ng-deep .card .card-content {
-    transition: all .2s $transitionTimingFunction;
+:host ::ng-deep .transcriptor-search-input.filter-value .card-content {
+    padding-bottom: 13px;
+    height: 100% !important;
+}
+:host ::ng-deep .transcriptor-search-input.filter-value .card-content .input-field,
+:host ::ng-deep .transcriptor-search-input.filter-value .card-content .input-field input {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+:host ::ng-deep .transcriptor-search-input.card.flat {
+    box-shadow: none;
+    background-color: #F5F5F5;
+    border: none !important;
+}
+
+:host ::ng-deep .collection .collection-item {
+    line-height: 1.1rem;
+}
+
+:host ::ng-deep .collection .collection-item.avatar {
+    min-height: 68px;
 }
 
 .search-title {

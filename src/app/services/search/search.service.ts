@@ -8,6 +8,7 @@ export class SearchService {
 
   private listSemanticReferencesPath = '/api/semantic_entity/list_references';
   private listMarksPath = '/api/search/marks';
+  private listEntitiesPath = '/api/semantic_entity/list';
   private listLoadedEntitiesPath = '/api/semantic_ontology/search_loaded_components';
 
   constructor(private httpService: HttpService) { }
@@ -18,6 +19,10 @@ export class SearchService {
 
   listMarks(filter = {}, options = {}) {
     return this.httpService.lpost(this.listMarksPath, { filter: filter }, options);
+  }
+
+  listEntities(filter = {}, options = {}) {
+    return this.httpService.lpost(this.listEntitiesPath, { filter: filter }, options);
   }
 
   listLoadedEntities(filter = {}, options = {}) {
