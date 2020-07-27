@@ -52,8 +52,8 @@ export class SemanticSearchInputComponent implements OnInit {
     }).subscribe(response => {
       this.onFetchEnd.emit()
       var mappedEntities = []
-      response.bindings.forEach(entity => {
-        mappedEntities.push({ title: entity.entityLabel.value, description: this.schemePipe.transform(entity.entityType.value), item: entity })
+      response.forEach(entity => {
+        mappedEntities.push({ title: entity.entityLabel, description: this.schemePipe.transform(entity.entityType), item: entity })
       });
       this.results = mappedEntities
       this.resultsChange.emit(this.results)

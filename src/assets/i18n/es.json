@@ -443,13 +443,13 @@
       "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
     },
     "button": {
-      "create":"Crear Ontología",
+      "create":"Cargar Ontología",
       "showMore": "Ver más",
-      "edit": "Editar Ontología"
+      "edit": "Edición de Ontología Cargada"
     },
     "modal": {
       "edit":{
-        "title": "Modificar una ontología",
+        "title": "Edición de Ontología Cargada",
         "button":{
           "delete":"Eliminar Ontología",
           "save":"Guardar Cambios"
@@ -467,7 +467,7 @@
           "cancel":"Cancelar",
           "save":"Guardar ontología"
         },
-        "title":"Crear una ontología"
+        "title":"Carga de ontología"
       },
       "detailReference": {
         "title": "Detalle de Referencia"
