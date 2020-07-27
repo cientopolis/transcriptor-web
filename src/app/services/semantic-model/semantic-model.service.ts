@@ -24,22 +24,23 @@ export class SemanticModelService {
   private getBasicPropertiesPath = '/api/semantic_ontology/list_properties';
   private getRelationshipsPath = '/api/semantic_ontology/list_relations';
   private postRelationPath = '/api/semantic_entity/add_relation';
-
+  private searchEntityClass = '/api/ontology/{{id}}/search_classes'
 
   constructor(private httpService: HttpService) { }
 
-/*   getTypesTreejson(params,options = {}):Observable<OntologyClass[]> {
-    return this.httpService.lpost(this.listClassesOntologyPath, params, { responseDataType: OntologyClass }) as Observable<OntologyClass[]>;
-  }
- */
-  addRelation(relation:MarkSemanticRelation,options = {}){
 
+  public searchEntityByClass(id,searchtext, options = {}) {
+    return this.httpService.lpost('/api/ontology/' + id + '/search_classes', { search_text: searchtext }, { responseDataType: Ontology });
+  }
+
+  addRelation(relation:MarkSemanticRelation,options = {}){
     return this.httpService.post(this.postRelationPath, {
       "subject_id": relation.subject_id,
       "predicate_id": relation.predicate_id,
       "object_id": relation.object_id
     }, { responseDataType: MarkSemanticRelation }) as Observable<MarkSemanticRelation>;;
   }
+
   getTypesTreejson(params,options = {}) {
     return this.httpService.lpost([this.listClassesOntologyPath, {}],params, options);
   }

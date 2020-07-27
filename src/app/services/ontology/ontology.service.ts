@@ -18,9 +18,11 @@ export class OntologyService {
   constructor(private httpService: HttpService) { }
 
 
+
+  
   list(ontology, options = {}) {
-    return this.httpService.lget([this.listPath + '?fields=ontology_datatypes', {fields:'ontology_datatypes'}], options);
-	}
+    return this.httpService.lget([this.listPath, { fields: 'ontology_datatypes' }], options);
+  }
 	
   listOntologies(ontology, options = {}): Observable<Ontology[]>  {
     return this.httpService.lget(this.listPath, { responseDataType: Ontology }) as Observable<Ontology[]>;

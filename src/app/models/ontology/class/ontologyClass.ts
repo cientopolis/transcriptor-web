@@ -11,8 +11,12 @@ export class OntologyClass {
     constructor(classJson = null,ontology=null){
         if(classJson){
             this.id = classJson.id;
+            if (classJson.classId){
+                this.id = classJson.classId;
+            }
             this.label = classJson.label;
             this.comment = classJson.comment;
+
         }
         if(ontology){
             this.ontology=ontology;

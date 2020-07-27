@@ -52,7 +52,7 @@ export class SearchInputComponent implements OnInit {
     if (searchText && searchText.length > this.minChars) { 
       this.onFetch.emit({searchText: searchText});
     } else {
-      if(searchText) {
+      if(searchText || searchText=='') {
         this.invalidInput.emit()
       }
     }

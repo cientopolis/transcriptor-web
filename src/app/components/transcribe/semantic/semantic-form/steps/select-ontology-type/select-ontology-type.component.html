@@ -11,18 +11,33 @@
 </app-ontologies>
 
 <div class="row"  *ngIf="!loader && ontology" style="margin-top: 0px;">
-  <mz-input-container>
+  <!-- <mz-input-container>
     <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
     <input mz-input [label]="'Buscar un tipo de dato'"  
     id="search-input-scheme"  type="text" [(ngModel)]="searchText">
-  </mz-input-container>
+  </mz-input-container> -->
+  <div class="p-l-0 p-r-0 col s12" >
+    <app-search-input #searchInput 
+      [results]="results"
+      [placeholder]="'Ingrese el nombre de una clase'" 
+      [itemIcon]="'semantic-web'" 
+      [autocomplete]="autocomplete" 
+      [flatStyle]="flatStyle"
+      (itemChange)="itemChange($event)"
+      (onFetch)="searchEntities($event)" 
+      (onClear)="onClear()" 
+      (invalidInput)="handleInvalidInput()">
+    </app-search-input>
+  </div>
+  
   <div class="col s12">
     <span class="primary-color-text">A continuación se listaran los tipos de la ontologia: {{ontology.name}}</span>
   </div>
-  <div class="col s12">
-    <ul class="breadcrumb">
-      <li *ngFor="let parent of parents"><a (click)="setParent(parent)">{{parent.label}}</a></li>
+  <div *ngIf="showParents"  [ngClass]="'col s12'">
+    <ul class="breadcrumb"*ngFor="let listparent of parents">
+      <li *ngFor="let parent of listparent"><a (click)="setParent(parent)">{{parent.label}}</a></li>
     </ul>
+   
   </div>
   <div class="col s12">
     <small class="primary-color-text" *ngIf="typeSelected">Seleccionaste el tipo: {{typeSelected.label}}</small>
@@ -32,7 +47,7 @@
     <div class="col s12">
       <h5>Tipos de datos</h5>
       <mz-collection >
-        <mz-collection-item [avatar]="true" *ngFor="let type of  types | filter:searchText" (click)="selectOntologyClass(type)" class="collection-item">
+        <mz-collection-item [avatar]="true" *ngFor="let type of types" (click)="selectOntologyClass(type)" class="collection-item">
           <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
           <h6>{{type.label }}</h6>
           <p class="descriptiom-item">{{type.comment }}</p>
