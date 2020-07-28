@@ -11,17 +11,17 @@
     </p>
   </div>
 </div>
-<div class="row">
+<div class="row m-b-5">
   <div class="col s12">
     <h6 class="primary-color-text m-b-5" style="font-weight: bold;">Entidad origen seleccionada</h6>
   </div>
-  <div class="col s12">
-    <div class="row">
+  <div class="col s12 p-0">
+    <div class="row m-b-5">
       <div class="col s12 z-depth-1" style="box-shadow: none;" *ngIf="false">
-        <h6 class="primary-color-text m-b-5">{{mark.name | ontology_type}}</h6>
+        <h6 class="primary-color-text m-b-0">{{mark.name | ontology_type}}</h6>
         <p>{{mark.type | ontology_type}}</p>
       </div>
-      <div class="col s12">
+      <div class="col s12" style="padding:0px;">
         <mz-collapsible [mode]="'expandable'" style="overflow: auto;text-overflow: ellipsis;white-space: nowrap;">
           <mz-collapsible-item [active]="true">
             <mz-collapsible-item-header>
@@ -49,43 +49,40 @@
 </div>
 
 
-<div class="row">
+<div class="row  m-b-5">
   <div class="col s12">
     <h6 class="primary-color-text m-b-5" style="font-weight: bold;">¿Cómo se relacionan estas entidades?</h6>
   </div>
   <div class="col s12">
-    <div class="row p-l-20">
-      <div class="col s12">
-        <mz-select-container *ngIf="relationships && relationships.length>0" (click)="$event.stopPropagation()">
+    <div class="row" style="padding:0px;margin-bottom: 0px;">
+      <div class="col s12  m-b-0" style="padding:0px;">
+        <mz-select-container  style="margin-bottom: 0px !important;" *ngIf="relationships && relationships.length>0" (click)="$event.stopPropagation()">
           <select mz-select (change)="selectRelation(relation,$event)" [label]="'Selecciona una relacion'" [(ngModel)]="relationselected">
             <option *ngFor="let relation of relationships" [ngValue]="relation">{{ relation.name | ontology_type }}</option>
           </select>
         </mz-select-container>
       </div>
     </div>
-
   </div>
 </div>
 
 
 
-<div class="row ">
-
+<div class="row  m-b-5">
   <div class="col s12">
     <h6 class="primary-color-text m-b-5" style="font-weight: bold;">Seleccioná la entidad destino</h6>
   </div>
-    <div class="row p-l-20" *ngIf="typesSelected && typesSelected.length>0">
-
+    <div class="row" style="padding:0px;margin-bottom: 0px;" *ngIf="typesSelected && typesSelected.length>0">
       <div class="col s12">
-        <mz-select-container (click)="$event.stopPropagation()">
+        <mz-select-container (click)="$event.stopPropagation()" style="margin-bottom: 0px !important;">
           <select mz-select (change)="selectType(relation,$event)" [label]="'selecciona el tipo de la relacion'" [(ngModel)]="typeselected">
             <option *ngFor="let type of typesSelected" [ngValue]="type">{{ type | ontology_type }}</option>
           </select>
         </mz-select-container>
       </div>
     </div>
-  <div class="col s12" [ngClass]="typeselected ? '':'disabled-component'">
-    <div class="row p-l-12">
+  <div class="col s12" style="padding:0px;" [ngClass]="typeselected ? '':'disabled-component'">
+    <div class="row" style="padding:0px;">
       <div class="col s12">
           <app-semantic-search-input 
             [(semanticModel)]="semanticItemSelected" 
