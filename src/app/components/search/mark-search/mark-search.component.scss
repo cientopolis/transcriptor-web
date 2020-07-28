@@ -35,6 +35,10 @@
     border: none !important;
 }
 
+:host ::ng-deep .transcriptor-search-input.card.flat input::placeholder {
+    color: #a0a0a0;
+}
+
 .search-title {
     font-size: 1.3rem;
 }

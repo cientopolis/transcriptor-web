@@ -400,7 +400,7 @@
       "references": "referencias"
     },
     "placeholder": {
-      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+      "searchEntity": "Ingresá un termino para encontrar entidades relacionadas. Ejemplo: \"San Martín\" o \"Edad Media\""
     },
     "button": {
       "showMore": "VER MÁS"
