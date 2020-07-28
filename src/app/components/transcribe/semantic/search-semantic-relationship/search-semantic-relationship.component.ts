@@ -72,7 +72,7 @@ export class SearchSemanticRelationshipComponent implements OnInit {
     this.showRelationshipDetails.openModal();
   }
   selectItem(item) {
-    this.semanticModelService.getEntity(item.entityId.value, false).subscribe(response => {
+    this.semanticModelService.getEntity(item.entityId, false).subscribe(response => {
       this.semanticItemSelected = response;
     });
   }

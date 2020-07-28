@@ -63,7 +63,7 @@ export class SemanticSearchInputComponent implements OnInit {
 
   itemChange(item) {
     if (this.fetchSelectedEntity) {
-      this.semanticModelService.getEntity(item.entityId.value, false).subscribe(response => {
+      this.semanticModelService.getEntity(item.entityId, false).subscribe(response => {
         this.setSemanticModel(response)
       });
     } else {

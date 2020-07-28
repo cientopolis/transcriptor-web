@@ -66,12 +66,12 @@
                 <td>
                   <mz-select-container *ngIf="relation && relation.types && relation.types.length>1" (click)="$event.stopPropagation()">
                     <select mz-select (change)="selectType(relation,$event)">
-                      <option *ngFor="let type of relation.types" [ngValue]="type">{{ type | ontology_type }}</option>
+                      <option *ngFor="let type of relation.types" value="{{type}}">{{ type | ontology_type }}</option>
                     </select>
                   </mz-select-container>
                   <span *ngIf="relation.types.length==1">{{relation.types[0] | ontology_type}}</span>
                 </td>
-                <td >{{relation.comment}}</td>
+                <td [innerHTML]="relation.comment | safeHtml"></td>
                 <td>
                   <mz-checkbox-container>
                     <input mz-checkbox id="{{relation.idInput}}"  class="filled-in checkbox-orange" filledIn=true type="checkbox" value="{{relation.selected}}" [(ngModel)]="relation.selected"

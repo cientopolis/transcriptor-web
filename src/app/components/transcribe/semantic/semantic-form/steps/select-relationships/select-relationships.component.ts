@@ -113,14 +113,17 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   }
 
   selectType(prop, event) {
-    prop.types.forEach((t, index) => {
-      if (t.toLowerCase() === event.detail.toLowerCase())
-        prop.types.splice(index, 1);
-    });
-    prop.types.unshift(event.detail);
-    prop.type = event.detail;
+    prop.type = event.target.value;
   }
 
+  // selectType(prop, event) {
+  //   prop.types.forEach((t, index) => {
+  //     if (t.toLowerCase() === event.detail.toLowerCase())
+  //       prop.types.splice(index, 1);
+  //   });
+  //   prop.types.unshift(event.detail);
+  //   prop.type = event.detail;
+  // }
 
   handleNewRelationship(event) {
     if (event && event.label != null) {
