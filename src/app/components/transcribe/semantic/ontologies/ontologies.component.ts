@@ -58,6 +58,7 @@ export class OntologiesComponent implements OnInit, AfterViewInit{
 
   selectOntology(ontology) {
     this.ontology = ontology;
+    this.confirmOntology();
     this.enableButton();
   }
   confirmOntology(){
