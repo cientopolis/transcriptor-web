@@ -20,7 +20,7 @@ export class OntologySearchInputComponent implements OnInit {
   @Input() placeholder = ""
   @Input() flatStyle = false
   @Input() searchIcon = 'magnify'
-  @Input() textChange = function() {}
+  @Input() textChange = function(event) {}
   
   @Input() componentType = "class"
   @Output() ontologyComponentChange = new EventEmitter()
