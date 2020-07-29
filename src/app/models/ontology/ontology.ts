@@ -11,9 +11,9 @@ export class Ontology {
     prefix:string;
     class_type:string;
     literal_type: string;
-    ontology_datatypes: Array<any>;
+    ontology_datatypes: Array<any> = [];
     @Expose({ name: "ontology_datatypes" })
-    ontology_datatypes_attributes: Array<any>;
+    ontology_datatypes_attributes: Array<any> = [];
 
     constructor(ontologyJson = null){
         if(ontologyJson){

@@ -15,7 +15,7 @@
             <h6>{{ontology.name}}</h6>
             <p class="descriptiom-item">{{ontology.description}}</p>
             <div mz-secondary-content>
-              <i mz-icon-mdi [icon]="'pencil'" [align]="'left'" class="secondary-item"></i>
+              <i mz-icon-mdi [icon]="'square-edit-outline'" [align]="'left'" class="secondary-item"></i>
             </div>
           </mz-collection-item>
         </mz-collection>
@@ -70,74 +70,90 @@
             </mz-input-container>
           </div>
         </div>
-        <div class="row m-b-0">
-          <div class="col s12">
-            <h6>Configuración de tipos</h6>
-          </div>
-        </div>
-        <div class="row m-b-0">
-          <div class="col m6">
-            <mz-input-container>
-              <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las clases' | translate"
-                [(ngModel)]="ontology.class_type" type="text">
-            </mz-input-container>
-          </div>
-          <div class="col m6">
-            <mz-input-container>
-              <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las propiedades literales' | translate"
-                [(ngModel)]="ontology.literal_type" type="text">
-            </mz-input-container>
-          </div>
-        </div>
-        <div class="row m-b-0">
-          <div class="col m6">
-            <mz-input-container>
-              <input mz-input class="input-field-primary-color"
-                [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.domainkey"
-                type="text">
-            </mz-input-container>
-          </div>
-          <div class="col m6">
-            <mz-input-container>
-              <input mz-input class="input-field-primary-color"
-                [label]="'Ingrese la clave de los tipos incluidos'" [(ngModel)]="ontology.rangekey"
-                type="text">
-            </mz-input-container>
-          </div>
-        </div>
 
-        <p>Tipos Literales</p>
-        <div class="empty-list-message primary-color-text center-align" *ngIf="ontology && ontology.ontology_datatypes_attributes && ontology.ontology_datatypes_attributes.length == 0">
-          <p>Aún no se cargaron asociaciones de tipos para esta ontología.</p>
-        </div>
-        <div *ngFor="let datatype of ontology.ontology_datatypes_attributes">
-          <div class="row m-b-10 datatype-container valign-wrapper" *ngIf="!datatype._destroy">
-            <div class="datatype-values">
-              <div class="col m6">
-                <mz-input-container>
-                  <input mz-input class="input-field-primary-color" [label]="'Clase Literal' | translate"
-                    [placeholder]="'Ej.: schema:Date'"
-                    [(ngModel)]="datatype.semantic_class" type="text">
-                </mz-input-container>
-              </div>
-              <div class="col m6">
-                <mz-select-container (click)="$event.stopPropagation()">
-                  <select mz-select id="options-select" [label]="'Tipo de campo'"
-                    [(ngModel)]="datatype.internal_type" [required]="'true'">
-                    <option *ngFor="let internalType of internalTypes" [ngValue]="internalType">{{internalType}}</option>
-                  </select>
-                </mz-select-container>
-              </div>
-            </div>
-            <div class="datatype-remove right">
-              <i mz-icon-mdi [icon]="'delete-forever'" (click)="datatype._destroy = true"></i>
-            </div>
-          </div>
-        </div>
-        <div class="row center-align">
-          <a class="waves-effect waves-light btn btn-primary white-text m-b-20" (click)="addDataType()">+ Agregar Tipo</a>
-        </div>
+        <mz-collapsible class="advanced-settings-collapse" [mode]="'expandable'">
+          <mz-collapsible-item>
+            <mz-collapsible-item-header class="full-width">
+              <h6>Configuración Avanzada<i mz-icon-mdi [icon]="'menu-down'" [align]="'right'"></i></h6>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
 
+              <div class="row m-b-0">
+                <div class="col s12">
+                  <h6>Configuración de tipos</h6>
+                </div>
+              </div>
+              <div class="row m-b-0">
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las clases' | translate"
+                      [(ngModel)]="ontology.class_type" type="text">
+                  </mz-input-container>
+                </div>
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las propiedades literales' | translate"
+                      [(ngModel)]="ontology.literal_type" type="text">
+                  </mz-input-container>
+                </div>
+              </div>
+              <div class="row m-b-0">
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color"
+                      [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.domainkey"
+                      type="text">
+                  </mz-input-container>
+                </div>
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color"
+                      [label]="'Ingrese la clave de los tipos incluidos'" [(ngModel)]="ontology.rangekey"
+                      type="text">
+                  </mz-input-container>
+                </div>
+              </div>
+              
+              <div class="row m-b-0">
+                <div class="col s12">
+                  <p>Tipos Literales</p>
+                  <div class="empty-list-message primary-color-text center-align" *ngIf="ontology && ontology.ontology_datatypes_attributes && ontology.ontology_datatypes_attributes.length == 0">
+                    <p>Aún no se cargaron asociaciones de tipos para esta ontología.</p>
+                  </div>
+                  <div *ngFor="let datatype of ontology.ontology_datatypes_attributes">
+                    <div class="row m-b-10 datatype-container valign-wrapper" *ngIf="!datatype._destroy">
+                      <div class="datatype-values">
+                        <div class="col m6">
+                          <mz-input-container>
+                            <input mz-input class="input-field-primary-color" [label]="'Clase Literal' | translate"
+                              [placeholder]="'Ej.: schema:Date'"
+                              [(ngModel)]="datatype.semantic_class" type="text">
+                          </mz-input-container>
+                        </div>
+                        <div class="col m6">
+                          <mz-select-container (click)="$event.stopPropagation()">
+                            <select mz-select id="options-select" [label]="'Tipo de campo'"
+                              [(ngModel)]="datatype.internal_type" [required]="'true'">
+                              <option *ngFor="let internalType of internalTypes" [ngValue]="internalType">{{internalType}}</option>
+                            </select>
+                          </mz-select-container>
+                        </div>
+                      </div>
+                      <div class="datatype-remove right">
+                        <i mz-icon-mdi [icon]="'delete-forever'" (click)="datatype._destroy = true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row center-align m-b-0">
+                    <a class="waves-effect waves-light btn btn-primary white-text m-b-0" (click)="addDataType()">+ Agregar Tipo</a>
+                  </div>
+                </div>
+              </div>
+      
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+        
         <div class="row center-align" *ngIf="updateMode">
           <button mz-button class="btn white btn-bordered" mz-modal-close (click)="confirmDelete()">
             <i mz-icon-mdi
@@ -145,6 +161,7 @@
               [align]="'left'"></i>{{'ontology.modal.edit.button.delete' | translate}}
           </button>
         </div>
+
       </mz-modal-content>
       <mz-modal-footer>
 
