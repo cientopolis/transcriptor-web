@@ -36,6 +36,21 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes) {
     this.ontology=null;
+    if(this.renderedMark!=null){
+      this.disableButtonLayers();
+    } else {
+      this.enableButtonLayers();
+    }
+  }
+  enableButtonLayers(){
+    let a = $('#btn-dropdown-layers');
+    a.removeClass('disabled-component')
+  }
+
+
+  disableButtonLayers(){
+    let a = $('#btn-dropdown-layers');
+    a.addClass('disabled-component');
   }
   ngOnInit() {
     this.selectRelationship=true;
@@ -74,6 +89,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
 
   cancel() {
     this.selectRelationship = true;
+    this.enableButtonLayers();
     this.delegate.cancelModal();
   }
 }
