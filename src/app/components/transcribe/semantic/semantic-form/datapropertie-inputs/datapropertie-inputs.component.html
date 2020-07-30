@@ -10,7 +10,7 @@
 <div *ngIf="model.canDelete && typeOfInput=='primary'" class="row">
   <div class="input-field  col s11" style="margin-top: 0px;padding-right: 2px;">
     <input style="margin-bottom: 0px;" (change)="handleChange(model)" (keyup)="handleChange(model)"
-      [(ngModel)]="model.value" type="{{internalType}}" class="validate" required>
+      [(ngModel)]="model.value" type="{{internalType}}" class="validate" step="any" required>
     <label class="m-t-10">{{model.name}}</label>
   </div>
   <div class="input-field  col s1" (click)="deleteModel(model)">

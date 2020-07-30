@@ -81,7 +81,7 @@ export class SelectOntologyTypeComponent implements OnInit {
 
   getOntologyClassDetail() {
     this.loader = true;
-    let params = { parent: this.typeSelected.name, ontology_id: this.ontology.id }
+    let params = { parent: this.typeSelected.id, ontology_id: this.ontology.id }
     this.semanticService.getTypesTreejson(params).subscribe(response => {
       if (response.parents.length == 0) {
         this.initParents();
