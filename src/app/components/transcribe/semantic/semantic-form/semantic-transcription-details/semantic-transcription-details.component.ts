@@ -17,6 +17,7 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   @Input() showRelationshipItem = null;
   @Input() markSelected = null;
   @Input() showPreviousSave = false;
+  @Input() showCancelbutton = true;
   @Input() relation = false;
   @Input() isContribution = true;
   @Input() showheader = true;

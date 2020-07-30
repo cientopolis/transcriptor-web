@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!showPreviousSave && !relation && !loader">
+<div class="row" *ngIf="showCancelbutton && !showPreviousSave && !relation && !loader ">
   <div class="col s1 offset-s11" style="margin-top: -70px;">
     <a  (click)="cancel()" >
       <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
@@ -15,7 +15,7 @@
   </div>
 </div>
 <div class="row m-b-5" *ngIf="!showPreviousSave && !relation && !loader && !showaddrelation">
-  <div class="col s12">
+  <div class="col s12 p-l-0 p-r-0">
     <ul class="breadcrumb">
       <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.propname | ontology_type}}:{{parent.name | ontology_type}}</a></li>
     </ul>

@@ -46,7 +46,7 @@ export class SelectRelationshipsComponent implements OnInit,OnChanges {
   getRelationships() {
     this.relationships = new Array<RelationOntologyClass>();
     this.relationshipsSelected = new Array<any>();
-    let param = { class: this.ontologyInstance.name };
+    let param = { class: this.ontologyInstance.id };
     this.semanticService.getRelationships(param).subscribe(result => {
       let relations = result;
       let propertiesClass = new Array<RelationOntologyClass>();

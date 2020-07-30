@@ -130,7 +130,7 @@ export class SelectBasicPropertiesComponent implements OnInit, OnChanges {
     this.properties = new Array<DataPropertie>();
     this.propertiesSelected = this.ontologyInstance.properties;
     this.setRequiredDataPropertie();
-    let param = { class: this.ontologyInstance.name,ontology_id:this.ontologyInstance.ontologyClass.ontology.id};
+    let param = { class: this.ontologyInstance.id,ontology_id:this.ontologyInstance.ontologyClass.ontology.id};
     this.semanticService.getBasicProperties(param).subscribe(result => {
       let properties = result;
       let propertiesClass = new Array<DataPropertie>();

@@ -87,7 +87,11 @@
       </div>
       <!--*ngIf="showGeneratedScheme"-->
       <div class="row" *ngIf="showActionStep4" style="padding-left: 2px;padding-right: 2px;">
-        <app-semantic-transcription-details [showPreviousSave]='true' [markSelected]="markView"></app-semantic-transcription-details>
+        <app-semantic-transcription-details 
+          [showCancelbutton]="false" 
+          [showPreviousSave]='true' 
+          [markSelected]="markView">
+        </app-semantic-transcription-details>
       </div>
 
       <div class="step-actions">

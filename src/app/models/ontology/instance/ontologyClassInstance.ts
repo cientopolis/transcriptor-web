@@ -14,6 +14,7 @@ export class ontologyClassInstance {
         if (ontologyClass){
             this.ontologyClass = ontologyClass;
             this.name=ontologyClass.name;
+            this.id = ontologyClass.id;
         }
     }
     getNameWithPrefix(){
