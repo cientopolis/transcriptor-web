@@ -25,6 +25,11 @@ export class Ontology {
             this.prefix = ontologyJson.prefix; 
             this.ontology_datatypes = ontologyJson.ontology_datatypes;
             this.formatDatatypes();
+        } else {
+            this.domainkey = 'rdfs:domain'
+            this.rangekey = 'rdfs:Class'
+            this.class_type = 'rdfs:range'
+            this.literal_type = 'rdfs:Literal'
         }
     }
 
