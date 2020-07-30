@@ -48,11 +48,11 @@
             <p class="properties">Propiedades</p>
           </div>
         </mz-collapsible-item-header>
-        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;white-space: nowrap;">
+        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;">
           <table  class="bordered striped" style="font-size: 12px;">
             <thead>
               <tr>
-                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th style="width: 35%;">{{'semanticForm.table.header.name' | translate}}</th>
                 <th>{{'semanticForm.table.header.value' | translate}}</th>
               </tr>
             </thead>
@@ -79,11 +79,11 @@
             <p class="properties">Relaciones</p>
           </div>
         </mz-collapsible-item-header>
-        <mz-collapsible-item-body>
+        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;">
           <table class="bordered striped" style="font-size: 12px;">
             <thead>
               <tr>
-                <th>{{'semanticForm.table.header.name' | translate}}</th>
+                <th style="width: 35%;">{{'semanticForm.table.header.name' | translate}}</th>
                 <th>{{'semanticForm.table.header.value' | translate}}</th>
               </tr>
             </thead>
@@ -110,7 +110,7 @@
             <p class="properties">Relaciones</p>
           </div>
         </mz-collapsible-item-header>
-        <mz-collapsible-item-body>
+        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;">
           <div *ngFor="let relation of  relationship">
             <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
               <div class="col s12 z-depth-1 header-box">
@@ -129,7 +129,7 @@
                     <table class="bordered striped" style="font-size: 12px;">
                       <thead>
                         <tr>
-                          <th>{{'semanticForm.table.header.name' | translate}}</th>
+                          <th style="width: 35%;">{{'semanticForm.table.header.name' | translate}}</th>
                           <th>{{'semanticForm.table.header.value' | translate}}</th>
                         </tr>
                       </thead>
