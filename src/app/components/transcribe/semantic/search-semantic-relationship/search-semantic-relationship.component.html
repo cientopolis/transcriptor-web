@@ -60,7 +60,7 @@
       <mz-collapsible-item-header class="header-box" style="padding: 0px!important;">
         <div clas="row">
           <div class="col s11">
-            <h5 class="primary-color-text">{{relationship.type | ontology_type}}</h5>
+            <h5 class="primary-color-text">{{relationship.type | ontologyPrefix}}</h5>
             <p>{{relationship.name}}</p>
           </div>
           <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelationship()">

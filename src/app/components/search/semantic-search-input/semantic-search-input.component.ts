@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { OntologyPipe } from 'app/pipes/ontology.pipe';
+import { OntologyPrefixPipe } from 'app/pipes/ontology/ontology-prefix.pipe';
 
 @Component({
   selector: 'app-semantic-search-input',
@@ -33,7 +34,7 @@ export class SemanticSearchInputComponent implements OnInit {
   filterType = null
   showedType = null
 
-  constructor(private semanticModelService: SemanticModelService, private schemePipe: OntologyPipe) {
+  constructor(private semanticModelService: SemanticModelService, private schemePipe: OntologyPipe,private ontologyPrefixPipe: OntologyPrefixPipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults
   }
 
@@ -53,7 +54,7 @@ export class SemanticSearchInputComponent implements OnInit {
       this.onFetchEnd.emit()
       var mappedEntities = []
       response.forEach(entity => {
-        mappedEntities.push({ title: entity.entityLabel, description: this.schemePipe.transform(entity.entityType), item: entity })
+        mappedEntities.push({ title: entity.entityLabel, description: this.ontologyPrefixPipe.transform(entity.entityType), item: entity })
       });
       this.results = mappedEntities
       this.resultsChange.emit(this.results)

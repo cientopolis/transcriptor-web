@@ -148,6 +148,7 @@ import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
 import { AddRelationshipComponent } from './components/transcribe/semantic/add-relationship/add-relationship.component';
 import { EntitySearchComponent } from './components/search/entity-search/entity-search.component';
 import { EntityReferencesSearchComponent } from './components/search/entity-references-search/entity-references-search.component';
+import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
 
 @NgModule({
   declarations: [
@@ -212,7 +213,8 @@ import { EntityReferencesSearchComponent } from './components/search/entity-refe
     EmptyValuePipe,
     AddRelationshipComponent,
     EntitySearchComponent,
-    EntityReferencesSearchComponent
+    EntityReferencesSearchComponent,
+    OntologyPrefixPipe
   ],
   imports: [
     BrowserModule,
@@ -287,7 +289,8 @@ import { EntityReferencesSearchComponent } from './components/search/entity-refe
     PageVersionService,
     LayerService,
     SemanticModelService,
-    OntologyPipe
+    OntologyPipe,
+    OntologyPrefixPipe
   ],
   bootstrap: [AppComponent]
 })

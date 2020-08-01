@@ -123,7 +123,6 @@ validateStepOne() {
 handleOntologyClassSelected(ontologyClass){
   this.ontologyClass=ontologyClass;
   this.ontologyInstance = new ontologyClassInstance(ontologyClass);
-  console.log(ontologyClass);
   if (this.schemeName == ontologyClass.label){
     return;
   }
@@ -143,7 +142,6 @@ stepTwo(){
 
 handleBasicPropertiesGenerated(event){
   this.ontologyInstance=event;
-  console.log(this.ontologyInstance);
 }
 
 addProperties(properties,relationship){
@@ -180,30 +178,7 @@ addProperties(properties,relationship){
       //let found = false;
       if (propSelected.scheme) {
         indexes.push(index);
-
-/*         console.log('Es relacion propSelected');
-        properties.forEach(propertie => {
-          console.log(propertie);
-          if(propSelected.name==propertie.name){
-            console.log('Encontro');
-            found=true;
-          }
-        });
-        if(!found){
-          console.log('No entro');
-          console.log(this.propertiesSelected);
-          console.log(index);
-          indexes.push(index);
-//          this.propertiesSelected.slice(index,1);
-          console.log(this.propertiesSelected);
-        }else{
-          console.log('Entro');
-        } */
       }
-      /*     if (item.name.toLowerCase() === propertie.name.toLowerCase()){ 
-        this.relationshipsSelected.splice(index, 1);
-        console.log(this.relationshipsSelected);
-      } */
     });
     indexes.forEach(indez =>{
       this.propertiesSelected.splice(indez, 1);
@@ -242,10 +217,8 @@ handleSchemeRelationships(event){
     );
     e.then(
       result => {
-        console.log('result from s-form');
         let resultShow = JSON.parse(JSON.stringify(result));
         let show = resultShow['schema:mainEntity'];
-        console.log(show);
         for (let key in show) {
           const item = show[key];
           if(item['@id']){
@@ -278,11 +251,6 @@ handleSchemeRelationships(event){
           }
 
         }
-
-/*         this.schema_type="http://schema.org/" + this.schemeName */
-
-        console.log(show);
-        console.log(this.ontologyInstance.ontologyClass.getName());
         this.markView = { semanticContribution: { text: show, type: this.ontologyInstance.ontologyClass.getName() },label: show['rdfs:label'] };
         if(confirm){
           this.schemeComplete.emit({ schema_type: this.ontologyInstance.ontologyClass.getName(), semantic_text: result, contribution_slug: SchemeUtils.getSlug(result['@id']), label: show['rdfs:label']} );

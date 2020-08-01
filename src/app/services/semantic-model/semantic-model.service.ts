@@ -90,8 +90,6 @@ export class SemanticModelService {
 
 
   generateJsonld(ontologyInstance:ontologyClassInstance = null,entityPreviousSaved = null){
-    console.log('param received');
-    console.log(ontologyInstance);
     let context = this.setContext(ontologyInstance);
     let instance = {};
     let noteEntitydoc = this.setContext(ontologyInstance);
@@ -108,7 +106,6 @@ export class SemanticModelService {
     noteEntitydoc['@id'] = `${environment.semantic_transcription.prefix}`+"semantic-contribution-" + Date.now();
     noteEntitydoc['rdfs:label'] = instance['rdfs:label'];
     noteEntitydoc['schema:mainEntity'] = instance;
-    console.log('instance',instance);
     let response = this.compacted(noteEntitydoc, context);
     response.then(docCompacted => {
       console.log('compacted',docCompacted);
@@ -120,7 +117,6 @@ export class SemanticModelService {
   processBasicProperties(properties: Array<DataPropertieValue>,ontology:Ontology,instance,isRelation=false) {
     var basicPropertieMap = new Map();
     properties.forEach(propertie => {
-      console.log('propertie de data propertie es:',propertie.property);
       if (propertie.name!='label'){
         basicPropertieMap.set(propertie.property,propertie.value);
       }else{
@@ -142,7 +138,6 @@ export class SemanticModelService {
     var relationMap = new Map();
    // var relationInstance = {};
     relationships.forEach(relation =>{
-      console.log('propertie de relation propertie es:', relation.property);
       if (relation.searchRelationship){
         relationMap.set(relation.property, relation.relationPersisted);
         instance[relation.property] = relation.relationPersisted;

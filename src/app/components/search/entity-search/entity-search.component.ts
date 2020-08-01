@@ -1,9 +1,11 @@
+
 import { SemanticUtils } from './../../../utils/semantic-utils';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SearchService } from 'app/services/search/search.service';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
 import { SearchComponent } from '../search.component';
 import { OntologyPipe } from 'app/pipes/ontology.pipe';
+import { OntologyPrefixPipe } from 'app/pipes/ontology/ontology-prefix.pipe';
 
 @Component({
   selector: 'app-entity-search',
@@ -25,7 +27,10 @@ export class EntitySearchComponent implements OnInit {
 
   @Input('parent') parent: SearchComponent
 
-  constructor(private searchService: SearchService, private semanticModelService: SemanticModelService, private ontologyPipe: OntologyPipe) { }
+  constructor(private searchService: SearchService, 
+    private semanticModelService: SemanticModelService,
+    private ontologyPipe: OntologyPipe,
+    private ontologyPrefixPipe:OntologyPrefixPipe) { }
 
   ngOnInit() {
     // this.doEntitySearch()
@@ -45,7 +50,7 @@ export class EntitySearchComponent implements OnInit {
       console.log(response)
       var mappedEntities = []
       response.forEach(entity => {
-        mappedEntities.push({ title: entity.entityLabel, description: this.ontologyPipe.transform(entity.entityType), miniDetail: this.setEntityPrefixes(entity.entityProperties), item: entity })
+        mappedEntities.push({ title: entity.entityLabel, description: this.ontologyPrefixPipe.transform(entity.entityType), miniDetail: this.setEntityPrefixes(entity.entityProperties), item: entity })
       });
       this.semanticEntities = mappedEntities
       // this.onFetchEnd.emit()

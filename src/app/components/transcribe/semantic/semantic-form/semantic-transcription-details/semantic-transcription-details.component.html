@@ -17,7 +17,7 @@
 <div class="row m-b-5" *ngIf="!showPreviousSave && !relation && !loader && !showaddrelation">
   <div class="col s12 p-l-0 p-r-0">
     <ul class="breadcrumb">
-      <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.propname | ontology_type}}:{{parent.name | ontology_type}}</a></li>
+      <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.propname | ontologyPrefix}} - {{parent.name | ontology_type}}</a></li>
     </ul>
   </div>
 </div>
@@ -29,11 +29,11 @@
     (saved)="cancel()">
   </app-add-relationship>
 </div>
-<div class="row row p-l-10 p-r-10" *ngIf="!loader && !showaddrelation">
+<div class="row row p-l-0 p-r-0" *ngIf="!loader && !showaddrelation">
   <div class="row  header-box"  style="margin-top: 0px;margin-bottom: 0px;"> 
     <div class="col s9 z-depth-1" style="box-shadow: none;">
       <h5 class="primary-color-text">{{markSelected.name | ontology_type}}</h5>
-      <p>{{markSelected.type | ontology_type}}</p>
+      <p>{{markSelected.type | ontologyPrefix}}</p>
 
     </div>
     <div class="col s3 addrelationbutton" *ngIf="enableaddrelation" >
@@ -90,7 +90,7 @@
             <tbody>
 
               <tr *ngFor="let relation of  relationship" class="p-t-0" (click)="showDetail(relation)" style="cursor: pointer;">
-                <td class="p-t-5 p-b-5" ><a>{{ relation.name | emptyValue | ontology_type}}</a></td>
+                <td class="p-t-5 p-b-5" ><a>{{ relation.name | emptyValue | ontologyPrefix}}</a></td>
                 <td class="p-t-5 p-b-5"><a>{{ relation.model[0].model | emptyValue | ontology_type}}</a></td>
 
               </tr>
@@ -114,7 +114,7 @@
           <div *ngFor="let relation of  relationship">
             <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
               <div class="col s12 z-depth-1 header-box">
-                <h5 class="primary-color-text">{{relation.name | ontology_type}}</h5>
+                <h5 class="primary-color-text">{{relation.name | ontologyPrefix}}</h5>
                 <p>{{relation.type | ontology_type}}</p>
               </div>
             </div>

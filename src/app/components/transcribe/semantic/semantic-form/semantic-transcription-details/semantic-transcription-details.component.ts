@@ -42,7 +42,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   ngOnChanges(changes){
     if (!this.showPreviousSave) {
       if (!this.headerService.showDetails && this.showheader) {
-        console.log(this.markSelected);
         if (this.layername){
           this.headerService.headerParagraph = this.layername + ' / Detalle de Marca';
         }
@@ -73,8 +72,6 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   }
 
   addRelation(mark){
-    console.log('add relation');
-    console.log(mark);
     this.markrelation=mark;
     this.showaddrelation=true;
   }

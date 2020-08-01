@@ -35,7 +35,7 @@
                   style="border: 1px solid #dddddd;border-radius: 8px;">
                   <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
                   <div class="title" style="font-size: 14px;">{{mark.name | ontology_type}}</div>
-                  <p class="descriptiom-item">{{mark.type | ontology_type}}</p>
+                  <p class="descriptiom-item">{{mark.type | ontologyPrefix}}</p>
                   <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
                       [icon]="'chevron-right'" [align]="'left'"></i></a>
                 </mz-collection-item>
@@ -103,7 +103,7 @@
           style="border: 1px solid #dddddd;border-radius: 8px;">
           <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
           <div class="title" style="font-size: 14px;">{{semanticItemSelected.name | ontology_type}}</div>
-          <p class="descriptiom-item">{{semanticItemSelected.type | ontology_type}}</p>
+          <p class="descriptiom-item">{{semanticItemSelected.type | ontologyPrefix}}</p>
           <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
               [icon]="'chevron-right'" [align]="'left'"></i></a>
         </mz-collection-item>

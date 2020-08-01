@@ -32,7 +32,6 @@ export class OntologyClass {
         if (this.ontology.ontology_datatypes) {            
             this.ontology.ontology_datatypes.forEach(dataType => {
                 if (type.toLowerCase().includes(dataType.semantic_class.toLowerCase())){
-                    console.log('deberia retornar');
                     internaltype=dataType.internal_type;
                 }
             });

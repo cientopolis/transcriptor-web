@@ -180,6 +180,30 @@ export class SemanticUtils {
         return typereturn;
     }
 
+    public static getOntologyFromType(ontologies, type){
+        let ontologyfound = null;
+        if (ontologies && type) {
+            ontologies.forEach(ontology => {
+                if (type.includes(ontology.url) || type.includes(ontology.prefix)) {
+                    ontologyfound= ontology;
+                    return ontologyfound;
+                }
+            });
+        }
+        return ontologyfound;
+    }
+    public static setOntologyPrefix(ontologies, typeraw){
+        let ontology = this.getOntologyFromType(ontologies, typeraw);
+        let type = this.filterURLFromOntology(ontologies, typeraw);
+        type = this.filterPrefixFromOntology(ontologies,type);
+        if(ontology && type){
+            return ontology.prefix+':'+type;
+        }
+
+        return null
+
+    }
+
     public static sortProperties(properties){
         properties.sort(
         function compare(a, b) {
