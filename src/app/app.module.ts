@@ -149,6 +149,7 @@ import { AddRelationshipComponent } from './components/transcribe/semantic/add-r
 import { EntitySearchComponent } from './components/search/entity-search/entity-search.component';
 import { EntityReferencesSearchComponent } from './components/search/entity-references-search/entity-references-search.component';
 import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
+import { FilterEqualPipe } from './pipes/filter/filter-equal.pipe';
 
 @NgModule({
   declarations: [
@@ -214,7 +215,8 @@ import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
     AddRelationshipComponent,
     EntitySearchComponent,
     EntityReferencesSearchComponent,
-    OntologyPrefixPipe
+    OntologyPrefixPipe,
+    FilterEqualPipe
   ],
   imports: [
     BrowserModule,
