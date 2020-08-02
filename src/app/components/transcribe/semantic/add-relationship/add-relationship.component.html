@@ -36,8 +36,6 @@
                   <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
                   <div class="title" style="font-size: 14px;">{{mark.name | ontology_type}}</div>
                   <p class="descriptiom-item">{{mark.type | ontologyPrefix}}</p>
-                  <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
-                      [icon]="'chevron-right'" [align]="'left'"></i></a>
                 </mz-collection-item>
               </mz-collection>
             </mz-collapsible-item-body>
@@ -54,14 +52,30 @@
     <h6 class="primary-color-text m-b-5" style="font-weight: bold;">¿Cómo se relacionan estas entidades?</h6>
   </div>
   <div class="col s12">
-    <div class="row" style="padding:0px;margin-bottom: 0px;">
-      <div class="col s12  m-b-0" style="padding:0px;">
-        <mz-select-container  style="margin-bottom: 0px !important;" *ngIf="relationships && relationships.length>0" (click)="$event.stopPropagation()">
-          <select mz-select (change)="selectRelation(relation,$event)" [label]="'Selecciona una relacion'" [(ngModel)]="relationselected">
-            <option *ngFor="let relation of relationships" [ngValue]="relation">{{ relation.name | ontology_type }}</option>
-          </select>
-        </mz-select-container>
-      </div>
+    <app-search-input #searchRelationInput 
+      [placeholder]="'Ingrese el nombre de una relación'" 
+      [itemIcon]="'semantic-web'" 
+      [autocomplete]="true" 
+      [flatStyle]="flatStyle"
+      (onClear)="onClearRelationSearch()" 
+      (onFetch)="searchRelationships($event)" 
+      (itemChange)="itemRelationChange($event)"
+      (invalidInput)="handleInvalidInputRelation()">
+    </app-search-input>
+  </div>
+  <div class="row m-b-5">
+    <div class="col s12 z-depth-1" style="box-shadow: none;" >
+      <h6 class="primary-color-text m-b-0" style="font-size: 1em;">Relacion seleccionada:</h6>
+    </div>
+    <div class="col s12" *ngIf="relationselected">
+      <mz-collection>
+        <mz-collection-item [avatar]="true" class="collection-item"
+          style="border: 1px solid #dddddd;border-radius: 8px;">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <div class="title" style="font-size: 14px;">{{relationselected.property | ontologyPrefix}}</div>
+          <p class="descriptiom-item" >{{ relationselected.comment | truncate:200:false}} </p>
+        </mz-collection-item>
+      </mz-collection>
     </div>
   </div>
 </div>

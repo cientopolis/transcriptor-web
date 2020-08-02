@@ -1,3 +1,4 @@
+import { FilterEqualPipe } from './../../../../pipes/filter/filter-equal.pipe';
 import { OntologyPipe } from 'app/pipes/ontology.pipe';
 import { SimpleGlobal } from 'ng2-simple-global';
 import { MarkSemanticRelation } from './../../../../models/marksemanticrelation';
@@ -15,7 +16,7 @@ import { Ontology } from 'app/models/ontology/ontology';
 })
 export class AddRelationshipComponent implements OnInit {
   @ViewChild('referenceDetailModalRelation') referenceDetailModal;
-
+  @ViewChild('searchRelationInput') searchInput;
   @Input() public mark:any;
   @Input() public layername:any;
   @Output() public saved = new EventEmitter<any>();
@@ -31,7 +32,8 @@ export class AddRelationshipComponent implements OnInit {
   constructor(private headerService:HeaderService,
               private semanticService: SemanticModelService,
               public global: SimpleGlobal,
-               private semanticPipe: OntologyPipe ) { }
+              private semanticPipe: OntologyPipe,
+              private filter: FilterEqualPipe) { }
 
   ngOnInit() {
     this.relation.subject_id=this.mark.id;
@@ -129,5 +131,30 @@ export class AddRelationshipComponent implements OnInit {
       this.referenceDetailModal.detailMark = true;
       this.referenceDetailModal.open({ semanticContribution: { slug: SemanticUtils.extractTranscriptorSchema(this.semanticItemSelected.id), schema_type: this.semanticItemSelected.type, text: {} } }, null, false)
       }
+    }
+
+
+    searchRelationships(event){
+      let relationsfitered = this.filter.transform(this.relationships, 'label', event.searchText,'includes');
+      this.setResults(relationsfitered);
+    }
+
+    setResults(relations){
+      let results = new Array<any>();
+      relations.forEach(relation => {
+        results.push({ title: relation.property, description: relation.comment, item: relation });
+      })
+      this.searchInput.setResults(results);
+    }
+    
+    itemRelationChange(event){
+      this.relationselected=event;
+      this.selectRelation(this.relationselected,'');
+    }
+    onClearRelationSearch(){
+      this.setResults(this.relationships); 
+    }
+    handleInvalidInputRelation(){
+      this.setResults(this.relationships);
     }
   }

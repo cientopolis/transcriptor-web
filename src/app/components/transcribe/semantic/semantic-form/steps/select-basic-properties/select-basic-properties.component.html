@@ -64,7 +64,7 @@
                 </mz-select-container>
                 <span *ngIf="prop.types.length==1">{{prop.types[0] | ontology_type}}</span>
               </td>
-              <td [innerHTML]="prop.comment | safeHtml" style="text-align: left;"></td>
+              <td [innerHTML]="prop.comment | safeHtml " style="text-align: left;"></td>
               <td>
                 <mz-checkbox-container>
                   <input mz-checkbox id="{{prop.idInput}}" class="filled-in checkbox-orange" filledIn=true type="checkbox"
