@@ -1,0 +1,36 @@
+<div class="row" *ngIf="!semanticContributionsSelected && semanticContributions.length>0">
+  <div class="col s12">
+    <h5 style="
+    font-size: 1.40rem;
+    margin-bottom: 0px;
+    margin-top: 7px;
+">Marcas</h5>
+    <div class="row p-l-10 p-r-10">
+      <mz-collection>
+        <mz-collection-item (click)="showDetail(mark)" [avatar]="true" *ngFor="let mark of  semanticContributions"
+          class="collection-item">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <h6 class="title" style="font-size: 14px;">{{ mark.label | emptyValue}}</h6>
+          <p class="descriptiom-item">{{mark.type}}</p>
+          <span mz-secondary-content><i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"  style="color:black"></i></span>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+    <div class="row"  *ngIf="semanticContributions.length==0">
+      <div class="center-align">
+        <h5 class="primary-color-text">No se encontraron marcas cargadas</h5>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row p-l-10 p-r-10" *ngIf="semanticContributionsSelected">
+  <app-semantic-transcription-details 
+    [enableaddrelation] = "true"
+    [layername]="layerName"
+    (cancelEvent)="cancelShowDetail($event)" 
+    [entityid]="semanticContributionsSelected.slug" 
+    [markSelected]="semanticContributionsSelected">
+  </app-semantic-transcription-details>
+</div>
+

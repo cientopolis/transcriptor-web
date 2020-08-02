@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { SemanticModelService } from 'app/services/semantic-model/semantic-model.service';
-import { SchemePipe } from 'app/pipes/scheme.pipe';
+import { OntologyPipe } from 'app/pipes/ontology.pipe';
+import { OntologyPrefixPipe } from 'app/pipes/ontology/ontology-prefix.pipe';
 
 @Component({
   selector: 'app-semantic-search-input',
@@ -33,7 +34,7 @@ export class SemanticSearchInputComponent implements OnInit {
   filterType = null
   showedType = null
 
-  constructor(private semanticModelService: SemanticModelService, private schemePipe: SchemePipe) {
+  constructor(private semanticModelService: SemanticModelService, private schemePipe: OntologyPipe,private ontologyPrefixPipe: OntologyPrefixPipe) {
     this.limitResults = (this.limitResults == null && this.autocomplete) ? 5 : this.limitResults
   }
 
@@ -52,8 +53,8 @@ export class SemanticSearchInputComponent implements OnInit {
     }).subscribe(response => {
       this.onFetchEnd.emit()
       var mappedEntities = []
-      response.bindings.forEach(entity => {
-        mappedEntities.push({ title: entity.entityLabel.value, description: this.schemePipe.transform(entity.entityType.value), item: entity })
+      response.forEach(entity => {
+        mappedEntities.push({ title: entity.entityLabel, description: this.ontologyPrefixPipe.transform(entity.entityType), item: entity })
       });
       this.results = mappedEntities
       this.resultsChange.emit(this.results)
@@ -63,7 +64,7 @@ export class SemanticSearchInputComponent implements OnInit {
 
   itemChange(item) {
     if (this.fetchSelectedEntity) {
-      this.semanticModelService.getEntity(item.entityId.value, false).subscribe(response => {
+      this.semanticModelService.getEntity(item.entityId, false).subscribe(response => {
         this.setSemanticModel(response)
       });
     } else {
@@ -86,8 +87,10 @@ export class SemanticSearchInputComponent implements OnInit {
   }
 
   filter() {
-    this.entityType = this.showAllTypes ? null : `schema:${this.filterType.split('>').slice(-1)[0]}`;
-    this.showedType = this.showAllTypes ? null : this.filterType.split('>').slice(-1)[0]
+/*     this.entityType = this.showAllTypes ? null : `schema:${this.filterType.split('>').slice(-1)[0]}`;
+    this.showedType = this.showAllTypes ? null : this.filterType.split('>').slice(-1)[0] */
+    this.entityType = this.showAllTypes ? null : this.filterType.name;
+    this.showedType = this.showAllTypes ? null : this.filterType.name
     this.refresh()
   }
 

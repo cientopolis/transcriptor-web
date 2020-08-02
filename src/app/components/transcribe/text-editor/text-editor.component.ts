@@ -57,6 +57,7 @@ export class TextEditorComponent implements OnInit {
   
   mark_blank:boolean = false;
   needs_review:boolean = false;
+  transcribed:boolean = false;
   
   constructor(
     private markService: MarkService, 
@@ -124,6 +125,7 @@ export class TextEditorComponent implements OnInit {
           this.compileText();
           this.needs_review = this.page.status == 'review';
           this.mark_blank = this.page.status == 'blank';
+          this.transcribed = this.page.status == 'transcribed';
         }
       }
     }
@@ -182,7 +184,8 @@ export class TextEditorComponent implements OnInit {
       page:{
         source_text: this.htmlContent,
         needs_review: this.needs_review ? '1' : '0',
-        mark_blank: this.mark_blank ? '1' : '0'
+        mark_blank: this.mark_blank ? '1' : '0',
+        transcribed: this.transcribed ? '1' : '0'
       },
       save: true
     };
@@ -411,5 +414,13 @@ export class TextEditorComponent implements OnInit {
   
   update() {
     this.save();
+  }
+
+  refreshTranscriptionStatus(flagName) {
+    var wantedValue = this[flagName];
+    this.transcribed = false;
+    this.needs_review =  false;
+    this.mark_blank = false;
+    this[flagName] = wantedValue;
   }
 }

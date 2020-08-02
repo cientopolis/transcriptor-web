@@ -1,0 +1,91 @@
+<div class="row m-t-15">
+  <div class="col s12">
+    <mz-card>
+      <mz-card-title>
+        <h6 class="m-b-10 search-title">{{'entitySearch.title' | translate}}</h6>
+      </mz-card-title>
+      <mz-card-content>
+        <p class="m-b-10">{{ 'entitySearch.description' | translate }}</p>
+
+        <app-search-input 
+          #searchInput 
+          (onFetch)="searchEntities($event)"
+          (invalidInput)="handleInvalidInput()"
+          (onClear)="onClear()"
+          [placeholder]="'entitySearch.placeholder.searchEntity' | translate"
+          [itemIcon]="'semantic-web'" 
+          [autocomplete]="false" 
+          [flatStyle]="true" 
+          *ngIf="!advancedSearch">
+        </app-search-input>
+        <div class="filters" *ngIf="advancedSearch">
+          <p class="col s12 m-t-5 primary-color-text">Filtros</p>
+          <div class="row m-b-0">
+            <div class="col m4">
+              <small class="primary-color-text">Tipo de elemento</small>
+              <app-ontology-search-input [(ontologyComponent)]="classFilter" (ontologyComponentChange)="searchEntities()"
+                [fetchSelectedEntity]="false" [placeholder]="'Ej: Person'" [searchIcon]="false" [flatStyle]="true"
+                [componentType]="'class'" (onClear)="clearFilter('class')">
+              </app-ontology-search-input>
+            </div>
+            <div class="col m4">
+              <small class="primary-color-text">Propiedad cargada</small>
+              <app-ontology-search-input [(ontologyComponent)]="relationFilter"
+                (ontologyComponentChange)="searchEntities($event)" [fetchSelectedEntity]="false"
+                [placeholder]="'Ej: label'" [searchIcon]="false" [flatStyle]="true" [componentType]="'relation'"
+                (onClear)="clearFilter('relation')">
+              </app-ontology-search-input>
+            </div>
+            <div class="col m4">
+              <small class="primary-color-text">Valor cargado</small>
+              <mz-card class="transcriptor-search-input filter-value flat">
+                <mz-card-content>
+                  <mz-input-container>
+                    <input mz-input [placeholder]="'Ej: San Martín'" type="text" [(ngModel)]="valueFilter"
+                      (ngModelChange)="searchEntities($event)">
+                    <i mz-icon-mdi class="input-suffix" [icon]="'close'" [align]="'center'" *ngIf="showClearButton"
+                      (click)="clear()"></i>
+                  </mz-input-container>
+                </mz-card-content>
+              </mz-card>
+            </div>
+          </div>
+        </div>
+        <div class="row right-align m-b-5">
+          <a class="m-t-0" (click)="advancedSearch = false" *ngIf="advancedSearch">Búsqueda básica</a>
+          <a class="m-t-0" (click)="advancedSearch = true" *ngIf="!advancedSearch">Búsqueda avanzada</a>
+        </div>
+
+        <div class="semantic-entity-results" *ngIf="semanticEntities">
+          <h6>{{ 'entitySearch.label.loadedEntities' | translate }}</h6>
+          <mz-collection>
+            <mz-collection-item [avatar]="true" class="collection-item" *ngFor="let semanticEntity of semanticEntities"
+              (click)="openEntityDetail(semanticEntity.item)">
+              <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
+              <div class="title">{{semanticEntity.title}}</div>
+              <p class="descriptiom-item">{{ semanticEntity.description }}</p>
+              <small class="descriptiom-item">Coincidencias: {{ semanticEntity.miniDetail }}</small>
+              <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+                  [icon]="'chevron-right'" [align]="'left'"></i></a>
+            </mz-collection-item>
+            <mz-collection-item class="center-align" *ngIf="semanticEntities && !semanticEntities.length > 0">
+              <a href="#!" class="center-align">{{ 'app.placeholder.search.empty.list' | translate }}</a>
+            </mz-collection-item>
+          </mz-collection>
+        </div>
+
+        <!-- <div class="row" *ngIf="referencesGroups && referencesGroups.length > 0">
+          <div class="col s12">
+            <h6>{{ 'search.label.results' | translate }}</h6>
+            <div class="references-list">
+              <app-reference-container *ngFor="let referencesGroup of referencesGroups"
+                [referencesGroup]="referencesGroup" [filterSlugs]="referencesGroup.contributionSlugs"
+                (onReferenceSelection)="parent.referenceDetailModal.open($event, referencesGroup)">
+              </app-reference-container>
+            </div>
+          </div>
+        </div> -->
+      </mz-card-content>
+    </mz-card>
+  </div>
+</div>

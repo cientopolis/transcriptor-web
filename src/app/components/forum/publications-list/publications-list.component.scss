@@ -1,9 +1,30 @@
 @import '~styles/styles';
 
-:host ::ng-deep .publications-modal .modal .modal-footer {
-  height: 90px;
+:host ::ng-deep .publications-modal .modal-footer {
+  height: 64px;
 }
 
+:host ::ng-deep .publications-modal .transcription-card .card-content {
+  padding: 15px;
+}
+
+// new modal
+.publications-modal .modal-header {
+  height: 56px;
+  padding: 10px;
+}
+.publications-modal.modal.modal-fixed-footer .modal-content {
+  height: calc(100% - 120px);
+  padding-top: 0px;
+}
+
+.comment-image {
+  float: left;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
 .comment-image img {
   height: 40px;
 }
@@ -16,7 +37,7 @@
   transition: opacity 0.2s;
   transition-timing-function: $transitionTimingFunction;
   opacity: 0.5;
-  margin: 5px 0 0 0;
+  height: 100%;
 }
 .reply-container:hover, .reply-container.focused {
   opacity: 1;
@@ -24,8 +45,10 @@
 .reply-box {
   background-color: white;
   border-radius: 25px;
-  padding: 8px 20px 5px 20px;
-  margin-top: 0;
+  padding: 0px 20px 0px 20px;
+  width: calc(100% - 45px);
+  float: right;
+  margin: 0px;
 }
 .reply-box .input-field {
   margin: 0;
@@ -38,7 +61,7 @@
 }
 .reply-box .text-field{
   width: 93%;
-  padding:8px 0 0 0;
+  padding:12px 0 0 0;
 }
 .reply-box .send-button {
   width: 7%;

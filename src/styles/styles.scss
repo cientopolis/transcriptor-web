@@ -91,6 +91,12 @@ nav .back-button i{
   opacity: 0.9;
 }
 
+h6 {
+  font-size: 1.2rem;
+  line-height: 110%;
+  margin: .5rem 0 .4rem 0;
+}
+
 // color helpers
 
 .primary-color{
@@ -221,6 +227,7 @@ nav .back-button i{
 
 a {
   color: $primaryColor; 
+  cursor: pointer;
 }
 .collection a.collection-item {
     color: $primaryColor;
@@ -284,8 +291,12 @@ a {
 .card, .collection, .modal {
   border-radius: 8px;
 }
-.btn {
+.btn:not(.btn-floating) {
   border-radius: 5px;
+}
+
+.full-width {
+  width: 100% !important;
 }
 
 // Animations
@@ -298,4 +309,13 @@ a {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.button-bordered{
+    width: 100%;
+    background-color: white;color:$primaryColor;text-align:center;font-size: 13px;
+    border: 1px solid $primaryColor;font-size: 13px;
+}
+.button-primary{
+
 }

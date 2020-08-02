@@ -1,0 +1,165 @@
+<div class="row" *ngIf="!semanticItemSelected && mark">
+  <div class="col s12 header p-l-10 p-r-10">
+    <h5 style="margin-bottom: 0px;margin-top: 0px;">
+      Asociá un contenido a la marca
+    </h5>
+    <p style="font-size: 12px;">
+      Es probable que alguien ya haya cargado el elemento que buscas describir, podes buscarlo en esta sección y
+      asociarlo a tu marca. Si no pudiste encontrar lo que buscas ¡no hay problema! podes cargar los datos de la nueva
+      entidad haciendo click en el botón "Cargar nuevo Elemento"
+    </p>
+  </div>
+  <div class="col s12" >
+    <app-semantic-search-input 
+      [(semanticModel)]="item" 
+      [(results)]="searchRelationshipList"
+      [fetchSelectedEntity]="false" 
+      [autocomplete]="false"
+      [limitResults]='10'
+      (resultsChange)="detectChanges($event)"
+      [placeholder]="'semanticForm.placeholder.entitySearch' | translate" >
+    </app-semantic-search-input>
+  </div>
+  <div class="col s12" style="padding:10px">
+    <h6>Elementos Cargados</h6>
+    <mz-collection *ngIf="searchRelationshipList">
+      <mz-collection-item [avatar]="true" class="collection-item" *ngFor="let result of searchRelationshipList"
+        (click)="selectItem(result.item)" class="collection-item">
+        <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+        <div class="title" style="font-size: 14px;" innerHTML="{{ result.title | highlight : searchText }}"></div>
+        <p class="descriptiom-item">{{ result.description }}</p>
+        <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+            [icon]="'chevron-right'" [align]="'left'"></i></a>
+      </mz-collection-item>
+    </mz-collection>
+    <div class="row p-t-10 p-b-10" *ngIf="!searchRelationshipList || searchRelationshipList.length==0" style="background-color: #eee;border-radius: 2%;">
+      <div class="col-12">
+        <h6  class="primary-color-text text-align center">No hay relaciones a mostrar</h6>
+      </div>
+    </div>
+
+  </div>
+  <div class="col s12">
+    <a class="waves-effect waves-light btn-small" style="width: 100%;
+        background-color: white;color:#e65100;text-align:center;font-size: 13px;
+        border: 1px solid #e65100;font-size: 13px;" (click)="createNewElement()">+
+      Cargar nuevo elemento</a>
+  </div>
+</div>
+<div class="row" *ngIf="semanticItemSelected && mark">
+  <div class="col-12">
+    <app-show-relationship-item [semanticItem]="semanticItemSelected" (finished)="handleResponseComponent($event)">
+    </app-show-relationship-item>
+  </div>
+</div>
+
+<div *ngIf="!mark">
+  <mz-collapsible  [mode]="'expandable'" [onClose]="closeFunctionCallback"
+    [onOpen]="openFunctionCallback">
+    <mz-collapsible-item [active]="false">
+      <mz-collapsible-item-header class="header-box" style="padding: 0px!important;">
+        <div clas="row">
+          <div class="col s11">
+            <h5 class="primary-color-text">{{relationship.type | ontologyPrefix}}</h5>
+            <p>{{relationship.name}}</p>
+          </div>
+          <div id="delete" class="col s1" style="font-size: 25px;" (click)="deleteRelationship()">
+            <a (click)="deleteRelationship()">
+                &times;
+            </a>
+          </div>
+        </div>
+      </mz-collapsible-item-header>
+      <mz-collapsible-item-body class="coll-content" >
+        <div class="col-10 offset-s1" >
+          <app-semantic-search-input 
+            [(semanticModel)]="semanticItemSelected" 
+            (semanticModelChange)="itemChange($event)"
+            [(results)]="searchRelationshipList" 
+            [fetchSelectedEntity]="true" 
+            [autocomplete]="true"
+            [placeholder]="'semanticForm.placeholder.entitySearch' | translate" 
+            [entityType]="schemeType">
+          </app-semantic-search-input>
+        </div>
+
+        <div class="row" *ngIf="semanticItemSelected">
+          <div class="col-12" style="padding:10px">
+            <h6>Elemento seleccionado:</h6>
+            <mz-collection >
+              <mz-collection-item [avatar]="true" (click)="moreDetails()" class="collection-item" style="border: 1px solid #dddddd;border-radius: 8px;">
+                <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+                <div class="title" style="font-size: 14px;">{{itemView.name}}</div>
+                <p class="descriptiom-item">{{ itemView.type }}</p>
+                <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+                    [icon]="'chevron-right'" [align]="'left'"></i></a>
+              </mz-collection-item>
+            </mz-collection>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col s12 p-l-0 p-r-0">
+            <a *ngIf="semanticItemSelected && !relationSaved" (click)="confirm()"
+              class="waves-effect waves-light btn-small save-relation-button">+ Guardar Relacion</a>
+            <a *ngIf="semanticItemSelected && relationSaved"  (click)="removeRelationship()" class="waves-effect waves-light btn-small save-relation-button">
+              Quitar relacion</a>
+            </div>
+        </div>
+        <div class="row" [ngClass]="relationSaved ? 'saved':'no-saved'">
+          <div class="col s4 offset-s4  text-align center">
+            <span style="font-size: 11px;" *ngIf="!relationSaved">
+              Relacion aun no asignada
+            </span>
+            <span style="font-size: 11px;" *ngIf="relationSaved">
+              Relacion asignada!
+            </span>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!relationSaved">
+          <div class="col s4 offset-s4  text-align center">
+            <span style="font-size: 9px;">
+            ¿No encontrás lo que buscas?
+            </span>
+          </div>
+          <div class="col s4 offset-s4">
+            <a class="waves-effect waves-light btn-small" style="width: 100%;
+              background-color: white;color:#e65100;text-align:center;font-size: 13px;
+              border: 1px solid #e65100;font-size: 11px;" (click)="createNewRelation()">
+              Creá una nueva Entidad</a>
+          </div>
+        </div>
+
+        
+
+  
+
+      </mz-collapsible-item-body>
+    </mz-collapsible-item>
+  </mz-collapsible>
+</div>
+
+<mz-modal #showRelationshipDetails [fixedFooter]="true">
+    <mz-modal-header>
+     Detalle de relacion
+    </mz-modal-header>
+    <mz-modal-content style="font-size: 13px;">
+      <div class="row"  *ngIf="enableModal">
+        <div class="col m12" style="padding-left: 0px;padding-right: 0px;">
+            <app-show-relationship-item 
+              [semanticItem]="semanticItemSelected"
+              [onlyShow]="true" 
+              [isPreviousSave]="false"
+              [showheader]="enableheader"
+              (finished)="handleResponseComponent($event)">
+            </app-show-relationship-item>
+
+        </div>
+      </div>
+    </mz-modal-content>
+    <mz-modal-footer>
+      <a class="waves-effect btn-flat primary-color-text text-align center" mz-modal-close>Cerrar</a>
+      <a *ngIf="false" class="waves-effect btn-flat primary-color-text text-align center" (click)="confirm()" mz-modal-close>Guardar</a>
+    </mz-modal-footer>
+  </mz-modal>

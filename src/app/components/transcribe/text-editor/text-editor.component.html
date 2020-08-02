@@ -18,10 +18,21 @@
         <div class="row m-t-5 m-b-5" *ngIf="page != null">
           <div class="col">
             <mz-checkbox-container>
+              <input mz-checkbox 
+              [label]="'Transcripción completa'" 
+              id="markAsTranscribedCheckbox" 
+              [(ngModel)]="transcribed" 
+              (ngModelChange)="refreshTranscriptionStatus('transcribed')"
+              type="checkbox">
+            </mz-checkbox-container>
+          </div>
+          <div class="col">
+            <mz-checkbox-container>
               <input mz-checkbox
               [label]="'Marcar como vacía'"
               id="markAsBlankCheckbox"
               [(ngModel)]="mark_blank"
+              (ngModelChange)="refreshTranscriptionStatus('mark_blank')"
               type="checkbox">
             </mz-checkbox-container>
           </div>
@@ -31,6 +42,7 @@
               [label]="'Necesita Revisión'"
               id="needsReviewCheckbox"
               [(ngModel)]="needs_review"
+              (ngModelChange)="refreshTranscriptionStatus('needs_review')"
               type="checkbox">
             </mz-checkbox-container>
           </div>

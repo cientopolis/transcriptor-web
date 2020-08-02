@@ -1,0 +1,177 @@
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-20">{{'ontology.title' | translate}} <button mz-button class="btn btn-small right m-t-5"
+            (click)="openModalOntology()">
+            <i mz-avatar mz-icon-mdi [icon]="'library-plus'"
+              [align]="'left'"></i>{{'ontology.button.create' | translate}}</button></h4>
+      </mz-card-title>
+      <mz-card-content>
+        <mz-collection>
+          <mz-collection-item [avatar]="true" *ngFor="let ontology of  ontologies | filter:searchOntologyText"
+            (click)="openModalUpdateOntology(ontology)" class="collection-item">
+            <i mz-avatar mz-icon-mdi [icon]="'semantic-web'" class="grey lighten-1"></i>
+            <h6>{{ontology.name}}</h6>
+            <p class="descriptiom-item">{{ontology.description}}</p>
+            <div mz-secondary-content>
+              <i mz-icon-mdi [icon]="'square-edit-outline'" [align]="'left'" class="secondary-item"></i>
+            </div>
+          </mz-collection-item>
+        </mz-collection>
+      </mz-card-content>
+    </mz-card>
+
+    <mz-modal #modalNewOntology [fixedFooter]="true">
+      <mz-modal-header>
+        <h5 *ngIf="!updateMode">{{'ontology.modal.create.title' | translate}}</h5>
+        <h5 *ngIf="updateMode">{{'ontology.modal.edit.title' | translate}}</h5>
+      </mz-modal-header>
+      <mz-modal-content>
+        <div class="row m-b-0">
+          <div class="col m6">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.name' | translate"
+                [(ngModel)]="ontology.name" type="text">
+            </mz-input-container>
+          </div>
+          <div class="col m6">
+            <div class="file-field input-field">
+              <div class="btn btn-small">
+                <span>Archivo de definición</span>
+                <input #fileInput tabindex="-1" accept="*" type="file" name="ontology[graph_file]" id="ontology_graph_file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-b-0">
+          <div class="col s12">
+            <mz-textarea-container>
+              <textarea mz-textarea [(ngModel)]="ontology.description"
+                [label]="'ontology.modal.create.label.description' | translate">
+              </textarea>
+            </mz-textarea-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m6">
+            <mz-input-container>
+              <input mz-input class="input-field-primary-color" [label]="'ontology.modal.create.label.url' | translate"
+                [(ngModel)]="ontology.url" type="text">
+            </mz-input-container>
+          </div>
+          <div class="col m6">
+            <mz-input-container class="input-text-prefixed">
+              <input mz-input class="input-field-primary-color"
+                [label]="'ontology.modal.create.label.prefix' | translate" [(ngModel)]="ontology.prefix" type="text">
+            </mz-input-container>
+          </div>
+        </div>
+
+        <mz-collapsible class="advanced-settings-collapse" [mode]="'expandable'">
+          <mz-collapsible-item>
+            <mz-collapsible-item-header class="full-width">
+              <h6>Configuración Avanzada<i mz-icon-mdi [icon]="'menu-down'" [align]="'right'"></i></h6>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+
+              <div class="row m-b-0">
+                <div class="col s12">
+                  <h6>Configuración de tipos</h6>
+                </div>
+              </div>
+              <div class="row m-b-0">
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las clases' | translate"
+                      [(ngModel)]="ontology.class_type" type="text">
+                  </mz-input-container>
+                </div>
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color" [label]="'Ingrese el tipo de las propiedades literales' | translate"
+                      [(ngModel)]="ontology.literal_type" type="text">
+                  </mz-input-container>
+                </div>
+              </div>
+              <div class="row m-b-0">
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color"
+                      [label]="'ontology.modal.create.label.domainkey' | translate" [(ngModel)]="ontology.domainkey"
+                      type="text">
+                  </mz-input-container>
+                </div>
+                <div class="col m6">
+                  <mz-input-container>
+                    <input mz-input class="input-field-primary-color"
+                      [label]="'Ingrese la clave de los tipos incluidos'" [(ngModel)]="ontology.rangekey"
+                      type="text">
+                  </mz-input-container>
+                </div>
+              </div>
+              
+              <div class="row m-b-0">
+                <div class="col s12">
+                  <p>Tipos Literales</p>
+                  <div class="empty-list-message primary-color-text center-align" *ngIf="ontology && ontology.ontology_datatypes_attributes && ontology.ontology_datatypes_attributes.length == 0">
+                    <p>Aún no se cargaron asociaciones de tipos para esta ontología.</p>
+                  </div>
+                  <div *ngFor="let datatype of ontology.ontology_datatypes_attributes">
+                    <div class="row m-b-10 datatype-container valign-wrapper" *ngIf="!datatype._destroy">
+                      <div class="datatype-values">
+                        <div class="col m6">
+                          <mz-input-container>
+                            <input mz-input class="input-field-primary-color" [label]="'Clase Literal' | translate"
+                              [placeholder]="'Ej.: schema:Date'"
+                              [(ngModel)]="datatype.semantic_class" type="text">
+                          </mz-input-container>
+                        </div>
+                        <div class="col m6">
+                          <mz-select-container (click)="$event.stopPropagation()">
+                            <select mz-select id="options-select" [label]="'Tipo de campo'"
+                              [(ngModel)]="datatype.internal_type" [required]="'true'">
+                              <option *ngFor="let internalType of internalTypes" [ngValue]="internalType">{{internalType}}</option>
+                            </select>
+                          </mz-select-container>
+                        </div>
+                      </div>
+                      <div class="datatype-remove right">
+                        <i mz-icon-mdi [icon]="'delete-forever'" (click)="datatype._destroy = true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row center-align m-b-0">
+                    <a class="waves-effect waves-light btn btn-primary white-text m-b-0" (click)="addDataType()">+ Agregar Tipo</a>
+                  </div>
+                </div>
+              </div>
+      
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+        
+        <div class="row center-align" *ngIf="updateMode">
+          <button mz-button class="btn white btn-bordered" mz-modal-close (click)="confirmDelete()">
+            <i mz-icon-mdi
+              [icon]="'delete-forever'"
+              [align]="'left'"></i>{{'ontology.modal.edit.button.delete' | translate}}
+          </button>
+        </div>
+
+      </mz-modal-content>
+      <mz-modal-footer>
+
+        <button mz-button [flat]="true" mz-modal-close>{{'ontology.modal.create.button.cancel' | translate}}</button>
+        <button mz-button mz-modal-close (click)="createOntology()"
+          *ngIf="!updateMode">{{'ontology.modal.create.button.save' | translate}}</button>
+        <button mz-button mz-modal-close (click)="updateOntology()"
+          *ngIf="updateMode">{{'ontology.modal.edit.button.save' | translate}}</button>
+
+      </mz-modal-footer>
+    </mz-modal>
+
+  </div>

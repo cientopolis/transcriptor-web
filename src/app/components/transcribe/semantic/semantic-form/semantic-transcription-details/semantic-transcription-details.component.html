@@ -1,0 +1,156 @@
+<div class="row" *ngIf="loader">
+  <div class="col s6 offset-s6">
+    <mz-spinner [color]="'yellow'" [size]="'small'">
+    </mz-spinner>
+  </div>
+</div>
+
+<div class="row" *ngIf="showCancelbutton && !showPreviousSave && !relation && !loader ">
+  <div class="col s1 offset-s11" style="margin-top: -70px;">
+    <a  (click)="cancel()" >
+      <button class="btn btn-small right" [flat]="true" mz-button style="padding: 0pc;font-size: 30px;margin-top: 50%;">
+        &times;
+      </button>
+    </a>
+  </div>
+</div>
+<div class="row m-b-5" *ngIf="!showPreviousSave && !relation && !loader && !showaddrelation">
+  <div class="col s12 p-l-0 p-r-0">
+    <ul class="breadcrumb">
+      <li *ngFor="let parent of parentsDetails"><a (click)="setParentDetail(parent)">{{parent.propname | ontologyPrefix}} - {{parent.name | ontology_type}}</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row p-0" *ngIf="!loader && showaddrelation">
+  <app-add-relationship
+    [layername]="layername"
+    [mark]="markrelation"
+    (saved)="cancel()">
+  </app-add-relationship>
+</div>
+<div class="row row p-l-0 p-r-0" *ngIf="!loader && !showaddrelation">
+  <div class="row  header-box"  style="margin-top: 0px;margin-bottom: 0px;"> 
+    <div class="col s9 z-depth-1" style="box-shadow: none;">
+      <h5 class="primary-color-text">{{markSelected.name | ontology_type}}</h5>
+      <p>{{markSelected.type | ontologyPrefix}}</p>
+
+    </div>
+    <div class="col s3 addrelationbutton" *ngIf="enableaddrelation" >
+      <button (click)="addRelation(markSelected)">Agregar relacion</button>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
+    <mz-collapsible [mode]="'expandable'">
+      <mz-collapsible-item [active]="true" style="margin-top: 0px;margin-bottom: 0px;">
+        <mz-collapsible-item-header  style="margin-top: 0px;margin-bottom: 0px;">
+          <div class="primary-color-text">
+            <p class="properties">Propiedades</p>
+          </div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;">
+          <table  class="bordered striped" style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th style="width: 35%;">{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.value' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let propertie of properties" class="p-t-0">
+                <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name | ontology_type}}</td>
+                <td class="p-t-5 p-b-5" *ngIf="propertie.model">
+                  <span *ngIf="!propertie.urlType">{{propertie.model | ontology_type}}</span>
+                  <a *ngIf="propertie.urlType && propertie.urlType=='external'"  href="{{propertie.model}}" target="_blank">{{propertie.model | slice:0:45}}</a>
+                  <a *ngIf="propertie.urlType  && propertie.urlType=='internal'" style="cursor: pointer;" (click)="showDetail(propertie.model,true)">{{propertie.model | ontology_type}}</a>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+
+    <mz-collapsible *ngIf="relationship.length>0 && !showPreviousSave" [mode]="'expandable'" style="overflow: auto;text-overflow: ellipsis;white-space: nowrap;">
+      <mz-collapsible-item [active]="true">
+        <mz-collapsible-item-header>
+          <div class="primary-color-text">
+            <p class="properties">Relaciones</p>
+          </div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;">
+          <table class="bordered striped" style="font-size: 12px;">
+            <thead>
+              <tr>
+                <th style="width: 35%;">{{'semanticForm.table.header.name' | translate}}</th>
+                <th>{{'semanticForm.table.header.value' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let relation of  relationship" class="p-t-0" (click)="showDetail(relation)" style="cursor: pointer;">
+                <td class="p-t-5 p-b-5" ><a>{{ relation.name | emptyValue | ontologyPrefix}}</a></td>
+                <td class="p-t-5 p-b-5"><a>{{ relation.model[0].model | emptyValue | ontology_type}}</a></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+
+
+
+    <mz-collapsible *ngIf="relationship.length>0 && showPreviousSave" [mode]="'expandable'"
+       style="margin-top: 0px;margin-bottom: 0px;">
+      <mz-collapsible-item [active]="true">
+        <mz-collapsible-item-header>
+          <div class="primary-color-text">
+            <p class="properties">Relaciones</p>
+          </div>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body style="overflow: auto;text-overflow: ellipsis;">
+          <div *ngFor="let relation of  relationship">
+            <div class="row" style="margin-top: 0px;margin-bottom: 0px;">
+              <div class="col s12 z-depth-1 header-box">
+                <h5 class="primary-color-text">{{relation.name | ontologyPrefix}}</h5>
+                <p>{{relation.type | ontology_type}}</p>
+              </div>
+            </div>
+              <mz-collapsible [mode]="'expandable'">
+                <mz-collapsible-item [active]="true" style="margin-top: 0px;margin-bottom: 0px;">
+                  <mz-collapsible-item-header style="margin-top: 0px;margin-bottom: 0px;">
+                    <div class="primary-color-text">
+                      <p class="properties">Propiedades</p>
+                    </div>
+                  </mz-collapsible-item-header>
+                  <mz-collapsible-item-body  style="overflow: auto;text-overflow: ellipsis;white-space: nowrap;">
+                    <table class="bordered striped" style="font-size: 12px;">
+                      <thead>
+                        <tr>
+                          <th style="width: 35%;">{{'semanticForm.table.header.name' | translate}}</th>
+                          <th>{{'semanticForm.table.header.value' | translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let propertie of relation.model" class="p-t-0">
+                          <td class="p-t-5 p-b-5" *ngIf="propertie.model">{{propertie.name | ontology_type}}</td>
+                          <td class="p-t-5 p-b-5" *ngIf="propertie.model">
+                            <span>{{propertie.model }}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </mz-collapsible-item-body>
+                </mz-collapsible-item>
+              </mz-collapsible>
+            </div>
+           </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+
+  </div>
+</div>
+
+<app-reference-detail-modal #relationDetailModal></app-reference-detail-modal>

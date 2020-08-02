@@ -41,7 +41,7 @@
             <input mz-checkbox [(ngModel)]="showAllTypes" [label]="'Mostrar todos los tipos en la búsqueda'" [filledIn]="true" type="checkbox">
         </mz-checkbox-container>
         <div class="entity-type-selector" [ngClass]="{ 'disabled-component': showAllTypes }">
-            <app-select-schema [mark]="{}" (schemeSelected)="selectType($event)"></app-select-schema>
+            <select-ontology-type [showStepper]="false" (ontologyTypeSelected)="selectType($event)"></select-ontology-type>
         </div>
     </mz-modal-content>
     <mz-modal-footer>

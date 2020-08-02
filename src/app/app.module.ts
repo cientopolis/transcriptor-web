@@ -1,4 +1,5 @@
-import { ListSemanticMarksComponent } from './components/transcribe/semantic-form/list/list.component';
+import { SelectOntologyTypeComponent } from './components/transcribe/semantic/semantic-form/steps/select-ontology-type/select-ontology-type.component';
+import { ListSemanticMarksComponent } from './components/transcribe/semantic/semantic-form/list/list.component';
 import { SemanticModelService } from './services/semantic-model/semantic-model.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -118,29 +119,38 @@ import { LayerModalComponent } from './components/transcribe/layer/layer-modal/l
 import { SemanticTextEditorComponent } from './components/transcribe/semantic-text-editor/semantic-text-editor.component';
 import { ImageSettingsComponent } from './components/transcribe/image-settings/image-settings.component';
 import { PlayerProfileComponent } from './components/dashboard/player-profile/player-profile.component';
-import { SemanticFormComponent } from './components/transcribe/semantic-form/semantic-form.component';
-import { SchemeBuilderComponent } from './components/transcribe/semantic-form/scheme-builder/scheme-builder.component';
-import { SchemeInputsComponent } from './components/transcribe/semantic-form/scheme-inputs/scheme-inputs.component';
+import { SemanticFormComponent } from './components/transcribe/semantic/semantic-form/semantic-form.component';
+import { DataPropertieInputsComponent } from './components/transcribe/semantic/semantic-form/datapropertie-inputs/datapropertie-inputs.component.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
-import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
-import { HeaderComponentComponent } from './components/transcribe/semantic-form/header-component/header-component.component';
-import { SelectSchemaComponent } from './components/transcribe/semantic-form/steps/select-schema/select-schema.component';
-import { SelectPropertiesComponent } from './components/transcribe/semantic-form/steps/select-properties/select-properties.component';
-import { SelectRelationshipsComponent } from './components/transcribe/semantic-form/steps/select-relationships/select-relationships.component';
-import { SelectBasicPropertiesComponent } from './components/transcribe/semantic-form/steps/select-basic-properties/select-basic-properties.component';
+import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
+import { HeaderComponentComponent } from './components/transcribe/semantic/semantic-form/header-component/header-component.component';
+import { SelectPropertiesComponent } from './components/transcribe/semantic/semantic-form/steps/select-properties/select-properties.component';
+import { SelectRelationshipsComponent } from './components/transcribe/semantic/semantic-form/steps/select-relationships/select-relationships.component';
+import { SelectBasicPropertiesComponent } from './components/transcribe/semantic/semantic-form/steps/select-basic-properties/select-basic-properties.component';
 import { SearchComponent } from './components/search/search.component';
 import { SearchInputComponent } from './components/shared/search-input/search-input.component';
 import { SemanticSearchInputComponent } from './components/search/semantic-search-input/semantic-search-input.component';
 
-import { SchemePipe } from './pipes/scheme.pipe';
+import { OntologyPipe } from './pipes/ontology.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html/safe-html.pipe';
 import { HighlightSearchPipe } from './pipes/highlight-search/highlight-search.pipe';
 import { ReferenceContainerComponent } from './components/search/reference-container/reference-container.component';
 import { ReferenceDetailModalComponent } from './components/search/reference-detail-modal/reference-detail-modal.component';
-import { SearchSemanticRelationshipComponent } from './components/transcribe/search-semantic-relationship/search-semantic-relationship.component';
-import { ShowRelationshipItemComponent } from './components/transcribe/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
+import { SearchSemanticRelationshipComponent } from './components/transcribe/semantic/search-semantic-relationship/search-semantic-relationship.component';
+import { ShowRelationshipItemComponent } from './components/transcribe/semantic/search-semantic-relationship/show-relationship-item/show-relationship-item.component';
+import { OntologiesComponent } from './components/transcribe/semantic/ontologies/ontologies.component';
+import { OntologyComponent } from './components/ontology/ontology.component';
+import { MarkSearchComponent } from './components/search/mark-search/mark-search.component';
+import { OntologySearchInputComponent } from './components/search/ontology-search-input/ontology-search-input.component';
+import { EmptyValuePipe } from './pipes/empty-values/empty-value.pipe';
+import { AddRelationshipComponent } from './components/transcribe/semantic/add-relationship/add-relationship.component';
+import { EntitySearchComponent } from './components/search/entity-search/entity-search.component';
+import { EntityReferencesSearchComponent } from './components/search/entity-references-search/entity-references-search.component';
+import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
+import { FilterEqualPipe } from './pipes/filter/filter-equal.pipe';
+import { TruncatePipe } from './pipes/text/truncate.pipe';
 import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
 
 @NgModule({
@@ -180,12 +190,11 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     PlayerProfileComponent,
     SemanticFormComponent,
     ListSemanticMarksComponent,
-    SchemePipe,
-    SchemeBuilderComponent,
-    SchemeInputsComponent,
+    OntologyPipe,
+    DataPropertieInputsComponent,
     SemanticTranscriptionDetailsComponent,
     HeaderComponentComponent,
-    SelectSchemaComponent,
+    SelectOntologyTypeComponent,
     SelectPropertiesComponent,
     SelectRelationshipsComponent,
     SelectBasicPropertiesComponent,
@@ -200,6 +209,17 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     ReferenceDetailModalComponent,
     SearchSemanticRelationshipComponent,
     ShowRelationshipItemComponent,
+    OntologiesComponent,
+    OntologyComponent,
+    MarkSearchComponent,
+    OntologySearchInputComponent,
+    EmptyValuePipe,
+    AddRelationshipComponent,
+    EntitySearchComponent,
+    EntityReferencesSearchComponent,
+    OntologyPrefixPipe,
+    FilterEqualPipe,
+    TruncatePipe,
     CanAccessPipe
   ],
   imports: [
@@ -275,7 +295,9 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     PageVersionService,
     LayerService,
     SemanticModelService,
-    SchemePipe
+    OntologyPipe,
+    OntologyPrefixPipe,
+    FilterEqualPipe
   ],
   bootstrap: [AppComponent]
 })

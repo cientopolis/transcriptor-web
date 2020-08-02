@@ -1,0 +1,132 @@
+@import '~styles/styles';
+
+/*.header{
+    
+    padding-left: 10px;
+    font-size: 13px;
+}
+.collapsible-header{
+padding: 0px !important;
+}
+.headerColapse{
+    font-size: 1.30em;
+}
+.subparagraph{
+    font-size: .80em;
+}
+
+.properties{
+    font-size: .95em;
+    font-weight: 400;
+}
+
+.collapsible{
+    font-size: 13px;
+}
+:host ::ng-deep .collapsible-header.active {
+  padding-top: 5px;
+
+}
+:host ::ng-deep .collapsible-body {
+  padding: 5ccd px;
+}
+
+:host ::ng-deep .collapsible{
+  margin-top:0px;
+  margin-bottom: 0px;
+}
+.collapsible-header.active, .collapsible-body, .collapsible, ul.collapsible>li 
+{
+  margin: 0!important;;
+  padding: 0!important;
+  border: 0!important;
+  box-shadow: none!important;
+  background: #fff;
+}
+*/
+.header-box {
+   width:100%;
+   border-width: thin;
+   border-style: solid;
+   border-color: #c9c8c8;
+  background-color: #f8f8f8;
+}
+.header-box h5{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color:#e65100;
+    font-size: 1.10rem;
+    padding-top: 5px;
+   }
+.header-box  p{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 11px;
+
+   }
+.properties{
+    font-size: .80em;
+    font-weight: 400;
+}
+:host ::ng-deep .collapsible {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+:host ::ng-deep .collapsible-header{
+  padding: 10px;
+  padding-left: 14px;
+}
+:host ::ng-deep .collapsible-body{
+    padding:10px;
+    padding-top: 0px !important;
+    background-color: #f8f8f8 !important;
+}
+
+
+ul.breadcrumb {
+  padding: 5px 10px;
+  list-style: none;
+  background-color: #eee;
+  overflow: auto;
+}
+
+ul.breadcrumb li {
+  display: inline;
+  font-size: 12px;
+}
+ul.breadcrumb li:last-child a,
+ul.breadcrumb li:last-child a:hover {
+  background-color: $primaryColor;
+  color:white;
+  border-radius: 3px;
+  padding:3px;
+
+}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color:$primaryColor;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: $primaryColor;
+  text-decoration: underline;
+  cursor:pointer; cursor: hand;
+}
+
+.addrelationbutton{
+  font-size: 13px;
+    padding: 2%;
+    color: white;
+    button{
+      background-color: $primaryColor;
+      border: none;
+      border-radius: 4px;
+    }
+}
+
+

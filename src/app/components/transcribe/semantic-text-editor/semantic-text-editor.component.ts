@@ -1,8 +1,8 @@
+import { Ontology } from '../../../models/ontology/ontology';
 import { SemanticModelService } from './../../../services/semantic-model/semantic-model.service';
 import { HeaderService } from './../../../services/sharedData/header.service';
 import { RenderedMark } from './../../../models/renderedMark';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-
 import { TranscribeService } from '../../../services/transcribe/transcribe.service';
 import { MarkService } from '../../../services/mark/mark.service';
 
@@ -19,6 +19,7 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   @Input() renderedMarks = null;
   @Input() delegate = null;
   @Input() showComponent = false;
+  ontology:Ontology;
   selectRelationship=true;
 
   semantic_text:String=null;
@@ -26,17 +27,38 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
   showSaveButton:Boolean = false;
   contribution_slug:string;
   semanticContribution = null;
+  label = null;
 
   constructor(private transcribeService: TranscribeService,
      private markService: MarkService,
       private headerService: HeaderService,
       private  semanticModel:SemanticModelService) { }
 
-  ngOnChanges(changes) {}
+  ngOnChanges(changes) {
+    this.ontology=null;
+    if(this.renderedMark!=null){
+      this.disableButtonLayers();
+    } else {
+      this.enableButtonLayers();
+    }
+  }
+  enableButtonLayers(){
+    let a = $('#btn-dropdown-layers');
+    a.removeClass('disabled-component')
+  }
+
+
+  disableButtonLayers(){
+    let a = $('#btn-dropdown-layers');
+    a.addClass('disabled-component');
+  }
   ngOnInit() {
-   /*  console.log("call types from backend")
-    this.semanticModel.getFullTree(); */
     this.selectRelationship=true;
+  }
+
+
+  selectOntology(event){
+    this.ontology=event;
   }
 
   save() {
@@ -49,36 +71,25 @@ export class SemanticTextEditorComponent implements OnInit,OnChanges {
     mark.semantic_text = this.semantic_text;
     mark.schema_type = this.schema_type;
     mark.contribution_slug = this.contribution_slug;
-    /*this.markService.create(mark)
-      .subscribe(mark => {
-        this.renderedMark.mark = mark;
-        this.renderedMark.layer.on('click', function () {
-          component.editing = true;
-          component.fitToLayer(renderedMark.layer);
-        });
-        component.renderedMarks.push(this.renderedMark);
-        component.reset();
-      });*/
+    mark.label = this.label;
     this.renderedMark.mark=mark;
     this.delegate.addModalMark();
-    
-  }
+      }
   createType(event){
     this.selectRelationship=false;
   }
   proccessScheme(event){
-
     this.showSaveButton=true;
     this.semantic_text = JSON.stringify(event.semantic_text);
     this.schema_type = event.schema_type;
     this.contribution_slug = event.contribution_slug;
-
+    this.label=event.label;
     this.save();
    }
 
   cancel() {
     this.selectRelationship = true;
+    this.enableButtonLayers();
     this.delegate.cancelModal();
   }
-
 }

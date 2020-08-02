@@ -389,5 +389,89 @@
         "title": "Detalle de Referencia"
       }
     }
+  },
+  "entitySearch": {
+    "title": "Búsqueda de Entidades",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "searchEntity": "Ingresá un termino para encontrar entidades relacionadas. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
+  "markSearch": {
+    "title": "Búsqueda de Marcas",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar marcas que contengan información de tu interés.",
+    "label": {
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "searchMark": "Buscá un termino para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
+  "ontology":{
+    "title": "Ontologias",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "create":"Cargar Ontología",
+      "showMore": "Ver más",
+      "edit": "Edición de Ontología Cargada"
+    },
+    "modal": {
+      "edit":{
+        "title": "Edición de Ontología Cargada",
+        "button":{
+          "delete":"Eliminar Ontología",
+          "save":"Guardar Cambios"
+        }
+      },
+      "create":{
+        "label": {
+          "name": "Nombre de la ontología",
+          "description": "Descripción",
+          "url":"Url de la ontología",
+          "prefix":"Prefijo de la ontología",
+          "domainkey":"Ingrese la clave de relación"
+        },
+        "button":{
+          "cancel":"Cancelar",
+          "save":"Guardar ontología"
+        },
+        "title":"Carga de ontología"
+      },
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
   }
 }

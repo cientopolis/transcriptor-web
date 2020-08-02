@@ -1,3 +1,4 @@
+import { OntologyService } from './services/ontology/ontology.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {SimpleGlobal} from 'ng2-simple-global';
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit{
   title = 'Transcriptor';
   darkModeEnabled = false;
 
-  constructor(private loginService: LoginService, public global: SimpleGlobal, private router: Router, public translate: TranslateService) {
+  constructor(private loginService: LoginService, public global: SimpleGlobal, private router: Router, public translate: TranslateService,  private ontologyService: OntologyService) {
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang);
@@ -29,8 +30,17 @@ export class AppComponent implements OnInit{
     let storedUser=localStorage.getItem('currentUser');
     if(storedUser != null){
       this.setUser(JSON.parse(storedUser));
+      this.getOntologies();
     }
     this.loadDarkMode();
+  }
+
+  getOntologies() {
+    this.ontologyService.list({}).subscribe(response => {
+      if (response) {
+        this.global['ontologies'] = response;
+      }
+    })
   }
 
   logout() : void {

@@ -1,0 +1,9 @@
+<div class="row" style="margin-bottom: 0px;"> 
+  <h5 *ngIf="headerService.headerParagraph" class="header-paragraph">{{headerService.headerParagraph}}
+    <button *ngIf="showSaveButton" class="btn btn-small right" mz-button (click)="save()">
+      <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i> {{'app.button.save' | translate}}
+    </button>
+  </h5>
+  <h4 >{{headerService.header | ontology_type}}</h4>
+  <p *ngIf="headerService.headerSubparagraph" class="header-subparagraph">{{headerService.headerSubparagraph}}</p>
+</div>

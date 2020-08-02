@@ -1,11 +1,9 @@
-<div class="row">
-    <div class="col s1 image-column">
-      <div class="comment-image">
-        <img [src]="getAvatarUrl(publication.user.display_name)">
-      </div>
+<div class="row m-b-10">
+    <div class="comment-image">
+      <img [src]="getAvatarUrl(publication.user.display_name)">
     </div>
-    <div class="col s11 p-l-0">
-      <div class="comment-container">
+    <div class="comment-container p-l-0 p-r-0">
+      <div class="comment-text">
         <span><a>{{publication.user.display_name}}</a> {{publication.text}}</span>
       </div>
       <div class="comment-actions">
@@ -20,15 +18,13 @@
 </div>
 
 <div class="row m-b-0" *ngIf="showResponses">
-  <div class="col s11 response-list-margin">
-    <div class="row" *ngFor="let publicationChild of publicationsChilds">
-        <div class="col s1 image-column">
-          <div class="comment-image response">
-            <img [src]="getAvatarUrl(publicationChild.user.display_name)">
-          </div>
+  <div class="response-list-margin">
+    <div class="row m-b-10" *ngFor="let publicationChild of publicationsChilds">
+        <div class="comment-image response p-t-5">
+          <img [src]="getAvatarUrl(publicationChild.user.display_name)">
         </div>
-        <div class="col s11 p-l-0">
-          <div class="comment-container">
+        <div class="comment-container p-l-0 p-r-0">
+          <div class="comment-text">
             <span><a>{{publicationChild.user.display_name}}</a> {{publicationChild.text}}</span>
           </div>
           <div class="comment-actions">
@@ -39,28 +35,24 @@
     </div>
 
     <div class="row reply-container" [ngClass]="{'focused': replyBoxFocused == true}">
-      <div class="col s1 image-column">
-        <div class="comment-image response">
-          <img [src]="getAvatarUrl(global.currentUser.display_name)">
-        </div>
+      <div class="comment-image response">
+        <img [src]="getAvatarUrl(global.currentUser.display_name)">
       </div>
-      <div class="col s11 p-l-0">
-        <div class="card-panel reply-box">
-          <div class="row m-b-0">
-            <div class="col s11 text-field">
-              <div class="input-field">
-                <textarea class="materialize-textarea" placeholder="Escribe un comentario..." (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false" *ngIf="publication!=null && publication.parent_id==null"
-                [(ngModel)]="publicationNew.text"></textarea>
-              </div>
+      <div class="card-panel reply-box">
+        <div class="row m-b-0">
+          <div class="col s11 text-field">
+            <div class="input-field">
+              <textarea class="materialize-textarea" placeholder="Escribe un comentario..." (focus)="replyBoxFocused = true" (blur)="replyBoxFocused = false" *ngIf="publication!=null && publication.parent_id==null"
+              [(ngModel)]="publicationNew.text"></textarea>
             </div>
-            <div class="col s1 send-button">
-              <button mz-button
-                [float]="true"
-                *ngIf="publication!=null && publication.parent_id==null"
-                (click)="addComment()">
-                <i mz-icon-mdi [icon]="'send'"></i>
-              </button>
-            </div>
+          </div>
+          <div class="col s1 send-button">
+            <button mz-button
+              [float]="true"
+              *ngIf="publication!=null && publication.parent_id==null"
+              (click)="addComment()">
+              <i mz-icon-mdi [icon]="'send'"></i>
+            </button>
           </div>
         </div>
       </div>

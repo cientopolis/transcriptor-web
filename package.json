@@ -45,7 +45,7 @@
     "jquery": "^3.5.0",
     "leaflet": "^1.5.1",
     "leaflet-draw": "^1.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "materialize-css": "^0.100.2",
     "materialize-stepper": "^3.1.0",
     "ng-circle-progress": "^1.5.1",

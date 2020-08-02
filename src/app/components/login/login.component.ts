@@ -1,3 +1,4 @@
+import { OntologyService } from './../../services/ontology/ontology.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {SimpleGlobal} from 'ng2-simple-global';
 import { Router } from "@angular/router";
@@ -20,7 +21,11 @@ export class LoginComponent implements OnInit {
 
   loginCredentials:LoginCredentials = new LoginCredentials();
 
-  constructor(private userService: UserService,private loginService: LoginService, public global: SimpleGlobal, private router: Router) { }
+  constructor(private userService: UserService,
+              private loginService: LoginService, 
+              public global: SimpleGlobal, 
+              private router: Router,
+              private ontologyService: OntologyService) { }
 
   ngOnInit() {
     let usr = JSON.parse(localStorage.getItem('rememberCredential'));
@@ -31,6 +36,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  getOntologies(){
+    this.ontologyService.list({}).subscribe(response => {
+      if (response) {
+        this.global['ontologies']=response;
+      }
+    })
+  }
   login(formValue: NgForm) {
     console.log(this.loginCredentials.remember);
     if (this.loginCredentials.remember){
@@ -46,9 +58,9 @@ export class LoginComponent implements OnInit {
   private handleResponse(user) {
     if(user){
       this.setUser(user);
-      console.log(user);
       this.userService.userInfoMetagame()
-          .subscribe(response => this.handleResponseMG(user,response));
+      .subscribe(response => this.handleResponseMG(user,response));
+      this.getOntologies();
     }
   }
 

@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col s12 header p-0 p-r-10">
+    <h5 style="margin-bottom: 0px;margin-top: 0px;">
+      Asociá la entidad con otro elemento
+    </h5>
+    <p style="font-size: 12px;">
+    Desde esta sección podras relacionar el elemento seleccionado con otras entidades ya cargadas. Esto permitirá generar
+    una descripción mas profunda de su interaccion con el mundo real.
+    Para cargarlas, primero tenes que seleccionar de que manera tu elemento se relaciona con el elemento destino, luego solo
+    tenés que buscar el otro elemento y confirmar su asociación.
+    </p>
+  </div>
+</div>
+<div class="row m-b-5">
+  <div class="col s12">
+    <h6 class="primary-color-text m-b-5" style="font-weight: bold;">Entidad origen seleccionada</h6>
+  </div>
+  <div class="col s12 p-0">
+    <div class="row m-b-5">
+      <div class="col s12 z-depth-1" style="box-shadow: none;" *ngIf="false">
+        <h6 class="primary-color-text m-b-0">{{mark.name | ontology_type}}</h6>
+        <p>{{mark.type | ontology_type}}</p>
+      </div>
+      <div class="col s12" style="padding:0px;">
+        <mz-collapsible [mode]="'expandable'" style="overflow: auto;text-overflow: ellipsis;white-space: nowrap;">
+          <mz-collapsible-item [active]="true">
+            <mz-collapsible-item-header>
+              <div class="primary-color-text">
+                <p class="properties">Elemento seleccionado:</p>
+              </div>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body style="padding: 0px;">
+              <mz-collection>
+                <mz-collection-item [avatar]="true" (click)="showMarkDetail()" class="collection-item"
+                  style="border: 1px solid #dddddd;border-radius: 8px;">
+                  <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+                  <div class="title" style="font-size: 14px;">{{mark.name | ontology_type}}</div>
+                  <p class="descriptiom-item">{{mark.type | ontologyPrefix}}</p>
+                </mz-collection-item>
+              </mz-collection>
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row  m-b-5">
+  <div class="col s12">
+    <h6 class="primary-color-text m-b-5" style="font-weight: bold;">¿Cómo se relacionan estas entidades?</h6>
+  </div>
+  <div class="col s12">
+    <app-search-input #searchRelationInput 
+      [placeholder]="'Ingrese el nombre de una relación'" 
+      [itemIcon]="'semantic-web'" 
+      [autocomplete]="true" 
+      [flatStyle]="flatStyle"
+      (onClear)="onClearRelationSearch()" 
+      (onFetch)="searchRelationships($event)" 
+      (itemChange)="itemRelationChange($event)"
+      (invalidInput)="handleInvalidInputRelation()">
+    </app-search-input>
+  </div>
+  <div class="row m-b-5">
+    <div class="col s12 z-depth-1" style="box-shadow: none;" >
+      <h6 class="primary-color-text m-b-0" style="font-size: 1em;">Relacion seleccionada:</h6>
+    </div>
+    <div class="col s12" *ngIf="relationselected">
+      <mz-collection>
+        <mz-collection-item [avatar]="true" class="collection-item"
+          style="border: 1px solid #dddddd;border-radius: 8px;">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <div class="title" style="font-size: 14px;">{{relationselected.property | ontologyPrefix}}</div>
+          <p class="descriptiom-item" >{{ relationselected.comment | truncate:200:false}} </p>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row  m-b-5">
+  <div class="col s12">
+    <h6 class="primary-color-text m-b-5" style="font-weight: bold;">Seleccioná la entidad destino</h6>
+  </div>
+    <div class="row" style="padding:0px;margin-bottom: 0px;" *ngIf="typesSelected && typesSelected.length>0">
+      <div class="col s12">
+        <mz-select-container (click)="$event.stopPropagation()" style="margin-bottom: 0px !important;">
+          <select mz-select (change)="selectType(relation,$event)" [label]="'selecciona el tipo de la relacion'" [(ngModel)]="typeselected">
+            <option *ngFor="let type of typesSelected" [ngValue]="type">{{ type | ontology_type }}</option>
+          </select>
+        </mz-select-container>
+      </div>
+    </div>
+  <div class="col s12" style="padding:0px;" [ngClass]="typeselected ? '':'disabled-component'">
+    <div class="row" style="padding:0px;">
+      <div class="col s12">
+          <app-semantic-search-input 
+            [(semanticModel)]="semanticItemSelected" 
+            (semanticModelChange)="itemChange($event)"
+            [(results)]="searchRelationshipList" 
+            [fetchSelectedEntity]="true" 
+            [autocomplete]="true"
+            (onClear)="clearEntity()"
+            [hierarchical]="hierarchical"
+            [placeholder]="'semanticForm.placeholder.entitySearch' | translate" 
+            [entityType]="typeselected">
+          </app-semantic-search-input>
+      </div>
+    </div>
+    <div class="col s12" *ngIf="semanticItemSelected">
+      <mz-collection>
+        <mz-collection-item [avatar]="true" (click)="showEntityDetail()" class="collection-item"
+          style="border: 1px solid #dddddd;border-radius: 8px;">
+          <i mz-avatar mz-icon-mdi [icon]="'bookmark-outline'" class="grey lighten-1"></i>
+          <div class="title" style="font-size: 14px;">{{semanticItemSelected.name | ontology_type}}</div>
+          <p class="descriptiom-item">{{semanticItemSelected.type | ontologyPrefix}}</p>
+          <a mz-secondary-content style="margin-right: 0px;"><i style="margin-right: 0px;color: black;" mz-icon-mdi
+              [icon]="'chevron-right'" [align]="'left'"></i></a>
+        </mz-collection-item>
+      </mz-collection>
+    </div>
+  </div>
+</div>
+  <div class="col-12" >
+    <div class="fixed-action-btn">
+      <button type="button"  [disabled]="!semanticItemSelected" class="btn-floating btn-large" style="background-color: #e65100;" (click)="save()">
+        <i mz-icon-mdi [icon]="'content-save'" [align]="'left'"></i>
+      </button>
+    </div>
+  </div>
+
+
+<app-reference-detail-modal #referenceDetailModalRelation></app-reference-detail-modal>

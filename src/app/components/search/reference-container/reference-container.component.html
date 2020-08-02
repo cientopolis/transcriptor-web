@@ -19,7 +19,7 @@
       <mz-collection>
         <a mz-collection-link class="bordered" *ngFor="let mark of marks" (click)="onReferenceSelection.emit(mark)">
           <span class="mark-label">{{mark.semanticContribution.created_at | localizedDate}} - </span>{{ mark.getSemanticLabel()   }}
-          <span class="badge-scheme-type"><small>{{mark.semanticContribution.schema_type | scheme_type}}</small></span>
+          <span class="badge-scheme-type"><small>{{mark.semanticContribution.schema_type | ontologyPrefix}}</small></span>
           <span mz-secondary-content><!--<a>VER MÁS</a>--><i mz-icon-mdi [icon]="'chevron-right'" [align]="'right'"></i></span>
         </a>
       </mz-collection>
