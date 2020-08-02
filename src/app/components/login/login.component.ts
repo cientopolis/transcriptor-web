@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('modalCreateUser') modalCreateUser;
   user:any = {};
+  public rememberUser:false;
 
   loginCredentials:LoginCredentials = new LoginCredentials();
 
@@ -27,6 +28,12 @@ export class LoginComponent implements OnInit {
               private ontologyService: OntologyService) { }
 
   ngOnInit() {
+    let usr = JSON.parse(localStorage.getItem('rememberCredential'));
+    if(usr!=null){
+      this.loginCredentials.username = usr.username;
+      this.loginCredentials.password = usr.password;
+      this.loginCredentials.remember=true;
+    }
   }
 
   getOntologies(){
@@ -37,6 +44,13 @@ export class LoginComponent implements OnInit {
     })
   }
   login(formValue: NgForm) {
+    console.log(this.loginCredentials.remember);
+    if (this.loginCredentials.remember){
+      localStorage.setItem('rememberCredential',JSON.stringify(this.loginCredentials));
+    }else{
+      localStorage.removeItem('rememberCredential');
+    }
+    console.log(formValue)
     this.loginService.login(this.loginCredentials)
         .subscribe(response => this.handleResponse(response));
   }
