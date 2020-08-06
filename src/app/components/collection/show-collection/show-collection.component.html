@@ -13,7 +13,7 @@
         </div>
         <a routerLink="/collections/list"><small class="m-b-0 m-t-0">{{ 'collections.title' | translate }}</small></a>
         <h4 class="m-b-0 m-t-0">{{ collection.title }}</h4>
-        <button mz-button class="btn-show-config z-depth-0" (click)="modalSettings.openModal()"><i mz-icon-mdi [icon]="'cog'"></i></button>
+        <button mz-button class="btn-show-config z-depth-0" (click)="modalSettings.openModal()" *ngIf="'/collection:config' | canAccess"><i mz-icon-mdi [icon]="'cog'"></i></button>
       </mz-card-title>
       <mz-card-content>
         <p class="m-t-15 m-b-15" [innerHTML]="collection.intro_block | safeHtml"></p>

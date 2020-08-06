@@ -1,3 +1,4 @@
+import { CanAccessPipe } from './../../pipes/canAccess/can-access.pipe';
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, ViewChild, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SimpleGlobal } from 'ng2-simple-global';
@@ -130,7 +131,8 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
     private applicationRef: ApplicationRef,
-    public global: SimpleGlobal) {
+    public global: SimpleGlobal,
+    private canAccess: CanAccessPipe) {
     this.global['hideFooter']=true;
     this.transcribeOptions=this.getTranscribeOptions();
     if(this.classicMode){
@@ -141,6 +143,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.scrollTo(0,0);
+    if(!this.canAccess.transform('/transcribe:transcribe')){
+      //this.drawOptions={};
+      this.toggleEditor();
+    }
     // $("body").css("overflow", "hidden");
   }
 
@@ -206,7 +212,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
           this.page = page;
 
           this.global['routeBack'] = "work/"+this.page.work_id;
-          console.log(this.global['routeBack']);
           this.changeDetector.detectChanges();
           this.addPageToMap();
           this.loadMarks();
@@ -233,13 +238,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
     let layerId = this.transcriptionLayer ? this.transcriptionLayer.id : null;
     this.markService.listByPage(this.page.id, layerId)
         .subscribe(marks => {
-          console.log("marks");
-          console.log(marks);
           marks.forEach(mark => {
             let renderedMark = new RenderedMark(mark);
             renderedMark.render(this.map, this.shapeOptions);
             renderedMark.layer.on('click', function(){
-              console.log("click mark?");
               component.editing = true;
               component.fitToLayer(renderedMark.layer);
               if (!component.semanticMode) {
@@ -449,10 +451,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   }
 
   clearMarks() {
-    console.log("clear");
     this.renderedMarks.forEach(renderedMark => {
-      console.log("clearmark");
-
       renderedMark.layer.remove()
     });
     this.renderedMarks = []
@@ -476,7 +475,6 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   // panel logic
   toggleEditor(){
     this.transcribeOptions.hideTextEditor = !this.transcribeOptions.hideTextEditor;
-
     if(this.transcribeOptions.hideTextEditor){
       $('.editor-wrapper').addClass('animated fadeOutRight');
       $('.transcribe-screen').addClass('collapsed');

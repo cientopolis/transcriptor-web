@@ -10,14 +10,11 @@ export class CanAccessGuard implements CanActivate {
   constructor(private canAccess:CanAccessPipe){
 
   }
+  
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    let user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('will call the user permissions', user);
-    console.log(next.url[0].path);
-    let resul = this.canAccess.transform(next.url[0].path);
-    console.log(resul);
-    return true;
+    return this.canAccess.transform(next.url[0].path);
+    
   }
 }

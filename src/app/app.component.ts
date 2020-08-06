@@ -46,6 +46,7 @@ export class AppComponent implements OnInit{
   logout() : void {
     localStorage.removeItem('currentUser');
     this.global['currentUser'] = null;
+    localStorage.removeItem('currentUser');
     this.router.navigate(['home'])
   }
 

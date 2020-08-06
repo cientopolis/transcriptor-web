@@ -297,7 +297,8 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     SemanticModelService,
     OntologyPipe,
     OntologyPrefixPipe,
-    FilterEqualPipe
+    FilterEqualPipe,
+    CanAccessPipe
   ],
   bootstrap: [AppComponent]
 })

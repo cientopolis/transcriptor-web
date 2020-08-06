@@ -8,7 +8,6 @@ export class CanAccessPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     return AccessUtils.canAccess(value);
-    return null;
   }
 
 }
