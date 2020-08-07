@@ -50,9 +50,40 @@ export class AccessUtils {
         if(this.isNull(uri)){
             return false;
         }
-        let publicFunctions = ['/login', '/home', '/dashboard', '/collections/list', '/work', '/transcribe'];
-        let owenerFunctions = ['/work:activities', '/work:configuration', '/transcribe:transcribe', '/collections/list:config', '/collections/list:activities'];
-        let transcriptorFunctions = ['/work:activities','/work:configuration','/transcribe:transcribe','/collections/list:config', '/collections/list:activities', '/search', '/ontology'];
+        let publicFunctions = [
+            '/login', 
+            '/home', 
+            '/dashboard', 
+            '/collections/list', 
+            '/work', 
+            '/transcribe'
+        ];
+
+        /** publicas mas .. */
+        let owenerFunctions = [
+            '/search',
+            '/startproject',
+            '/user/profile',
+            '/work:activities', 
+            '/work:configuration', 
+            '/transcribe:transcribe', 
+            '/collections/list:config', 
+            '/collections/list:activities',
+            '/page-version'
+        ];
+        
+//        let owenerFunctions = ['/work:activities', '/work:configuration', '/transcribe:transcribe', '/collections/list:config', '/collections/list:activities'];
+        let transcriptorFunctions = [
+            '/startproject',
+            '/user/profile',
+            '/page-version',
+            '/work:activities',
+            '/work:configuration',
+            '/transcribe:transcribe',
+            '/collections/list:config',
+            '/collections/list:activities', 
+            '/search', 
+            '/ontology'];
         let superfunciones = [];
         superfunciones=superfunciones.concat(publicFunctions);
         
