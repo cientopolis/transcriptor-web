@@ -28,7 +28,8 @@
         (schemeComplete)="proccessScheme($event)">
       </app-search-semantic-relationship>
       <app-semantic-form *ngIf="page && renderedMark && renderedMark.mark && !selectRelationship"  
-        [layerName]="layer.name" 
+        [layerName]="layer.name"
+        [layerid]="layer.id"
         [mark]="renderedMark.mark" 
         [renderedMarks]="renderedMarks" 
         (schemeComplete)="proccessScheme($event)">

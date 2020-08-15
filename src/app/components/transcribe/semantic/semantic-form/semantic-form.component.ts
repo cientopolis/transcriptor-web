@@ -28,6 +28,7 @@ export class SemanticFormComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() public schemeComplete = new EventEmitter<any>();
   @Input() public mark = null;
   @Input() public layerName = null;
+  @Input() public layerid = null;
   semanticContribution:any;
   parents= new Array<any>();
   renderedMarksFormatted = [];
@@ -123,6 +124,7 @@ validateStepOne() {
 handleOntologyClassSelected(ontologyClass){
   this.ontologyClass=ontologyClass;
   this.ontologyInstance = new ontologyClassInstance(ontologyClass);
+  this.ontologyInstance.layerId=this.layerid;
   if (this.schemeName == ontologyClass.label){
     return;
   }
@@ -218,7 +220,7 @@ handleSchemeRelationships(event){
     e.then(
       result => {
         let resultShow = JSON.parse(JSON.stringify(result));
-        let show = resultShow['schema:mainEntity'];
+        let show = resultShow['transcriptor:mainEntity'];
         for (let key in show) {
           const item = show[key];
           if(item['@id']){
@@ -282,6 +284,7 @@ handleSchemeRelationships(event){
 
   selectOntology(event) {
     this.ontology = event;
+
     if(this.ontology==null){
       this.handlePropertieValidation(false);
     }else{

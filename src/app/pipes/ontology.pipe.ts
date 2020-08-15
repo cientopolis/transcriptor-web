@@ -30,5 +30,9 @@ export class OntologyPipe implements PipeTransform {
     ontologyrdfs.prefix = 'rdfs';
     ontologyrdfs.url = 'http://www.w3.org/2000/01/rdf-schema#';
     ontologies.push(ontologyrdfs);
+    let ontologytranscriptor = new Ontology();
+    ontologytranscriptor.prefix = 'transcriptor';
+    ontologytranscriptor.url = 'http://transcriptor.com/';
+    ontologies.push(ontologytranscriptor);
   }
 }

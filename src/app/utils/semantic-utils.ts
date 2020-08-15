@@ -1,4 +1,5 @@
 import { environment } from './../../environments/environment.prod';
+import { Ontology } from 'app/models/ontology/ontology';
 export class SemanticUtils {
     // public static regexurl = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
     public static regexurl =  /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
@@ -193,6 +194,7 @@ export class SemanticUtils {
         return ontologyfound;
     }
     public static setOntologyPrefix(ontologies, typeraw){
+        ontologies.push({ url: 'http://transcriptor.com/', prefix:'transcriptor'})
         let ontology = this.getOntologyFromType(ontologies, typeraw);
         let type = this.filterURLFromOntology(ontologies, typeraw);
         type = this.filterPrefixFromOntology(ontologies,type);

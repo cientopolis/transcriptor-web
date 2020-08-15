@@ -15,6 +15,7 @@ export class SemanticTranscriptionDetailsComponent implements OnInit,OnChanges {
   @Input() entityid ;
   @Input() layername= null;
   @Input() showRelationshipItem = null;
+  @Input() usedefaultscheme= true;
   @Input() markSelected = null;
   @Input() showPreviousSave = false;
   @Input() showCancelbutton = true;
