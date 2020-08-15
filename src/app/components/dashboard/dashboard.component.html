@@ -227,7 +227,7 @@
   (successCreate)="onCreateCollection()">
 </app-create-collection-modal>
 
-<mz-modal #uploadModal>
+<mz-modal #uploadModal *ngIf="global['currentUser']">
   <mz-modal-content>
     <app-upload 
       #uploadComponent

@@ -28,7 +28,7 @@ export class AccessUtils {
         }
         let found = false;
         functionsUser.forEach(functionUser => {
-            if (this.getFunction(functionUser)==functionName){
+            if (this.getFunction(functionUser.uri)==functionName){
                 found=true;
             }
         });
@@ -38,7 +38,7 @@ export class AccessUtils {
     public static checkUri(uri, functionsUser) {
         let found = false;
         functionsUser.forEach(functionUser => {
-            if (functionUser.includes(uri)) {
+            if (functionUser.uri.includes(uri)) {
                 found = true;
             }
         });
@@ -51,61 +51,30 @@ export class AccessUtils {
             return false;
         }
         let publicFunctions = [
-            '/login', 
-            '/home', 
-            '/dashboard', 
-            '/collections/list', 
-            '/work', 
-            '/transcribe'
+            {uri:'/login'}, 
+            {uri:'/home'}, 
+            {uri:'/dashboard'}, 
+            {uri:'/collections/list'}, 
+            {uri:'/work'}, 
+            {uri:'/transcribe'}
         ];
 
-        /** publicas mas .. */
-        let owenerFunctions = [
-            '/search',
-            '/startproject',
-            '/user/profile',
-            '/work:activities', 
-            '/work:configuration', 
-            '/transcribe:transcribe', 
-            '/collections/list:config', 
-            '/collections/list:activities',
-            '/page-version'
-        ];
-        
-//        let owenerFunctions = ['/work:activities', '/work:configuration', '/transcribe:transcribe', '/collections/list:config', '/collections/list:activities'];
-        let transcriptorFunctions = [
-            '/startproject',
-            '/user/profile',
-            '/page-version',
-            '/work:activities',
-            '/work:configuration',
-            '/transcribe:transcribe',
-            '/collections/list:config',
-            '/collections/list:activities', 
-            '/search', 
-            '/ontology'];
-        let superfunciones = [];
-        superfunciones=superfunciones.concat(publicFunctions);
-        
         console.log(uri);
-        
+        let functions: Array<any> = JSON.parse(localStorage.getItem('functions'));
         let user = JSON.parse(localStorage.getItem('currentUser'));
-        
-        if (user && user.admin) {
-            superfunciones=superfunciones.concat(transcriptorFunctions)
-        }
-        if (user && !user.admin) {
-            superfunciones = superfunciones.concat(owenerFunctions)
-        }
+        if (!functions){
+            functions = publicFunctions;
+        }     
 
-        
-        console.log(superfunciones);
+
+        console.log("funciones desde el storage:", functions );
+        console.log(functions);
         if(this.isOnlyUri(uri)){
-            if(this.checkUri(uri,superfunciones)){
+            if (this.checkUri(uri, functions)){
                 return true;
             }
         }
-        if(this.checkFunction(uri,superfunciones)){
+        if (this.checkFunction(uri, functions)){
             return true;
         }
 

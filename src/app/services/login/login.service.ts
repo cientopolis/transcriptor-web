@@ -10,13 +10,18 @@ import { LoginCredentials } from '../../models/loginCredentials';
 export class LoginService {
 
   private loginPath = '/api/login';
+  private functionsPath = '/api/functions';
 
   constructor(private httpService: HttpService, public global: SimpleGlobal, private router: Router) { }
   
   login(loginCredentials: LoginCredentials) {
-    return this.httpService.post(this.loginPath, loginCredentials);
+    return this.httpService.post(this.loginPath, loginCredentials, { fields: ['frontend_functions'] });
   }
   
+  getFunctions(user_id) {
+    return this.httpService.lpost(this.functionsPath, user_id);
+  }
+
   newSession(user){
     if(user){
       this.global['currentUser'] = user;

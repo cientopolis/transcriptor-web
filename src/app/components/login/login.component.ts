@@ -60,9 +60,11 @@ export class LoginComponent implements OnInit {
       this.setUser(user);
       this.userService.userInfoMetagame()
       .subscribe(response => this.handleResponseMG(user,response));
+
       this.getOntologies();
     }
   }
+
 
   private handleResponseMG(user,response) {
     if(response && response.player){
@@ -73,6 +75,7 @@ export class LoginComponent implements OnInit {
   }
 
   private setUser(user){
+    localStorage.setItem('functions', JSON.stringify(user.frontend_functions));
     this.global['currentUser'] = user;
     localStorage.setItem('currentUser', JSON.stringify(user));
   }

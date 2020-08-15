@@ -31,8 +31,16 @@ export class AppComponent implements OnInit{
     if(storedUser != null){
       this.setUser(JSON.parse(storedUser));
       this.getOntologies();
+    }else{
+      this.getFunctions();
     }
     this.loadDarkMode();
+  }
+  getFunctions(){
+    this.loginService.getFunctions({}).subscribe(response =>{
+      console.log(response);
+      localStorage.setItem('functions', JSON.stringify(response));     
+    });
   }
 
   getOntologies() {
@@ -46,6 +54,7 @@ export class AppComponent implements OnInit{
   logout() : void {
     localStorage.removeItem('currentUser');
     this.global['currentUser'] = null;
+    localStorage.removeItem('functions');
     localStorage.removeItem('currentUser');
     this.router.navigate(['home'])
   }
