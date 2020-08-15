@@ -7,6 +7,7 @@ export class ontologyClassInstance {
     id: String;
     name: String;
     comment: String;
+    layerId:number;
     ontologyClass: OntologyClass;
     properties = new Array<DataPropertieValue>();
     relations = new Array <RelationOntologyInstance>();

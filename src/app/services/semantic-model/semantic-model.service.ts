@@ -66,6 +66,7 @@ export class SemanticModelService {
       const compacted = jsonld.compact(doc, context);
       return compacted;
     }
+
   setContext(ontologyInstance: ontologyClassInstance = null){
     let context = {
       "@context": {
@@ -74,9 +75,13 @@ export class SemanticModelService {
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "transcriptor": `${environment.semantic_transcription.prefix}`
       }, 
-      "@id": "http://test-lala.com/semantic-contribution-1",
-      "@type":"schema:NoteDigitalDocument",
-      "schema:mainEntity": {
+      "@id": "",
+     
+      "transcriptor:belongsToLayer": {
+        "@id": `transcriptor:layer-${ontologyInstance.layerId}`
+      },
+      "@type":"transcriptor:Mark",
+      "transcriptor:mainEntity": {
         
       }
       
@@ -90,6 +95,7 @@ export class SemanticModelService {
 
 
   generateJsonld(ontologyInstance:ontologyClassInstance = null,entityPreviousSaved = null){
+    console.log(ontologyInstance);
     let context = this.setContext(ontologyInstance);
     let instance = {};
     let noteEntitydoc = this.setContext(ontologyInstance);
@@ -105,7 +111,7 @@ export class SemanticModelService {
 /*     noteEntitydoc['@type'] = ontologyInstance.ontologyClass.ontology.prefix+':'+ "NoteDigitalDocument"; */
     noteEntitydoc['@id'] = `${environment.semantic_transcription.prefix}`+"semantic-contribution-" + Date.now();
     noteEntitydoc['rdfs:label'] = instance['rdfs:label'];
-    noteEntitydoc['schema:mainEntity'] = instance;
+    noteEntitydoc['transcriptor:mainEntity'] = instance;
     let response = this.compacted(noteEntitydoc, context);
     response.then(docCompacted => {
       console.log('compacted',docCompacted);
