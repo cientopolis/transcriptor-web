@@ -151,6 +151,7 @@ import { EntityReferencesSearchComponent } from './components/search/entity-refe
 import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
 import { FilterEqualPipe } from './pipes/filter/filter-equal.pipe';
 import { TruncatePipe } from './pipes/text/truncate.pipe';
+import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
 
 @NgModule({
   declarations: [
@@ -218,7 +219,8 @@ import { TruncatePipe } from './pipes/text/truncate.pipe';
     EntityReferencesSearchComponent,
     OntologyPrefixPipe,
     FilterEqualPipe,
-    TruncatePipe
+    TruncatePipe,
+    CanAccessPipe
   ],
   imports: [
     BrowserModule,
@@ -295,7 +297,8 @@ import { TruncatePipe } from './pipes/text/truncate.pipe';
     SemanticModelService,
     OntologyPipe,
     OntologyPrefixPipe,
-    FilterEqualPipe
+    FilterEqualPipe,
+    CanAccessPipe
   ],
   bootstrap: [AppComponent]
 })

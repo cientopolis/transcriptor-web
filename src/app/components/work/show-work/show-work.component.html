@@ -29,7 +29,7 @@
                   </div>
                 </div>
               </mz-tab-item>
-              <mz-tab-item
+              <mz-tab-item  *ngIf="'/work:configuration' | canAccess"
                 [class]="'col s12'"
                 [label]="'showWork.tab.settings' | translate">
                 <div class="row">
@@ -44,7 +44,7 @@
         </mz-card>
       </div>
       
-      <div class="col m3" *ngIf="work">
+      <div class="col m3" *ngIf="work && '/work:activities' | canAccess" >
         <ul class="collection with-header no-border z-depth-1">
           <li class="collection-header"><i mz-icon-mdi [icon]="'history'"></i><span>{{'dashboard.activity.title' | translate}}</span></li>
           <li

@@ -27,11 +27,11 @@ leafletDraw
   <i mz-icon-mdi [icon]="'layers'" [align]="'left'"></i>{{ transcriptionLayer ? transcriptionLayer.name : 'TEXTO' }}
 </a>
 
-<div class="panel-show-button z-depth-1" (click)="toggleEditor()">
+<div *ngIf="'/transcribe:transcribe' | canAccess" class="panel-show-button z-depth-1" (click)="toggleEditor()">
   <i mz-icon-mdi [icon]="'chevron-left'" [align]="'left'"></i> 
 </div>
 
-<div class="editor-wrapper" [hidden]='transcribeOptions.hideTextEditor'>
+<div *ngIf="'/transcribe:transcribe' | canAccess" class="editor-wrapper" [hidden]='transcribeOptions.hideTextEditor'>
   <div class="panel-hide-button z-depth-1" (click)="toggleEditor()">
     <i mz-icon-mdi [icon]="'chevron-right'" [align]="'left'"></i> 
   </div>

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CanAccessGuard } from '../../guards/canAccess/can-access.guard';
+import { AuthGuard } from './../../guards/auth/auth.guard';
 
 import { HomeComponent } from '../../components/home/home.component';
 import { LoginComponent } from '../../components/login/login.component';
@@ -30,21 +32,21 @@ const routes: Routes = [
 			breadcrumb: 'Home',
 			url:'/home'
 		}
-	},
+  }, 
   { path: 'login', component: LoginComponent, data: {animation:'login'} },
   { path: 'dashboard', component: DashboardComponent, data: {animation:'dashboard',breadcrumb: 'Dashboard',url:'dashboard'} },
-  { path: 'transcribe/:pageId', component: TranscribeComponent, data: {animation:'transcribe'} },
-  { path: 'startproject', component: StartProjectComponent, data: {animation:'startProject'} },
-  { path: 'work/:workId', component: ShowWorkComponent, data: {animation:'work'} },
-	{ path: 'collections/list', component: CollectionsComponent, data: {animation:'collections'} },
-  { path: 'collection/:collectionId', component: ShowCollectionComponent, data: {animation:'collection'} },
-  { path: 'user/profile', component: UserComponent },
-  { path: 'users/password/recover', component: RequestPasswordRecoverComponent, data: {animation:'collection'} },
-  { path: 'users/password/edit', component: ChangePasswordComponent, data: {animation:'collection'} },
-	{ path: 'forum/:transcriptionId', component: ForumComponent, data: {animation:'transcription'} },
-  { path: 'page-version/:pageId', component: PageVersionComponent, data: {animation:'page-version'} },
-  { path: 'search', component: SearchComponent, data: { animation: 'search' } },
-  { path: 'ontology', component: OntologyComponent, data: { animation: 'ontology' } }
+  { path: 'transcribe/:pageId', component: TranscribeComponent, data: { animation: 'transcribe' }, canActivate: [CanAccessGuard] },
+  { path: 'startproject', component: StartProjectComponent, data: { animation: 'startProject' }, canActivate: [AuthGuard] },
+  { path: 'work/:workId', component: ShowWorkComponent, data: { animation: 'work' }, canActivate: [CanAccessGuard]},
+	{ path: 'collections/list', component: CollectionsComponent, data: {animation:'collections'},canActivate:[CanAccessGuard] },
+  { path: 'collection/:collectionId', component: ShowCollectionComponent, data: { animation: 'collection' } },
+  { path: 'user/profile', component: UserComponent, canActivate: [CanAccessGuard] },
+  { path: 'users/password/recover', component: RequestPasswordRecoverComponent, data: { animation: 'collection' }, canActivate: [CanAccessGuard] },
+  { path: 'users/password/edit', component: ChangePasswordComponent, data: { animation: 'collection' }, canActivate: [CanAccessGuard] },
+  { path: 'forum/:transcriptionId', component: ForumComponent, data: { animation: 'transcription' }, canActivate: [CanAccessGuard] },
+  { path: 'page-version/:pageId', component: PageVersionComponent, data: { animation: 'page-version' }, canActivate: [CanAccessGuard] },
+  { path: 'search', component: SearchComponent, data: { animation: 'search' }, canActivate: [CanAccessGuard] },
+  { path: 'ontology', component: OntologyComponent, data: { animation: 'ontology' }, canActivate: [CanAccessGuard] }
 ];
 
 @NgModule({

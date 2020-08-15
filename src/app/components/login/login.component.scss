@@ -4,3 +4,13 @@
   margin-top: 80px;
   margin-bottom: 10%;
 }
+
+:host ::ng-deep  [type="checkbox"].filled-in:checked + label:after{
+     border: 2px solid #e65100;
+     background-color: #e65100;
+}
+#remember-id{
+   border: 2px solid #e65100;
+     background-color: #e65100;
+
+}
