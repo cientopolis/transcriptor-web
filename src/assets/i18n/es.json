@@ -103,7 +103,8 @@
       "deleteWarning": "¿Estás seguro de eliminar esta colección?"
     },
     "button":{
-      "delete":"Eliminar Colección"
+      "delete":"Eliminar Colección",
+      "export": "Exportar Colección"
     }
   },
   "showCollection":{
@@ -153,7 +154,8 @@
         "deleteWarning": "¿Estás seguro de eliminar este proyecto?"
     },
     "button":{
-      "delete":"Eliminar Proyecto"
+      "delete":"Eliminar Proyecto",
+      "export": "Exportar Proyecto"
     }
   },
   "dashboard":{

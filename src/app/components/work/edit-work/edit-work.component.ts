@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { WorkService } from '../../../services/work/work.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-edit-work',
@@ -13,6 +14,7 @@ export class EditWorkComponent implements OnInit {
   @Input() showButtons = true;
   lockDelete = true;
   workCopy: any;
+  exportUri: string;
 
   constructor(private workService: WorkService) { }
 
@@ -22,6 +24,9 @@ export class EditWorkComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.work) {
       this.workCopy = Object.assign({}, this.work)
+      if (this.work) {
+        this.exportUri = `${environment.apiUrl}/api/work/${this.work.id}/export_as_rdf`
+      }
     }
   }
   

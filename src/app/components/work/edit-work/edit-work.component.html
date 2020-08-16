@@ -79,6 +79,11 @@
   </div>
 </div>
 
+<div class="row center-align m-t-30">
+  <a href="{{exportUri}}" class="btn btn-small"><i mz-icon-mdi [icon]="'export'"
+      [align]="'left'"></i>{{'editWork.button.export' | translate}}</a>
+</div>
+<br>
 <div class="row" *ngIf="lockDelete">
   <div class="col m6">
     <button mz-button class="btn white btn-bordered" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i> {{'editWork.button.delete' | translate}}</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { CollectionService } from '../../../services/collection/collection.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-edit-collection',
@@ -13,6 +14,7 @@ export class EditCollectionComponent implements OnInit {
   @Input() showButtons = true;
   lockDelete = true;
   collectionCopy: any;
+  exportUri: string;
 
   constructor(private collectionService: CollectionService) { }
 
@@ -21,6 +23,9 @@ export class EditCollectionComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(changes.collection) {
       this.collectionCopy = Object.assign({}, this.collection)
+      if(this.collection) {
+        this.exportUri = `${environment.apiUrl}/api/collection/${this.collection.id}/export_as_rdf`
+      }
     }
   }
 
