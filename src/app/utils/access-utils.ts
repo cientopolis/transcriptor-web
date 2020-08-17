@@ -22,13 +22,13 @@ export class AccessUtils {
     }
 
     public static checkFunction(uri,functionsUser){
-        let functionName = '';
-        if(this.isFunction(uri)){
+        let functionName = uri;
+/*         if(this.isFunction(uri)){
             functionName=this.getFunction(uri);
-        }
+        } */
         let found = false;
         functionsUser.forEach(functionUser => {
-            if (this.getFunction(functionUser.uri)==functionName){
+            if (functionUser.uri==functionName){
                 found=true;
             }
         });
@@ -46,7 +46,6 @@ export class AccessUtils {
     }
 
     public static canAccess(uri){
-        console.log('uri receibed',uri);
         if(this.isNull(uri)){
             return false;
         }
@@ -59,16 +58,11 @@ export class AccessUtils {
             {uri:'/transcribe'}
         ];
 
-        console.log(uri);
         let functions: Array<any> = JSON.parse(localStorage.getItem('functions'));
         let user = JSON.parse(localStorage.getItem('currentUser'));
         if (!functions){
             functions = publicFunctions;
         }     
-
-
-        console.log("funciones desde el storage:", functions );
-        console.log(functions);
         if(this.isOnlyUri(uri)){
             if (this.checkUri(uri, functions)){
                 return true;

@@ -86,8 +86,8 @@
       <div class="col s12">
         <h5 class="m-t-0">{{ 'dashboard.myCollections.title' | translate }}</h5>
       </div>
-      <div class="col s12 m6 l4">
-        <div class="card card-collection add-collection-card hoverable" (click)="uploadModal.openModal()">
+      <div class="col s12 m6 l4" *ngIf="'/startproject:create' | canAccess">
+        <div class="card card-collection add-collection-card hoverable" (click)="uploadModal.openModal()" >
           <div class="card-content">
             <div class="add-label">
               <p class="center-align"><i mz-icon-mdi [icon]="'plus'" [align]="'center'" [size]="'36px'"></i></p>
