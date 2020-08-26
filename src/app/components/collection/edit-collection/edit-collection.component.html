@@ -46,7 +46,7 @@
   <a href="{{exportUri}}" class="btn"><i mz-icon-mdi [icon]="'export'" [align]="'left'"></i>{{'editCollection.button.export' | translate}}</a>
 </div>
 
-<div class="row center-align" *ngIf="!showButtons && lockDelete">
+<div class="row center-align" *ngIf="!showButtons && lockDelete && ('/collection:delete' | canAccess)">
   <button mz-button class="btn white btn-bordered" (click)="confirmDelete()"><i mz-icon-mdi [icon]="'delete-forever'" [align]="'left'"></i>{{'editCollection.button.delete' | translate}}</button>
 </div>
 
@@ -56,3 +56,12 @@
   <button mz-button class="btn-delete m-l-5" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'"
       [align]="'left'"></i>{{'editCollection.button.delete' | translate}}</button>
 </div>
+
+  <div class="row m-t-10">
+    <div class="col s12">
+      <app-paginated-list *ngIf="itemsloaded" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage"
+        [totalItems]="totalItems" [items]="users" [headers]="headers" [headersActions]="headersActions" 
+        (pageChange)="changePage($event)" (searchInputChange)="handleSearch($event)" [checkbox]="true" (checkedEvent)="handleChecked($event)">
+      </app-paginated-list>
+    </div>
+  </div>

@@ -475,5 +475,31 @@
         "title": "Detalle de Referencia"
       }
     }
+  },
+  "admin": {
+    "title": "Administracion",
+    "modal": {
+      "edit": {
+        "title": "Editar usuario",
+        "label": {
+          "display": "Nick",
+          "print_name": "Print name",
+          "login": "Usuario",
+          "owner": "Es owner",
+          "admin": "Es admin",
+          "email": "Mail"
+        },
+        "button": {
+          "cancel": "Cancelar",
+          "save": "Guardar"
+        }
+      }
+    }
+  },
+  "pipes": {
+    "yesNo": {
+      "yes": "Si",
+      "no": "No"
+    }
   }
 }

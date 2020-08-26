@@ -323,6 +323,32 @@
     "rank":{
       "sync":"Update rank"
     }
+  },
+  "admin":{
+    "title":"Administration",
+    "modal": {
+      "edit": {
+        "title": "Edit user",
+        "label": {
+          "display": "Display name",
+          "print_name": "Print name",
+          "login": "User login",
+          "owner": "This user is an owner",
+          "admin": "This user is an admin",
+          "email":"Email address"
+        },
+        "button": {
+          "cancel": "Cancel",
+          "save": "Save"
+        }
+      }
+    }
+  },
+  "pipes":{
+    "yesNo":{
+        "yes":"Yes",
+        "no":"No"
+    }
   }
 
 }

@@ -1,3 +1,4 @@
+import { AdminComponent } from './../../components/admin/admin.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CanAccessGuard } from '../../guards/canAccess/can-access.guard';
@@ -46,7 +47,8 @@ const routes: Routes = [
   { path: 'forum/:transcriptionId', component: ForumComponent, data: { animation: 'transcription' }, canActivate: [CanAccessGuard] },
   { path: 'page-version/:pageId', component: PageVersionComponent, data: { animation: 'page-version' }, canActivate: [CanAccessGuard] },
   { path: 'search', component: SearchComponent, data: { animation: 'search' }, canActivate: [CanAccessGuard] },
-  { path: 'ontology', component: OntologyComponent, data: { animation: 'ontology' }, canActivate: [CanAccessGuard] }
+  { path: 'ontology', component: OntologyComponent, data: { animation: 'ontology' }, canActivate: [CanAccessGuard] },
+  { path: 'admin', component: AdminComponent, data: { animation: 'admin' } }
 ];
 
 @NgModule({

@@ -123,6 +123,7 @@ import { SemanticFormComponent } from './components/transcribe/semantic/semantic
 import { DataPropertieInputsComponent } from './components/transcribe/semantic/semantic-form/datapropertie-inputs/datapropertie-inputs.component.component';
 import { MzDatepickerModule } from 'ngx-materialize'
 import { MzTimepickerModule } from 'ngx-materialize';
+import { MzPaginationModule } from 'ngx-materialize'
 import { SemanticTranscriptionDetailsComponent } from './components/transcribe/semantic/semantic-form/semantic-transcription-details/semantic-transcription-details.component';
 import { HeaderComponentComponent } from './components/transcribe/semantic/semantic-form/header-component/header-component.component';
 import { SelectPropertiesComponent } from './components/transcribe/semantic/semantic-form/steps/select-properties/select-properties.component';
@@ -152,6 +153,10 @@ import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
 import { FilterEqualPipe } from './pipes/filter/filter-equal.pipe';
 import { TruncatePipe } from './pipes/text/truncate.pipe';
 import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
+import { AdminComponent } from './components/admin/admin.component';
+import { PaginatedListComponent } from './components/shared/paginated-list/paginated-list.component';
+import { YesNoPipe } from './pipes/yesNo/yes-no.pipe';
+
 
 @NgModule({
   declarations: [
@@ -220,7 +225,10 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     OntologyPrefixPipe,
     FilterEqualPipe,
     TruncatePipe,
-    CanAccessPipe
+    CanAccessPipe,
+    AdminComponent,
+    PaginatedListComponent,
+    YesNoPipe
   ],
   imports: [
     BrowserModule,
@@ -258,6 +266,7 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     Ng2SearchPipeModule,
     MzDatepickerModule,
     MzTimepickerModule,
+    MzPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

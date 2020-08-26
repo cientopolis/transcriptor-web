@@ -52,3 +52,9 @@
 mz-card-title {
   line-height: 0;
 }
+
+:host ::ng-deep .modal { 
+   width: 75% !important ; 
+   height: 80% !important ;
+   max-height: 100% !important;
+ } 
