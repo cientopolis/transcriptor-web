@@ -16,6 +16,7 @@ leafletDraw
   [dropdownButtonId]="'btn-dropdown-layers'" [gutter]="true" [hover]="false" [inDuration]="300" [outDuration]="300"
   [stopPropagation]="true" *ngIf="transcriptionLayers && layersEnabled">
   <mz-dropdown-item><a (click)="openLayerModal()"><i mz-icon-mdi [icon]="'plus-circle'" [align]="'left'" [size]="'18px'"></i>Añadir Capa</a></mz-dropdown-item>
+  <mz-dropdown-item><a (click)="openLayerAdministrationModal()"><i mz-icon-mdi [icon]="'cog'" [align]="'left'" [size]="'18px'"></i>Administrar</a></mz-dropdown-item>
   <mz-dropdown-divider></mz-dropdown-divider>
   <div *ngFor="let transcriptionLayer of transcriptionLayers">
     <mz-dropdown-item (click)="setTranscriptionLayer(transcriptionLayer)"><a>{{ transcriptionLayer.name }}</a></mz-dropdown-item>
@@ -108,6 +109,13 @@ leafletDraw
   [page]="page"
   (saveLayer)="loadLayers()">
 </app-layer-modal>
+
+<app-layer-administration-modal 
+  #layerAdministrationModal
+  *ngIf="page != null"
+  [page]="page" 
+  (saveLayer)="loadLayers()">
+</app-layer-administration-modal>
 
 <app-transcription-form 
   #transcriptionForm

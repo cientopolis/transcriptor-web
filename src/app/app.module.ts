@@ -152,6 +152,7 @@ import { OntologyPrefixPipe } from './pipes/ontology/ontology-prefix.pipe';
 import { FilterEqualPipe } from './pipes/filter/filter-equal.pipe';
 import { TruncatePipe } from './pipes/text/truncate.pipe';
 import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
+import { LayerAdministrationModalComponent } from './components/transcribe/layer/layer-administration-modal/layer-administration-modal.component';
 
 @NgModule({
   declarations: [
@@ -220,7 +221,8 @@ import { CanAccessPipe } from './pipes/canAccess/can-access.pipe';
     OntologyPrefixPipe,
     FilterEqualPipe,
     TruncatePipe,
-    CanAccessPipe
+    CanAccessPipe,
+    LayerAdministrationModalComponent
   ],
   imports: [
     BrowserModule,

@@ -51,6 +51,7 @@ export class TranscribeComponent implements OnInit, OnDestroy {
   @ViewChild('markDetailsModal') markDetailsModal: any;
   @ViewChild('markTranscriptionsList') markTranscriptionsList: any;
   @ViewChild('layerModal') layerModal: any;
+  @ViewChild('layerAdministrationModal') layerAdministrationModal: any;
   @ViewChild('transcriptionForm') transcriptionForm: any;
   @ViewChild('textEditor') textEditor: any;
 
@@ -379,6 +380,10 @@ export class TranscribeComponent implements OnInit, OnDestroy {
 
   openLayerModal() {
     this.layerModal.open();
+  }
+
+  openLayerAdministrationModal() {
+    this.layerAdministrationModal.open();
   }
 
   openMarkTranscriptionsList() {
