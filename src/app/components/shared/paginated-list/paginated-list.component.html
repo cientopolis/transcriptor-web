@@ -1,0 +1,45 @@
+
+<div class="row">
+  <div class="col s11">
+    <mz-input-container>
+      <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+      <input mz-input [label]="'Buscar algo'" id="search-input-component" type="text" [(ngModel)]="searchInput">
+      <i mz-icon-mdi class="input-suffix" [icon]="'close'" [align]="'center'" (click)="clear()"></i>
+    </mz-input-container>
+  </div>
+  <div class="col s1" style="margin-top: 15px;">
+    <button class="btn waves-effect waves-light" [disabled]="searchInput==''"  name="action" (click)="search()">
+      <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
+    </button>
+  </div>
+  <div class="col s12">
+  <table class="striped responsive-table">
+    <thead>
+      <tr >
+        <th *ngFor="let header of headers">{{header.title}}</th>
+        <th *ngIf="headersActions" >Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td *ngFor="let header of headers">{{item[header.key] | yesNo}}</td>
+        <td *ngIf="checkbox">
+          <mz-checkbox-container>
+            <input mz-checkbox 
+            id="{{item.id}}" 
+            disabled="{{item.admin}}" class="filled-in checkbox-orange" filledIn=true type="checkbox" (change)="handleChecked(item,$event)"
+              [label]="'admin.modal.edit.label.owner' | translate" value="{{item.isOwner | yesNo}}" [(ngModel)]="item.isOwner">
+          </mz-checkbox-container>
+        </td>
+        <td *ngFor="let hactions of headersActions">
+          <a *ngIf="hactions == 'edit'" class="action" (click)="openModal(hactions,item)" ><i mz-icon-mdi [icon]="'square-edit-outline'"></i></a>
+          <a *ngIf="hactions == 'delete'" class="action" (click)="openModal(hactions,item)"><i mz-icon-mdi [icon]="'delete-forever'"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <mz-pagination class="right" (pageChange)="onPageChange($event)" [currentPage]="currentPage" [enableFirstAndLastPageButtons]="true"
+    [itemsPerPage]="itemsPerPage" [totalItems]="totalItems">
+  </mz-pagination>
+  </div>
+</div>

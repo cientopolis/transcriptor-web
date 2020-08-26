@@ -14,7 +14,7 @@ import { FlashMessagesService } from 'app/services/util/flash-messages/flash-mes
   styleUrls: ['./show-work.component.scss']
 })
 export class ShowWorkComponent implements OnInit {
-
+  isOwner = false;
   work = null;
   collectionsDeeds :any;
   @ViewChild('fileInput') fileInput;
@@ -30,6 +30,9 @@ export class ShowWorkComponent implements OnInit {
     private flashMessagesService: FlashMessagesService) { }
 
   ngOnInit() {
+    this.isOwner = this.global['isOwner'] == null ? false : this.global['isOwner'];
+    console.log('el isOwner es:',this.isOwner);
+
     const workId = +this.route.snapshot.paramMap.get('workId');
     this.listRecentActivityWork(workId);
     this.workService.get(workId, { fields: ['owner,collection']})
@@ -49,6 +52,7 @@ export class ShowWorkComponent implements OnInit {
   }
   ngOnDestroy() {
     this.global['routeBack'] = null;
+
   }
 
   listRecentActivityWork(work_id) {

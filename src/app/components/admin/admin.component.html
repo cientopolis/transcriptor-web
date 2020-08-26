@@ -1,0 +1,100 @@
+<div class="row m-t-15">
+  <div class="col m10 offset-m1">
+    <mz-card>
+      <mz-card-title>
+        <h4 class="m-b-20">{{'admin.title' | translate}}</h4>
+      </mz-card-title>
+      <mz-card-content>
+        <mz-tab 
+          [fixedTabWidth]="'true'"
+          [responsiveThreshold]="'true'" 
+          [swipeable]="'true'">
+          <mz-tab-item
+            [class]="'col s12'"
+            [active]="'true'" 
+            [label]="'Usuarios'">
+              <div class="row m-t-10">
+                <div class="col s12">
+                  <app-paginated-list *ngIf="itemsloaded"
+                    [currentPage]="currentPage"
+                    [itemsPerPage]="itemsPerPage"
+                    [totalItems]="totalItems"
+                    [items]="users"
+                    [headers]="headers"
+                    (openModalEvent)="handleModal($event)"
+                    (pageChange)="changePage($event)"
+                    (searchInputChange)="handleSearch($event)">
+                  </app-paginated-list>
+                </div>
+              </div>
+          </mz-tab-item>
+        </mz-tab>
+      </mz-card-content>
+    </mz-card>
+  </div>
+
+    <mz-modal #modalEditUserFromAdmin [fixedFooter]="true">
+      <mz-modal-header>
+          <h4 class="m-b-20">{{'admin.modal.edit.title' | translate}}</h4>
+      </mz-modal-header>
+      <mz-modal-content *ngIf="user">
+        <div class="row">
+          <div class="col s12">
+            <mz-textarea-container>
+              <input mz-input 
+                class="input-field-primary-color" 
+                [label]="'admin.modal.edit.label.display' | translate"
+                [(ngModel)]="user.display_name" type="text">
+            </mz-textarea-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <mz-textarea-container>
+              <input mz-input class="input-field-primary-color" 
+                [label]="'admin.modal.edit.label.print_name' | translate"
+                [(ngModel)]="user.print_name" type="text">
+            </mz-textarea-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <mz-textarea-container>
+              <input mz-input class="input-field-primary-color" 
+                [label]="'admin.modal.edit.label.login' | translate"
+                [(ngModel)]="user.login" type="text">
+            </mz-textarea-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <mz-checkbox-container>
+              <input mz-checkbox 
+                id="isAdmin" 
+                class="filled-in checkbox-orange" 
+                filledIn=true 
+                type="checkbox"
+                [label]="'admin.modal.edit.label.admin' | translate"
+                value="{{user.admin | yesNo}}" 
+                [(ngModel)]="user.admin">
+            </mz-checkbox-container>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col s12">
+            <mz-textarea-container>
+              <input mz-input class="input-field-primary-color" 
+                [label]="'admin.modal.edit.label.email' | translate"
+                [(ngModel)]="user.email" type="text">
+            </mz-textarea-container>
+          </div>
+        </div>
+      </mz-modal-content>
+      <mz-modal-footer>
+        <button mz-button [flat]="true" mz-modal-close>{{'collections.modal.create.button.cancel' | translate}}</button>
+        <button mz-button [flat]="true" mz-modal-close
+          (click)="edit()">{{'admin.modal.edit.button.save' | translate}}</button>
+      </mz-modal-footer>
+    </mz-modal>
+</div>

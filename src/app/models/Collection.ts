@@ -9,6 +9,7 @@ export class Collection {
   help: string;
   link_help: string;
   picture: any;
+  isOwner:boolean = false;
 
   getThumbnailUrl() {
     var defaultImageUrl = 'assets/img/icons/default_collections.jpg';

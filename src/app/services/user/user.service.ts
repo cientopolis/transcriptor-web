@@ -9,6 +9,7 @@ export class UserService {
   private editPath = '/api/registration';
   private createPath = '/api/registration';
   private getMetagameInfoPath = '/api/user/metagame/info';
+  private deletePath = '/api/registration/{userid}';
   constructor(private httpService: HttpService) { }
 
   edit(user, options = {}) {
@@ -21,6 +22,10 @@ export class UserService {
 
   userInfoMetagame(options = {}): Observable<PlayerInfo> {
     return this.httpService.lpost(this.getMetagameInfoPath, null, { mapper: PlayerInfo.mapToClass }) as Observable<PlayerInfo>;
+  }
+
+  delete(user, options = {}) {
+    return this.httpService.delete([this.deletePath, { userid: user.id }], options);
   }
 
 }

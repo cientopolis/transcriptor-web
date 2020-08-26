@@ -16,6 +16,8 @@ export class CollectionService {
   private deletePath = '/api/collection/{collectionId}';
   private createPath = '/api/collection';
   private uploadCollectionPath = '/api/collection/update/{collectionId}'
+  private listUsersCollectionPath = '/api/collection/users/{collectionId}';
+  private addOwnersCollectionPath = '/api/collection//add_owners/{collectionId}'
 
   constructor(private httpService: HttpService) { }
 
@@ -54,5 +56,17 @@ export class CollectionService {
       .post([this.uploadCollectionPath, { collectionId: collectionId }], 
         formData, 
         { headers: {}, responseDataType: Collection }) as Observable<Collection>;
+  }
+
+  listUsers(collectionId,search = null, page, options = {}) {
+    if (!search) {
+      return this.httpService.lget([this.listUsersCollectionPath + "?page=" + page, { collectionId: collectionId }], options);
+    } else {
+      return this.httpService.lget([this.listUsersCollectionPath + "?page=" + page + "&search=" + search, { collectionId: collectionId }], {});
+    }
+  }
+
+  editOwners(collection,user,options = {}) {
+    return this.httpService.post([this.addOwnersCollectionPath, { collectionId: collection.id}],user , options);
   }
 }

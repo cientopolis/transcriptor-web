@@ -81,12 +81,11 @@
         </mz-card>
       </div>
     </div> -->
-
-    <div class="row" *ngIf="collectionsOwner">
+    <div class="row" *ngIf="collectionsOwner && collectionsOwner.collections.length > 0 && ('/startproject:create' | canAccess)">
       <div class="col s12">
         <h5 class="m-t-0">{{ 'dashboard.myCollections.title' | translate }}</h5>
       </div>
-      <div class="col s12 m6 l4" *ngIf="'/startproject:create' | canAccess">
+      <div class="col s12 m6 l4">
         <div class="card card-collection add-collection-card hoverable" (click)="uploadModal.openModal()" >
           <div class="card-content">
             <div class="add-label">

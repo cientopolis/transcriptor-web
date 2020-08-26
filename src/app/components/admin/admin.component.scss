@@ -1,0 +1,17 @@
+@import '~styles/styles';
+
+
+:host ::ng-deep .tabs {
+    background-color: $lightGrey;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+:host ::ng-deep .tabs .tab {
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+:host ::ng-deep  .tabs-content{
+    height: 620px !important;
+}

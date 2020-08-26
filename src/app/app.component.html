@@ -8,6 +8,7 @@
 
 
     <mz-navbar-item-container [align]="'right'">
+        <mz-navbar-item *ngIf="global['currentUser'] && '/admin' | canAccess"><a routerLink="/admin">{{'admin.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item *ngIf="'/dashboard' | canAccess"><a routerLink="/dashboard">{{'dashboard.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item *ngIf="global['currentUser'] && '/collections/list' | canAccess"><a routerLink="/collections/list">{{'collections.title' | translate}}</a></mz-navbar-item>
         <mz-navbar-item *ngIf="global['currentUser'] && '/search' | canAccess"><a routerLink="/search">{{'search.title' | translate}}</a></mz-navbar-item>

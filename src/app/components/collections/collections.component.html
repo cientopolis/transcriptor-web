@@ -2,7 +2,7 @@
   <div class="col m10 offset-m1">
     <mz-card>
       <mz-card-title>
-        <h4 class="m-b-20">{{'collections.title' | translate}} <button mz-button class="right m-t-10" (click)="openModalCollection()">
+        <h4 class="m-b-20">{{'collections.title' | translate}} <button mz-button class="right m-t-10" (click)="openModalCollection()"  *ngIf="'/collections/list:create' | canAccess">
           <i mz-avatar mz-icon-mdi [icon]="'library-plus'" [align]="'left'"></i>{{'collections.button.create' | translate}}</button></h4>
       </mz-card-title>
       <mz-card-content>

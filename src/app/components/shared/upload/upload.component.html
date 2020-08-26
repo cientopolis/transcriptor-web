@@ -13,7 +13,7 @@
           [(ngModel)]= "collectionId"
           (change)="checkSelectedCollection()">
           <option *ngFor="let col of collections" [value]="col.id">{{ col.title }}</option>
-          <option value="new"><i mz-icon-mdi [icon]="'plus'" [align]="'left'"></i> <b>{{'upload.button.addCollection' | translate}}</b></option>
+          <option value="new" *ngIf="'/collections/list:create' | canAccess"><i mz-icon-mdi [icon]="'plus'" [align]="'left'"></i> <b>{{'upload.button.addCollection' | translate}}</b></option>
         </select>
       </mz-select-container>
       
