@@ -24,15 +24,14 @@ export class ShowCollectionComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private flashMessagesService: FlashMessagesService) {
     this.global['routeBack'] = "collections/list";
-    this.global['isOwner'] = false;
-
+    localStorage.setItem('isOwner', "false");
   }
 
   ngOnInit() {
     const collectionId = +this.route.snapshot.paramMap.get('collectionId');
     this.collectionService.get(collectionId, { fields: ['owner','isOwner']}).subscribe(collection => {
         this.collection = collection
-        this.global['isOwner'] = collection.isOwner;
+        localStorage.setItem('isOwner', `${collection.isOwner}`);
         this.collectionImageUrl = this.collection.getThumbnailUrl()
     });
     this.changeDetector.detectChanges();

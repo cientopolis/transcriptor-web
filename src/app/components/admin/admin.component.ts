@@ -2,6 +2,8 @@ import { User } from './../../models/user';
 import { UserService } from './../../services/user/user.service';
 import { AdminService } from './../../services/admin/admin.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MappingUtils } from 'app/utils/mapping-utils';
+import { LocalizedDatePipe } from 'app/pipes/localized-date/localized-date.pipe';
 
 @Component({
   selector: 'app-admin',
@@ -17,20 +19,24 @@ export class AdminComponent implements OnInit {
   public users : any;
   public itemsloaded = false;
   public headers = [
-          { title: 'login', key: 'login' }, 
+          { title: 'username', key: 'login' }, 
           { title: 'email', key: 'email'},
-          { title: 'registered', key:'created_at'},
+          { title: 'registered', key:'registered_at'},
           { title: 'Owner', key:'owner'},
           { title: 'Admin', key: 'admin'}
         ];
   public user : any;
 
-  constructor(private admService: AdminService, private userService: UserService) { }
+  constructor(private admService: AdminService, private userService: UserService, private localizedDatePipe: LocalizedDatePipe) { }
 
   ngOnInit() {
     this.listUsers(1);
   }
   changeOwner(event){
+  }
+
+  onShow() {
+    $('.tabs-content.carousel').height($('.carousel-item.active .row').height());
   }
 
   handleModal(event) {
@@ -59,7 +65,11 @@ export class AdminComponent implements OnInit {
       this.currentPage = response.currentPage;
       this.itemsPerPage = response.itemsPerPage;
       this.totalItems = response.totalItems;
-      this.users=response.items;
+      this.users = MappingUtils.mapToClass(User, response.items);
+      this.users = this.users.map(user => { 
+        user.registered_at = this.localizedDatePipe.transform(user.created_at, 'short') 
+        return user
+      })
       this.itemsloaded=true;
     });
   }

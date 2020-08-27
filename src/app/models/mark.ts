@@ -34,7 +34,7 @@ export class Mark {
     try {
       if (this.semanticContribution && this.semanticContribution.text && this.semanticContribution.text != null) {
         let semanticContributionContent = JSON.parse(this.semanticContribution.text)
-        return semanticContributionContent['schema:mainEntity']['rdfs:label']
+        return semanticContributionContent['transcriptor:mainEntity']['rdfs:label']
       } else {
         return ""
       }

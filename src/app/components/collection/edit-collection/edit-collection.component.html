@@ -56,8 +56,9 @@
   <button mz-button class="btn-delete m-l-5" (click)="delete()"><i mz-icon-mdi [icon]="'delete-forever'"
       [align]="'left'"></i>{{'editCollection.button.delete' | translate}}</button>
 </div>
-
-  <div class="row m-t-10">
+<br>
+  <div class="row">
+    <h6>{{ 'editCollection.label.owners' | translate }}</h6>
     <div class="col s12">
       <app-paginated-list *ngIf="itemsloaded" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage"
         [totalItems]="totalItems" [items]="users" [headers]="headers" [headersActions]="headersActions" 

@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 @Pipe({
   name: 'localizedDate',
   pure: false

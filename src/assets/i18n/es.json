@@ -100,7 +100,8 @@
       "title":"Título de la Colección",
       "url":"URL",
       "description":"Descripción",
-      "deleteWarning": "¿Estás seguro de eliminar esta colección?"
+      "deleteWarning": "¿Estás seguro de eliminar esta colección?",
+      "owners": "Administradores de colección"
     },
     "button":{
       "delete":"Eliminar Colección",

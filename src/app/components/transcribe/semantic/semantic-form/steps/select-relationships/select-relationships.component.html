@@ -60,7 +60,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let relation of relationships | filterlist:'label':searchText:'equal'">
+              <tr *ngFor="let relation of relationships | filterlist:'label':searchText:'includes'">
 
                 <td>{{relation.label}}</td>
                 <td>

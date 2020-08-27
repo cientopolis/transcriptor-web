@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let prop of properties | filterlist:'label':searchTextFilter:'equal'">
+            <tr *ngFor="let prop of properties | filterlist:'label':searchTextFilter:'includes'">
               <td>{{prop.label}}</td>
               <td>
                 <mz-select-container *ngIf="prop.types.length>1" (click)="$event.stopPropagation()">

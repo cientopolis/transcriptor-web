@@ -30,7 +30,7 @@ export class ShowWorkComponent implements OnInit {
     private flashMessagesService: FlashMessagesService) { }
 
   ngOnInit() {
-    this.isOwner = this.global['isOwner'] == null ? false : this.global['isOwner'];
+    this.isOwner = localStorage.getItem('isOwner') == null ? false : localStorage.getItem('isOwner') == 'true';
     console.log('el isOwner es:',this.isOwner);
 
     const workId = +this.route.snapshot.paramMap.get('workId');

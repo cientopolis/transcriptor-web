@@ -3,3 +3,7 @@
 .action{
     color: $primaryColor;
 }
+
+:host ::ng-deep .pagination li.active {
+    background-color: $primaryColor;
+}
