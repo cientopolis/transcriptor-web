@@ -55,8 +55,7 @@
     <app-search-input #searchRelationInput 
       [placeholder]="'Ingrese el nombre de una relación'" 
       [itemIcon]="'semantic-web'" 
-      [autocomplete]="true" 
-      [flatStyle]="flatStyle"
+      [autocomplete]="true"
       (onClear)="onClearRelationSearch()" 
       (onFetch)="searchRelationships($event)" 
       (itemChange)="itemRelationChange($event)"
