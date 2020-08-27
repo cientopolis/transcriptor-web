@@ -48,7 +48,7 @@
 </div>
 <div class="row" *ngIf="semanticItemSelected && mark">
   <div class="col-12">
-    <app-show-relationship-item [semanticItem]="semanticItemSelected" (finished)="handleResponseComponent($event)">
+    <app-show-relationship-item [layerid]="layerid" [semanticItem]="semanticItemSelected" (finished)="handleResponseComponent($event)">
     </app-show-relationship-item>
   </div>
 </div>

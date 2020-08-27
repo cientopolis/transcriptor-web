@@ -17,6 +17,7 @@ export class ShowRelationshipItemComponent implements OnInit {
   @Input() public semanticItem = null;
   @Input() public onlyShow = false;
   @Input() public isPreviousSave = true;
+  @Input() public layerid = null;
   @Input() showheader = true;
   @Output() public finished = new EventEmitter<any>();
   type:string;
@@ -34,6 +35,7 @@ export class ShowRelationshipItemComponent implements OnInit {
     /**el type puede contener url, estamos manejando prefix asi que sanitisamos por las dudas */
     this.type = this.semanticItem['@type'];
     this.markView = { slug: SemanticUtils.extractTranscriptorSchema(this.semanticItem['@id']),semanticContribution: { text: this.semanticItem, schema_type: this.type } };
+    
     if (ontologies) {
       if(!SemanticUtils.isUrl(this.type)){
         let prefix = SemanticUtils.getPrefix(this.type);
@@ -62,6 +64,7 @@ export class ShowRelationshipItemComponent implements OnInit {
     let ontologyInstance = new ontologyClassInstance();
     ontologyInstance.ontologyClass = new OntologyClass();
     ontologyInstance.ontologyClass.ontology=this.ontology;
+    ontologyInstance.layerId=this.layerid;
     this.type=this.ontology.prefix+':'+this.type;
     let e = this.semanticService.generateJsonld(ontologyInstance, this.semanticItem).then(
       function (success) {
@@ -71,7 +74,7 @@ export class ShowRelationshipItemComponent implements OnInit {
     e.then(
       result => {
 
-        this.markView = { slug: SemanticUtils.extractTranscriptorSchema(this.semanticItem['@id']),semanticContribution: { text: result['schema:mainEntity'], type: this.type } };
+        this.markView = { slug: SemanticUtils.extractTranscriptorSchema(this.semanticItem['@id']), semanticContribution: { text: result['transcriptor:mainEntity'], type: this.type } };
         this.compacted=result;
         this.loadedRelation=true;
         return result;

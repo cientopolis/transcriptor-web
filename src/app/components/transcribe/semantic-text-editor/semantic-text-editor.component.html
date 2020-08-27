@@ -22,7 +22,8 @@
         </div>
       </div>
       <app-search-semantic-relationship *ngIf="page && renderedMark && renderedMark.mark && selectRelationship" 
-        [layerName]="layer.name" 
+        [layerName]="layer.name"
+        [layerid]="layer.id"
         [mark]="renderedMark.mark" 
         (createType)="createType($event)" 
         (schemeComplete)="proccessScheme($event)">

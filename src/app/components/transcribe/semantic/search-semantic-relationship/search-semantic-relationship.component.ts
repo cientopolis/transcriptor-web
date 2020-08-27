@@ -12,6 +12,7 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   @ViewChild('showRelationshipDetails') showRelationshipDetails;
   @Input() public mark = null;
   @Input() public layerName = null;
+  @Input() public layerid = null;
   @Input() public schemeType = null;
   @Input() public relationship = null
   @Input() public enableheader = true
