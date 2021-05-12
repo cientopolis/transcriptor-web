@@ -35,7 +35,7 @@
     "@types/rangy": "0.0.32",
     "animate.css": "^3.7.2",
     "class-transformer": "^0.2.3",
-    "codemirror": "^5.48.2",
+    "codemirror": "^5.58.2",
     "core-js": "^2.6.9",
     "darkreader": "^4.9.2",
     "date-fns": "^2.13.0",
