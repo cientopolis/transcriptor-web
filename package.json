@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "surge:deploy": "ng build --prod && cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist",
-    "surge:upload": "cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist"
+    "surge:upload": "cp CNAME dist/CNAME && cp dist/index.html dist/404.html && npx surge dist",
+    "set-deployable-build": "rm -R deployed-build && cp -R dist deployed-build"
   },
   "private": true,
   "dependencies": {
