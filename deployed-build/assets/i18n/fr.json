@@ -1,0 +1,289 @@
+{
+  "app":{
+    "button":{
+      "close":"Fermer",
+      "cancel":"Annuler",
+      "save":"Sauvegarder",
+      "saveChanges":"Sauvegarder les modifications",
+      "delete":"Effacer",
+      "show":"Montrer"
+    }
+  },
+  "home":{
+    "banner":"\"Transcrivez et traduisez des manuscrits confortablement en collaborant avec d'autres utilisateurs  en ligne\"",
+    "image":{
+      "left":{
+        "title":"Transcrivez",
+        "text":"Lisez et transcrivez des documents de n'importe où, vous pouvez accéder à Transcriptor via votre navigateur préféré"
+      },
+      "middle":{
+        "title":"Partagez votre avis",
+        "text":"Les utilisateurs peuvent débattre d’écritures difficiles à interpréter ou de mots obscurs sur la page pour affiner leur transcription."
+      },
+      "right":{
+        "title":"Explorer",
+        "text":"Le résultat est hébergé sur le Web, ce qui rend les documents faciles à lire et à rechercher."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcrivez et traduisez des manuscrits confortablement en collaborant avec d'autres utilisateurs  en ligne\"",
+    "linksTitle":"Liens",
+    "moreLinks":"Plus de liens"
+  },
+  "signIn":{
+    "title":"Se connecter",
+    "loginMessage":"Connectez-vous à votre compte",
+    "label":{
+      "username":"Entrez votre email ou nom d'utilisateur",
+      "password":"Tapez votre mot de passe"
+    },
+    "button":{
+      "forgotPassword":"Mot de passe oublié?",
+      "login":"S'identifier",
+      "register":"Créer un compte"
+    }
+  },
+  "signOut":{
+    "title":"Déconnexion"
+  },
+  "registration":{
+    "title":"Créer un compte",
+    "label":{
+      "username":"Nom d'utilisateur",
+      "email":"Email",
+      "password":"Mot de passe",
+      "passwordConfirmation":"Confirmez le mot de passe",
+      "displayName":"Nom à montrer"
+    }
+  },
+  "passwordRecover":{
+    "title":"Récupérer votre compte",
+    "label":{
+      "email":"Entrez votre email",
+      "instructions":"Nous utiliserons votre adresse email pour vous envoyer une confirmation de votre demande de changement de mot de passe"
+    },
+    "button":{
+      "request":"Demande de changement de mot de passe",
+      "back":"Utiliser un autre compte"
+    }
+  },
+  "changePassword":{
+    "title":"Changez votre mot de passe",
+    "label":{
+      "password":"Entrez votre nouveau mot de passe",
+      "passwordConfirmation":"Confirmez votre nouveau mot de passe"
+    },
+    "button":{
+      "changePassword":"Changer le mot de passe"
+    }
+  },
+  "myProfile":{
+    "title":"Mon profil",
+    "edit":"Editer le profil",
+    "badges":"Mes badges",
+    "label":{
+      "name":"Prénom",
+      "email":"Email",
+      "website":"Site Internet",
+      "username":"Nom d'utilisateur",
+      "location":"Emplacement",
+      "about":"À propos de moi"
+    }
+  },
+  "editCollection": {
+    "label":{
+      "title":"Titre de la collection",
+      "url":"URL",
+      "description":"Description"
+    },
+    "button":{
+      "delete":"Supprimer la collection"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Paramètres"
+    }
+  },
+  "collections":{
+    "title":"Collections",
+    "button":{
+      "create":"Créer une collection",
+      "show":"Afficher les détails"
+    },
+    "modal":{
+      "create":{
+        "title":"Créer une nouvelle collection",
+        "label":{
+          "title":"Titre de la collection",
+          "description":"Description"
+        },
+        "button":{
+          "cancel":"Annuler",
+          "save":"Sauvegarder"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Paramètres"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Titre de la tâche",
+        "author":"Auteur",
+        "location":"Emplacement",
+        "url":"URL",
+        "description":"Description",
+        "physicalDescription":"Description physique",
+        "documentHistory":"Historique du document"
+    },
+    "button":{
+      "delete":"Supprimer la page"
+    }
+  },
+  "dashboard":{
+    "title":"Tableau de bord",
+    "tab":{
+      "yourWorks":{
+        "title":"Vos tâches",
+        "noWorksMessage":"Il n'y a pas encore de tâches dans cette collection!"
+      },
+      "startAProject":{
+        "title":"Démarrer un projet"
+      }
+    },
+    "counter":{
+      "collections":"Collections",
+      "works":"Tâches",
+      "notes":"Remarques"
+    },
+    "yourActivity":{
+      "title":"Votre activité",
+      "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
+      "workDeed":"{{user}} {{deedType}} in Tâches {{work}}"
+    },
+    "activity":{
+      "title":"Actividades",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
+      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"page transcrite",
+    "page_edit":"page éditée",
+    "page_index":"page indexée",
+    "art_edit":"article {{article}} édité",
+    "note_add":"ajouter une note à la page",
+    "pg_xlat":"page traduite",
+    "pg_xlat_ed":"éditer la traduction de la page",
+    "ocr_corr":"page corrigée",
+    "review":"page marquée comme nécessitant une révision",
+    "xlat_index":"indexer et traduire la page",
+    "xlat_rev":"traduction marquée comme nécessitant une révision",
+    "work_add":"ajouter {{work}}",
+    "trans_like":"liked an transcription"
+  },
+  "upload":{
+    "title":"télécharger un fichier PDF ou ZIP",
+    "label":{
+      "collection":"Collection"
+    },
+    "placeholder":{
+      "collection":"- Sélectionnez une collection -"
+    },
+    "button":{
+      "browse":"Parcourir",
+      "submit":"Télécharger un fichier",
+      "addCollection":"Ajouter une nouvelle collection"
+    },
+    "tips":{
+      "title":"Tips",
+      "lines":[
+        "Les fichiers ZIP peuvent contenir des images, des fichiers PDF ou des répertoires contenant des fichiers PDF.",
+      	"Chaque répertoire sera traité comme un document différent. Ne mélangez pas des pages de documents différents dans le même répertoire.",
+      	"Chaque PDF sera traité comme un document différent. Ne divisez pas les pages d'un même document en plusieurs PDF.",
+      	"Par exemple, pour un fichier ZIP avec 3 images, 2 PDF et 1 répertoire contenant 5 images, créez 4 tâches: une tâche pour les images non regroupées, une tâche pour chaque PDF et une dernière tâche pour les 5 images du répertoire.",
+      	"Afin de spécifier les métadonnées à côté des images, incluez un fichier <a href='/static/metadata'> metadata.yml </a> dans chaque répertoire en spécifiant les champs pour chaque tâche."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"Vous devez sélectionner une collection ou un fichier à télécharger!"
+    }
+  },
+  "startAProject":{
+    "title":"Démarrer un projet"
+  },
+  "transcribe":{
+    "title":"Transcrire",
+    "modal":{
+      "mark":{
+        "title":"Que dit-il ici?",
+        "label":{
+          "transcriptionText":"Transcrire le texte de la ligne marquée"
+        }
+      }
+    },
+    "textEditor":{
+      "label":"Entrez le texte ici...",
+      "placeholder":"Marquez la ligne correspondante au texte souligné...",
+      "message":{
+        "markLineInPage":"Mark the corresponding line to the highlighted text",
+        "noTextSelected":"Vous devez sélectionner le texte pour ajouter une marque!"
+      }
+    },
+    "container":{
+      "edited":"Édité",
+      "likes":"Mes préférences",
+      "button":{
+        "like":"J'aime",
+        "dislike":"Je n'aime pas"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"D'autres transcriptions"
+    },
+    "markDetails":{
+      "title":"Détails de la transcription",
+      "button":{
+        "addAnotherTranscription":"Ajouter une autre transcription"
+      }
+    }
+  },
+  "forum":{
+    "title":"Forum",
+    "button":{
+        "addForum":"Forum"
+        }
+},
+"publication":{
+    "title":"Publication",
+    "user":{
+      "from":"De"
+    },
+    "button":{
+      "response":"Réponse",
+      "delete":"Effacer"
+    },
+    "list":{
+      "title":"Publications",
+      "addPublication":"Ajouter un commentaire"
+    },
+    "transcription":{
+      "label":"Transcriptcion"
+    }
+  },
+
+  "metagame":{
+    "rank":{
+          "sync":"Update rank"
+      }
+    }
+
+}

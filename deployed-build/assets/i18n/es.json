@@ -1,0 +1,506 @@
+{
+  "app":{
+    "button":{
+      "close":"Cerrar",
+      "cancel":"Cancelar",
+      "save":"Guardar",
+      "saveChanges":"Guardar Cambios",
+      "delete":"Eliminar",
+      "show":"Ver",
+      "filter":"filtrar"
+    },
+    "placeholder": {
+      "search.empty.list": "Aún no hay resultados que coincidan con tu búsqueda."
+    }
+  },
+  "home":{
+    "banner":"\"Transcriba y Traduzca Manuscritos de manera práctica, colaborando en línea con muchos otros usuarios\"",
+    "image":{
+      "left":{
+        "title":"Trancribir",
+        "text":"Debido a que Trancriptor se ejecuta en su navegador, puede leer y transcribir materiales desde cualquier lugar."
+      },
+      "middle":{
+        "title":"Comparte tu opinión",
+        "text":"Los usuarios pueden discutir escritos complejos o palabras oscuras dentro de una página para refinar su transcripción."
+      },
+      "right":{
+        "title":"Explora",
+        "text":"El texto resultante está alojado en la web, por lo que los documentos son fáciles de leer y buscar."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcriba y Traduzca Manuscritos de manera práctica, colaborando en línea con muchos otros usuarios\"",
+    "linksTitle":"Links",
+    "moreLinks":"Más Links"
+  },
+  "signIn":{
+    "title":"Iniciar Sesión",
+    "loginMessage":"Por favor, Inicia sesión con tu Cuenta",
+    "label":{
+      "username":"Ingresa tu email o nombre de usuario",
+      "password":"Ingresa tu contraseña"
+    },
+    "button":{
+      "forgotPassword":"¿Olvidaste tu contraseña?",
+      "login":"Iniciar sesión",
+      "register":"Crear cuenta"
+    }
+  },
+  "signOut":{
+    "title":"Cerrar Sesión"
+  },
+  "registration":{
+    "title":"Crear Cuenta",
+    "label":{
+      "username":"Nombre de Usuario",
+      "email":"Email",
+      "password":"Contraseña",
+      "passwordConfirmation":"Confirmar Contraseña",
+      "displayName":"Nombre a mostrar"
+    }
+  },
+  "passwordRecover":{
+    "title":"Recuperar tu Cuenta",
+    "label":{
+      "email":"Ingresa tu email",
+      "instructions":"Utilizaremos la dirección de correo electrónico para enviarle una confirmación de su solicitud de cambio de contraseña"
+    },
+    "button":{
+      "request":"Solicitar un cambio de contraseña",
+      "back":"Usar otra cuenta"
+    }
+  },
+  "changePassword":{
+    "title":"Cambia tu contraseña",
+    "label":{
+      "password":"Ingresa tu nueva contraseña",
+      "passwordConfirmation":"Confirma tu nueva contraseña"
+    },
+    "button":{
+      "changePassword":"Cambiar Contraseña"
+    }
+  },
+  "myProfile":{
+    "title":"Mi Perfil",
+    "edit":"Editar Perfil",
+    "badges":"Mis Insignias",
+    "label":{
+      "name":"Nombre",
+      "email":"Email",
+      "website":"Website",
+      "username":"Nombre de Usuario",
+      "location":"Ubicación",
+      "about":"Sobre Mí"
+    }
+  },
+  "editCollection": {
+    "label":{
+      "title":"Título de la Colección",
+      "url":"URL",
+      "description":"Descripción",
+      "deleteWarning": "¿Estás seguro de eliminar esta colección?",
+      "owners": "Administradores de colección"
+    },
+    "button":{
+      "delete":"Eliminar Colección",
+      "export": "Exportar Colección"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Proyectos",
+      "settings":"Configuracion"
+    }
+  },
+  "collections":{
+    "title":"Colecciones",
+    "button":{
+      "create":"Crear una Colección",
+      "show":"Ver Detalles"
+    },
+    "modal":{
+      "create":{
+        "title":"Crear una nueva Colección",
+        "label":{
+          "title":"Título de la Colección",
+          "description":"Descripción"
+        },
+        "button":{
+          "cancel":"Cancelar",
+          "save":"Guardar"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Páginas",
+      "settings":"Configuración"
+    },
+    "button": {
+      "transcribe": "Transcribir"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Título del Proyecto",
+        "author":"Autor",
+        "location":"Lugar",
+        "url":"URL",
+        "description":"Descripción",
+        "physicalDescription":"Descripción Física",
+        "documentHistory":"Historia del Documento",
+        "deleteWarning": "¿Estás seguro de eliminar este proyecto?"
+    },
+    "button":{
+      "delete":"Eliminar Proyecto",
+      "export": "Exportar Proyecto"
+    }
+  },
+  "dashboard":{
+    "title":"Inicio",
+    "carousel": {
+      "slide-1": {
+        "line-1": "¡Bienvenido a Transcriptor!",
+        "line-2": "Aqui encontrarás la información de las colecciones en las que participas."
+      }
+    },
+    "tab":{
+      "yourWorks":{
+        "title":"Tus Proyectos",
+        "noWorksMessage":"¡Aún no existen Proyectos en esta Colección!"
+      },
+      "startAProject":{
+        "title":"Iniciar un Proyecto"
+      }
+    },
+    "myCollections": {
+      "title": "Mis Colecciones",
+      "startAProject": "Iniciar un Proyecto",
+      "noCollectionsMessage": "¡Aún no tienes proyectos en los que trabajes!",
+      "card": {
+        "detail": "Ver más"
+      }
+    },
+    "counter":{
+      "collections":"Colecciones",
+      "works":"Proyectos",
+      "notes":"Notas"
+    },
+    "yourActivity":{
+      "title":"Tu Actividad",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Proyecto {{work}}",
+      "showMore": "Mostrar más...",
+      "showLess": "Mostrar menos..."
+    },
+    "activity":{
+      "title":"Actividades",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Proyecto {{work}}",
+      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"Transcribió una Página",
+    "page_edit":"Editó una Página",
+    "page_index":"Indexó una Página",
+    "art_edit":"Editó el artículo {{article}}",
+    "note_add":"agregó una nota a una página",
+    "pg_xlat":"Tradujo una Página",
+    "pg_xlat_ed":"Editó la Traducción de una Página",
+    "ocr_corr":"Corrigió una Página",
+    "review":"Marcó que una Página Necesita Revisión",
+    "xlat_index":"Indexó la Traducción de una Página",
+    "xlat_rev":"Marcó que la Traducción de una Página Necesita Revisión",
+    "work_add":"Agregó un Proyecto",
+    "trans_like":"Le gustó una transcripción"
+  },
+  "upload":{
+    "title":"Cargar un Archivo PDF o ZIP",
+    "label":{
+      "collection":"Colección"
+    },
+    "placeholder":{
+      "collection":"- Selecciona una Colección -"
+    },
+    "button":{
+      "browse":"Seleccionar Archivo",
+      "submit":"Cargar Archivo",
+      "addCollection":"Crear una nueva Colección"
+    },
+    "tips":{
+      "title":"Consejos",
+      "lines":[
+          "Los archivos ZIP pueden contener carpetas conteniendo imagenes, PDFs, o carpetas conteniendo PDFs",
+          "Cada carpeta se tratará como un documento diferente, por lo tanto, no mezclar páginas de diferentes documentos en la misma carpeta.",
+          "Cada PDF se tratará como un unico documento, por lo que no separe las páginas del mismo documento entre más de un PDF.",
+          "Por ejemplo, un archivo ZIP con 3 imagenes, 2 PDFs y una carpeta que contiene 5 imagenes más generaria 4 Proyectos: las imagenes en el nivel superior en uno, cada PDF su proyecto correspondiente y un ultimo conteniendo las 5 imagenes de la carpeta.",
+          "Para especificar metadatos junto con imágenes, incluir un archivo <a href='/static/metadata'>metadata.yml</a> en cada carpeta especificando cada campo del proyecto."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"¡Debes seleccionar una colección y un archivo para subir!"
+    }
+  },
+  "startAProject":{
+    "title":"Iniciar un Proyecto"
+  },
+  "transcribe":{
+    "title":"Transcripción",
+    "modal":{
+      "mark":{
+        "title":"¿Qué dice aquí?",
+        "label":{
+          "transcriptionText":"Transcribe el texto correspondiente a la línea marcada"
+        }
+      }
+    },
+    "textEditor":{
+      "label":"Contenido de la Página",
+      "placeholder":"Ingresa el texto aquí...",
+      "message":{
+        "markLineInPage":"Marque la línea correspondiente al texto seleccionado",
+        "noTextSelected":"¡Debe seleccionar texto para agregar una marca!"
+      }
+    },
+    "container":{
+      "edited":"Editado",
+      "likes":"Me gusta",
+      "button":{
+        "like":"Me gusta",
+        "dislike":"Ya no me gusta"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Otras Transcripciones"
+    },
+    "markDetails":{
+      "title":"Detalles de la Transcripción",
+      "button":{
+        "addAnotherTranscription":"Agregar Otra Transcripción"
+      }
+    },
+    "layerModal":{
+      "title":"Nueva Capa",
+      "label":{
+        "name":"Nombre"
+      }
+    },
+    "imageAdjusts": {
+      "button": {
+        "invert":"Invertir",
+        "saturation":"Saturación",
+        "brightness":"Brillo",
+        "contrast":"Contraste",
+        "reset":"Restablecer"
+      }
+    }
+  },
+  "forum":{
+    "title":"Foro",
+    "button":{
+        "addForum":"Foro"
+        }
+},
+"publication":{
+    "title":"Publicación",
+    "user":{
+      "from":"De"
+    },
+    "button":{
+      "response":"Responder",
+      "delete":"Borrar"
+    },
+    "list":{
+      "title":"Foro de Discusión",
+      "addPublication":"Agregar un comentario"
+    },
+    "transcription":{
+      "label":"Transcripción"
+    }
+  },
+  "semanticForm": {
+    "emptyMarker":"Selecciona un area para transcribir.",
+    "label": {
+      "scheme": "Schemas"
+    },
+    "placeholder": {
+      "scheme": "- Seleccione un schema -",
+      "search": "Ingresa un nombre de una propiedad",
+      "entitySearch": "Busca un elemento a asociar a tu marca, Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button":{
+      "confirmType":"Confirmar tipo",
+      "confirmProperties":"Confirmar propiedades",
+      "generateScheme":"Generar esquema",
+      "back":"Volver"
+    },
+    "table":{
+      "header":{
+        "select":"Seleccionar",
+        "name":"Nombre de la propiedad",
+        "value":"Valor asignado",
+        "type":"tipos"
+      }
+    }
+  },
+  "metagame":{
+    "rank":{
+        "sync":"Actualizar rango"
+    }
+  },
+  "page-versions":{
+    "title": "Versiones",
+    "comparedWith": "Comparando con",
+    "noVersionsMessage": "Aún no existen versiones de esta página.",
+    "actionText": "ver cambios"
+  },
+  "semanticSearchInput": {
+    "label": {
+      "typeFilter": "Filtrar por tipo"
+    },
+    "placeholder": {
+      "typeFilter": "Todos los tipos"
+    },
+    "modal": {
+      "typeFilterModal": {
+        "title": "Filtrado por Tipo",
+        "description": "Seleccione un tipo de entidad para filtar los resultados de la búsqueda."
+      }
+    }
+  },
+  "search":{
+    "title": "Búsqueda",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
+  "entitySearch": {
+    "title": "Búsqueda de Entidades",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "searchEntity": "Ingresá un termino para encontrar entidades relacionadas. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
+  "markSearch": {
+    "title": "Búsqueda de Marcas",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar marcas que contengan información de tu interés.",
+    "label": {
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "searchMark": "Buscá un termino para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "showMore": "VER MÁS"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
+  "ontology":{
+    "title": "Ontologias",
+    "description": "En esta sección podrás realizar consultas a la base de datos de transcriptor para buscar manuscritos que contengan referencias de tu interés.",
+    "label": {
+      "selectedEntity": "Entidad seleccionada",
+      "loadedEntities": "Entidades cargadas",
+      "results": "Resultados",
+      "references": "referencias"
+    },
+    "placeholder": {
+      "seachEntity": "Buscá un elemento para listar las paginas donde aparece. Ejemplo: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "create":"Cargar Ontología",
+      "showMore": "Ver más",
+      "edit": "Edición de Ontología Cargada"
+    },
+    "modal": {
+      "edit":{
+        "title": "Edición de Ontología Cargada",
+        "button":{
+          "delete":"Eliminar Ontología",
+          "save":"Guardar Cambios"
+        }
+      },
+      "create":{
+        "label": {
+          "name": "Nombre de la ontología",
+          "description": "Descripción",
+          "url":"Url de la ontología",
+          "prefix":"Prefijo de la ontología",
+          "domainkey":"Ingrese la clave de relación"
+        },
+        "button":{
+          "cancel":"Cancelar",
+          "save":"Guardar ontología"
+        },
+        "title":"Carga de ontología"
+      },
+      "detailReference": {
+        "title": "Detalle de Referencia"
+      }
+    }
+  },
+  "admin": {
+    "title": "Administracion",
+    "modal": {
+      "edit": {
+        "title": "Editar usuario",
+        "label": {
+          "display": "Nick",
+          "print_name": "Print name",
+          "login": "Usuario",
+          "owner": "Es owner",
+          "admin": "Es admin",
+          "email": "Mail"
+        },
+        "button": {
+          "cancel": "Cancelar",
+          "save": "Guardar"
+        }
+      }
+    }
+  },
+  "pipes": {
+    "yesNo": {
+      "yes": "Si",
+      "no": "No"
+    }
+  }
+}

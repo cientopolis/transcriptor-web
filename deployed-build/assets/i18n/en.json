@@ -1,0 +1,354 @@
+{
+  "app":{
+    "button":{
+      "close":"Close",
+      "cancel":"Cancel",
+      "save":"Save",
+      "saveChanges":"Save Changes",
+      "delete":"Delete",
+      "show":"Show"
+    },
+    "placeholder": {
+      "search.empty.list": "There are no results matching your search yet."
+    }
+  },
+  "home":{
+    "banner":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
+    "image":{
+      "left":{
+        "title":"Transcribe",
+        "text":"Because Trancriptor runs in your browser, you can read and transcribe materials from anywhere."
+      },
+      "middle":{
+        "title":"Share your opinion",
+        "text":"Users can discuss difficult writing or obscure words within a page to refine their transcription."
+      },
+      "right":{
+        "title":"Explore",
+        "text":"The resulting text is hosted on the web, making documents easy to read and search."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
+    "linksTitle":"Links",
+    "moreLinks":"More Links"
+  },
+  "signIn":{
+    "title":"Sign In",
+    "loginMessage":"Please, login into your account",
+    "label":{
+      "username":"Enter your email or username",
+      "password":"Enter your password"
+    },
+    "button":{
+      "forgotPassword":"Forgot Password?",
+      "login":"Login",
+      "register":"Create account"
+    }
+  },
+  "signOut":{
+    "title":"Sign Out"
+  },
+  "registration":{
+    "title":"Create Account",
+    "label":{
+      "username":"Username",
+      "email":"Email",
+      "password":"Password",
+      "passwordConfirmation":"Confirm Password",
+      "displayName":"Name to Show"
+    }
+  },
+  "passwordRecover":{
+    "title":"Recover your account",
+    "label":{
+      "email":"Enter your email",
+      "instructions":"We will use the email address to send you a confirmation of your password change request"
+    },
+    "button":{
+      "request":"Request Password Change",
+      "back":"Use another account"
+    }
+  },
+  "changePassword":{
+    "title":"Change your Password",
+    "label":{
+      "password":"Enter your new password",
+      "passwordConfirmation":"Confirm your new password"
+    },
+    "button":{
+      "changePassword":"Change Password"
+    }
+  },
+  "myProfile":{
+    "title":"My Profile",
+    "edit":"Edit Profile",
+    "badges":"My Badges",
+    "label":{
+      "name":"Name",
+      "email":"Email",
+      "website":"Website",
+      "username":"Username",
+      "location":"Location",
+      "about":"About Me"
+    }
+  },
+  "editCollection": {
+    "label":{
+      "title":"Collection Title",
+      "url":"URL",
+      "description":"Description",
+      "deleteWarning": "Are you sure to delete this collection?"
+    },
+    "button":{
+      "delete":"Delete Collection"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Settings"
+    }
+  },
+  "collections":{
+    "title":"Collections",
+    "button":{
+      "create":"Create collection",
+      "show":"Show Details"
+    },
+    "modal":{
+      "create":{
+        "title":"Create a new Collection",
+        "label":{
+          "title":"Collection Title",
+          "description":"Description"
+        },
+        "button":{
+          "cancel":"Cancel",
+          "save":"Save"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Pages",
+      "settings":"Settings"
+    },
+    "button": {
+      "transcribe": "Transcribe"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Project Title",
+        "author":"Author",
+        "location":"Location",
+        "url":"URL",
+        "description":"Description",
+        "physicalDescription":"Physical Description",
+        "documentHistory":"Document History"
+    },
+    "button":{
+      "delete":"Delete Page"
+    }
+  },
+  "dashboard":{
+    "title":"Dashboard",
+    "carousel": {
+      "slide-1": {
+        "line-1": "¡Welcome to Transcriptor!",
+        "line-2": "Here you will find the information of the collections in which you participate."
+      }
+    },
+    "tab":{
+      "yourWorks":{
+        "title":"Your Projects",
+        "noWorksMessage":"There are no projects in this collection yet!"
+      },
+      "startAProject":{
+        "title":"Start a Project"
+      }
+    },
+    "myCollections": {
+      "title": "My Collections",
+      "startAProject": "Start a Project",
+      "noCollectionsMessage": "You don't have any projects to work on yet!",
+      "card": {
+        "detail": "Show more"
+      }
+    },
+    "counter":{
+      "collections":"Collections",
+      "works":"Projects",
+      "notes":"Notes"
+    },
+    "yourActivity":{
+      "title":"Your Activity",
+      "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
+      "workDeed":"{{user}} {{deedType}} in the project {{work}}",
+      "showMore": "Show more...",
+      "showLess": "Show less..."
+    },
+    "activity":{
+      "title":"Actividades",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
+      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"transcribed page",
+    "page_edit":"edited page",
+    "page_index":"indexed page",
+    "art_edit":"edited {{article}} article",
+    "note_add":"added a note to page",
+    "pg_xlat":"translated page",
+    "pg_xlat_ed":"edited the translation of page",
+    "ocr_corr":"corrected page",
+    "review":"marked page as needing review",
+    "xlat_index":"indexed the translation of page",
+    "xlat_rev":"marked translation page as needing review",
+    "work_add":"added {{work}}",
+    "trans_like":"liked an transcription"
+  },
+  "upload":{
+    "title":"Upload PDF or ZIP File",
+    "label":{
+      "collection":"Collection"
+    },
+    "placeholder":{
+      "collection":"- Select a collection -"
+    },
+    "button":{
+      "browse":"Browse File",
+      "submit":"Upload File",
+      "addCollection":"Add New Collection"
+    },
+    "tips":{
+      "title":"Tips",
+      "lines":[
+          "ZIP files may contain folders containing images, PDFs, or folders containing pdfs.",
+          "Each folder will be treated as a different document, so do not mix pages from different documents in the same folder.",
+          "Each PDF will be treated as its own document, so do not split pages from the same document among more than one PDF.",
+          "For example a ZIP file with 3 images, 2 PDFs, and 1 folder containing 5 more images would create 4 projects: the top level images in one, each PDF in their own project, and a last project containing the 5 images from the folder.",
+          "To specify metadata along with images, include a <a href='/static/metadata'>metadata.yml</a> file in each folder specifying fields for the project."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"You must select a collection and select a file to upload!"
+    }
+  },
+  "startAProject":{
+    "title":"Start a Project"
+  },
+  "transcribe":{
+    "title":"Transcribe",
+    "modal":{
+      "mark":{
+        "title":"What does it say here?",
+        "label":{
+          "transcriptionText":"Transcribe the text of the marked line"
+        }
+      }
+    },
+    "textEditor":{
+      "label":"Page Content",
+      "placeholder":"Enter text here...",
+      "message":{
+        "markLineInPage":"Mark the corresponding line to the highlighted text",
+        "noTextSelected":"You must select text to add a mark!"
+      }
+    },
+    "container":{
+      "edited":"Edited",
+      "likes":"Likes",
+      "button":{
+        "like":"Like",
+        "dislike":"Dislike"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Other Transcriptions"
+    },
+    "markDetails":{
+      "title":"Transcription Details",
+      "button":{
+        "addAnotherTranscription":"Add Another Transcription"
+      }
+    },
+    "imageAdjusts": {
+      "button": {
+        "invert": "invert",
+        "saturation": "saturation",
+        "brightness": "brightness",
+        "contrast": "contrast",
+        "reset": "reset"
+      }
+    }
+  },
+  "forum":{
+    "title":"Forum",
+    "button":{
+        "addForum":"Forum"
+        }
+  },
+  "publication":{
+    "title":"Publication",
+    "user":{
+      "from":"From"
+    },
+    "button":{
+      "response":"Response",
+      "delete":"Delete"
+    },
+    "list":{
+      "title":"Publications",
+      "addPublication":"Add a comment"
+    },
+    "transcription":{
+      "label":"Transcriptcion"
+    }
+  },
+  "semanticForm":{
+    "label":{
+      "scheme":"Scheme"
+    },
+    "placeholder": {
+      "scheme": "- Select an scheme -"
+    }
+  },
+  "metagame":{
+    "rank":{
+      "sync":"Update rank"
+    }
+  },
+  "admin":{
+    "title":"Administration",
+    "modal": {
+      "edit": {
+        "title": "Edit user",
+        "label": {
+          "display": "Display name",
+          "print_name": "Print name",
+          "login": "User login",
+          "owner": "This user is an owner",
+          "admin": "This user is an admin",
+          "email":"Email address"
+        },
+        "button": {
+          "cancel": "Cancel",
+          "save": "Save"
+        }
+      }
+    }
+  },
+  "pipes":{
+    "yesNo":{
+        "yes":"Yes",
+        "no":"No"
+    }
+  }
+
+}

@@ -1,0 +1,287 @@
+{
+  "app":{
+    "button":{
+      "close":"Fechar",
+      "cancel":"Cancelar",
+      "save":"Salve",
+      "saveChanges":"Salvar alterações",
+      "delete":"Excluir",
+      "show":"Mostrar"
+    }
+  },
+  "home":{
+    "banner":"\"Transcreva e traduza manuscritos confortavelmente e online colaborando com muitos outros usuários\"",
+    "image":{
+      "left":{
+        "title":"Transcrever",
+        "text":"Como o Trancriptor é executado em seu navegador, você pode ler e transcrever materiais desde qualquer lugar."
+      },
+      "middle":{
+        "title":"Compartilhe sua opinião",
+        "text":"Os usuários podem discutir textos ou palavras difíceis dentro da página para melhorar sua transcrição."
+      },
+      "right":{
+        "title":"Explorar",
+        "text":"O texto resultante está hospedado na web, tornando os documentos fáceis de ler e pesquisar."
+      }
+    }
+  },
+  "footer":{
+    "logoText":"\"Transcreva e traduza manuscritos confortavelmente e colaborando online com muitos outros usuários\"",
+    "linksTitle":"Links",
+    "moreLinks":"Mais Links"
+  },
+  "signIn":{
+    "title":"Login",
+    "loginMessage":"Por favor, faça login na sua conta.",
+    "label":{
+      "username":"Digite seu email ou nome de usuário",
+      "password":"Coloque sua senha"
+    },
+    "button":{
+      "forgotPassword":"Esqueceu a senha??",
+      "login":"Entrar",
+      "register":"Criar Conta"
+    }
+  },
+  "signOut":{
+    "title":"Sair"
+  },
+  "registration":{
+    "title":"Criar Conta",
+    "label":{
+      "username":"Nome de usuário",
+      "email":"O email",
+      "password":"Senha",
+      "passwordConfirmation":"Confirme a Senha",
+      "displayName":"Nome para mostrar"
+    }
+  },
+  "passwordRecover":{
+    "title":"Recupere sua conta",
+    "label":{
+      "email":"Insira seu email",
+      "instructions":"Usaremos o endereço de e-mail para enviar uma confirmação da sua solicitação de alteração de senha."
+    },
+    "button":{
+      "request":"Solicitar alteração de senha",
+      "back":"Use outra conta"
+    }
+  },
+  "changePassword":{
+    "title":"Mude sua senha",
+    "label":{
+      "password":"Digite sua nova senha.",
+      "passwordConfirmation":"Confirme sua nova senha"
+    },
+    "button":{
+      "changePassword":"Mudar senha"
+    }
+  },
+  "myProfile":{
+    "title":"Meu perfil",
+    "edit":"Editar Perfil",
+    "badges":"Minhas badges",
+    "label":{
+      "name":"Nome",
+      "email":"O email",
+      "website":"Local na rede Internet",
+      "username":"Nome de usuário",
+      "location":"Localização",
+      "about":"Sobre mim"
+    }
+  },
+  "editCollection": {
+    "label":{
+      "title":"Título da coleção",
+      "url":"URL",
+      "description":"Descrição"
+    },
+    "button":{
+      "delete":"Excluir coleção"
+    }
+  },
+  "showCollection":{
+    "tab":{
+      "pages":"Páginas",
+      "settings":"Configurações"
+    }
+  },
+  "collections":{
+    "title":"Coleções",
+    "button":{
+      "create":"Criar coleção",
+      "show":"Mostrar detalhes"
+    },
+    "modal":{
+      "create":{
+        "title":"Criar uma nova coleção",
+        "label":{
+          "title":"Título da coleção",
+          "description":"Descrição"
+        },
+        "button":{
+          "cancel":"Cancelar",
+          "save":"Salvar"
+        }
+      }
+    }
+  },
+  "showWork":{
+    "tab":{
+      "pages":"Paginas",
+      "settings":"Configurações"
+    }
+  },
+  "editWork":{
+    "label":{
+        "title":"Título do trabalho",
+        "author":"Autor",
+        "location":"Localização",
+        "url":"URL",
+        "description":"Descrição",
+        "physicalDescription":"Descrição física",
+        "documentHistory":"Documento histórico"
+    },
+    "button":{
+      "delete":"Excluir página"
+    }
+  },
+  "dashboard":{
+    "title":"Painel de controle",
+    "tab":{
+      "yourWorks":{
+        "title":"Seus trabalhos",
+        "noWorksMessage":"Não há trabalhos nesta coleção ainda!"
+      },
+      "startAProject":{
+        "title":"Iniciar um projeto"
+      }
+    },
+    "counter":{
+      "collections":"Coleções",
+      "works":"Trabalho",
+      "notes":"Notas"
+    },
+    "yourActivity":{
+      "title":"Sua atividade",
+      "collectionDeed":"{{user}} {{deedType}} em la Coleções {{collection}}",
+      "workDeed":"{{user}} {{deedType}} em el trabalho {{work}}"
+    },
+    "activity":{
+      "title":"Actividades",
+      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
+      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
+      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
+    }
+  },
+  "deed_type":{
+    "page_trans":"página transcrita",
+    "page_edit":"página editada",
+    "page_index":"página indexada",
+    "art_edit":"artigo {{article}} editado",
+    "note_add":"adicionou uma nota à página",
+    "pg_xlat":"página traduzida",
+    "pg_xlat_ed":"editou a tradução da página",
+    "ocr_corr":"página corrigida",
+    "review":"página marcada como precisando de revisão",
+    "xlat_index":"indexou a tradução da página",
+    "xlat_rev":"página de tradução marcada como precisando de revisão",
+    "work_add":"adicionado trabalho {{work}}",
+    "trans_like":"liked an transcription"
+  },
+  "upload":{
+    "title":"Carregar arquivo PDF or ZIP File",
+    "label":{
+      "collection":"Coleção"
+    },
+    "placeholder":{
+      "collection":"- Selecione uma coleção -"
+    },
+    "button":{
+      "browse":"Procurar arquivo",
+      "submit":"Subir arquivo",
+      "addCollection":"Adicionar nova coleção"
+    },
+    "tips":{
+      "title":"conselho",
+      "lines":[
+        "Arquivos ZIP podem conter pastas contendo imagens, PDFs ou pastas que contenham PDFs.",
+        "Cada pasta será tratada como um documento diferente, por isso não misture páginas de documentos diferentes na mesma pasta.",
+        "Cada PDF será tratado como seu próprio documento, portanto, não divida páginas do mesmo documento entre mais de um PDF.",
+        "Por exemplo, um arquivo ZIP com 3 imagens, 2 PDFs e 1 pasta contendo mais 5 imagens criaria 4 trabalhos: as imagens de nível superior em um, cada PDF em seu próprio trabalho e um último trabalho contendo as 5 imagens da pasta ",
+        "Para especificar metadados junto com imagens, inclua um arquivo <a href='/static/metadata'> metadata.yml </a> em cada pasta especificando campos para o trabalho."
+      ]
+    },
+    "validationMessages":{
+      "noFileSelected":"Você deve selecionar uma coleção e selecionar um arquivo para carregar!"
+    }
+  },
+  "startAProject":{
+    "title":"Iniciar um projeto"
+  },
+  "transcribe":{
+    "title":"Transcrever",
+    "modal":{
+      "mark":{
+        "title":"O que diz aqui?",
+        "label":{
+          "transcriptionText":"Transcreva o texto da linha marcada"
+        }
+      }
+    },
+    "textEditor":{
+      "label":"Conteúdo da página",
+      "placeholder":"Insira o texto aqui...",
+      "message":{
+        "markLineInPage":"Marcar a linha correspondente ao texto destacado",
+        "noTextSelected":"Você deve selecionar o texto para adicionar uma marca!"
+      }
+    },
+    "container":{
+      "edited":"Editado",
+      "likes":"Gosta",
+      "button":{
+        "like":"Gostar",
+        "dislike":"Não gosto"
+      }
+    },
+    "markTranscriptionsList":{
+      "title":"Outras transcrições"
+    },
+    "markDetails":{
+      "title":"Detalhes da transcrição",
+      "button":{
+        "addAnotherTranscription":"Adicionar outra transcrição"
+      }
+    }
+  },
+  "forum":{
+    "title":"Fórum",
+    "button":{
+        "addForum":"Publicação"
+        }
+},
+"publication":{
+    "title":"Publicação",
+    "user":{
+      "from":"De"
+    },
+    "button":{
+      "response":"Resposta",
+      "delete":"Excluir"
+    },
+    "list":{
+      "title":"Publicações",
+      "addPublication":"Adicione um comentário"
+    },
+    "transcription":{
+      "label":"Transcrição"
+    }
+  },
+  "metagame":{
+    "rank":{
+          "sync":"Actualizar rango"
+      }
+    }
+}
