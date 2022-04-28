@@ -6,7 +6,8 @@
       "save":"Save",
       "saveChanges":"Save Changes",
       "delete":"Delete",
-      "show":"Show"
+      "show":"Show",
+      "filter": "filter"
     },
     "placeholder": {
       "search.empty.list": "There are no results matching your search yet."
@@ -33,6 +34,11 @@
     "logoText":"\"Transcribe and Translate manuscripts comfortably and online collaborating with many other users\"",
     "linksTitle":"Links",
     "moreLinks":"More Links"
+  },
+  "themeSelector": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark"
   },
   "signIn":{
     "title":"Sign In",
@@ -99,10 +105,12 @@
       "title":"Collection Title",
       "url":"URL",
       "description":"Description",
-      "deleteWarning": "Are you sure to delete this collection?"
+      "deleteWarning": "Are you sure to delete this collection?",
+      "owners": "Collection Administrators"
     },
     "button":{
-      "delete":"Delete Collection"
+      "delete":"Delete Collection",
+      "export": "Export Collection"
     }
   },
   "showCollection":{
@@ -148,10 +156,12 @@
         "url":"URL",
         "description":"Description",
         "physicalDescription":"Physical Description",
-        "documentHistory":"Document History"
+        "documentHistory":"Document History",
+        "deleteWarning": "Are you sure you want to delete this project?"
     },
     "button":{
-      "delete":"Delete Page"
+      "delete":"Delete Page",
+      "export": "Export Project"
     }
   },
   "dashboard":{
@@ -187,15 +197,21 @@
     "yourActivity":{
       "title":"Your Activity",
       "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
-      "workDeed":"{{user}} {{deedType}} in the project {{work}}",
+      "workDeed":"{{user}} {{deedType}} in project {{work}}",
       "showMore": "Show more...",
       "showLess": "Show less..."
     },
     "activity":{
-      "title":"Actividades",
-      "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
-      "workDeed":"{{user}} {{deedType}} en el Trabajo {{work}}",
-      "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
+      "title":"Activity",
+      "collectionDeed":"{{user}} {{deedType}} in collection {{collection}}",
+      "workDeed":"{{user}} {{deedType}} in project {{work}}",
+      "pageDeed":"{{user}} {{deedType}} in page {{page}}"
+    },
+    "siteStatus": {
+      "title": "Site Status"
+    },
+    "playerProfile": {
+      "title": "Player range"
     }
   },
   "deed_type":{
@@ -278,6 +294,14 @@
         "addAnotherTranscription":"Add Another Transcription"
       }
     },
+    "layerModal": {
+      "title": "New Layer",
+      "label": {
+        "name": "Name"
+      },
+      "addLayer": "Add Layer",
+      "defaultLayer": "Text"
+    },
     "imageAdjusts": {
       "button": {
         "invert": "invert",
@@ -312,16 +336,198 @@
     }
   },
   "semanticForm":{
+    "emptyMarker": "Select an area to transcribe.",
     "label":{
       "scheme":"Scheme"
     },
     "placeholder": {
-      "scheme": "- Select an scheme -"
+      "scheme": "- Select an scheme -",
+      "search": "Enter a property name",
+      "entitySearch": "Search for an element to associate with your mark, Example: \"San Martín\" or \"Middle Age\""
+    },
+    "button": {
+      "confirmType": "Confirm type",
+      "confirmProperties": "Confirm properties",
+      "generateScheme": "Generate scheme",
+      "back": "Back"
+    },
+    "table": {
+      "header": {
+        "select": "Select",
+        "name": "Property name",
+        "value": "Assigned value",
+        "type": "Types"
+      }
+    },
+    "superTitle": "New Mark",
+    "newMark": {
+      "title": "Associate content to the mark",
+      "description": "It is likely that someone has already uploaded the element you are looking to describe, you can search for it in this section and associate it with your mark. If you couldn't find what you're looking for, no problem! you can load the data of the new entity by clicking on the button \"Create new Element\"",
+      "emptyRelations": "There are no relations to show",
+      "createNewElement": "Create new Element"
+    },
+    "steps": {
+      "stepName": "Step",
+      "1": {
+        "title": "Choose the type of data",
+        "description": "The data types will help you better define what you want to represent within the manuscript, use the search engine to find the one you need. There are a lot!"
+      },
+      "2": {
+        "title": "Load the data properties!",
+        "description": "You have already selected the data type, each of these has associated several data properties that will help you to describe the specific characteristics of your element. From now on you can add and load the data properties that you consider most appropriate."
+      },
+      "3": {
+        "title": "Load the Relationships",
+        "description": "It is time to generate the associations of your element, these will allow you to generate a deeper description of its interaction with the real world. To load them, first you have to establish how they are related to your object through the \"Add relationship\" option, then it is only a matter of referencing another element already loaded or loading a new one indicating its properties."
+      },
+      "4": {
+        "title": "Review and Save",
+        "description": "Now check that the data is correct. If everything is fine, you can continue with the save."
+      }
     }
   },
   "metagame":{
     "rank":{
       "sync":"Update rank"
+    }
+  },
+  "page-versions": {
+    "title": "Versions",
+    "comparedWith": "compared with",
+    "noVersionsMessage": "There are no versions of this page yet.",
+    "actionText": "View changes"
+  },
+  "semanticSearchInput": {
+    "label": {
+      "typeFilter": "Filter by type"
+    },
+    "placeholder": {
+      "typeFilter": "All types"
+    },
+    "modal": {
+      "typeFilterModal": {
+        "title": "Type filter",
+        "description": "Select an entity type to filter the search results."
+      }
+    }
+  },
+  "search": {
+    "title": "Search",
+    "description": "In this section you can query the platform's database to search for manuscripts that contain references of interest to you.",
+    "label": {
+      "selectedEntity": "Selected entity",
+      "loadedEntities": "Loaded entities",
+      "results": "Results",
+      "references": "references"
+    },
+    "placeholder": {
+      "seachEntity": "Search for an element to associate with your mark, Example: \"San Martín\" or \"Middle Age\""
+    },
+    "button": {
+      "showMore": "SHOW MORE"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Reference detail"
+      }
+    },
+    "types": {
+      "entitySearch": "Entity Search",
+      "markSearch": "Mark Search"
+    },
+    "switch": {
+      "advancedSearch": "Advanced search",
+      "basicSearch": "Basic search"
+    },
+    "filters": {
+      "title": "Filters",
+      "elementType": "Element type",
+      "loadedProperty": "Loaded Property",
+      "loadedValue": "Loaded Value"
+    }
+  },
+  "entitySearch": {
+    "title": "Entity Search",
+    "description": "In this section you can query the platform's database to search for manuscripts that contain references of interest to you.",
+    "label": {
+      "selectedEntity": "Selected entity",
+      "loadedEntities": "Loaded entities",
+      "results": "Results",
+      "references": "references"
+    },
+    "placeholder": {
+      "searchEntity": "Search for an element to associate with your mark, Example: \"San Martín\" or \"Middle Age\""
+    },
+    "button": {
+      "showMore": "SHOW MORE"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Reference detail"
+      }
+    }
+  },
+  "markSearch": {
+    "title": "Mark Search",
+    "description": "In this section you can make queries to the platform's database to search for marks that contain information of interest to you.",
+    "label": {
+      "results": "Results",
+      "references": "references"
+    },
+    "placeholder": {
+      "searchMark": "Search for a term to list the pages where it appears. Example: \"San Martín\" o \"Middle Age\""
+    },
+    "button": {
+      "showMore": "SHOW MORE"
+    },
+    "modal": {
+      "detailReference": {
+        "title": "Reference detail"
+      }
+    }
+  },
+  "ontology": {
+    "title": "Ontologies",
+    "description": "In this section you can query the platform's database to search for manuscripts that contain references of interest to you.",
+    "label": {
+      "selectedEntity": "Selected entity",
+      "loadedEntities": "Loaded entities",
+      "results": "Results",
+      "references": "references"
+    },
+    "placeholder": {
+      "seachEntity": "Search for an element to list the pages where it appears. Example: \"San Martín\" o \"Edad Media\""
+    },
+    "button": {
+      "create": "Load Ontology",
+      "showMore": "Show more",
+      "edit": "Loaded entity edit"
+    },
+    "modal": {
+      "edit": {
+        "title": "Loaded entity edit",
+        "button": {
+          "delete": "Delete Ontology",
+          "save": "Save Changes"
+        }
+      },
+      "create": {
+        "label": {
+          "name": "Ontology name",
+          "description": "Description",
+          "url": "Ontology Url",
+          "prefix": "Ontology prefix",
+          "domainkey": "Type the relation key"
+        },
+        "button": {
+          "cancel": "Cancel",
+          "save": "Save ontology"
+        },
+        "title": "New Ontology"
+      },
+      "detailReference": {
+        "title": "Reference detail"
+      }
     }
   },
   "admin":{
@@ -350,5 +556,4 @@
         "no":"No"
     }
   }
-
 }

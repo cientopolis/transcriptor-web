@@ -1,6 +1,6 @@
 <div class="card card-range m-t-0">
   <div class="card-content center-align white-text" *ngIf="!showInfo && playerInfo">
-    <h6 class="m-t-0">Rango de Usuario</h6>
+    <h6 class="m-t-0">{{'dashboard.playerProfile.title' | translate}}</h6>
     <div class="circle-progress-container">
       <circle-progress 
         [percent]="rangeProgress" 
@@ -25,7 +25,7 @@
   </div>
 
   <div class="card-content white-text" *ngIf="showInfo" [@inOutAnimation]>
-    <h6 class="m-t-0 center-align">Rango de Usuario</h6>
+    <h6 class="m-t-0 center-align">{{'dashboard.playerProfile.title' | translate}}</h6>
     <h6 class="m-b-0 center-align">{{global['currentUser'].rank}}</h6>
     <ul class="collection m-t-15">
       <li class="collection-item" [ngClass]="{'obtained': challengeStatus.obtained}" *ngFor="let challengeStatus of challengeStatuses">{{ challengeStatus.challenge.name }}</li>

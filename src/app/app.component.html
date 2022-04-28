@@ -43,9 +43,9 @@
   [outDuration]="300"
   [stopPropagation]="true">
   <mz-dropdown-item class="theme-selector" (click)="$event.stopPropagation()">
-    <p class="m-t-0 m-b-0 p-t-5 p-l-15 p-r-15"><label class="primary-color-text">Tema</label></p>
+    <p class="m-t-0 m-b-0 p-t-5 p-l-15 p-r-15"><label class="primary-color-text">{{'themeSelector.title' | translate}}</label></p>
     <mz-switch-container class="center-align p-t-0 p-b-0">
-      <input mz-switch type="checkbox" [(ngModel)]="darkModeEnabled" (click)="toggleDarkMode()" [off]="'Claro'" [on]="'Oscuro'">
+      <input mz-switch type="checkbox" [(ngModel)]="darkModeEnabled" (click)="toggleDarkMode()" [off]="'themeSelector.light' | translate" [on]="'themeSelector.dark' | translate">
       <!-- <span class="primary-color-text">Modo Oscuro</span> -->
     </mz-switch-container>
   </mz-dropdown-item>
@@ -91,7 +91,7 @@
 	</div>
 	<div class="footer-copyright">
 		<div class="container">
-			© 2020 Cientopolis
+			© 2022 Cientopolis
       <a class="grey-text text-lighten-4 right" href="#!">{{'footer.moreLinks' | translate}}</a>
 		</div>
 	</div>

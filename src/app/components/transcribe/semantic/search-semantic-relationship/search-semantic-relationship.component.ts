@@ -2,6 +2,7 @@ import { SchemeUtils } from '../../../../utils/schema-utils';
 import { HeaderService } from '../../../../services/sharedData/header.service';
 import { SemanticModelService } from '../../../../services/semantic-model/semantic-model.service';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-semantic-relationship',
@@ -29,7 +30,8 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   relationSaved = false;
   constructor(private semanticModelService: SemanticModelService,
     private headerService: HeaderService,
-    private changeDetector: ChangeDetectorRef) { }
+    private changeDetector: ChangeDetectorRef,
+    private translate: TranslateService) { }
  
 
   ngOnInit() {
@@ -101,7 +103,7 @@ export class SearchSemanticRelationshipComponent implements OnInit {
   setHeader() {
     this.headerService.headerParagraph = this.layerName;
     this.headerService.headerSubparagraph = null;
-    this.headerService.header = "Nueva Marca";
+    this.headerService.header = this.translate.instant('semanticForm.superTitle');
     this.headerService.showDetails = false;
     this.headerService.headerStep = true;
     this.headerService.stepNumber = 1;

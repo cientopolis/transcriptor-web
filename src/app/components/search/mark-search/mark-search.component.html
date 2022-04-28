@@ -21,10 +21,10 @@
             *ngIf="!advancedSearch">
         </app-search-input>
         <div class="filters" *ngIf="advancedSearch">
-          <p class="col s12 m-t-5 primary-color-text">Filtros</p>
+          <p class="col s12 m-t-5 primary-color-text">{{'search.filters.title' | translate}}</p>
           <div class="row m-b-0">
             <div class="col m4">
-              <small class="primary-color-text">Tipo de elemento</small>
+              <small class="primary-color-text">{{'search.filters.elementType' | translate}}</small>
               <app-ontology-search-input 
                 [(ontologyComponent)]="classFilter"
                 (ontologyComponentChange)="searchMarks()"
@@ -37,7 +37,7 @@
               </app-ontology-search-input>
             </div>
             <div class="col m4">
-              <small class="primary-color-text">Propiedad cargada</small>
+              <small class="primary-color-text">{{'search.filters.loadedProperty' | translate}}</small>
               <app-ontology-search-input
                 [(ontologyComponent)]="relationFilter"
                 (ontologyComponentChange)="searchMarks($event)"
@@ -50,7 +50,7 @@
               </app-ontology-search-input>
             </div>
             <div class="col m4">
-              <small class="primary-color-text">Valor cargado</small>
+              <small class="primary-color-text">{{'search.filters.loadedValue' | translate}}</small>
               <mz-card class="transcriptor-search-input filter-value flat">
                 <mz-card-content>
                   <mz-input-container>
@@ -68,8 +68,8 @@
           </div>
         </div>
         <div class="row right-align m-b-5">
-          <a class="m-t-0" (click)="advancedSearch = false" *ngIf="advancedSearch">Búsqueda básica</a>
-          <a class="m-t-0" (click)="advancedSearch = true" *ngIf="!advancedSearch">Búsqueda avanzada</a>
+          <a class="m-t-0" (click)="advancedSearch = false" *ngIf="advancedSearch">{{'search.switch.basicSearch' | translate}}</a>
+          <a class="m-t-0" (click)="advancedSearch = true" *ngIf="!advancedSearch">{{'search.switch.advancedSearch' | translate}}</a>
         </div>
 
         <!-- <app-semantic-search-input #semanticSearchInput [fetchSelectedEntity]="false"

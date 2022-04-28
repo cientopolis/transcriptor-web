@@ -118,7 +118,7 @@
     <div class='row' *ngIf="global['currentUser']">
       <div class="col s12">
         <ul class="collection with-header no-border z-depth-1 m-t-0">
-          <li class="collection-header"><i mz-icon-mdi [icon]="'counter'"></i><span>Estado del Sitio</span></li>
+          <li class="collection-header"><i mz-icon-mdi [icon]="'counter'"></i><span>{{'dashboard.siteStatus.title' | translate}}</span></li>
           <li class="collection-item"><span class="badge">{{collectionsOwner.collectionSize}}</span>{{'dashboard.counter.collections' | translate}}</li>
           <li class="collection-item"><span class="badge">{{collectionsOwner.works}}</span>{{'dashboard.counter.works' | translate}}</li>
           <!-- <li class="collection-item"><span class="badge">{{collectionsOwner.notes}}</span>{{'dashboard.counter.notes' | translate}}</li> -->

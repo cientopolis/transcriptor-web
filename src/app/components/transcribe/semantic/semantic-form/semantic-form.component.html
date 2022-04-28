@@ -1,13 +1,12 @@
 <ul class="stepper parallel horizontal" style="margin: 0px;padding-left: 0px;" >
   <li class="step active"   >
     <div data-step-label="Elegí el tipo de dato" class="step-title waves-effect waves-dark" style="pointer-events: none;">
-      Paso 1
+      {{'semanticForm.steps.stepName' | translate}} 1
     </div>
     <div class="step-content p-t-0" >
       <div class="row">
-        <h5 style="margin-bottom: 0px;margin-top: 0px;">Elegí el tipo de dato</h5>
-        <p style="font-size: 13px;">Los tipos de datos te ayudarán a definir mejor lo que querés representar dentro del manuscrito, usa el buscador para
-        encontrar el que necesitas ¡Hay un montón!</p>
+        <h5 style="margin-bottom: 0px;margin-top: 0px;">{{'semanticForm.steps.1.title' | translate}}</h5>
+        <p style="font-size: 13px;">{{'semanticForm.steps.1.description' | translate}}</p>
       </div>
       <div class="row" *ngIf="mark">
         <select-ontology-type [showStepper]="true" (ontologySelected)="selectOntology($event)" (ontologyTypeSelected)="handleOntologyClassSelected($event)" [eagerSelection]="false" [notifyNextStep]="notifyNextStep1"></select-ontology-type>
@@ -35,14 +34,12 @@
     
   <li class="step">
     <div class="step-title waves-effect waves-dark" data-step-label="Cargá las Propiedades" style="pointer-events: none;"  (click)="next('step2')" >
-      Paso 2
+      {{'semanticForm.steps.stepName' | translate}} 2
     </div>
     <div class="step-content p-t-0">
       <div class="row step-header">
-        <h5>Cargá las data properties!</h5>
-        <p>Ya seleccionaste el tipo de dato, cada uno de estos tiene asociados varias data properties que te van a servir para
-        describir cuales son las características especificas de tu elemento. A partir de ahora podés agregar y cargar las
-        data properties que consideres mas adecuadas.</p>
+        <h5>{{'semanticForm.steps.2.title' | translate}}</h5>
+        <p>{{'semanticForm.steps.2.description' | translate}}</p>
       </div>
       <app-select-basic-properties
           [ontologyInstance]="ontologyInstance"
@@ -55,14 +52,11 @@
     </div>
   </li>
   <li class="step">
-    <div class="step-title waves-effect waves-dark" data-step-label="Cargá las Relaciones" style="pointer-events: none;"  (click)="next('step3')">Paso 3</div>
+    <div class="step-title waves-effect waves-dark" data-step-label="Cargá las Relaciones" style="pointer-events: none;"  (click)="next('step3')">{{'semanticForm.steps.stepName' | translate}} 3</div>
     <div class="step-content p-t-0">
       <div class="row step-header">
-        <h5>Cargá las Relaciones</h5>
-        <p>Llego el momento de generar las asociaciones de tu elemento, estas permitirán generar una descripción mas
-        profunda de su interaccion con el mundo real. Para cargarlas, primero tenes que establecer de que manera se
-        relacionan con tu objeto a través de la opción "Agregar relación", luego solo es cuestión de que referencies a otro
-        elemento ya cargado o cargar uno nuevo indicando sus propiedades. </p>
+        <h5>{{'semanticForm.steps.3.title' | translate}}</h5>
+        <p>{{'semanticForm.steps.3.description' | translate}}</p>
       </div>
       <!--*ngIf="showCompleteForm"-->
       <div class="row" style="padding-left: 2px;padding-right: 2px;">
@@ -79,11 +73,11 @@
     </div>
   </li>
   <li class="step">
-    <div class="step-title waves-effect waves-dark" data-step-label="Revisá y Guardá" style="pointer-events: none;"  (click)="next('step4')">Paso 4</div>
+    <div class="step-title waves-effect waves-dark" data-step-label="Revisá y Guardá" style="pointer-events: none;"  (click)="next('step4')">{{'semanticForm.steps.stepName' | translate}} 4</div>
     <div class="step-content p-t-0">
       <div class="row step-header">
-        <h5>Revisá y Guardá</h5>
-        <p>Ahora revisá que los datos sean correctos. Si todo esta bien ya podes continuar con el guardado.</p>
+        <h5>{{'semanticForm.steps.4.title' | translate}}</h5>
+        <p>{{'semanticForm.steps.4.title' | translate}}</p>
       </div>
       <!--*ngIf="showGeneratedScheme"-->
       <div class="row" *ngIf="showActionStep4" style="padding-left: 2px;padding-right: 2px;">

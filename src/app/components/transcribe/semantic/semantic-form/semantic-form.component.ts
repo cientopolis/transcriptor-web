@@ -6,6 +6,7 @@ import { HeaderService } from '../../../../services/sharedData/header.service';
 import { SemanticModelService } from '../../../../services/semantic-model/semantic-model.service';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import * as $ from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 declare const MStepper: any;
 
 
@@ -56,7 +57,8 @@ export class SemanticFormComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(
             private semanticService: SemanticModelService,
             private changeDetector: ChangeDetectorRef,
-            private headerService: HeaderService) {
+            private headerService: HeaderService,
+            private translate: TranslateService) {
     }
 
 
@@ -89,7 +91,7 @@ export class SemanticFormComponent implements OnInit, OnChanges, AfterViewInit {
   setHeader(){
     this.headerService.headerParagraph = this.layerName;
     this.headerService.headerSubparagraph = null;
-    this.headerService.header = "Nueva Marca";
+    this.headerService.header = this.translate.instant('semanticForm.superTitle');
     this.headerService.showDetails = false;
     this.headerService.headerStep = true;
     this.headerService.stepNumber = 1;
