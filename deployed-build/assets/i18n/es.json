@@ -35,6 +35,11 @@
     "linksTitle":"Links",
     "moreLinks":"Más Links"
   },
+  "themeSelector": {
+    "title": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
   "signIn":{
     "title":"Iniciar Sesión",
     "loginMessage":"Por favor, Inicia sesión con tu Cuenta",
@@ -201,6 +206,12 @@
       "collectionDeed":"{{user}} {{deedType}} en la Colección {{collection}}",
       "workDeed":"{{user}} {{deedType}} en el Proyecto {{work}}",
       "pageDeed":"{{user}} {{deedType}} en la página {{page}}"
+    },
+    "siteStatus": {
+      "title": "Estado del Sitio"
+    },
+    "playerProfile": {
+      "title": "Rango de usuario"
     }
   },
   "deed_type":{
@@ -287,7 +298,9 @@
       "title":"Nueva Capa",
       "label":{
         "name":"Nombre"
-      }
+      },
+      "addLayer": "Añadir Capa",
+      "defaultLayer": "Text"
     },
     "imageAdjusts": {
       "button": {
@@ -345,6 +358,32 @@
         "value":"Valor asignado",
         "type":"tipos"
       }
+    },
+    "superTitle": "Nueva Marca",
+    "newMark": {
+      "title": "Asociá un contenido a la marca",
+      "description": "Es probable que alguien ya haya cargado el elemento que buscas describir, podes buscarlo en esta sección y asociarlo a tu marca. Si no pudiste encontrar lo que buscas ¡no hay problema! podes cargar los datos de la nueva entidad haciendo click en el botón \"Cargar nuevo Elemento\"",
+      "emptyRelations": "No hay relaciones a mostrar",
+      "createNewElement": "Cargar nuevo elemento"
+    },
+    "steps": {
+      "stepName": "Paso",
+      "1": {
+        "title": "Elegí el tipo de dato",
+        "description": "Los tipos de datos te ayudarán a definir mejor lo que querés representar dentro del manuscrito, usa el buscador para encontrar el que necesitas ¡Hay un montón!"
+      },
+      "2": {
+        "title": "Cargá las data properties!",
+        "description": "Ya seleccionaste el tipo de dato, cada uno de estos tiene asociados varias data properties que te van a servir para describir cuales son las características especificas de tu elemento. A partir de ahora podés agregar y cargar las data properties que consideres mas adecuadas."
+      },
+      "3": {
+        "title": "Cargá las Relaciones",
+        "description": "Llego el momento de generar las asociaciones de tu elemento, estas permitirán generar una descripción mas profunda de su interaccion con el mundo real. Para cargarlas, primero tenes que establecer de que manera se relacionan con tu objeto a través de la opción \"Agregar relación\", luego solo es cuestión de que referencies a otro elemento ya cargado o cargar uno nuevo indicando sus propiedades."
+      },
+      "4": {
+        "title": "Revisá y Guardá",
+        "description": "Ahora revisá que los datos sean correctos. Si todo esta bien ya podes continuar con el guardado."
+      }
     }
   },
   "metagame":{
@@ -391,6 +430,20 @@
       "detailReference": {
         "title": "Detalle de Referencia"
       }
+    },
+    "types": {
+      "entitySearch": "Búsqueda de Entidades",
+      "markSearch": "Búsqueda de Marcas"
+    },
+    "switch": {
+      "advancedSearch": "Búsqueda avanzada",
+      "basicSearch": "Búsqueda básica"
+    },
+    "filters": {
+      "title": "Filtros",
+      "elementType": "Tipo de elemento",
+      "loadedProperty": "Propiedad cargada",
+      "loadedValue": "Valor cargado"
     }
   },
   "entitySearch": {
